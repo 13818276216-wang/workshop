@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>零食很忙全域运营看板</title>
+<style>  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 15px; background: #dde1ec; color: #1a1a2e; background-image: radial-gradient(ellipse at 15% 15%, rgba(24,144,255,0.08) 0%, transparent 45%), radial-gradient(ellipse at 85% 85%, rgba(82,196,26,0.05) 0%, transparent 45%); min-height: 100vh; zoom: 0.8; }
+  .header { background: linear-gradient(135deg, #0a1628 0%, #1a3a6e 55%, #1890ff 100%); color: white; padding: 22px 36px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 32px rgba(24,144,255,0.35), 0 2px 0 rgba(255,255,255,0.12) inset; }
+  .header h1 { font-size: 24px; font-weight: 700; letter-spacing: 0.5px; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+  .header .meta { font-size: 15px; opacity: 0.75; margin-top: 6px; }
+  .update-bar { background: linear-gradient(90deg, #e8f4fd, #f0f7ff); border-left: 4px solid #1890ff; padding: 9px 36px; font-size: 15px; color: #444; display: flex; justify-content: space-between; box-shadow: 0 3px 10px rgba(0,0,0,0.06); }
+  .container { padding: 28px 36px; max-width: 1440px; margin: 0 auto; }
+  .section-title { font-size: 17px; font-weight: 800; color: #0a1628; margin-bottom: 18px; padding: 9px 16px 9px 13px; border-left: 5px solid #1890ff; background: linear-gradient(90deg, #deeeff, #f0f6ff 60%, #f8faff); border-radius: 0 10px 10px 0; letter-spacing: 0.5px; box-shadow: 0 2px 10px rgba(24,144,255,0.12), 0 1px 0 rgba(255,255,255,0.9) inset; text-shadow: 0 1px 2px rgba(24,144,255,0.15); }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 28px; }
+  .card { background: linear-gradient(160deg, #ffffff 0%, #f7f9ff 100%); border-radius: 14px; padding: 20px 22px; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.10), 0 20px 48px rgba(0,0,0,0.06), 0 0 0 1px rgba(255,255,255,1) inset; border: 1px solid rgba(220,225,240,0.8); position: relative; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.14), 0 32px 64px rgba(0,0,0,0.08); }
+  .card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; border-radius:14px 14px 0 0; }
+  .card::after { content:""; position:absolute; top:4px; left:0; right:0; height:50px; background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%); pointer-events:none; }
+  .card.blue::before { background: linear-gradient(90deg,#096dd9,#1890ff,#69c0ff); }
+  .card.green::before { background: linear-gradient(90deg,#389e0d,#52c41a,#95de64); }
+  .card.orange::before { background: linear-gradient(90deg,#d46b08,#fa8c16,#ffc069); }
+  .card.red::before { background: linear-gradient(90deg,#cf1322,#f5222d,#ff7875); }
+  .card.purple::before { background: linear-gradient(90deg,#531dab,#722ed1,#b37feb); }
+  .card.cyan::before { background: linear-gradient(90deg,#006d75,#13c2c2,#5cdbd3); }
+  .card .label { font-size: 14px; color: #888; margin-bottom: 10px; }
+  .card .value { font-size: 32px; font-weight: 700; color: #1a1a2e; line-height: 1.2; }
+  .card .sub { font-size: 13px; color: #bbb; margin-top: 8px; }
+  .card.blue .value { color: #1890ff; } .card.green .value { color: #52c41a; } .card.orange .value { color: #fa8c16; } .card.red .value { color: #f5222d; }
+  .panel { background: linear-gradient(170deg, #ffffff 0%, #f9fbff 100%); border-radius: 16px; padding: 24px 28px; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 28px rgba(0,0,0,0.09), 0 24px 56px rgba(0,0,0,0.05), 0 0 0 1px rgba(255,255,255,1) inset; border: 1px solid rgba(220,225,240,0.7); margin-bottom: 24px; }
+  .progress-bar { background: #f0f0f0; border-radius: 6px; height: 11px; margin: 8px 0; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 6px; }
+  .progress-fill.blue { background: linear-gradient(90deg,#1890ff,#69c0ff); }
+  .progress-fill.green { background: linear-gradient(90deg,#52c41a,#95de64); }
+  .progress-fill.orange { background: linear-gradient(90deg,#fa8c16,#ffc069); }
+  .progress-fill.red { background: linear-gradient(90deg,#f5222d,#ff7875); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { background: #f5f7fa; padding: 12px 14px; text-align: left; font-weight: 600; color: #444; border-bottom: 2px solid #eaecf0; font-size: 13px; }
+  td { padding: 11px 14px; border-bottom: 1px solid #f5f5f5; color: #333; }
+  tr:last-child td { border-bottom: none; } tr:hover td { background: #f8fbff; }
+  .tag { display: inline-block; padding: 3px 11px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  .tag.paid { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+  .tag.unpaid { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid #f5f5f5; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 15px; color: #666; } .stat-value { font-size: 16px; font-weight: 600; color: #1a1a2e; }
+  .reason-bar { margin: 12px 0; }
+  .reason-bar .name { font-size: 14px; color: #555; margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .divider { height: 1px; background: #f0f0f0; margin: 16px 0; }
+  /* ── 手机响应式 ── */
+  @media (max-width: 768px) {
+    #side-nav { display: none !important; }
+    .header { padding: 16px 16px; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .header h1 { font-size: 18px; }
+    .update-bar { padding: 8px 16px; font-size: 13px; flex-direction: column; gap: 2px; }
+    .container { padding: 14px 12px; }
+    .section-title { font-size: 15px; padding: 8px 12px 8px 10px; }
+    .cards { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+    .card .value { font-size: 24px; }
+    .card .label { font-size: 12px; }
+    .card .sub { font-size: 11px; }
+    .panel { padding: 14px 12px; }
+    /* 所有多列 grid 变单列 */
+    .panel > div[style*="grid-template-columns"],
+    div[style*="grid-template-columns"] { display: block !important; }
+    div[style*="grid-template-columns"] > div { margin-bottom: 14px; }
+    div[style*="grid-template-columns"] > div:last-child { margin-bottom: 0; }
+    /* 表格横向滚动 */
+    table { font-size: 12px; }
+    th, td { padding: 8px 8px; }
+    .panel table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    /* 侧边导航隐藏 */
+    #side-nav { display: none; }
+    /* 图表高度收紧 */
+    canvas { max-height: 220px; }
+  }
+  @media (max-width: 480px) {
+    .cards { grid-template-columns: 1fr !important; }
+    .card .value { font-size: 28px; }
+  }
+  .footer { text-align: center; padding: 24px; font-size: 14px; color: #ccc; }
+  .al-row { padding: 7px 0; border-bottom: 1px dashed #e8e8e8; font-size: 14px; line-height: 1.7; }
+  .al-row:last-child { border-bottom: none; }
+  .al-ok { color: #389e0d; } .al-warn { color: #cf1322; } .al-orange { color: #d46b08; }
+  .al-badge { display:inline-block; padding:1px 8px; border-radius:4px; font-size:12px; font-weight:600; margin-left:6px; }
+  .al-badge.red { background:#fff1f0; color:#cf1322; border:1px solid #ffa39e; }
+  .al-badge.orange { background:#fff7e6; color:#d46b08; border:1px solid #ffd591; }</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1>🛒 零食很忙全域运营看板</h1>
+    <div class="meta" style="margin-top:10px">协同部门：市场运营部 · 渠道部 · 供应链 · 财务部</div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:13px;opacity:0.8">负责人：王艳秋（Selina）</div>
+    <div style="font-size:12px;opacity:0.6;margin-top:10px">数据来源：零食很忙SRM · 零食很忙订单追踪表</div>
+  </div>
+</div>
+<div class="update-bar">
+  <span>📅 数据更新时间：<strong>2026-06-04</strong>　｜　采购组织：鸣鸣很忙长沙智慧仓</span>
+</div>
+<div class="container">
+
+  <div id="sec0" class="panel" style="margin-bottom:28px;border-top:4px solid #faad14;background:linear-gradient(170deg,#fffdf0,#fff8e0)">
+    <div style="font-size:17px;font-weight:800;color:#874d00;margin-bottom:16px;padding:9px 16px 9px 13px;border-left:5px solid #faad14;background:linear-gradient(90deg,#fff3cc,#fff8e0 60%,#fffdf5);border-radius:0 10px 10px 0;letter-spacing:0.5px">⚡ 今日预警 · 各部门关注事项</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+      <div style="background:#f0f6ff;border:1.5px solid #bcd4ff;border-top:3px solid #1890ff;border-radius:12px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,0.06)"><div style="font-size:15px;font-weight:700;color:#1890ff;margin-bottom:10px">🏭 供应链关注</div><div class="al-row al-ok">📦 今日暂无新增订单</div><div class="al-row al-ok">🚚 今日预计发货 <b>1,700</b> 箱（11 单）</div></div><div style="background:#fffbf0;border:1.5px solid #ffd591;border-top:3px solid #fa8c16;border-radius:12px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,0.06)"><div style="font-size:15px;font-weight:700;color:#fa8c16;margin-bottom:10px">🤝 服务商关注</div><div class="al-row al-ok">✅ 今日订单无高频延期仓，履约风险低</div><div class="al-row al-ok">✅ 今日订单均符合约定时效</div></div><div style="background:#fff5f5;border:1.5px solid #ffccc7;border-top:3px solid #f5222d;border-radius:12px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,0.06)"><div style="font-size:15px;font-weight:700;color:#f5222d;margin-bottom:10px">💰 市场运营部关注</div><div class="al-row al-ok">✅ 应收订单金额 <b>40.79万</b>，未超200万预警线</div></div>
+    </div>
+  </div>
+
+  <div id="sec1" class="section-title">一、总览看板</div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card blue"><div class="label">累计订单金额</div><div class="value">235.1万</div><div class="sub">累计 24,550 箱</div></div>
+    <div class="card purple"><div class="label">本月订单金额</div><div class="value" style="color:#722ed1">26.80万</div><div class="sub">本月 2,650 箱</div></div>
+    <div class="card cyan"><div class="label">今日订单金额</div><div class="value" style="color:#13c2c2">0.00万</div><div class="sub">今日新增 0 箱</div></div>
+    <div class="card orange"><div class="label">累计应收订单金额</div><div class="value">40.79万</div><div class="sub">总应付 158.79万 - 已到账 118.00万</div></div>
+    <div class="card green"><div class="label">已到账款</div><div class="value">118.00万</div><div class="sub">44笔付款单（去重）</div></div>
+    <div class="card red"><div class="label">累计客诉</div><div class="value">37 起</div><div class="sub">扣款合计 ¥972.16</div></div>
+  </div>
+
+  <div id="sec2" class="panel" style="margin-bottom:28px">
+    <div class="section-title">二、订单情况</div>
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:stretch">
+      <div style="background:linear-gradient(160deg,#f0f6ff,#e8f0ff);border:1px solid #c5d8ff;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(24,144,255,0.10),0 1px 0 rgba(255,255,255,0.8) inset;border-top:3px solid #1890ff">
+        <div style="background:#f0f6ff;border:1px solid #bcd4ff;border-radius:8px;padding:12px 16px;font-size:14px;color:#444;line-height:2;margin-bottom:14px"><div style="font-weight:600;color:#1890ff;margin-bottom:4px">📊 重点分析</div>· 今日暂无新增订单<br>· 今日预计发货 <span style="color:#52c41a;font-weight:700;font-size:14px">1,700</span> 箱：散称奥尔良味散称 <span style="color:#52c41a;font-weight:700">1,460</span>箱、奥尔良味100g <span style="color:#52c41a;font-weight:700">110</span>箱、黑胡椒味100g <span style="color:#52c41a;font-weight:700">130</span>箱<br>· 全部未发货 <span style="color:#fa8c16;font-weight:700;font-size:14px">2,130</span> 箱：散称奥尔良味散称 <span style="color:#fa8c16;font-weight:700">1,030</span>箱、奥尔良味100g <span style="color:#fa8c16;font-weight:700">520</span>箱、黑胡椒味100g <span style="color:#fa8c16;font-weight:700">580</span>箱</div>
+        <table>
+          <thead><tr><th>产品名称</th><th style="text-align:right">累计箱数</th><th style="text-align:right">占比</th><th style="text-align:right">今日新增</th><th style="text-align:right">未发货</th></tr></thead>
+          <tbody><tr><td>袋鼠先生原型鸡胸肉奥尔良味散称</td><td style="text-align:right">18,880</td><td style="text-align:right">77%</td><td style="text-align:right">0</td><td style="text-align:right;color:#fa8c16;font-weight:600">1,030</td></tr>
+<tr><td>袋鼠先生鸡胸肉奥尔良味100g</td><td style="text-align:right">2,970</td><td style="text-align:right">12%</td><td style="text-align:right">0</td><td style="text-align:right;color:#fa8c16;font-weight:600">520</td></tr>
+<tr><td>袋鼠先生鸡胸肉黑胡椒味100g</td><td style="text-align:right">2,700</td><td style="text-align:right">11%</td><td style="text-align:right">0</td><td style="text-align:right;color:#fa8c16;font-weight:600">580</td></tr>
+<tr style="background:#fafafa;font-weight:600"><td>合计</td><td style="text-align:right">24,550</td><td style="text-align:right">100%</td><td style="text-align:right">0</td><td style="text-align:right;color:#fa8c16">2,130</td></tr>
+</tbody>
+        </table>
+        <div style="font-size:13px;color:#aaa;margin-top:8px">未发货：发货时间为空或 &gt; 今日</div>
+      </div>
+      <div style="background:linear-gradient(160deg,#fffbf5,#fff3e6);border:1px solid #ffd8a8;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(250,140,22,0.10),0 1px 0 rgba(255,255,255,0.8) inset;border-top:3px solid #fa8c16;display:flex;flex-direction:column">
+        <div style="font-size:14px;font-weight:600;color:#555;margin-bottom:8px">每日下单趋势（按产品）</div>
+        <div style="flex:1;position:relative;min-height:200px"><canvas id="orderChart" style="position:absolute;top:0;left:0;width:100%;height:100%"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script>
+Chart.register(ChartDataLabels);
+new Chart(document.getElementById('orderChart').getContext('2d'), {
+  type:'line', data:{labels:["05/18", "05/20", "05/21", "05/23", "05/25", "05/26", "05/27", "05/28", "05/29", "06/01", "06/02", "06/03"],datasets:[{"label":"原型鸡胸肉奥尔良味散称","data":[5240, 2120, 1340, 330, 410, 1150, 1860, 700, 3970, 620, 530, 610],"borderColor":"#1890ff","backgroundColor":"rgba(24,144,255,0.08)","tension":0.3,"pointRadius":4,"fill":true},{"label":"鸡胸肉奥尔良味100g","data":[990, 0, 350, 0, 0, 110, 420, 10, 620, 360, 110, 0],"borderColor":"#52c41a","backgroundColor":"rgba(82,196,26,0.08)","tension":0.3,"pointRadius":4,"fill":true},{"label":"鸡胸肉黑胡椒味100g","data":[870, 0, 360, 0, 0, 60, 400, 10, 580, 290, 130, 0],"borderColor":"#fa8c16","backgroundColor":"rgba(250,140,22,0.08)","tension":0.3,"pointRadius":4,"fill":true}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},datalabels:{display:true,align:'top',offset:4,font:{size:10},color:'#666',formatter:v=>v>0?v.toLocaleString():''}},scales:{x:{grid:{color:'#f0f0f0'}},y:{grid:{color:'#f0f0f0'},title:{display:true,text:'箱数'}}}}
+});
+</script>
+
+    <div id="sec3" class="panel" style="margin-bottom:28px">
+    <div class="section-title">三、履约情况</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div style="background:linear-gradient(160deg,#f0f6ff,#e8f0ff);border:1px solid #c5d8ff;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(24,144,255,0.10),0 1px 0 rgba(255,255,255,0.8) inset;border-top:3px solid #1890ff">
+        <div style="font-size:14px;font-weight:600;color:#1890ff;margin-bottom:12px">📦 累计（全部订单）</div>
+        <div style="display:flex;align-items:center;gap:18px">
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#555">总订单数</span><span style="font-size:16px;font-weight:700">151 单</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#555">✅ 正常履约</span><span style="font-size:16px;font-weight:700;color:#52c41a">119 单（79%）</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#555">⚠️ 延期交付</span><span style="font-size:16px;font-weight:700;color:#fa8c16">32 单（21%）</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:14px;color:#555">平均延期</span><span style="font-size:15px;font-weight:700;color:#fa8c16">2.3 天 &nbsp;|&nbsp; 最长 4 天</span></div>
+            <div class="progress-bar"><div class="progress-fill green" style="width:79%"></div></div>
+            <div style="font-size:13px;color:#aaa;margin-top:8px">1天×4单 / 2天×16单 / 3天×10单 / 4天×2单</div>
+          </div>
+          <div style="width:130px;height:130px;flex-shrink:0;position:relative">
+            <canvas id="donut1"></canvas>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+              <div style="font-size:20px;font-weight:700;color:#52c41a">79%</div>
+              <div style="font-size:11px;color:#888">履约率</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(160deg,#f0fff4,#e6ffed);border:1px solid #b7eb8f;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(82,196,26,0.10),0 1px 0 rgba(255,255,255,0.8) inset;border-top:3px solid #52c41a">
+        <div style="font-size:14px;font-weight:600;color:#52c41a;margin-bottom:12px">📅 本月（6月）</div>
+        <div style="display:flex;align-items:center;gap:18px">
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#555">总订单数</span><span style="font-size:16px;font-weight:700">17 单</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;color:#555">✅ 正常履约</span><span style="font-size:16px;font-weight:700;color:#52c41a">17 单（100%）</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:14px;color:#555">⚠️ 延期交付</span><span style="font-size:16px;font-weight:700;color:#52c41a">0 单（0%）</span></div>
+            <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+          </div>
+          <div style="width:130px;height:130px;flex-shrink:0;position:relative">
+            <canvas id="donut2"></canvas>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+              <div style="font-size:20px;font-weight:700;color:#52c41a">100%</div>
+              <div style="font-size:11px;color:#888">履约率</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#f0fff4;border:1px solid #b7eb8f;border-radius:8px;padding:10px 14px;font-size:12px;color:#389e0d;margin-bottom:14px">✅ 本月（6月）延期率 0%，履约情况良好</div>
+    <div style="font-size:15px;font-weight:600;color:#555;margin-bottom:8px">⚠️ 高频延期仓（需重点关注）</div>
+    <table>
+      <thead><tr><th>仓库名称</th><th style="text-align:center">延期次数</th><th style="text-align:center">平均延期天数</th></tr></thead>
+      <tbody><tr><td>西安鸣忙临汾仓</td><td style="text-align:center;color:#fa8c16;font-weight:600">3次</td><td style="text-align:center">1.7 天</td></tr>
+<tr><td>厦门赵一鸣商业管理海口仓</td><td style="text-align:center;color:#fa8c16;font-weight:600">2次</td><td style="text-align:center">2.0 天</td></tr>
+<tr><td>长沙很忙零食荆州仓</td><td style="text-align:center;color:#fa8c16;font-weight:600">2次</td><td style="text-align:center">2.0 天</td></tr>
+</tbody>
+    </table>
+    <div style="font-size:13px;color:#aaa;margin-top:8px">判断规则：要求交期 - 原订单履约时间 = 实际延期天数；无原始时间视为正常；按订单号去重统计</div>
+    <div style="margin-top:16px;background:#fff7e6;border:1px solid #ffd591;border-radius:8px;padding:14px 16px;font-size:14px;color:#444;line-height:1.9"><div style="font-weight:600;color:#d46b08;margin-bottom:8px">📋 重点分析 · 履约指导</div><div>· 高频延期仓下次下单需提前预留缓冲时间</div><div>· 延期集中在 2-3 天，需提前安排生产排期</div><div style="margin-top:6px;color:#52c41a;font-size:13px">✅ 近3日无新增低于约定时效订单</div></div>
+  </div>
+
+<script>
+new Chart(document.getElementById('donut1').getContext('2d'), {
+  type:'doughnut',
+  data:{labels:['正常履约','延期交付'],datasets:[{data:[119,32],backgroundColor:['#52c41a','#fa8c16'],borderWidth:3,borderColor:'#fff',hoverBorderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:true,cutout:'72%',plugins:{legend:{display:false},datalabels:{display:false}}}
+});
+new Chart(document.getElementById('donut2').getContext('2d'), {
+  type:'doughnut',
+  data:{labels:['正常履约','延期交付'],datasets:[{data:[17,0],backgroundColor:['#52c41a','#fa8c16'],borderWidth:3,borderColor:'#fff',hoverBorderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:true,cutout:'72%',plugins:{legend:{display:false},datalabels:{display:false}}}
+});
+</script>
+
+  <div id="sec4" class="panel" style="margin-bottom:28px">
+    <div class="section-title">四、回款情况</div>
+    <div class="cards" style="margin-bottom:16px;grid-template-columns:repeat(3,1fr)">
+      <div class="card orange"><div class="label">应收订单金额</div><div class="value">40.79万</div><div class="sub">要求交期≤今日 158.79万 - 已到账 118.00万</div></div>
+      <div class="card green"><div class="label">已到账款</div><div class="value">118.00万</div><div class="sub">44笔付款单（去重）</div></div>
+      <div class="card red"><div class="label">扣款合计</div><div class="value">-¥972.16</div><div class="sub">客诉/质检扣款</div></div>
+    </div>
+    <div class="divider"></div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:10px;color:#555">按开票主体应收明细</div>
+    <table style="table-layout:fixed;width:100%">
+      <colgroup><col style="width:22%"><col style="width:20%"><col style="width:20%"><col style="width:20%"><col style="width:18%"></colgroup>
+      <thead><tr><th style="padding:10px 16px">开票主体</th><th style="text-align:right;padding:10px 16px">订单金额</th><th style="text-align:right;padding:10px 16px">应收金额</th><th style="text-align:right;padding:10px 16px">已开票</th><th style="text-align:right;padding:10px 16px">已到账</th></tr></thead>
+      <tbody><tr style="background:#fff"><td style="padding:9px 16px">四川零食很忙食品有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥704,010</td><td style="text-align:right;padding:9px 16px;color:#fa8c16;font-weight:600;font-variant-numeric:tabular-nums">¥229,602</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥210,468</td></tr>
+<tr style="background:#fafafa"><td style="padding:9px 16px">长沙很忙零食食品有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥481,260</td><td style="text-align:right;padding:9px 16px;color:#fa8c16;font-weight:600;font-variant-numeric:tabular-nums">¥136,944</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥218,316</td></tr>
+<tr style="background:#fff"><td style="padding:9px 16px">厦门赵一鸣商业管理有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥478,980</td><td style="text-align:right;padding:9px 16px;color:#fa8c16;font-weight:600;font-variant-numeric:tabular-nums">¥112,080</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥167,250</td></tr>
+<tr style="background:#fafafa"><td style="padding:9px 16px">宜春鸣忙食品有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥283,080</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥229,500</td></tr>
+<tr style="background:#fff"><td style="padding:9px 16px">湖北零食很忙食品有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥84,000</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥81,000</td></tr>
+<tr style="background:#fafafa"><td style="padding:9px 16px">芜湖赵一鸣商业管理有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥75,600</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥74,250</td></tr>
+<tr style="background:#fff"><td style="padding:9px 16px">西安鸣忙供应链有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥75,600</td><td style="text-align:right;padding:9px 16px;color:#fa8c16;font-weight:600;font-variant-numeric:tabular-nums">¥6,480</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥54,000</td></tr>
+<tr style="background:#fafafa"><td style="padding:9px 16px">鸣鸣很忙长沙智慧仓</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥72,240</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥66,939</td></tr>
+<tr style="background:#fff"><td style="padding:9px 16px">山东赵一鸣商业管理有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥67,200</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥44,550</td></tr>
+<tr style="background:#fafafa"><td style="padding:9px 16px">长沙晓忙食品有限公司</td><td style="text-align:right;padding:9px 16px;font-variant-numeric:tabular-nums">¥29,400</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#aaa">—</td><td style="text-align:right;padding:9px 16px;color:#52c41a;font-weight:600;font-variant-numeric:tabular-nums">¥33,750</td></tr>
+</tbody>
+    </table>
+  </div>
+
+  <div id="sec5" class="panel" style="margin-bottom:28px">
+    <div class="section-title">五、客诉总览</div>
+
+    <!-- 顶部4张卡片：总起数、3日新增起数、总扣款、3日新增扣款 -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px">
+      <div style="background:linear-gradient(145deg,#fff0f0,#ffe8e8);border:1.5px solid #ffb3b3;border-top:3px solid #f5222d;border-radius:12px;padding:18px 20px;text-align:center;box-shadow:0 2px 12px rgba(245,34,45,0.10)">
+        <div style="font-size:13px;color:#888;margin-bottom:6px">📋 累计客诉</div>
+        <div style="font-size:38px;font-weight:700;color:#f5222d;line-height:1">37</div>
+        <div style="font-size:12px;color:#aaa;margin-top:4px">起</div>
+      </div>
+      <div style="background:linear-gradient(145deg,#fff5f0,#ffede8);border:1.5px solid #ffc4b3;border-top:3px solid #fa541c;border-radius:12px;padding:18px 20px;text-align:center;box-shadow:0 2px 12px rgba(250,84,28,0.10)">
+        <div style="font-size:13px;color:#888;margin-bottom:6px">📈 3日新增</div>
+        <div style="font-size:38px;font-weight:700;color:#fa541c;line-height:1">30</div>
+        <div style="font-size:12px;color:#aaa;margin-top:4px">起</div>
+      </div>
+      <div style="background:linear-gradient(145deg,#fffbf0,#fff8e8);border:1.5px solid #ffd591;border-top:3px solid #fa8c16;border-radius:12px;padding:18px 20px;text-align:center;box-shadow:0 2px 12px rgba(250,140,22,0.10)">
+        <div style="font-size:13px;color:#888;margin-bottom:6px">💰 累计扣款</div>
+        <div style="font-size:32px;font-weight:700;color:#fa8c16;line-height:1">¥972</div>
+        <div style="font-size:12px;color:#aaa;margin-top:4px">元</div>
+      </div>
+      <div style="background:linear-gradient(145deg,#fff7e6,#ffefd1);border:1.5px solid #ffd591;border-top:3px solid #d48806;border-radius:12px;padding:18px 20px;text-align:center;box-shadow:0 2px 12px rgba(212,136,6,0.10)">
+        <div style="font-size:13px;color:#888;margin-bottom:6px">💸 3日新增扣款</div>
+        <div style="font-size:32px;font-weight:700;color:#d48806;line-height:1">¥807</div>
+        <div style="font-size:12px;color:#aaa;margin-top:4px">元</div>
+      </div>
+    </div>
+
+    <!-- 下方4列：产品、批次、索赔类型、客诉原因 -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch">
+      <!-- 第1列：涉及产品 -->
+      <div style="background:linear-gradient(145deg,#fffbf0,#fff8e8);border:1.5px solid #ffd591;border-top:3px solid #fa8c16;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(250,140,22,0.10);display:flex;flex-direction:column">
+        <div style="font-size:14px;font-weight:700;color:#d46b08;margin-bottom:12px;flex-shrink:0">📦 涉及产品</div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称</span><span style="color:#f5222d;font-weight:600;font-size:13px">35起 (95%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">鸡胸肉100g黑胡椒味</span><span style="color:#595959;font-weight:600;font-size:13px">1起 (3%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">鸡胸肉100g奥尔良味</span><span style="color:#595959;font-weight:600;font-size:13px">1起 (3%)</span></div>
+</div>
+      </div>
+
+      <!-- 第2列：产品&批次 -->
+      <div style="background:linear-gradient(145deg,#f0f6ff,#e8f0ff);border:1.5px solid #c5d8ff;border-top:3px solid #1890ff;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(24,144,255,0.10);display:flex;flex-direction:column">
+        <div style="font-size:14px;font-weight:700;color:#096dd9;margin-bottom:12px;flex-shrink:0">📅 产品&批次</div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 04/05</span><span style="color:#f5222d;font-weight:600;font-size:13px">11起 (30%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 03/17</span><span style="color:#f5222d;font-weight:600;font-size:13px">8起 (22%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 05/17</span><span style="color:#f5222d;font-weight:600;font-size:13px">6起 (16%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 03/25</span><span style="color:#1890ff;font-weight:600;font-size:13px">4起 (11%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 03/01</span><span style="color:#1890ff;font-weight:600;font-size:13px">4起 (11%)</span></div>
+<div style="font-size:12px;color:#aaa;margin-top:8px;text-align:center">…及其他 4 个组合</div></div>
+      </div>
+
+      <!-- 第3列：索赔类型 -->
+      <div style="background:linear-gradient(145deg,#fff5f0,#ffede8);border:1.5px solid #ffc4b3;border-top:3px solid #fa541c;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(250,84,28,0.10);display:flex;flex-direction:column">
+        <div style="font-size:14px;font-weight:700;color:#d4380d;margin-bottom:12px;flex-shrink:0">💼 索赔类型</div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">门店报损</span><span style="color:#fa8c16;font-weight:600;font-size:13px">20起 (54%)</span></div><div style="font-size:12px;color:#888">扣款 ¥190.84</div></div>
+<div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">质检单</span><span style="color:#fa8c16;font-weight:600;font-size:13px">13起 (35%)</span></div><div style="font-size:12px;color:#888">扣款 ¥478.00</div></div>
+<div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">消费者索赔</span><span style="color:#595959;font-weight:600;font-size:13px">4起 (11%)</span></div><div style="font-size:12px;color:#888">扣款 ¥303.32</div></div>
+</div>
+      </div>
+
+      <!-- 第4列：客诉原因 -->
+      <div style="background:linear-gradient(145deg,#fff1f0,#ffe8e8);border:1.5px solid #ffccc7;border-top:3px solid #f5222d;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(245,34,45,0.10);display:flex;flex-direction:column">
+        <div style="font-size:14px;font-weight:700;color:#cf1322;margin-bottom:12px;flex-shrink:0">⚠️ 客诉原因</div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">漏气</span><span style="color:#fa8c16;font-weight:600;font-size:13px">8起 (22%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">异物问题</span><span style="color:#fa8c16;font-weight:600;font-size:13px">7起 (19%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">胀气胀包</span><span style="color:#fa8c16;font-weight:600;font-size:13px">6起 (16%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">发臭</span><span style="color:#595959;font-weight:600;font-size:13px">4起 (11%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">发霉、有瑕疵影响售卖、无生产日期、变质</span><span style="color:#595959;font-weight:600;font-size:13px">各2起 (5%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">变质变味、胀包、变质，胀包、包材异常</span><span style="color:#595959;font-weight:600;font-size:13px">各1起 (3%)</span></div>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec6" class="panel" style="margin-bottom:28px">
+    <div class="section-title">六、关键节点 &amp; 待跟进事项</div>
+    <table>
+      <thead><tr><th>事项</th><th>截止/时间</th><th>状态</th><th>服务商</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>新增订单到货</td><td>2026-06-07</td><td><span class="tag paid">进行中</span></td><td>服务商</td><td>协商后6/7全部到货</td></tr>
+        <tr><td>零食很忙保证金收据追回</td><td>等待中</td><td><span class="tag unpaid">等待回复</span></td><td>零食很忙财务</td><td>保证金10万已打款</td></tr>
+        <tr><td>返利协议追回</td><td>等待中</td><td><span class="tag unpaid">等待回复</span></td><td>梁洁</td><td>5/23已顺丰邮寄</td></tr>
+        <tr><td>开票 + 发邮件</td><td>持续跟进</td><td><span class="tag unpaid">进行中</span></td><td>张文茜</td><td>短期人工逐单填写备注字段</td></tr>
+        <tr><td>客诉质量管控</td><td>持续</td><td><span class="tag paid">已同频</span></td><td>供应链</td><td>6/1内部会议完成，加强产品质量</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div class="footer">零食很忙系统对接工作台 · 袋鼠先生线下渠道中心 · 数据更新：2026-06-04<br><span style="color:#ddd">由 MeOS AI 工作台生成 · 如需更新数据请联系 Selina</span></div>
+<style>
+#side-nav{
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  z-index:9999;display:flex;flex-direction:column;align-items:flex-end;
+  background:rgba(255,255,255,0.72);
+  border-radius:20px 0 0 20px;
+  box-shadow:-2px 0 14px rgba(24,144,255,0.07),0 0 0 1px rgba(200,215,235,0.35);
+  padding:10px 0;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+#side-nav .sn-item{
+  display:flex;align-items:center;
+  padding:5px 10px 5px 12px;
+  cursor:pointer;
+  transition:background 0.18s;
+  border-radius:10px 0 0 10px;
+  margin:1px 0;
+}
+#side-nav .sn-item:hover{background:rgba(24,144,255,0.07)}
+#side-nav .sn-item.active{background:linear-gradient(90deg,rgba(24,144,255,0.13),rgba(24,144,255,0.03))}
+#side-nav .sn-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#cfd8e8;flex-shrink:0;
+  transition:all 0.22s;margin-right:6px;
+}
+#side-nav .sn-item.active .sn-dot{
+  width:6px;height:6px;
+  background:#1890ff;
+  box-shadow:0 0 0 2px rgba(24,144,255,0.20);
+}
+#side-nav .sn-label{
+  font-size:11.5px;font-weight:500;color:#a0b0c8;
+  white-space:nowrap;letter-spacing:0.2px;
+  transition:color 0.18s;
+}
+#side-nav .sn-item:hover .sn-label{color:#1890ff}
+#side-nav .sn-item.active .sn-label{color:#1890ff;font-weight:700;font-size:12px}
+#side-nav .sn-divider{height:1px;background:rgba(200,215,235,0.35);margin:2px 8px;}
+#side-nav .sn-warn .sn-dot{background:#ffc53d}
+#side-nav .sn-warn.active .sn-dot{background:#faad14;box-shadow:0 0 0 2px rgba(250,173,20,0.22)}
+#side-nav .sn-warn.active .sn-label{color:#d48806}
+#side-nav .sn-warn:hover .sn-label{color:#d48806}
+</style>
+<div id="side-nav">
+  <div class="sn-item sn-warn active" data-sec="sec0"><div class="sn-dot"></div><span class="sn-label">⚡ 预警</span></div>
+  <div class="sn-divider"></div>
+  <div class="sn-item" data-sec="sec1"><div class="sn-dot"></div><span class="sn-label">总览</span></div>
+  <div class="sn-item" data-sec="sec2"><div class="sn-dot"></div><span class="sn-label">订单</span></div>
+  <div class="sn-item" data-sec="sec3"><div class="sn-dot"></div><span class="sn-label">履约</span></div>
+  <div class="sn-item" data-sec="sec4"><div class="sn-dot"></div><span class="sn-label">回款</span></div>
+  <div class="sn-item" data-sec="sec5"><div class="sn-dot"></div><span class="sn-label">客诉</span></div>
+  <div class="sn-divider"></div>
+  <div class="sn-item" data-sec="sec6"><div class="sn-dot"></div><span class="sn-label">重点事项</span></div>
+</div>
+<script>
+(function(){
+  var ids=['sec0','sec1','sec2','sec3','sec4','sec5','sec6'];
+  var items=document.querySelectorAll('#side-nav .sn-item');
+  items.forEach(function(d){
+    d.addEventListener('click',function(){
+      var el=document.getElementById(d.dataset.sec);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  function update(){
+    var active=0;
+    ids.forEach(function(id,i){
+      var el=document.getElementById(id);
+      if(el&&el.getBoundingClientRect().top<=120) active=i;
+    });
+    items.forEach(function(d,i){d.classList.toggle('active',i===active)});
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+</body></html>
