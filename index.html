@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>鸣鸣很忙全域运营看板</title>
 <style>  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 15px; background: #dde1ec; color: #1a1a2e; background-image: radial-gradient(ellipse at 15% 15%, rgba(24,144,255,0.08) 0%, transparent 45%), radial-gradient(ellipse at 85% 85%, rgba(82,196,26,0.05) 0%, transparent 45%); min-height: 100vh; zoom: 0.9; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 15px; background: #dde1ec; color: #1a1a2e; background-image: radial-gradient(ellipse at 15% 15%, rgba(24,144,255,0.08) 0%, transparent 45%), radial-gradient(ellipse at 85% 85%, rgba(82,196,26,0.05) 0%, transparent 45%); min-height: 100vh; zoom: 0.75; }
   .header { background: linear-gradient(135deg, #0a1628 0%, #1a3a6e 55%, #1890ff 100%); color: white; padding: 22px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 32px rgba(24,144,255,0.35), 0 2px 0 rgba(255,255,255,0.12) inset; position: relative; overflow: hidden; }
   .header::before { content: ''; position: absolute; top: -40%; right: -5%; width: 380px; height: 380px; background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%); pointer-events: none; }
   .header h1 { font-size: 26px; font-weight: 800; letter-spacing: 1px; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
@@ -90,14 +90,14 @@
 </head>
 <body>
 <div class="header">
-  <img src="logo-dsx.png" alt="袋鼠先生" style="height:40px;object-fit:contain;flex-shrink:0">
+  <img src="logo-dsx.png" alt="袋鼠先生" style="height:40px;object-fit:contain;flex-shrink:0;filter:brightness(0) invert(1);opacity:0.95">
   <div style="text-align:center;flex:1">
     <h1 style="font-size:22px">鸣鸣很忙全域运营看板</h1>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px">
       <span class="tag">市场运营部</span>
       <span class="tag">渠道部 · 供应链 · 财务部</span>
     </div>
-    <div style="font-size:11px;opacity:0.5;margin-top:8px"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.7);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-06 14:34</div>
+    <div style="font-size:11px;opacity:0.5;margin-top:8px"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.7);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-06 14:36</div>
   </div>
   <img src="logo-mmhm.png" alt="鸣鸣很忙集团" style="height:44px;object-fit:contain;flex-shrink:0">
 </div>
@@ -117,7 +117,7 @@
     <div class="card cyan"><div class="label">今日订单金额</div><div class="value" style="color:#13c2c2">0.00万</div><div class="sub">今日新增 0 箱</div></div>
     <div class="card orange"><div class="label">累计应收订单金额</div><div class="value">28.89万</div><div class="sub">总应付 160.47万 - 已到账 131.58万</div></div>
     <div class="card green"><div class="label">已到账款</div><div class="value">131.58万</div><div class="sub">48笔付款单（去重）</div></div>
-    <div class="card red"><div class="label">累计客诉</div><div class="value">44 起</div><div class="sub">扣款合计 ¥0.00</div></div>
+    <div class="card red"><div class="label">累计客诉</div><div class="value">44 起</div><div class="sub">扣款合计 ¥1082.66</div></div>
   </div>
 
   <div id="sec2" class="panel" style="margin-bottom:28px">
@@ -227,7 +227,7 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
     <div class="cards" style="margin-bottom:16px;grid-template-columns:repeat(3,1fr)">
       <div class="card orange"><div class="label">应收订单金额</div><div class="value">28.89万</div><div class="sub">要求交期≤今日 160.47万 - 已到账 131.58万</div></div>
       <div class="card green"><div class="label">已到账款</div><div class="value">131.58万</div><div class="sub">48笔付款单（去重）</div></div>
-      <div class="card red"><div class="label">扣款合计</div><div class="value">-¥0.00</div><div class="sub">客诉/质检扣款</div></div>
+      <div class="card red"><div class="label">扣款合计</div><div class="value">-¥1082.66</div><div class="sub">客诉/质检扣款</div></div>
     </div>
     <div class="divider"></div>
     <div style="font-size:15px;font-weight:600;margin-bottom:10px;color:#555">按开票主体应收明细</div>
@@ -266,12 +266,12 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
       </div>
       <div style="background:linear-gradient(145deg,#fffbf0,#fff8e8);border:1.5px solid #ffd591;border-top:3px solid #fa8c16;border-radius:12px;padding:18px 20px;text-align:center;box-shadow:0 2px 12px rgba(250,140,22,0.10)">
         <div style="font-size:13px;color:#888;margin-bottom:6px">💰 累计扣款</div>
-        <div style="font-size:32px;font-weight:700;color:#fa8c16;line-height:1">¥0</div>
+        <div style="font-size:32px;font-weight:700;color:#fa8c16;line-height:1">¥1083</div>
         <div style="font-size:12px;color:#aaa;margin-top:4px">元</div>
       </div>
       <div style="background:linear-gradient(145deg,#fff7e6,#ffefd1);border:1.5px solid #ffd591;border-top:3px solid #d48806;border-radius:12px;padding:18px 20px;text-align:center;box-shadow:0 2px 12px rgba(212,136,6,0.10)">
         <div style="font-size:13px;color:#888;margin-bottom:6px">💸 3日新增扣款</div>
-        <div style="font-size:32px;font-weight:700;color:#d48806;line-height:1">¥0</div>
+        <div style="font-size:32px;font-weight:700;color:#d48806;line-height:1">¥520</div>
         <div style="font-size:12px;color:#aaa;margin-top:4px">元</div>
       </div>
     </div>
@@ -281,48 +281,42 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
       <!-- 第1列：涉及产品 -->
       <div style="background:linear-gradient(145deg,#fffbf0,#fff8e8);border:1.5px solid #ffd591;border-top:3px solid #fa8c16;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(250,140,22,0.10);display:flex;flex-direction:column">
         <div style="font-size:14px;font-weight:700;color:#d46b08;margin-bottom:12px;flex-shrink:0">📦 涉及产品</div>
-        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.8</span><span style="color:#fa8c16;font-weight:600;font-size:13px">3起 (7%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">52.3</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.67</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.49</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">77.5</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.74</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">22.5</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">3.2</span><span style="color:#595959;font-weight:600;font-size:13px">1起 (2%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">20.5</span><span style="color:#595959;font-weight:600;font-size:13px">1起 (2%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">52.9</span><span style="color:#595959;font-weight:600;font-size:13px">1起 (2%)</span></div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称</span><span style="color:#f5222d;font-weight:600;font-size:13px">41起 (93%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">100g黑胡椒味100g</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">100g奥尔良味100g</span><span style="color:#595959;font-weight:600;font-size:13px">1起 (2%)</span></div>
 </div>
       </div>
 
       <!-- 第2列：产品&批次 -->
       <div style="background:linear-gradient(145deg,#f0f6ff,#e8f0ff);border:1.5px solid #c5d8ff;border-top:3px solid #1890ff;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(24,144,255,0.10);display:flex;flex-direction:column">
         <div style="font-size:14px;font-weight:700;color:#096dd9;margin-bottom:12px;flex-shrink:0">📅 产品&批次</div>
-        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.8 · 12/31</span><span style="color:#1890ff;font-weight:600;font-size:13px">3起 (7%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">52.3 · 12/31</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.67 · 12/31</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.49 · 12/31</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">77.5 · 未知</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">1.74 · 12/31</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">22.5 · 12/31</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="font-size:12px;color:#aaa;margin-top:8px;text-align:center">…及其他 29 个组合</div></div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 04/05</span><span style="color:#f5222d;font-weight:600;font-size:13px">11起 (25%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 05/17</span><span style="color:#f5222d;font-weight:600;font-size:13px">10起 (23%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 03/17</span><span style="color:#f5222d;font-weight:600;font-size:13px">10起 (23%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 03/01</span><span style="color:#1890ff;font-weight:600;font-size:13px">4起 (9%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">原型奥尔良味散称 · 03/25</span><span style="color:#1890ff;font-weight:600;font-size:13px">4起 (9%)</span></div>
+<div style="font-size:12px;color:#aaa;margin-top:8px;text-align:center">…及其他 4 个组合</div></div>
       </div>
 
       <!-- 第3列：索赔类型 -->
       <div style="background:linear-gradient(145deg,#fff5f0,#ffede8);border:1.5px solid #ffc4b3;border-top:3px solid #fa541c;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(250,84,28,0.10);display:flex;flex-direction:column">
         <div style="font-size:14px;font-weight:700;color:#d4380d;margin-bottom:12px;flex-shrink:0">💼 索赔类型</div>
-        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">非消费者索赔</span><span style="color:#fa8c16;font-weight:600;font-size:13px">39起 (89%)</span></div><div style="font-size:12px;color:#888">扣款 ¥0.00</div></div>
-<div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">消费者索赔（客诉）</span><span style="color:#fa8c16;font-weight:600;font-size:13px">5起 (11%)</span></div><div style="font-size:12px;color:#888">扣款 ¥0.00</div></div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">门店报损</span><span style="color:#fa8c16;font-weight:600;font-size:13px">20起 (45%)</span></div><div style="font-size:12px;color:#888">扣款 ¥190.84</div></div>
+<div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">质检单</span><span style="color:#fa8c16;font-weight:600;font-size:13px">19起 (43%)</span></div><div style="font-size:12px;color:#888">扣款 ¥580.70</div></div>
+<div style="padding:8px 0;border-bottom:1px solid #f0f0f0"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:13px;font-weight:600">消费者索赔</span><span style="color:#fa8c16;font-weight:600;font-size:13px">5起 (11%)</span></div><div style="font-size:12px;color:#888">扣款 ¥311.12</div></div>
 </div>
       </div>
 
       <!-- 第4列：客诉原因 -->
       <div style="background:linear-gradient(145deg,#fff1f0,#ffe8e8);border:1.5px solid #ffccc7;border-top:3px solid #f5222d;border-radius:12px;padding:18px;box-shadow:0 2px 12px rgba(245,34,45,0.10);display:flex;flex-direction:column">
         <div style="font-size:14px;font-weight:700;color:#cf1322;margin-bottom:12px;flex-shrink:0">⚠️ 客诉原因</div>
-        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">46117</span><span style="color:#f5222d;font-weight:600;font-size:13px">11起 (25%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">46159、46098</span><span style="color:#f5222d;font-weight:600;font-size:13px">各10起 (23%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">46082、46106</span><span style="color:#595959;font-weight:600;font-size:13px">各4起 (9%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">46096</span><span style="color:#595959;font-weight:600;font-size:13px">2起 (5%)</span></div>
-<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">46092、46157、46129</span><span style="color:#595959;font-weight:600;font-size:13px">各1起 (2%)</span></div>
+        <div style="font-size:13px;color:#444;flex:1;overflow-y:auto"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">异物问题</span><span style="color:#f5222d;font-weight:600;font-size:13px">11起 (25%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">漏气</span><span style="color:#fa8c16;font-weight:600;font-size:13px">8起 (18%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">胀气胀包</span><span style="color:#fa8c16;font-weight:600;font-size:13px">6起 (14%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">发臭</span><span style="color:#595959;font-weight:600;font-size:13px">4起 (9%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">发霉</span><span style="color:#595959;font-weight:600;font-size:13px">3起 (7%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">无生产日期、有瑕疵影响售卖、变质、变质，胀包</span><span style="color:#595959;font-weight:600;font-size:13px">各2起 (5%)</span></div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="font-size:13px">变质变味、胀包、包材异常、涨气</span><span style="color:#595959;font-weight:600;font-size:13px">各1起 (2%)</span></div>
 </div>
       </div>
     </div>
