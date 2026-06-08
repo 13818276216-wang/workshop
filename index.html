@@ -73,7 +73,7 @@
         <span class="tag">供应链</span>
         <span class="tag">财务部</span>
       </div>
-      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-08 13:34</div>
+      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-08 13:35</div>
     </div>
     <img src="logo-mmhm.png" alt="鸣鸣很忙集团" style="height:70px;object-fit:contain;flex-shrink:0">
   </div>
@@ -284,17 +284,42 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
   </div>
 
   <div id="sec6" class="panel" style="margin-bottom:28px">
-    <div class="section-title">六、关键节点 &amp; 待跟进事项</div>
-    <table>
-      <thead><tr><th>事项</th><th>截止/时间</th><th>状态</th><th>服务商</th><th>备注</th></tr></thead>
+    <div class="section-title">六、日常运营分工</div>
+    <table class="ops-table">
+      <thead><tr><th>板块</th><th>内容</th><th>负责部门</th><th>频次</th></tr></thead>
       <tbody>
-        <tr><td>新增订单到货</td><td>2026-06-07</td><td><span class="tag paid">进行中</span></td><td>服务商</td><td>协商后6/7全部到货</td></tr>
-        <tr><td>鸣鸣很忙保证金收据追回</td><td>等待中</td><td><span class="tag unpaid">等待回复</span></td><td>鸣鸣很忙财务</td><td>保证金10万已打款</td></tr>
-        <tr><td>返利协议追回</td><td>等待中</td><td><span class="tag unpaid">等待回复</span></td><td>梁洁</td><td>5/23已顺丰邮寄</td></tr>
-        <tr><td>开票 + 发邮件</td><td>持续跟进</td><td><span class="tag unpaid">进行中</span></td><td>张文茜</td><td>短期人工逐单填写备注字段</td></tr>
-        <tr><td>客诉质量管控</td><td>持续</td><td><span class="tag paid">已同频</span></td><td>供应链</td><td>6/1内部会议完成，加强产品质量</td></tr>
+        <tr><td><span class="ops-tag ops-tag-order">订单</span></td><td>订单确认、预约、逾期沟通，上传质检报告</td><td>服务商</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-logistics">物流</span></td><td>与工厂确认发货时间，跟踪物流时效</td><td>供应链</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-complaint">客诉</span></td><td>客诉处理</td><td>供应链 / 工厂</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-complaint">客诉</span></td><td>客诉整理反馈、客诉沟通</td><td>市场运营、供应链、服务商</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-complaint">客诉</span></td><td>与很忙核对客诉对账扣款，开具收据</td><td>市场运营、供应链、财务</td><td><span class="ops-freq ops-freq-monthly">每月初</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-rebate">返利对账</span></td><td>返利核对，开具红冲发票</td><td>市场运营、财务</td><td><span class="ops-freq ops-freq-monthly">每月初</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-invoice">开票回款</span></td><td>确认回单，吉客云下单，推送发票，发送邮件，盯回款</td><td>市场运营、财务</td><td><span class="ops-freq ops-freq-monthly">每月初</span></td></tr>
       </tbody>
     </table>
+<style>
+.ops-table { width:100%; border-collapse:collapse; font-size:14px; }
+.ops-table thead tr { background: linear-gradient(135deg,#0e2a5c 0%,#1554a0 100%); }
+.ops-table th { padding:13px 16px; text-align:left; font-weight:700; font-size:12.5px; letter-spacing:0.5px; color:rgba(255,255,255,0.85); border-bottom:none; background:transparent; }
+.ops-table th:first-child { border-radius:10px 0 0 0; }
+.ops-table th:last-child  { border-radius:0 10px 0 0; }
+.ops-table tbody tr:nth-child(odd)  { background:#f8faff; }
+.ops-table tbody tr:nth-child(even) { background:#eef3fb; }
+.ops-table tbody tr:hover td { background:linear-gradient(90deg,#deeeff,#eef6ff); transition:background 0.15s; }
+.ops-table td { padding:11px 16px; border-bottom:1px solid rgba(24,144,255,0.08); color:#1a2540; font-size:13.5px; }
+.ops-table tr:last-child td { border-bottom:none; }
+.ops-table tr:last-child td:first-child { border-radius:0 0 0 10px; }
+.ops-table tr:last-child td:last-child  { border-radius:0 0 10px 0; }
+.ops-tag { display:inline-block; padding:3px 10px; border-radius:20px; font-size:12px; font-weight:700; letter-spacing:0.3px; white-space:nowrap; }
+.ops-tag-order     { background:linear-gradient(135deg,#e6f4ff,#bae0ff); color:#0958d9; border:1px solid #91caff; }
+.ops-tag-logistics { background:linear-gradient(135deg,#f0ffd6,#d9f7be); color:#389e0d; border:1px solid #b7eb8f; }
+.ops-tag-complaint { background:linear-gradient(135deg,#fff7e6,#ffe7ba); color:#d46b08; border:1px solid #ffd591; }
+.ops-tag-rebate    { background:linear-gradient(135deg,#f9f0ff,#efdbff); color:#531dab; border:1px solid #d3adf7; }
+.ops-tag-invoice   { background:linear-gradient(135deg,#e6fffb,#b5f5ec); color:#006d75; border:1px solid #87e8de; }
+.ops-freq { display:inline-block; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:600; white-space:nowrap; }
+.ops-freq-daily   { background:rgba(24,144,255,0.1); color:#1554a0; border:1px solid rgba(24,144,255,0.25); }
+.ops-freq-monthly { background:rgba(114,46,209,0.08); color:#531dab; border:1px solid rgba(114,46,209,0.2); }
+</style>
   </div>
 
 </div>
@@ -324,7 +349,7 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
   <div class="sn-item" data-sec="sec4"><div class="sn-dot"></div><span class="sn-label">回款</span></div>
   <div class="sn-item" data-sec="sec5"><div class="sn-dot"></div><span class="sn-label">客诉</span></div>
   <div class="sn-divider"></div>
-  <div class="sn-item" data-sec="sec6"><div class="sn-dot"></div><span class="sn-label">重点事项</span></div>
+  <div class="sn-item" data-sec="sec6"><div class="sn-dot"></div><span class="sn-label">分工</span></div>
 </div>
 <script>
 (function(){
