@@ -73,7 +73,7 @@
         <span class="tag">供应链</span>
         <span class="tag">财务部</span>
       </div>
-      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-08 13:35</div>
+      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-08 13:38</div>
     </div>
     <img src="logo-mmhm.png" alt="鸣鸣很忙集团" style="height:70px;object-fit:contain;flex-shrink:0">
   </div>
@@ -325,31 +325,56 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
 </div>
 <div class="footer">鸣鸣很忙全域运营看板 · 袋鼠先生线下渠道中心 · 数据更新：2026-06-08<br><span style="color:#ddd">由 MeOS AI 工作台生成 · 如需更新数据请联系 Selina</span></div>
 <style>
-#side-nav{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:9999;display:flex;flex-direction:column;align-items:flex-end;background:rgba(255,255,255,0.72);border-radius:20px 0 0 20px;box-shadow:-2px 0 14px rgba(24,144,255,0.07),0 0 0 1px rgba(200,215,235,0.35);padding:10px 0;backdrop-filter:blur(14px);}
-#side-nav .sn-item{display:flex;align-items:center;padding:5px 10px 5px 12px;cursor:pointer;transition:background 0.18s;border-radius:10px 0 0 10px;margin:1px 0;}
-#side-nav .sn-item:hover{background:rgba(24,144,255,0.07)}
-#side-nav .sn-item.active{background:linear-gradient(90deg,rgba(24,144,255,0.13),rgba(24,144,255,0.03))}
-#side-nav .sn-dot{width:5px;height:5px;border-radius:50%;background:#cfd8e8;flex-shrink:0;transition:all 0.22s;margin-right:6px;}
-#side-nav .sn-item.active .sn-dot{width:6px;height:6px;background:#1890ff;box-shadow:0 0 0 2px rgba(24,144,255,0.20);}
-#side-nav .sn-label{font-size:11.5px;font-weight:500;color:#a0b0c8;white-space:nowrap;letter-spacing:0.2px;transition:color 0.18s;}
-#side-nav .sn-item:hover .sn-label{color:#1890ff}
-#side-nav .sn-item.active .sn-label{color:#1890ff;font-weight:700;font-size:12px}
-#side-nav .sn-divider{height:1px;background:rgba(200,215,235,0.35);margin:2px 8px;}
-#side-nav .sn-warn .sn-dot{background:#ffc53d}
-#side-nav .sn-warn.active .sn-dot{background:#faad14;box-shadow:0 0 0 2px rgba(250,173,20,0.22)}
-#side-nav .sn-warn.active .sn-label{color:#d48806}
-#side-nav .sn-warn:hover .sn-label{color:#d48806}
+#side-nav{
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  z-index:9999;display:flex;flex-direction:column;align-items:stretch;
+  background:linear-gradient(180deg,#0e2a5c 0%,#1554a0 60%,#1e3a6e 100%);
+  border-radius:16px 0 0 16px;
+  box-shadow:-4px 0 24px rgba(14,42,92,0.45),0 0 0 1px rgba(255,255,255,0.08) inset;
+  padding:10px 0;
+  width:72px;
+  overflow:hidden;
+}
+#side-nav::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,0.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+#side-nav .sn-item{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:9px 6px;cursor:pointer;transition:all 0.2s ease;position:relative;gap:4px;
+}
+#side-nav .sn-item:hover{background:rgba(255,255,255,0.10);}
+#side-nav .sn-item.active{
+  background:linear-gradient(180deg,rgba(24,144,255,0.35),rgba(24,144,255,0.15));
+  box-shadow:inset 3px 0 0 #40a9ff, inset 0 0 12px rgba(24,144,255,0.12);
+}
+#side-nav .sn-icon{font-size:16px;line-height:1;transition:transform 0.2s;}
+#side-nav .sn-item:hover .sn-icon{transform:scale(1.15);}
+#side-nav .sn-item.active .sn-icon{filter:drop-shadow(0 0 4px rgba(64,169,255,0.6));}
+#side-nav .sn-label{
+  font-size:10px;font-weight:600;color:rgba(255,255,255,0.55);
+  white-space:nowrap;letter-spacing:0.3px;transition:color 0.18s;
+}
+#side-nav .sn-item:hover .sn-label{color:rgba(255,255,255,0.9);}
+#side-nav .sn-item.active .sn-label{color:#69c0ff;font-weight:700;}
+#side-nav .sn-divider{
+  height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);margin:4px 10px;
+}
+#side-nav .sn-warn .sn-icon{filter:drop-shadow(0 0 3px rgba(255,197,61,0.5));}
+#side-nav .sn-warn.active .sn-label{color:#ffd666;}
+#side-nav .sn-warn:hover .sn-label{color:#ffd666;}
 </style>
 <div id="side-nav">
-  <div class="sn-item sn-warn active" data-sec="sec0"><div class="sn-dot"></div><span class="sn-label">⚡ 预警</span></div>
+  <div class="sn-item sn-warn active" data-sec="sec0"><span class="sn-icon">⚡</span><span class="sn-label">预警</span></div>
   <div class="sn-divider"></div>
-  <div class="sn-item" data-sec="sec1"><div class="sn-dot"></div><span class="sn-label">总览</span></div>
-  <div class="sn-item" data-sec="sec2"><div class="sn-dot"></div><span class="sn-label">订单</span></div>
-  <div class="sn-item" data-sec="sec3"><div class="sn-dot"></div><span class="sn-label">履约</span></div>
-  <div class="sn-item" data-sec="sec4"><div class="sn-dot"></div><span class="sn-label">回款</span></div>
-  <div class="sn-item" data-sec="sec5"><div class="sn-dot"></div><span class="sn-label">客诉</span></div>
+  <div class="sn-item" data-sec="sec1"><span class="sn-icon">📊</span><span class="sn-label">总览</span></div>
+  <div class="sn-item" data-sec="sec2"><span class="sn-icon">📦</span><span class="sn-label">订单</span></div>
+  <div class="sn-item" data-sec="sec3"><span class="sn-icon">🚚</span><span class="sn-label">履约</span></div>
+  <div class="sn-item" data-sec="sec4"><span class="sn-icon">💰</span><span class="sn-label">回款</span></div>
+  <div class="sn-item" data-sec="sec5"><span class="sn-icon">🔔</span><span class="sn-label">客诉</span></div>
   <div class="sn-divider"></div>
-  <div class="sn-item" data-sec="sec6"><div class="sn-dot"></div><span class="sn-label">分工</span></div>
+  <div class="sn-item" data-sec="sec6"><span class="sn-icon">👥</span><span class="sn-label">分工</span></div>
 </div>
 <script>
 (function(){
