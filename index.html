@@ -73,7 +73,7 @@
         <span class="tag">供应链</span>
         <span class="tag">财务部</span>
       </div>
-      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-08 13:38</div>
+      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-08 13:41</div>
     </div>
     <img src="logo-mmhm.png" alt="鸣鸣很忙集团" style="height:70px;object-fit:contain;flex-shrink:0">
   </div>
@@ -92,7 +92,7 @@
     <div class="card blue"><div class="label">累计订单金额</div><div class="value">271.0万</div><div class="sub">累计 28,220 箱 <span style="font-size:10px;opacity:0.7">（2026.5.18 - 2026.6.8）</span></div></div>
     <div class="card purple"><div class="label">本月订单金额</div><div class="value" style="color:#722ed1">60.94万</div><div class="sub">本月 6,110 箱</div></div>
     <div class="card cyan"><div class="label">今日订单金额</div><div class="value" style="color:#13c2c2">3.87万</div><div class="sub">今日新增 440 箱</div></div>
-    <div class="card orange"><div class="label">应收金额</div><div class="value">14.76万</div><div class="sub" style="font-size:11px">已开票 205.86万 - 已到账 195.06万<br><span style="font-size:10px;opacity:0.65">取值：开票进度表 T=1 减 结算表付款（已匹配主体）</span></div></div>
+    <div class="card orange"><div class="label">应收金额</div><div class="value">14.76万</div><div class="sub" style="font-size:11px">已开票 205.86万 - 已到账 191.10万<br><span style="font-size:10px;opacity:0.65">取值：开票进度表 T=1 减 结算表付款（去重）</span></div></div>
     <div class="card green"><div class="label">已到账款</div><div class="value">191.10万</div><div class="sub">70笔付款单（去重）</div></div>
     <div class="card red"><div class="label">累计客诉</div><div class="value">119 起</div><div class="sub">扣款合计 ¥2073.48</div></div>
   </div>
@@ -201,9 +201,9 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
   <div id="sec4" class="panel" style="margin-bottom:28px">
     <div class="section-title">四、回款情况</div>
     <div class="cards" style="margin-bottom:16px;grid-template-columns:repeat(4,1fr)">
-      <div class="card orange"><div class="label">应收金额</div><div class="value">14.76万</div><div class="sub" style="font-size:11px">已开票 - 已到账</div></div>
+      <div class="card orange"><div class="label">应收金额</div><div class="value">14.76万</div><div class="sub" style="font-size:11px">已开票 - 已到账（结算表口径）</div></div>
       <div class="card blue"><div class="label">已开票金额</div><div class="value">205.86万</div><div class="sub" style="font-size:11px">开票进度表 T=1 合计</div></div>
-      <div class="card green"><div class="label">已到账金额</div><div class="value">195.06万</div><div class="sub" style="font-size:11px">结算表付款（已匹配开票主体）</div></div>
+      <div class="card green"><div class="label">已到账金额</div><div class="value">191.10万</div><div class="sub" style="font-size:11px">结算表付款单（去重合计）</div></div>
       <div class="card red"><div class="label">扣款合计</div><div class="value">-¥2073.48</div><div class="sub">客诉/质检扣款</div></div>
     </div>
     <div class="divider"></div>
