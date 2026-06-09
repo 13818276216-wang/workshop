@@ -102,7 +102,7 @@
         <span class="tag">供应链</span>
         <span class="tag">财务部</span>
       </div>
-      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-09 13:44</div>
+      <div style="font-size:10px;opacity:0.45"><a href="https://srm.hnlshm.com/dashboard-srm" style="color:rgba(255,255,255,0.6);text-decoration:none">鸣鸣很忙 SRM</a> · 飞书在线表格 · 更新于 2026-06-09 13:56</div>
     </div>
     <img src="logo-mmhm.png" alt="鸣鸣很忙集团" style="height:70px;object-fit:contain;flex-shrink:0">
   </div>
@@ -330,75 +330,133 @@ new Chart(document.getElementById('donut2').getContext('2d'), {
   </div>
 
   <div id="sec6" class="panel" style="margin-bottom:28px">
-    <div class="section-title">六、关键节点 &amp; 待跟进事项</div>
-    <table>
-      <thead><tr><th>事项</th><th>截止/时间</th><th>状态</th><th>服务商</th><th>备注</th></tr></thead>
+    <div class="section-title">六、日常运营分工</div>
+    <table class="ops-table">
+      <thead>
+        <tr>
+          <th>板块</th>
+          <th>内容</th>
+          <th>负责部门</th>
+          <th>频次</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td>新增订单到货</td><td>2026-06-07</td><td><span class="tag paid">进行中</span></td><td>服务商</td><td>协商后6/7全部到货</td></tr>
-        <tr><td>鸣鸣很忙保证金收据追回</td><td>等待中</td><td><span class="tag unpaid">等待回复</span></td><td>鸣鸣很忙财务</td><td>保证金10万已打款</td></tr>
-        <tr><td>返利协议追回</td><td>等待中</td><td><span class="tag unpaid">等待回复</span></td><td>梁洁</td><td>5/23已顺丰邮寄</td></tr>
-        <tr><td>开票 + 发邮件</td><td>持续跟进</td><td><span class="tag unpaid">进行中</span></td><td>张文茜</td><td>短期人工逐单填写备注字段</td></tr>
-        <tr><td>客诉质量管控</td><td>持续</td><td><span class="tag paid">已同频</span></td><td>供应链</td><td>6/1内部会议完成，加强产品质量</td></tr>
+        <tr><td><span class="ops-tag ops-tag-order">订单</span></td><td>订单确认、预约、逾期沟通，上传质检报告</td><td>服务商</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-logistics">物流</span></td><td>与工厂确认发货时间，跟踪物流时效</td><td>供应链</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-complaint">客诉</span></td><td>客诉处理</td><td>供应链 / 工厂</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-complaint">客诉</span></td><td>客诉整理反馈、客诉沟通</td><td>市场运营、供应链、服务商</td><td><span class="ops-freq ops-freq-daily">每日</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-complaint">客诉</span></td><td>与很忙核对客诉对账扣款，开具收据</td><td>市场运营、供应链、财务</td><td><span class="ops-freq ops-freq-monthly">每月初</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-rebate">返利对账</span></td><td>返利核对，开具红冲发票</td><td>市场运营、财务</td><td><span class="ops-freq ops-freq-monthly">每月初</span></td></tr>
+        <tr><td><span class="ops-tag ops-tag-invoice">开票回款</span></td><td>确认回单，吉客云下单，推送发票，发送邮件，盯回款</td><td>市场运营、财务</td><td><span class="ops-freq ops-freq-monthly">每月初</span></td></tr>
       </tbody>
     </table>
   </div>
+<style>
+.ops-table { width:100%; border-collapse:collapse; font-size:14px; }
+.ops-table thead tr {
+  background: linear-gradient(135deg,#0e2a5c 0%,#1554a0 100%);
+}
+.ops-table th {
+  padding:13px 16px; text-align:left;
+  font-weight:700; font-size:12.5px; letter-spacing:0.5px;
+  color:rgba(255,255,255,0.85);
+  border-bottom:none;
+  background:transparent;
+}
+.ops-table th:first-child { border-radius:10px 0 0 0; }
+.ops-table th:last-child  { border-radius:0 10px 0 0; }
+.ops-table tbody tr:nth-child(odd)  { background:#f8faff; }
+.ops-table tbody tr:nth-child(even) { background:#eef3fb; }
+.ops-table tbody tr:hover td { background:linear-gradient(90deg,#deeeff,#eef6ff); transition:background 0.15s; }
+.ops-table td {
+  padding:11px 16px;
+  border-bottom:1px solid rgba(24,144,255,0.08);
+  color:#1a2540; font-size:13.5px;
+}
+.ops-table tr:last-child td { border-bottom:none; }
+.ops-table tr:last-child td:first-child { border-radius:0 0 0 10px; }
+.ops-table tr:last-child td:last-child  { border-radius:0 0 10px 0; }
+.ops-tag {
+  display:inline-block; padding:3px 10px; border-radius:20px;
+  font-size:11.5px; font-weight:700; letter-spacing:0.3px; white-space:nowrap;
+}
+.ops-tag-order    { background:#e6f4ff; color:#0958d9; border:1px solid #91caff; }
+.ops-tag-logistics{ background:#f0fbe8; color:#389e0d; border:1px solid #b7eb8f; }
+.ops-tag-complaint{ background:#fff1f0; color:#cf1322; border:1px solid #ffa39e; }
+.ops-tag-rebate   { background:#fff7e6; color:#d46b08; border:1px solid #ffd591; }
+.ops-tag-invoice  { background:#f9f0ff; color:#531dab; border:1px solid #d3adf7; }
+.ops-freq {
+  display:inline-block; padding:2px 8px; border-radius:10px;
+  font-size:11px; font-weight:600;
+}
+.ops-freq-daily   { background:#e6fffb; color:#08979c; border:1px solid #87e8de; }
+.ops-freq-monthly { background:#f6ffed; color:#389e0d; border:1px solid #b7eb8f; }
+</style>
 
 </div>
 <div class="footer">鸣鸣很忙全域运营看板 · 袋鼠先生线下渠道中心 · 数据更新：2026-06-09<br><span style="color:#ddd">由 MeOS AI 工作台生成 · 如需更新数据请联系 Selina</span></div>
 <style>
 #side-nav{
   position:fixed;right:0;top:50%;transform:translateY(-50%);
-  z-index:9999;display:flex;flex-direction:column;align-items:flex-end;
-  background:rgba(255,255,255,0.72);
-  border-radius:20px 0 0 20px;
-  box-shadow:-2px 0 14px rgba(24,144,255,0.07),0 0 0 1px rgba(200,215,235,0.35);
+  z-index:9999;display:flex;flex-direction:column;align-items:stretch;
+  background:linear-gradient(180deg,#0e2a5c 0%,#1554a0 60%,#1e3a6e 100%);
+  border-radius:16px 0 0 16px;
+  box-shadow:-4px 0 24px rgba(14,42,92,0.45),0 0 0 1px rgba(255,255,255,0.08) inset;
   padding:10px 0;
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+  width:72px;
+  overflow:hidden;
+}
+#side-nav::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,0.07) 0%,transparent 60%);
+  pointer-events:none;
 }
 #side-nav .sn-item{
-  display:flex;align-items:center;
-  padding:5px 10px 5px 12px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:9px 6px;
   cursor:pointer;
-  transition:background 0.18s;
-  border-radius:10px 0 0 10px;
-  margin:1px 0;
+  transition:all 0.2s ease;
+  position:relative;
+  gap:4px;
 }
-#side-nav .sn-item:hover{background:rgba(24,144,255,0.07)}
-#side-nav .sn-item.active{background:linear-gradient(90deg,rgba(24,144,255,0.13),rgba(24,144,255,0.03))}
-#side-nav .sn-dot{
-  width:5px;height:5px;border-radius:50%;
-  background:#cfd8e8;flex-shrink:0;
-  transition:all 0.22s;margin-right:6px;
+#side-nav .sn-item:hover{background:rgba(255,255,255,0.10);}
+#side-nav .sn-item.active{
+  background:linear-gradient(180deg,rgba(24,144,255,0.35),rgba(24,144,255,0.15));
+  box-shadow:inset 3px 0 0 #40a9ff,inset 0 0 12px rgba(24,144,255,0.12);
 }
-#side-nav .sn-item.active .sn-dot{
-  width:6px;height:6px;
-  background:#1890ff;
-  box-shadow:0 0 0 2px rgba(24,144,255,0.20);
+#side-nav .sn-icon{
+  font-size:16px;line-height:1;
+  transition:transform 0.2s;
 }
+#side-nav .sn-item:hover .sn-icon{transform:scale(1.15);}
+#side-nav .sn-item.active .sn-icon{filter:drop-shadow(0 0 4px rgba(64,169,255,0.6));}
 #side-nav .sn-label{
-  font-size:11.5px;font-weight:500;color:#a0b0c8;
-  white-space:nowrap;letter-spacing:0.2px;
+  font-size:10px;font-weight:600;
+  color:rgba(255,255,255,0.55);
+  white-space:nowrap;letter-spacing:0.3px;
   transition:color 0.18s;
 }
-#side-nav .sn-item:hover .sn-label{color:#1890ff}
-#side-nav .sn-item.active .sn-label{color:#1890ff;font-weight:700;font-size:12px}
-#side-nav .sn-divider{height:1px;background:rgba(200,215,235,0.35);margin:2px 8px;}
-#side-nav .sn-warn .sn-dot{background:#ffc53d}
-#side-nav .sn-warn.active .sn-dot{background:#faad14;box-shadow:0 0 0 2px rgba(250,173,20,0.22)}
-#side-nav .sn-warn.active .sn-label{color:#d48806}
-#side-nav .sn-warn:hover .sn-label{color:#d48806}
+#side-nav .sn-item:hover .sn-label{color:rgba(255,255,255,0.9);}
+#side-nav .sn-item.active .sn-label{color:#69c0ff;font-weight:700;}
+#side-nav .sn-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+  margin:4px 10px;
+}
+#side-nav .sn-warn .sn-icon{filter:drop-shadow(0 0 3px rgba(255,197,61,0.5));}
+#side-nav .sn-warn.active .sn-label{color:#ffd666;}
+#side-nav .sn-warn:hover .sn-label{color:#ffd666;}
 </style>
 <div id="side-nav">
-  <div class="sn-item sn-warn active" data-sec="sec0"><div class="sn-dot"></div><span class="sn-label">⚡ 预警</span></div>
+  <div class="sn-item sn-warn active" data-sec="sec0"><span class="sn-icon">⚡</span><span class="sn-label">预警</span></div>
   <div class="sn-divider"></div>
-  <div class="sn-item" data-sec="sec1"><div class="sn-dot"></div><span class="sn-label">总览</span></div>
-  <div class="sn-item" data-sec="sec2"><div class="sn-dot"></div><span class="sn-label">订单</span></div>
-  <div class="sn-item" data-sec="sec3"><div class="sn-dot"></div><span class="sn-label">履约</span></div>
-  <div class="sn-item" data-sec="sec4"><div class="sn-dot"></div><span class="sn-label">回款</span></div>
-  <div class="sn-item" data-sec="sec5"><div class="sn-dot"></div><span class="sn-label">客诉</span></div>
+  <div class="sn-item" data-sec="sec1"><span class="sn-icon">📊</span><span class="sn-label">总览</span></div>
+  <div class="sn-item" data-sec="sec2"><span class="sn-icon">📦</span><span class="sn-label">订单</span></div>
+  <div class="sn-item" data-sec="sec3"><span class="sn-icon">🚚</span><span class="sn-label">履约</span></div>
+  <div class="sn-item" data-sec="sec4"><span class="sn-icon">💰</span><span class="sn-label">回款</span></div>
+  <div class="sn-item" data-sec="sec5"><span class="sn-icon">🔔</span><span class="sn-label">客诉</span></div>
   <div class="sn-divider"></div>
-  <div class="sn-item" data-sec="sec6"><div class="sn-dot"></div><span class="sn-label">重点事项</span></div>
+  <div class="sn-item" data-sec="sec6"><span class="sn-icon">👥</span><span class="sn-label">分工</span></div>
 </div>
 <script>
 (function(){
