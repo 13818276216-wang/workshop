@@ -127,7 +127,7 @@
     <div class="accent-bar" style="background:linear-gradient(90deg,#ff7020,#ffb080)"></div>
     <div class="label">年累销售</div>
     <div class="value">96.1 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
-    <div class="sub" style="margin-top:6px">2026年至今 · 3个月累计</div>
+    <div class="sub" style="margin-top:6px">月均销售 <b>32.0 万</b> · 3个月累计</div>
     <div class="badge neutral" style="margin-top:8px">▶ 持续增长中</div>
   </div>
   <div class="card" style="padding:18px 20px">
@@ -136,32 +136,34 @@
     <div class="value">28.1 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
     <div style="margin:10px 0 4px;background:#f0f2f5;border-radius:4px;height:6px;overflow:hidden"><div style="width:29.3%;height:100%;background:linear-gradient(90deg,#e05810,#ff9040);border-radius:4px"></div></div>
     <div class="sub">今日新增 <b>0 万</b> · 占年累 29.3%</div>
+    <div class="badge up" style="margin-top:8px">↑ 较上月同期 +172.3%</div>
   </div>
   <div class="card" style="padding:18px 20px">
     <div class="accent-bar" style="background:linear-gradient(90deg,#fa8c16,#ffc53d)"></div>
     <div class="label">产品毛利</div>
     <div class="value">23.8 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
     <div class="sub" style="margin-top:6px">毛利率 <b>24.7%</b></div>
-    <div class="badge up" style="margin-top:8px">本月 6.4万 · 22.7%</div>
+    <div class="badge down" style="margin-top:8px">本月 22.7% · 较上月 -3.1个点</div>
   </div>
   <div class="card" style="padding:18px 20px">
     <div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div>
     <div class="label">传统经销商</div>
     <div class="value">31 <span style="font-size:16px;font-weight:500;color:#9ba3b5">家</span></div>
-    <div class="sub" style="margin-top:6px">本月活跃 22 家 · 本月均单 <b>1.3万</b></div>
+    <div class="sub" style="margin-top:6px">本月活跃 22 家 · 均单 <b>1.3万</b></div>
+    <div class="sub">最高 <b>3.7万</b>（鸿召）· 最低 <b>0.17万</b></div>
     <div class="badge up" style="margin-top:8px">↑ 本月新增 10 家</div>
   </div>
   <div class="card" style="padding:18px 20px">
     <div class="accent-bar" style="background:linear-gradient(90deg,#0a8a4e,#36cf80)"></div>
     <div class="label">覆盖省份</div>
     <div class="value">14 <span style="font-size:16px;font-weight:500;color:#9ba3b5">个</span></div>
-    <div class="sub" style="margin-top:6px">TOP3：河南·上海·浙江</div>
-    <div class="badge up" style="margin-top:8px">↑ 本月新增 2 省</div>
+    <div class="sub" style="margin-top:6px">TOP3：河南 27% · 上海 25% · 浙江 10%</div>
+    <div class="badge up" style="margin-top:8px">↑ 本月新增 山东 · 重庆</div>
   </div>
 </div>
 
 <!-- 月度销售趋势 -->
-<div class="panel" style="margin-bottom:22px">
+<div id="sec2" class="panel" style="margin-bottom:22px">
   <div class="section-title">月度销售趋势</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
     <!-- 图1：销售额 -->
@@ -280,8 +282,7 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
 </div>
 
 <!-- 二、销售与毛利结构 -->
-<div id="sec2" class="panel">
-  <div class="section-title">销售与毛利结构</div>
+<div id="sec3" class="panel">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
     <!-- 渠道类型 -->
     <div>
@@ -324,7 +325,7 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
 </div>
 
 <!-- 三、经销商健康度 -->
-<div id="sec3" class="panel">
+<div id="sec4" class="panel">
   <div class="section-title">经销商健康度（31家，按销售额降序）</div>
   <table>
     <thead>
@@ -367,7 +368,7 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
 </div>
 
 <!-- 四、产品毛利排名 -->
-<div id="sec4" class="panel">
+<div id="sec5" class="panel">
   <div class="section-title">产品毛利排名 TOP15</div>
   <table>
     <thead><tr><th>#</th><th>货品名称</th><th style="text-align:center">覆盖渠道</th><th style="text-align:right">件数</th><th style="text-align:right">销售额</th><th style="text-align:right">毛利</th><th style="text-align:right">毛利率</th><th style="text-align:right">占比</th></tr></thead>
@@ -392,7 +393,7 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
 </div>
 
 <!-- 五、省份覆盖 -->
-<div id="sec5" class="panel">
+<div id="sec6" class="panel">
   <div class="section-title">省份覆盖全览（14省 · 空白市场分析）</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
     <div>
