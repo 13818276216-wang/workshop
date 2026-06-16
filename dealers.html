@@ -486,10 +486,33 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
 <!-- 五、省份覆盖 -->
 <div id="sec6" class="panel">
   <div class="section-title">省份覆盖全览（14省 · 空白市场分析）</div>
-  <!-- 中国地图 ECharts -->
-  <div style="margin-bottom:20px">
-    <div style="font-size:12px;color:#9ba3b5;margin-bottom:6px">橙色：已覆盖省份（标注经销商家数）&nbsp;|&nbsp; 灰色：空白市场</div>
-    <div id="chinaMapChart" style="width:100%;height:480px"></div>
+  <!-- 中国地图 ECharts + 图外标注 -->
+  <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;margin-bottom:20px">
+    <div>
+      <div style="font-size:12px;color:#9ba3b5;margin-bottom:6px">橙色：已覆盖省份 &nbsp;|&nbsp; 灰色：空白市场 &nbsp;|&nbsp; 悬浮查看详情</div>
+      <div id="chinaMapChart" style="width:100%;height:460px"></div>
+    </div>
+    <!-- 右侧图外标注 -->
+    <div style="min-width:200px;display:flex;flex-direction:column;gap:8px;padding-top:32px">
+      <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:4px;letter-spacing:0.5px">已覆盖 14 省（按销售额）</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">河南</span><span style="color:#e05810;font-weight:700">26.2万 · 4家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">上海</span><span style="color:#e05810;font-weight:700">24.0万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">浙江</span><span style="color:#e05810;font-weight:700">9.5万 · 5家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">河北</span><span style="color:#e05810;font-weight:700">5.9万 · 4家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">贵州</span><span style="color:#e05810;font-weight:700">5.8万 · 1家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">江苏</span><span style="color:#e05810;font-weight:700">4.7万 · 3家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">北京</span><span style="color:#e05810;font-weight:700">3.9万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">重庆</span><span style="color:#e05810;font-weight:700">2.9万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">陕西</span><span style="color:#e05810;font-weight:700">2.9万 · 1家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">安徽</span><span style="color:#e05810;font-weight:700">2.6万 · 1家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">湖北</span><span style="color:#cf1322;font-weight:700">2.5万 · 1家 ⚠️3.2%</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">福建</span><span style="color:#e05810;font-weight:700">2.1万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">山东</span><span style="color:#e05810;font-weight:700">1.6万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">新疆</span><span style="color:#e05810;font-weight:700">1.5万 · 1家</span></div>
+      </div>
+      <div style="margin-top:6px;padding:8px 10px;background:#f8f9fc;border-radius:6px;font-size:12px;color:#555;font-weight:700">合计：96.1万 · 31家</div>
+    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
@@ -523,12 +546,12 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
         type: 'map',
         map: 'china',
         roam: false,
-        zoom: 1.18,
+        zoom: 1.2,
         label: {
           show: true,
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: '600',
-          formatter: function(p){ return p.value > 0 ? p.name + '\n' + p.value + '家' : p.name; },
+          formatter: function(p){ return p.value > 0 ? p.name : p.name; },
           color: function(p){ return p.data && p.data.value > 0 ? '#fff' : '#8a93a8'; }
         },
         itemStyle: { borderColor: '#fff', borderWidth: 1.5 },
@@ -542,37 +565,18 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
     window.addEventListener('resize', function(){ chart.resize(); });
   })();
   </script>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
-    <div>
-      <table>
-        <thead><tr><th>省份</th><th style="text-align:center">家数</th><th style="text-align:right">订单行</th><th style="text-align:right">销售额</th><th style="text-align:right">毛利率</th></tr></thead>
-        <tbody>
-          <tr><td>河南</td><td style="text-align:center">4</td><td style="text-align:right">123</td><td style="text-align:right;font-weight:700;color:#e05c00">26.2万</td><td style="text-align:right">23.4%</td></tr>
-          <tr><td>上海</td><td style="text-align:center">2</td><td style="text-align:right">33</td><td style="text-align:right;font-weight:700;color:#e05c00">24.0万</td><td style="text-align:right">28.8%</td></tr>
-          <tr><td>浙江</td><td style="text-align:center">5</td><td style="text-align:right">60</td><td style="text-align:right">9.5万</td><td style="text-align:right">26.0%</td></tr>
-          <tr><td>河北</td><td style="text-align:center">4</td><td style="text-align:right">33</td><td style="text-align:right">5.9万</td><td style="text-align:right">27.9%</td></tr>
-          <tr><td>贵州</td><td style="text-align:center">1</td><td style="text-align:right">20</td><td style="text-align:right">5.8万</td><td style="text-align:right">29.9%</td></tr>
-          <tr><td>江苏</td><td style="text-align:center">3</td><td style="text-align:right">10</td><td style="text-align:right">4.7万</td><td style="text-align:right;color:#cf1322">12.7%⚠️</td></tr>
-          <tr><td>北京</td><td style="text-align:center">2</td><td style="text-align:right">26</td><td style="text-align:right">3.9万</td><td style="text-align:right;color:#389e0d;font-weight:700">30.4%✅</td></tr>
-          <tr><td>重庆</td><td style="text-align:center">2</td><td style="text-align:right">14</td><td style="text-align:right">2.9万</td><td style="text-align:right">17.8%</td></tr>
-          <tr><td>陕西</td><td style="text-align:center">1</td><td style="text-align:right">19</td><td style="text-align:right">2.9万</td><td style="text-align:right">25.3%</td></tr>
-          <tr><td>安徽</td><td style="text-align:center">1</td><td style="text-align:right">28</td><td style="text-align:right">2.6万</td><td style="text-align:right">21.7%</td></tr>
-          <tr><td>湖北</td><td style="text-align:center">1</td><td style="text-align:right">14</td><td style="text-align:right">2.5万</td><td style="text-align:right;color:#cf1322">3.2%🔴</td></tr>
-          <tr><td>福建</td><td style="text-align:center">2</td><td style="text-align:right">9</td><td style="text-align:right">2.1万</td><td style="text-align:right">25.9%</td></tr>
-          <tr><td>山东</td><td style="text-align:center">2</td><td style="text-align:right">17</td><td style="text-align:right">1.6万</td><td style="text-align:right">21.2%</td></tr>
-          <tr><td>新疆</td><td style="text-align:center">1</td><td style="text-align:right">11</td><td style="text-align:right">1.5万</td><td style="text-align:right">21.7%</td></tr>
-          <tr class="sum-row"><td>合计</td><td style="text-align:center">31</td><td style="text-align:right">417</td><td style="text-align:right;color:#e05c00">96.1万</td><td style="text-align:right;color:#e05c00">24.7%</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <!-- 下方三块：两列布局 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px">
     <div>
       <div style="font-size:13px;font-weight:600;color:#666;margin-bottom:12px">空白市场分析</div>
-      <div style="background:#fff8f0;border:1px solid #ffd0a0;border-radius:10px;padding:14px 16px;margin-bottom:12px">
+      <div style="background:#fff8f0;border:1px solid #ffd0a0;border-radius:10px;padding:14px 16px">
         <div style="font-size:13px;font-weight:700;color:#d46b08;margin-bottom:8px">🗺️ 当前已覆盖 14 省</div>
         <div style="font-size:12px;color:#666;line-height:2">华东：浙江✅ 江苏✅ 上海✅ 安徽✅ 福建✅<br>华北：北京✅ 河北✅ 天津✗ 山西✗<br>华中：河南✅ 湖北✅ 湖南✗ 江西✗<br>华南：广东✗ 广西✗<br>西南：贵州✅ 重庆✅ 四川✗ 云南✗<br>西北：陕西✅ 新疆✅ 甘肃✗<br>东北：辽宁✗ 吉林✗ 黑龙江✗</div>
       </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;color:#666;margin-bottom:12px">建议优先拓展区域</div>
       <div style="background:#f0fff4;border:1px solid #b7eb8f;border-radius:10px;padding:14px 16px">
-        <div style="font-size:13px;font-weight:700;color:#389e0d;margin-bottom:8px">💡 建议优先拓展区域</div>
         <div style="font-size:12px;color:#555;line-height:2">
           🥇 <b>广东</b>——人口大省、消费力强、KA渠道密集，当前完全空白<br>
           🥈 <b>湖南</b>——零食渠道成熟（鸣鸣很忙大本营），传统经销商空白<br>
@@ -583,7 +587,7 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
     </div>
   </div>
   <!-- 省份对标分析 -->
-  <div style="margin-top:20px;padding:14px 16px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0">
+  <div style="padding:14px 16px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0">
     <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:10px;letter-spacing:0.5px">区域覆盖深度对标（参考卫龙/劲仔/甘源/双汇）</div>
     <table style="font-size:12px">
       <thead><tr><th>维度</th><th style="text-align:right">袋鼠先生</th><th style="text-align:right">行业参考</th><th>判断</th></tr></thead>
