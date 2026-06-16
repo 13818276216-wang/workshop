@@ -319,77 +319,82 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
     <!-- 右：行业对标可视化 -->
     <div>
       <div style="font-size:13px;font-weight:600;color:#1a1f36;margin-bottom:14px">行业对标（参考卫龙/劲仔/甘源/双汇）</div>
-      <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="background:#f8f9fc;border:1px solid #eaecf0;border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:0">
+
         <!-- KA -->
-        <div style="background:#fff;border:1px solid #eaecf0;border-radius:10px;padding:12px 14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span style="font-size:13px;font-weight:600;color:#1a1f36">KA大卖场/商超</span>
+        <div style="padding:12px 0;border-bottom:1px solid #eaecf0">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <span style="font-size:13px;font-weight:700;color:#1a1f36">KA大卖场/商超</span>
             <span class="tag orange">待提升</span>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">袋鼠先生</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:25.6%;height:100%;background:#2d5be3;border-radius:4px"></div></div>
-            <span style="font-size:12px;font-weight:700;color:#2d5be3;width:36px;text-align:right">25.6%</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <span style="font-size:11px;color:#9ba3b5;width:48px;flex-shrink:0">袋鼠先生</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:25.6%;height:100%;background:#2d5be3;border-radius:3px"></div></div>
+            <span style="font-size:12px;font-weight:700;color:#2d5be3;width:36px;text-align:right;flex-shrink:0">25.6%</span>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">行业均值</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:33%;height:100%;background:#c8d4f8;border-radius:4px"></div></div>
-            <span style="font-size:12px;color:#9ba3b5;width:36px;text-align:right">~33%</span>
+            <span style="font-size:11px;color:#c0c4ce;width:48px;flex-shrink:0">行业均值</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:33%;height:100%;background:#c8d4f8;border-radius:3px"></div></div>
+            <span style="font-size:12px;color:#c0c4ce;width:36px;text-align:right;flex-shrink:0">~33%</span>
           </div>
         </div>
+
         <!-- CVS -->
-        <div style="background:#fff5f5;border:1px solid #fca5a5;border-radius:10px;padding:12px 14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span style="font-size:13px;font-weight:600;color:#1a1f36">CVS便利店</span>
-            <span class="tag red">优先拓展🔥</span>
+        <div style="padding:12px 0;border-bottom:1px solid #eaecf0">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <span style="font-size:13px;font-weight:700;color:#1a1f36">CVS便利店</span>
+            <span class="tag red">优先拓展 🔥</span>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">袋鼠先生</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:3.7%;height:100%;background:#e05810;border-radius:4px"></div></div>
-            <span style="font-size:12px;font-weight:700;color:#e05810;width:36px;text-align:right">3.7%</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <span style="font-size:11px;color:#9ba3b5;width:48px;flex-shrink:0">袋鼠先生</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:3.7%;height:100%;background:#e05810;border-radius:3px"></div></div>
+            <span style="font-size:12px;font-weight:700;color:#e05810;width:36px;text-align:right;flex-shrink:0">3.7%</span>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">行业均值</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:8%;height:100%;background:#fca5a5;border-radius:4px"></div></div>
-            <span style="font-size:12px;color:#9ba3b5;width:36px;text-align:right">~8%</span>
+            <span style="font-size:11px;color:#c0c4ce;width:48px;flex-shrink:0">行业均值</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:8%;height:100%;background:#fca5a5;border-radius:3px"></div></div>
+            <span style="font-size:12px;color:#c0c4ce;width:36px;text-align:right;flex-shrink:0">~8%</span>
           </div>
         </div>
+
         <!-- 流通批发 -->
-        <div style="background:#fff;border:1px solid #eaecf0;border-radius:10px;padding:12px 14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span style="font-size:13px;font-weight:600;color:#1a1f36">流通批发</span>
+        <div style="padding:12px 0;border-bottom:1px solid #eaecf0">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <span style="font-size:13px;font-weight:700;color:#1a1f36">流通批发</span>
             <span class="tag orange">待提升</span>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">袋鼠先生</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:7.7%;height:100%;background:#fa8c16;border-radius:4px"></div></div>
-            <span style="font-size:12px;font-weight:700;color:#fa8c16;width:36px;text-align:right">7.7%</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <span style="font-size:11px;color:#9ba3b5;width:48px;flex-shrink:0">袋鼠先生</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:7.7%;height:100%;background:#fa8c16;border-radius:3px"></div></div>
+            <span style="font-size:12px;font-weight:700;color:#fa8c16;width:36px;text-align:right;flex-shrink:0">7.7%</span>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">行业均值</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:29%;height:100%;background:#fde8c0;border-radius:4px"></div></div>
-            <span style="font-size:12px;color:#9ba3b5;width:36px;text-align:right">~29%</span>
+            <span style="font-size:11px;color:#c0c4ce;width:48px;flex-shrink:0">行业均值</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:29%;height:100%;background:#fde8c0;border-radius:3px"></div></div>
+            <span style="font-size:12px;color:#c0c4ce;width:36px;text-align:right;flex-shrink:0">~29%</span>
           </div>
         </div>
+
         <!-- 特通 -->
-        <div style="background:#fff5f5;border:1px solid #fca5a5;border-radius:10px;padding:12px 14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span style="font-size:13px;font-weight:600;color:#1a1f36">特通渠道</span>
-            <span class="tag red">集中度过高⚠️</span>
+        <div style="padding:12px 0">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <span style="font-size:13px;font-weight:700;color:#1a1f36">特通渠道</span>
+            <span class="tag red">集中度过高 ⚠️</span>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">袋鼠先生</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:62.9%;height:100%;background:#cf1322;border-radius:4px"></div></div>
-            <span style="font-size:12px;font-weight:700;color:#cf1322;width:36px;text-align:right">62.9%</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <span style="font-size:11px;color:#9ba3b5;width:48px;flex-shrink:0">袋鼠先生</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:62.9%;height:100%;background:#cf1322;border-radius:3px"></div></div>
+            <span style="font-size:12px;font-weight:700;color:#cf1322;width:36px;text-align:right;flex-shrink:0">62.9%</span>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:11px;color:#9ba3b5;width:52px">行业均值</span>
-            <div style="flex:1;background:#f0f2f5;border-radius:4px;height:8px"><div style="width:13%;height:100%;background:#fca5a5;border-radius:4px"></div></div>
-            <span style="font-size:12px;color:#9ba3b5;width:36px;text-align:right">~13%</span>
+            <span style="font-size:11px;color:#c0c4ce;width:48px;flex-shrink:0">行业均值</span>
+            <div style="flex:1;background:#eaecf0;border-radius:3px;height:7px"><div style="width:13%;height:100%;background:#fca5a5;border-radius:3px"></div></div>
+            <span style="font-size:12px;color:#c0c4ce;width:36px;text-align:right;flex-shrink:0">~13%</span>
           </div>
         </div>
+
       </div>
-      <div style="font-size:11px;color:#9ba3b5;margin-top:10px">参考卫龙美味、劲仔食品、甘源食品、双汇发展年报；特通高占比主要由心意食光单客户贡献</div>
+      <div style="font-size:11px;color:#9ba3b5;margin-top:8px">参考卫龙美味、劲仔食品、甘源食品、双汇发展年报；特通高占比主要由心意食光单客户贡献</div>
     </div>
   </div>
 </div>
