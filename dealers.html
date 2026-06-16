@@ -540,7 +540,8 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
         pieces: [
           { min: 1, color: '#e05810' },
           { value: 0, color: '#8fa3c0' }
-        ]
+        ],
+        outOfRange: { color: '#8fa3c0' }
       },
       series: [{
         type: 'map',
@@ -557,7 +558,7 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
           formatter: function(p){ return p.value > 0 ? p.name : p.name; },
           color: function(p){ return p.data && p.data.value > 0 ? '#fff' : '#fff'; }
         },
-        itemStyle: { borderColor: '#fff', borderWidth: 1.5 },
+        itemStyle: { borderColor: '#fff', borderWidth: 1.5, areaColor: '#8fa3c0' },
         emphasis: {
           label: { show: true, color: '#fff', fontWeight: '700' },
           itemStyle: { areaColor: '#b83d00' }
