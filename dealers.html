@@ -490,7 +490,7 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
   <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;margin-bottom:20px">
     <div>
       <div style="font-size:12px;color:#9ba3b5;margin-bottom:6px">橙色：已覆盖省份 &nbsp;|&nbsp; 灰色：空白市场 &nbsp;|&nbsp; 悬浮查看详情</div>
-      <div id="chinaMapChart" style="width:100%;height:460px"></div>
+      <div id="chinaMapChart" style="width:100%;height:460px;overflow:hidden"></div>
     </div>
     <!-- 右侧图外标注 -->
     <div style="min-width:200px;display:flex;flex-direction:column;gap:8px;padding-top:32px">
@@ -547,6 +547,9 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
         map: 'china',
         roam: false,
         zoom: 1.2,
+        layoutCenter: ['40%', '50%'],
+        layoutSize: '100%',
+        aspectScale: 0.75,
         label: {
           show: true,
           fontSize: 11,
@@ -563,6 +566,17 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
       }]
     });
     window.addEventListener('resize', function(){ chart.resize(); });
+    // 隐藏南海诸岛小框
+    setTimeout(function(){
+      var el = document.querySelector('#chinaMapChart [data-name="南海诸岛"]');
+      if (el) el.style.display = 'none';
+      // ECharts 5 南海框是独立 group，通过坐标位置隐藏
+      var svgRects = document.querySelectorAll('#chinaMapChart rect');
+      svgRects.forEach(function(r){
+        var x = parseFloat(r.getAttribute('x')||0), y = parseFloat(r.getAttribute('y')||0);
+        if (x > 400 && y > 300) r.parentElement.style.display = 'none';
+      });
+    }, 800);
   })();
   </script>
   <!-- 下方三块：两列布局 -->
