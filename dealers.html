@@ -579,41 +579,31 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
     }, 800);
   })();
   </script>
-  <!-- 下方三块：两列布局 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px">
-    <div>
-      <div style="font-size:13px;font-weight:600;color:#666;margin-bottom:12px">空白市场分析</div>
-      <div style="background:#fff8f0;border:1px solid #ffd0a0;border-radius:10px;padding:14px 16px">
-        <div style="font-size:13px;font-weight:700;color:#d46b08;margin-bottom:8px">🗺️ 当前已覆盖 14 省</div>
-        <div style="font-size:12px;color:#666;line-height:2">华东：浙江✅ 江苏✅ 上海✅ 安徽✅ 福建✅<br>华北：北京✅ 河北✅ 天津✗ 山西✗<br>华中：河南✅ 湖北✅ 湖南✗ 江西✗<br>华南：广东✗ 广西✗<br>西南：贵州✅ 重庆✅ 四川✗ 云南✗<br>西北：陕西✅ 新疆✅ 甘肃✗<br>东北：辽宁✗ 吉林✗ 黑龙江✗</div>
-      </div>
-    </div>
-    <div>
-      <div style="font-size:13px;font-weight:600;color:#666;margin-bottom:12px">建议优先拓展区域</div>
-      <div style="background:#f0fff4;border:1px solid #b7eb8f;border-radius:10px;padding:14px 16px">
+  <!-- 下方：对标 + 拓展建议合并一块 -->
+  <div style="padding:16px 18px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0">
+    <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:12px;letter-spacing:0.5px">区域覆盖深度对标（参考卫龙/劲仔/甘源/双汇）</div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start">
+      <table style="font-size:12px">
+        <thead><tr><th>维度</th><th style="text-align:right">袋鼠先生</th><th style="text-align:right">行业参考</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>覆盖省份数</td><td style="text-align:right">14省</td><td style="text-align:right">成熟期 25-31省</td><td><span class="tag orange">早期阶段，差距约50%</span></td></tr>
+          <tr><td>TOP2省集中度</td><td style="text-align:right;color:#cf1322;font-weight:700">52%（河南+上海）</td><td style="text-align:right">健康值 &lt;30%</td><td><span class="tag red">集中度过高⚠️</span></td></tr>
+          <tr><td>华南（广东等）覆盖</td><td style="text-align:right">0省</td><td style="text-align:right">通常排名前3大区</td><td><span class="tag red">优先拓展🔥</span></td></tr>
+          <tr><td>华中（湖南/江西）覆盖</td><td style="text-align:right">仅湖北1省</td><td style="text-align:right">通常3-4省连片</td><td><span class="tag orange">待补全</span></td></tr>
+          <tr><td>每省经销商密度</td><td style="text-align:right">~2.2家/省</td><td style="text-align:right">健康值 5-8家/省</td><td><span class="tag orange">单省渗透薄</span></td></tr>
+        </tbody>
+      </table>
+      <div style="min-width:260px;background:#f0fff4;border:1px solid #b7eb8f;border-radius:10px;padding:14px 16px">
+        <div style="font-size:12px;font-weight:700;color:#389e0d;margin-bottom:8px">💡 建议优先拓展区域</div>
         <div style="font-size:12px;color:#555;line-height:2">
-          🥇 <b>广东</b>——人口大省、消费力强、KA渠道密集，当前完全空白<br>
-          🥈 <b>湖南</b>——零食渠道成熟（鸣鸣很忙大本营），传统经销商空白<br>
-          🥉 <b>四川</b>——西南核心市场，已有龙洋亿达武汉仓，可向川渝延伸<br>
-          📌 <b>天津/山西</b>——紧邻已覆盖的京冀，拓展成本低
+          🥇 <b>广东</b>——人口大省、KA渠道密集，完全空白<br>
+          🥈 <b>湖南</b>——鸣鸣很忙大本营，传统经销商空白<br>
+          🥉 <b>四川</b>——西南核心，可向川渝延伸<br>
+          📌 <b>天津/山西</b>——紧邻京冀，拓展成本低
         </div>
       </div>
     </div>
-  </div>
-  <!-- 省份对标分析 -->
-  <div style="padding:14px 16px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0">
-    <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:10px;letter-spacing:0.5px">区域覆盖深度对标（参考卫龙/劲仔/甘源/双汇）</div>
-    <table style="font-size:12px">
-      <thead><tr><th>维度</th><th style="text-align:right">袋鼠先生</th><th style="text-align:right">行业参考</th><th>判断</th></tr></thead>
-      <tbody>
-        <tr><td>覆盖省份数</td><td style="text-align:right">14省</td><td style="text-align:right">成熟期 25-31省</td><td><span class="tag orange">早期阶段，差距约50%</span></td></tr>
-        <tr><td>TOP2省集中度</td><td style="text-align:right;color:#cf1322;font-weight:700">52%（河南+上海）</td><td style="text-align:right">健康值 &lt;30%</td><td><span class="tag red">集中度过高⚠️</span></td></tr>
-        <tr><td>华南（广东等）覆盖</td><td style="text-align:right">0省</td><td style="text-align:right">通常排名前3大区</td><td><span class="tag red">优先拓展🔥</span></td></tr>
-        <tr><td>华中（湖南/江西）覆盖</td><td style="text-align:right">仅湖北1省</td><td style="text-align:right">通常3-4省连片</td><td><span class="tag orange">待补全</span></td></tr>
-        <tr><td>每省经销商密度</td><td style="text-align:right">~2.2家/省</td><td style="text-align:right">健康值 5-8家/省</td><td><span class="tag orange">单省渗透薄</span></td></tr>
-      </tbody>
-    </table>
-    <div style="font-size:11px;color:#9ba3b5;margin-top:8px">注：TOP2集中度高受上海心意食光单客户影响；每省密度偏低说明现有省份仍有招商空间，不必急于扩省</div>
+    <div style="font-size:11px;color:#9ba3b5;margin-top:10px">注：TOP2集中度高受上海心意食光单客户影响；每省密度偏低说明现有省份仍有招商空间，不必急于扩省</div>
   </div>
 </div>
 <div class="footer">数据来源：吉客云销售单明细账 &nbsp;|&nbsp; 合同台账：飞书线下记录（线下记录-授权书/证明关系）&nbsp;|&nbsp; 更新于 2026-06-15</div>
