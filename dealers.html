@@ -283,7 +283,7 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
 
 <!-- 二、销售与毛利结构 -->
 <div id="sec3" class="panel">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
+  <div style="display:grid;grid-template-columns:1fr;gap:28px;align-items:start">
     <!-- 渠道类型 -->
     <div>
       <div style="font-size:13px;font-weight:600;color:#666;margin-bottom:12px">渠道类型分布（金额+毛利率）</div>
@@ -317,23 +317,6 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
         </table>
         <div style="font-size:11px;color:#9ba3b5;margin-top:8px">注：行业均值参考卫龙美味、劲仔食品、甘源食品、双汇发展年报数据估算；特通高占比主要由上海心意食光单客户贡献</div>
       </div>
-    </div>
-    <div>
-      <div style="font-size:13px;font-weight:600;color:#666;margin-bottom:12px">省份分布（前8省，金额+毛利率）</div>
-      <table>
-        <thead><tr><th>省份</th><th style="text-align:center">家数</th><th style="text-align:right">销售额</th><th style="text-align:right">毛利率</th></tr></thead>
-        <tbody>
-          <tr><td>河南</td><td style="text-align:center">4</td><td style="text-align:right">26.2万</td><td style="text-align:right">23.4%</td></tr>
-          <tr><td>上海</td><td style="text-align:center">2</td><td style="text-align:right">24.0万</td><td style="text-align:right">28.8%</td></tr>
-          <tr><td>浙江</td><td style="text-align:center">5</td><td style="text-align:right">9.5万</td><td style="text-align:right">26.0%</td></tr>
-          <tr><td>河北</td><td style="text-align:center">4</td><td style="text-align:right">5.9万</td><td style="text-align:right">27.9%</td></tr>
-          <tr><td>贵州</td><td style="text-align:center">1</td><td style="text-align:right">5.8万</td><td style="text-align:right">29.9%</td></tr>
-          <tr><td>江苏</td><td style="text-align:center">3</td><td style="text-align:right">4.7万</td><td style="text-align:right;color:#cf1322">12.7%⚠️</td></tr>
-          <tr><td>北京</td><td style="text-align:center">2</td><td style="text-align:right">3.9万</td><td style="text-align:right;color:#389e0d;font-weight:700">30.4%✅</td></tr>
-          <tr><td>湖北</td><td style="text-align:center">1</td><td style="text-align:right">2.5万</td><td style="text-align:right;color:#cf1322">3.2%🔴</td></tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </div>
 
@@ -448,9 +431,21 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
       </div>
     </div>
   </div>
-</div>
-
-</div>
+  <!-- 省份对标分析 -->
+  <div style="margin-top:20px;padding:14px 16px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0">
+    <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:10px;letter-spacing:0.5px">区域覆盖深度对标（参考卫龙/劲仔/甘源/双汇）</div>
+    <table style="font-size:12px">
+      <thead><tr><th>维度</th><th style="text-align:right">袋鼠先生</th><th style="text-align:right">行业参考</th><th>判断</th></tr></thead>
+      <tbody>
+        <tr><td>覆盖省份数</td><td style="text-align:right">14省</td><td style="text-align:right">成熟期 25-31省</td><td><span class="tag orange">早期阶段，差距约50%</span></td></tr>
+        <tr><td>TOP2省集中度</td><td style="text-align:right;color:#cf1322;font-weight:700">52%（河南+上海）</td><td style="text-align:right">健康值 &lt;30%</td><td><span class="tag red">集中度过高⚠️</span></td></tr>
+        <tr><td>华南（广东等）覆盖</td><td style="text-align:right">0省</td><td style="text-align:right">通常排名前3大区</td><td><span class="tag red">优先拓展🔥</span></td></tr>
+        <tr><td>华中（湖南/江西）覆盖</td><td style="text-align:right">仅湖北1省</td><td style="text-align:right">通常3-4省连片</td><td><span class="tag orange">待补全</span></td></tr>
+        <tr><td>每省经销商密度</td><td style="text-align:right">~2.2家/省</td><td style="text-align:right">健康值 5-8家/省</td><td><span class="tag orange">单省渗透薄</span></td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:#9ba3b5;margin-top:8px">注：TOP2集中度高受上海心意食光单客户影响；每省密度偏低说明现有省份仍有招商空间，不必急于扩省</div>
+  </div>
 </div>
 <div class="footer">数据来源：吉客云销售单明细账 &nbsp;|&nbsp; 合同台账：飞书线下记录（线下记录-授权书/证明关系）&nbsp;|&nbsp; 更新于 2026-06-15</div>
 
