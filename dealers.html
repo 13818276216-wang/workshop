@@ -303,8 +303,21 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
         <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#6a8a68;margin-bottom:3px"><span>流通批发</span><span>7.4万 (7.7%)</span></div><div class="bar-wrap"><div class="bar-fill" style="width:7.7%;background:#a8d0a8"></div></div></div>
         <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#6a8a68;margin-bottom:3px"><span>即时零售</span><span>3.6万 (3.7%)</span></div><div class="bar-wrap"><div class="bar-fill" style="width:3.7%;background:#c8e4c8"></div></div></div>
       </div>
+      <!-- 行业对标 -->
+      <div style="margin-top:20px;padding:14px 16px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0">
+        <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:10px;letter-spacing:0.5px">行业渠道占比对标（参考卫龙/劲仔/甘源/双汇）</div>
+        <table style="font-size:12px">
+          <thead><tr><th>渠道</th><th style="text-align:right">袋鼠先生</th><th style="text-align:right">行业均值</th><th style="text-align:right">差距</th><th>优先级</th></tr></thead>
+          <tbody>
+            <tr><td>KA大卖场/商超</td><td style="text-align:right">25.6%</td><td style="text-align:right">~33%</td><td style="text-align:right;color:#cf1322">-7%</td><td><span class="tag orange">待提升</span></td></tr>
+            <tr><td>CVS便利店</td><td style="text-align:right">3.7%</td><td style="text-align:right">~8%</td><td style="text-align:right;color:#cf1322">-4%</td><td><span class="tag red">优先拓展🔥</span></td></tr>
+            <tr><td>流通批发</td><td style="text-align:right">7.7%</td><td style="text-align:right">~29%</td><td style="text-align:right;color:#cf1322">-21%</td><td><span class="tag orange">待提升</span></td></tr>
+            <tr><td>特通渠道</td><td style="text-align:right;font-weight:700;color:#cf1322">62.9%</td><td style="text-align:right">~13%</td><td style="text-align:right;color:#cf1322">+50%</td><td><span class="tag red">集中度过高⚠️</span></td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px;color:#9ba3b5;margin-top:8px">注：行业均值参考卫龙美味、劲仔食品、甘源食品、双汇发展年报数据估算；特通高占比主要由上海心意食光单客户贡献</div>
+      </div>
     </div>
-    <!-- 省份TOP8 -->
     <div>
       <div style="font-size:13px;font-weight:600;color:#666;margin-bottom:12px">省份分布（前8省，金额+毛利率）</div>
       <table>
