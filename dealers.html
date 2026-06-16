@@ -507,30 +507,34 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
     });
     var chart = echarts.init(document.getElementById('chinaMapChart'));
     chart.setOption({
+      backgroundColor: '#f4f6f9',
       tooltip: {
         trigger: 'item',
         formatter: function(p){ return p.name + (p.value > 0 ? '：' + p.value + '家经销商' : '：暂未覆盖'); }
       },
       visualMap: {
         show: false,
-        min: 0, max: 5,
-        inRange: { color: ['#e8ecf2', '#e05810'] }
+        pieces: [
+          { min: 1, color: '#e05810' },
+          { value: 0, color: '#c8d0de' }
+        ]
       },
       series: [{
         type: 'map',
         map: 'china',
         roam: false,
-        zoom: 1.15,
+        zoom: 1.18,
         label: {
           show: true,
-          fontSize: 11,
+          fontSize: 12,
+          fontWeight: '600',
           formatter: function(p){ return p.value > 0 ? p.name + '\n' + p.value + '家' : p.name; },
-          color: function(p){ return p.data && p.data.value > 0 ? '#fff' : '#aab'; }
+          color: function(p){ return p.data && p.data.value > 0 ? '#fff' : '#8a93a8'; }
         },
-        itemStyle: { borderColor: '#fff', borderWidth: 1 },
+        itemStyle: { borderColor: '#fff', borderWidth: 1.5 },
         emphasis: {
-          label: { show: true, color: '#fff' },
-          itemStyle: { areaColor: '#c04800' }
+          label: { show: true, color: '#fff', fontWeight: '700' },
+          itemStyle: { areaColor: '#b83d00' }
         },
         data: mapData
       }]
