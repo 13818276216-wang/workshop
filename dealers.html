@@ -486,122 +486,58 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
 <!-- 五、省份覆盖 -->
 <div id="sec6" class="panel">
   <div class="section-title">省份覆盖全览（14省 · 空白市场分析）</div>
-  <!-- 中国地图 -->
+  <!-- 中国地图 ECharts -->
   <div style="margin-bottom:20px">
-    <div style="font-size:12px;color:#9ba3b5;margin-bottom:10px">橙色：已覆盖省份（标注经销商家数）&nbsp;|&nbsp; 灰色：空白市场</div>
-    <div style="position:relative;width:100%;max-width:700px;margin:0 auto">
-      <svg id="china-map" viewBox="0 0 900 700" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <style>
-            .prov { stroke:#fff; stroke-width:1.5; cursor:default; transition:opacity 0.2s; }
-            .prov.active { fill:#e05810; }
-            .prov.blank { fill:#dde3ed; }
-            .prov:hover { opacity:0.8; }
-            .prov-label { font-size:11px; fill:#fff; font-weight:700; text-anchor:middle; pointer-events:none; }
-            .prov-label.blank { fill:#9ba3b5; }
-          </style>
-        </defs>
-        <!-- 黑龙江 -->
-        <path class="prov blank" d="M680,40 L740,30 L790,55 L800,90 L780,120 L750,130 L720,115 L700,90 L680,70 Z"/>
-        <text class="prov-label blank" x="740" y="85">黑龙江</text>
-        <!-- 吉林 -->
-        <path class="prov blank" d="M680,120 L720,115 L750,130 L740,155 L710,165 L685,150 Z"/>
-        <text class="prov-label blank" x="715" y="148">吉林</text>
-        <!-- 辽宁 -->
-        <path class="prov blank" d="M640,140 L680,120 L685,150 L710,165 L700,185 L665,195 L640,175 Z"/>
-        <text class="prov-label blank" x="672" y="168">辽宁</text>
-        <!-- 内蒙古 -->
-        <path class="prov blank" d="M360,55 L480,40 L600,50 L680,70 L680,120 L640,140 L600,130 L540,145 L480,135 L420,140 L380,120 L360,90 Z"/>
-        <text class="prov-label blank" x="520" y="100">内蒙古</text>
-        <!-- 新疆 active 1家 -->
-        <path class="prov active" d="M60,60 L200,40 L270,80 L280,150 L240,200 L180,220 L120,200 L70,160 L50,110 Z"/>
-        <text class="prov-label" x="165" y="135">新疆 1家</text>
-        <!-- 西藏 -->
-        <path class="prov blank" d="M120,280 L220,250 L300,260 L340,310 L320,370 L260,400 L180,390 L130,350 Z"/>
-        <text class="prov-label blank" x="225" y="335">西藏</text>
-        <!-- 青海 -->
-        <path class="prov blank" d="M240,200 L320,195 L370,230 L360,280 L300,290 L240,270 L210,240 Z"/>
-        <text class="prov-label blank" x="290" y="250">青海</text>
-        <!-- 甘肃 -->
-        <path class="prov blank" d="M280,150 L380,120 L430,150 L420,200 L380,230 L340,240 L310,220 L280,200 Z"/>
-        <text class="prov-label blank" x="358" y="190">甘肃</text>
-        <!-- 陕西 active 1家 -->
-        <path class="prov active" d="M440,175 L490,165 L510,195 L505,240 L480,270 L450,265 L430,235 L430,200 Z"/>
-        <text class="prov-label" x="470" y="225">陕西 1家</text>
-        <!-- 宁夏 -->
-        <path class="prov blank" d="M400,155 L440,150 L445,175 L430,200 L405,195 L395,175 Z"/>
-        <text class="prov-label blank" x="420" y="178">宁夏</text>
-        <!-- 山西 -->
-        <path class="prov blank" d="M490,130 L530,120 L555,150 L550,185 L525,205 L500,200 L485,175 Z"/>
-        <text class="prov-label blank" x="520" y="168">山西</text>
-        <!-- 河北 active 4家 -->
-        <path class="prov active" d="M530,120 L600,115 L640,140 L630,170 L600,185 L560,190 L535,175 L525,155 Z"/>
-        <text class="prov-label" x="582" y="155">河北 4家</text>
-        <!-- 北京 active 2家 -->
-        <path class="prov active" d="M583,115 L600,115 L605,130 L590,140 L575,133 Z"/>
-        <text class="prov-label" x="590" y="130">京 2家</text>
-        <!-- 天津 -->
-        <path class="prov blank" d="M605,130 L620,128 L622,142 L608,145 Z"/>
-        <text class="prov-label blank" x="613" y="138" style="font-size:9px">津</text>
-        <!-- 山东 active 2家 -->
-        <path class="prov active" d="M560,185 L620,180 L650,200 L645,230 L600,240 L565,225 L550,205 Z"/>
-        <text class="prov-label" x="600" y="213">山东 2家</text>
-        <!-- 河南 active 4家 -->
-        <path class="prov active" d="M490,205 L540,195 L565,220 L560,255 L520,268 L485,258 L470,235 Z"/>
-        <text class="prov-label" x="517" y="235">河南 4家</text>
-        <!-- 江苏 active 3家 -->
-        <path class="prov active" d="M590,225 L640,220 L655,250 L640,275 L610,280 L590,260 Z"/>
-        <text class="prov-label" x="622" y="252">江苏 3家</text>
-        <!-- 安徽 active 1家 -->
-        <path class="prov active" d="M545,255 L590,255 L600,280 L590,310 L560,320 L535,305 L525,278 Z"/>
-        <text class="prov-label" x="562" y="290">安徽 1家</text>
-        <!-- 湖北 active 1家 -->
-        <path class="prov active" d="M470,270 L530,265 L545,290 L535,320 L500,330 L465,320 L450,298 Z"/>
-        <text class="prov-label" x="497" y="300">湖北 1家</text>
-        <!-- 湖南 -->
-        <path class="prov blank" d="M460,325 L505,330 L520,355 L510,390 L480,405 L450,395 L435,368 L440,340 Z"/>
-        <text class="prov-label blank" x="478" y="368">湖南</text>
-        <!-- 江西 -->
-        <path class="prov blank" d="M545,310 L585,305 L600,335 L590,370 L560,380 L535,360 L530,335 Z"/>
-        <text class="prov-label blank" x="562" y="345">江西</text>
-        <!-- 浙江 active 5家 -->
-        <path class="prov active" d="M605,280 L645,275 L660,305 L645,330 L615,335 L598,315 Z"/>
-        <text class="prov-label" x="630" y="308">浙江 5家</text>
-        <!-- 上海 active 2家 -->
-        <path class="prov active" d="M648,270 L665,268 L668,282 L652,285 Z"/>
-        <text class="prov-label" x="658" y="280" style="font-size:9px">沪 2</text>
-        <!-- 福建 active 2家 -->
-        <path class="prov active" d="M592,340 L628,335 L645,360 L635,390 L605,395 L585,372 Z"/>
-        <text class="prov-label" x="614" y="368">福建 2家</text>
-        <!-- 广东 -->
-        <path class="prov blank" d="M480,405 L535,395 L570,400 L590,425 L575,455 L535,465 L495,455 L470,430 Z"/>
-        <text class="prov-label blank" x="530" y="432">广东</text>
-        <!-- 广西 -->
-        <path class="prov blank" d="M430,420 L475,410 L500,430 L495,460 L460,475 L425,465 L410,445 Z"/>
-        <text class="prov-label blank" x="453" y="445">广西</text>
-        <!-- 贵州 active 1家 -->
-        <path class="prov active" d="M420,368 L460,360 L480,380 L475,410 L440,420 L415,408 L405,388 Z"/>
-        <text class="prov-label" x="443" y="393">贵州 1家</text>
-        <!-- 四川 -->
-        <path class="prov blank" d="M310,240 L395,225 L435,240 L450,270 L445,320 L410,340 L365,335 L320,310 L295,280 Z"/>
-        <text class="prov-label blank" x="375" y="288">四川</text>
-        <!-- 重庆 active 2家 -->
-        <path class="prov active" d="M450,270 L490,268 L498,295 L483,315 L455,315 L442,295 Z"/>
-        <text class="prov-label" x="470" y="295">渝 2家</text>
-        <!-- 云南 -->
-        <path class="prov blank" d="M300,365 L360,345 L410,365 L415,410 L385,445 L340,455 L295,430 L280,400 Z"/>
-        <text class="prov-label blank" x="350" y="405">云南</text>
-        <!-- 海南 -->
-        <path class="prov blank" d="M490,490 L520,485 L530,505 L515,520 L490,515 Z"/>
-        <text class="prov-label blank" x="510" y="505">海南</text>
-        <!-- 图例 -->
-        <rect x="30" y="600" width="14" height="14" rx="3" fill="#e05810"/>
-        <text x="50" y="612" style="font-size:12px;fill:#555">已覆盖（14省）</text>
-        <rect x="160" y="600" width="14" height="14" rx="3" fill="#dde3ed"/>
-        <text x="180" y="612" style="font-size:12px;fill:#9ba3b5">空白市场</text>
-      </svg>
-    </div>
+    <div style="font-size:12px;color:#9ba3b5;margin-bottom:6px">橙色：已覆盖省份（标注经销商家数）&nbsp;|&nbsp; 灰色：空白市场</div>
+    <div id="chinaMapChart" style="width:100%;height:480px"></div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+  <script>
+  (function(){
+    var covered = {
+      '河南': 4, '上海': 2, '浙江': 5, '河北': 4, '贵州': 1,
+      '江苏': 3, '北京': 2, '重庆': 2, '陕西': 1, '安徽': 1,
+      '湖北': 1, '福建': 2, '山东': 2, '新疆': 1
+    };
+    var mapData = [];
+    var allProvs = ['北京','天津','河北','山西','内蒙古','辽宁','吉林','黑龙江','上海','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','广西','海南','重庆','四川','贵州','云南','西藏','陕西','甘肃','青海','宁夏','新疆','香港','澳门','台湾'];
+    allProvs.forEach(function(p){
+      mapData.push({ name: p, value: covered[p] || 0 });
+    });
+    var chart = echarts.init(document.getElementById('chinaMapChart'));
+    chart.setOption({
+      tooltip: {
+        trigger: 'item',
+        formatter: function(p){ return p.name + (p.value > 0 ? '：' + p.value + '家经销商' : '：暂未覆盖'); }
+      },
+      visualMap: {
+        show: false,
+        min: 0, max: 5,
+        inRange: { color: ['#e8ecf2', '#e05810'] }
+      },
+      series: [{
+        type: 'map',
+        map: 'china',
+        roam: false,
+        zoom: 1.15,
+        label: {
+          show: true,
+          fontSize: 11,
+          formatter: function(p){ return p.value > 0 ? p.name + '\n' + p.value + '家' : p.name; },
+          color: function(p){ return p.data && p.data.value > 0 ? '#fff' : '#aab'; }
+        },
+        itemStyle: { borderColor: '#fff', borderWidth: 1 },
+        emphasis: {
+          label: { show: true, color: '#fff' },
+          itemStyle: { areaColor: '#c04800' }
+        },
+        data: mapData
+      }]
+    });
+    window.addEventListener('resize', function(){ chart.resize(); });
+  })();
+  </script>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
     <div>
       <table>
