@@ -530,7 +530,7 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
     });
     var chart = echarts.init(document.getElementById('chinaMapChart'));
     chart.setOption({
-      backgroundColor: '#f4f6f9',
+      backgroundColor: '#ffffff',
       tooltip: {
         trigger: 'item',
         formatter: function(p){ return p.name + (p.value > 0 ? '：' + p.value + '家经销商' : '：暂未覆盖'); }
@@ -539,7 +539,7 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
         show: false,
         pieces: [
           { min: 1, color: '#e05810' },
-          { value: 0, color: '#c8d0de' }
+          { value: 0, color: '#b8c4d8' }
         ]
       },
       series: [{
@@ -566,17 +566,15 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
       }]
     });
     window.addEventListener('resize', function(){ chart.resize(); });
-    // 隐藏南海诸岛小框
+    // 隐藏南海诸岛小框 - 用白色遮罩覆盖
     setTimeout(function(){
-      var el = document.querySelector('#chinaMapChart [data-name="南海诸岛"]');
-      if (el) el.style.display = 'none';
-      // ECharts 5 南海框是独立 group，通过坐标位置隐藏
-      var svgRects = document.querySelectorAll('#chinaMapChart rect');
-      svgRects.forEach(function(r){
-        var x = parseFloat(r.getAttribute('x')||0), y = parseFloat(r.getAttribute('y')||0);
-        if (x > 400 && y > 300) r.parentElement.style.display = 'none';
-      });
-    }, 800);
+      var container = document.getElementById('chinaMapChart');
+      if (!container) return;
+      var mask = document.createElement('div');
+      mask.style.cssText = 'position:absolute;right:0;bottom:0;width:90px;height:80px;background:#ffffff;z-index:10;';
+      container.style.position = 'relative';
+      container.appendChild(mask);
+    }, 500);
   })();
   </script>
   <!-- 下方：对标 + 拓展建议合并一块 -->
