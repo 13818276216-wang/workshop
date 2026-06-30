@@ -78,27 +78,33 @@ tbody tr:hover { background: #fafbfc; }
 .dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 70px; }
 
 @media (max-width: 768px) {
-  body { padding: 10px; }
-  .header { margin-bottom: 12px; }
-  .header h1 { font-size: 18px; }
+  body { padding: 8px; }
+  .header { margin-bottom: 10px; }
+  .header h1 { font-size: 16px; }
+  .header .sub { font-size: 11px; }
   .overview-row { grid-template-columns: 1fr; gap: 8px; }
-  .overview-card { padding: 14px 16px; }
+  .overview-card { padding: 12px 14px; }
+  .overview-card .oc-label { font-size: 12px; margin-bottom: 8px; }
+  .overview-card .oc-row .oc-title { font-size: 11px; }
   .overview-card .oc-row .oc-val { font-size: 18px; }
-  .overview-card .oc-row .oc-val.oc-sub { font-size: 14px; }
+  .overview-card .oc-row .oc-val.oc-sub { font-size: 13px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
-  .charts-row, .tables-row { grid-template-columns: 1fr; }
-  .table-box { padding: 12px; }
+  .charts-row, .tables-row { grid-template-columns: 1fr; gap: 10px; }
+  .table-box { padding: 10px; }
   .table-box h3 { font-size: 13px; }
   table { font-size: 11px; }
-  thead th, tbody td { padding: 5px 4px; }
-  .tab-btn { padding: 4px 10px; font-size: 11px; }
-  .dealer-table th:nth-child(2), .dealer-table td:nth-child(2) { min-width: 120px; }
+  thead th, tbody td { padding: 5px 3px; }
+  .tab-btn { padding: 3px 8px; font-size: 11px; }
+  .table-note { font-size: 10px; }
+  .dealer-table th:nth-child(2), .dealer-table td:nth-child(2) { min-width: 100px; }
   .dealer-table th:nth-child(3), .dealer-table td:nth-child(3),
   .dealer-table th:nth-child(4), .dealer-table td:nth-child(4),
-  .dealer-table th:nth-child(5), .dealer-table td:nth-child(5) { width: 50px; }
-  .dealer-table th:nth-child(6), .dealer-table td:nth-child(6) { width: 80px; }
-  .dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 55px; }
-  .dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 55px; }
+  .dealer-table th:nth-child(5), .dealer-table td:nth-child(5) { width: 45px; }
+  .dealer-table th:nth-child(6), .dealer-table td:nth-child(6) { width: 55px; }
+  .dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 50px; }
+  .dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 50px; }
+  .subtotal-row td { font-size: 11px; }
+  .footer { font-size: 10px; padding: 12px 0; }
 }
 </style>
 </head>
@@ -196,7 +202,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     <div class="overview-card oc-card-1">
       <div class="oc-label">📊 累计</div>
       <div class="oc-metrics">
-        <div class="oc-row"><span class="oc-title">销售金额</span><span class="oc-val">${fmt(d.total_sales)}</span></div>
+        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${fmt(d.total_sales)}</span></div>
         <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val">${fmt(d.total_profit)}</span></div>
         <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val">${d.total_profit_rate}%</span></div>
       </div>
@@ -204,7 +210,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     <div class="overview-card oc-card-2">
       <div class="oc-label">📅 本月（${d.current_month}）</div>
       <div class="oc-metrics">
-        <div class="oc-row"><span class="oc-title">销售金额</span><span class="oc-val">${fmt(d.month_sales)}</span></div>
+        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${fmt(d.month_sales)}</span></div>
         <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val">${fmt(d.month_profit)}</span></div>
         <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val">${d.month_profit_rate}%</span></div>
       </div>
@@ -212,7 +218,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     <div class="overview-card oc-card-3">
       <div class="oc-label">📌 今日（${d.today_key ? d.today_key.substring(5) : '-'}）</div>
       <div class="oc-metrics">
-        <div class="oc-row"><span class="oc-title">新增订单金额</span><span class="oc-val">${fmt(d.today_sales)}</span></div>
+        <div class="oc-row"><span class="oc-title">新增订单</span><span class="oc-val">${fmt(d.today_sales)}</span></div>
         <div class="oc-row"><span class="oc-title">订单数</span><span class="oc-val oc-sub">${d.today_orders} 笔</span></div>
       </div>
     </div>
