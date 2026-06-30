@@ -13,21 +13,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header h1 span { color: #e85d04; }
 .header .sub { font-size: 13px; color: #888; }
 .cards { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-/* ===== 总览卡片（四色块 2x2） ===== */
-.overview-row { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.overview-card { border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); color: #fff; }
-.overview-card .oc-label { font-size: 13px; opacity: 0.85; margin-bottom: 10px; font-weight: 600; }
-.overview-card .oc-block { margin-bottom: 8px; }
-.overview-card .oc-block:last-child { margin-bottom: 0; }
-.overview-card .oc-block-title { font-size: 10px; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
-.overview-card .oc-row { display: flex; justify-content: space-between; align-items: baseline; }
-.overview-card .oc-row .oc-title { font-size: 12px; opacity: 0.72; }
-.overview-card .oc-row .oc-val { font-size: 17px; font-weight: 700; }
-.overview-card .oc-row .oc-val-sm { font-size: 14px; font-weight: 600; opacity: 0.9; }
-.oc-card-1 { background: linear-gradient(135deg, #e85d04, #f48c06); }
-.oc-card-2 { background: linear-gradient(135deg, #2d6a4f, #40916c); }
-.oc-card-3 { background: linear-gradient(135deg, #3a0ca3, #7209b7); }
-.oc-card-4 { background: linear-gradient(135deg, #1a1a2e, #2d2d44); }
+/* ===== 总览卡片（8色块：本年一行 + 本月一行） ===== */
+.overview-section { max-width: 900px; margin: 0 auto 12px; }
+.overview-section .section-label { font-size: 12px; color: #aaa; margin-bottom: 6px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.overview-section .section-label::after { content: ''; flex: 1; height: 1px; background: #eee; }
+.overview-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.overview-card { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: relative; overflow: hidden; }
+.overview-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.oc-y-1::before, .oc-m-1::before { background: #e85d04; }
+.oc-y-2::before, .oc-m-2::before { background: #2d6a4f; }
+.oc-y-3::before, .oc-m-3::before { background: #3a0ca3; }
+.oc-y-4::before, .oc-m-4::before { background: #1a1a2e; }
+.overview-card .oc-label { font-size: 11px; color: #888; margin-bottom: 4px; font-weight: 500; }
+.overview-card .oc-main { font-size: 24px; font-weight: 700; color: #1a1a2e; line-height: 1; margin-bottom: 6px; }
+.overview-card .oc-sub { font-size: 12px; color: #666; display: flex; justify-content: space-between; }
+.overview-card .oc-sub span { color: #999; font-size: 11px; }
 
 /* ===== 原卡片（后续模块用） ===== */
 .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
@@ -90,13 +90,13 @@ tbody tr:hover { background: #fafbfc; }
   .header { margin-bottom: 10px; }
   .header h1 { font-size: 16px; }
   .header .sub { font-size: 11px; }
-  .overview-row { grid-template-columns: 1fr; gap: 8px; }
-  .overview-card { padding: 12px 14px; }
-  .overview-card .oc-label { font-size: 12px; margin-bottom: 8px; }
-  .overview-card .oc-block-title { font-size: 9px; }
-  .overview-card .oc-row .oc-title { font-size: 11px; }
-  .overview-card .oc-row .oc-val { font-size: 15px; }
-  .overview-card .oc-row .oc-val-sm { font-size: 12px; }
+  .overview-section { margin-bottom: 8px; }
+  .overview-section .section-label { font-size: 10px; }
+  .overview-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .overview-card { padding: 10px 12px; }
+  .overview-card .oc-main { font-size: 18px; }
+  .overview-card .oc-sub { font-size: 10px; }
+  .overview-card .oc-sub span { font-size: 10px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-row, .tables-row { grid-template-columns: 1fr; gap: 10px; }
   .table-box { padding: 10px; }
@@ -215,31 +215,30 @@ function profitColor(rate) {
 fetch('dashboard_data.json').then(r => r.json()).then(d => {
   document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
 
-  // ===== 总览卡片（四色块 2x2） =====
-  function renderCard(id, label, ov) {
-    const ys = fmtW(ov.year_sales), yp = fmtW(ov.year_profit), yr = ov.year_rate;
-    const ms = fmtW(ov.month_sales), mp = fmtW(ov.month_profit), mr = ov.month_rate;
-    return `<div class="overview-card oc-card-${id}">
+  // ===== 总览卡片（8色块：本年一行 + 本月一行，每行渠道||经销商分开） =====
+  const cats = [
+    { label: '线下累计', key: 'overview_all', id: 1 },
+    { label: '零食渠道', key: 'overview_snack', id: 2 },
+    { label: '闪电仓', key: 'overview_lightning', id: 3 },
+    { label: '经销商', key: 'overview_dealer', id: 4 },
+  ];
+  function makeCard(id, label, sales, profit, rate, prefix) {
+    return `<div class="overview-card ${prefix}-${id}">
       <div class="oc-label">${label}</div>
-      <div class="oc-block">
-        <div class="oc-block-title">本年累计</div>
-        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${ys}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val oc-val-sm">${yp}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val oc-val-sm">${yr}%</span></div>
-      </div>
-      <div class="oc-block">
-        <div class="oc-block-title">本月累计</div>
-        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${ms}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val oc-val-sm">${mp}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val oc-val-sm">${mr}%</span></div>
+      <div class="oc-main">${fmtW(sales)}</div>
+      <div class="oc-sub">
+        <span>毛利 ${fmtW(profit)}</span>
+        <span>毛利率 ${rate}%</span>
       </div>
     </div>`;
   }
   document.getElementById('overview').innerHTML =
-    renderCard(1, '线下累计', d.overview_all) +
-    renderCard(2, '零食渠道', d.overview_snack) +
-    renderCard(3, '闪电仓', d.overview_lightning) +
-    renderCard(4, '经销商', d.overview_dealer);
+    '<div class="overview-section"><div class="section-label">本年累计</div><div class="overview-row">' +
+    cats.map(c => makeCard(c.id, c.label, d[c.key].year_sales, d[c.key].year_profit, d[c.key].year_rate, 'oc-y')).join('') +
+    '</div></div>' +
+    '<div class="overview-section"><div class="section-label">本月累计</div><div class="overview-row">' +
+    cats.map(c => makeCard(c.id, c.label, d[c.key].month_sales, d[c.key].month_profit, d[c.key].month_rate, 'oc-m')).join('') +
+    '</div></div>';
 
   document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
   document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
