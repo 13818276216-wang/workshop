@@ -30,7 +30,7 @@ def is_mingmang(name):
     """判断是否鸣鸣很忙体系客户"""
     if not name:
         return False
-    keywords = ['零食很忙', '赵一鸣', '鸣忙', '很忙零食']
+    keywords = ['零食很忙', '赵一鸣', '鸣忙', '很忙零食', '长沙晓忙']
     for kw in keywords:
         if kw in str(name):
             return True
@@ -89,8 +89,35 @@ except Exception as e:
     manager_map = {}
 
 # ========== 解析数据 ==========
+from datetime import datetime as dt
+now = dt.now()
+current_month_calc = now.strftime('%Y-%m')
+
+# 先扫一遍所有时间戳，找出数据里的最后一天作为 today_key_calc
+channel_idx = col['销售渠道']  # 经销商维度：销售渠道
+cname_idx = col['客户名称']     # 仅用于剔除鸣鸣很忙
+pname_idx = col['货品名称']
+qty_idx = col['数量']
+price_idx = col['单价']
+amt_idx = col['金额']
+profit_idx = col['毛利']
+time_idx = col['货品级发货时间']
+order_idx = col['订单编号']
+
+all_times = []
+for r in filtered:
+    ts = str(r[time_idx] or '').strip()
+    if ts:
+        all_times.append(ts[:10])
+all_days = sorted(set(all_times))
+today_key_calc = all_days[-1] if all_days else ''
+
+print(f"数据最后日期: {today_key_calc}, 当月: {current_month_calc}")
+
 dealers = {}       # dealer_name -> {销售额, 毛利, 订单数, 负责人}
-managers = {}      # manager_name -> {销售额, 毛利, 订单数, 负责的客户数}
+managers = {}      # manager_name -> {销售额, 毛利, 订单数, 负责的客户数, 今日销售额, 本月销售额, 本月毛利}
+managers_today = defaultdict(float)  # manager_name -> 今日销售额
+managers_month = defaultdict(lambda: {'sales': 0, 'profit': 0})  # manager_name -> 本月销售额/毛利
 products = {}      # product_name -> {销售额, 销量, 毛利, 单价列表}
 monthly = defaultdict(lambda: {'sales': 0, 'profit': 0, 'orders': set()})
 daily = defaultdict(lambda: {'sales': 0, 'orders': set()}) # 增加日维度
@@ -100,6 +127,7 @@ total_orders = set()
 total_dealers = set()
 
 cname_idx = col['客户名称']
+channel_idx = col['销售渠道']
 pname_idx = col['货品名称']
 qty_idx = col['数量']
 price_idx = col['单价']
@@ -109,7 +137,8 @@ time_idx = col['货品级发货时间']
 order_idx = col['订单编号']
 
 for r in filtered:
-    cname = str(r[cname_idx] or '').strip()
+    channel = str(r[channel_idx] or '').strip()  # 经销商维度：销售渠道
+    cname = str(r[cname_idx] or '').strip()       # 客户名称，用于经理映射
     pname = str(r[pname_idx] or '').strip()
     qty = float(r[qty_idx] or 0)
     price = float(r[price_idx] or 0)
@@ -123,21 +152,29 @@ for r in filtered:
 
     pos_qty = max(qty, 0)
     pos_amt = max(amt, 0)
+    # 修正异常客户名称：黄辉15257127683 按销售渠道映射回正常客户名称
+    cname_fix_map = {
+        '杭州品强电子商务有限公司': '杭州品强电子商务有限公司',
+        '西安海盒鲜食品有限公司': '西安海盒鲜食品有限公司',
+        '郑州锦门商贸有限公司': '郑州锦门商贸有限公司',
+    }
+    if cname == '黄辉15257127683':
+        cname = cname_fix_map.get(channel, cname)
     manager = manager_map.get(cname, '未知')
     
-    if cname not in dealers:
-        dealers[cname] = {'sales': 0, 'profit': 0, 'orders': set(), 'qty': 0, 'manager': manager}
-    dealers[cname]['sales'] += pos_amt
-    dealers[cname]['profit'] += profit
-    dealers[cname]['orders'].add(order_id)
-    dealers[cname]['qty'] += pos_qty
+    if channel not in dealers:
+        dealers[channel] = {'sales': 0, 'profit': 0, 'orders': set(), 'qty': 0, 'manager': manager}
+    dealers[channel]['sales'] += pos_amt
+    dealers[channel]['profit'] += profit
+    dealers[channel]['orders'].add(order_id)
+    dealers[channel]['qty'] += pos_qty
 
     if manager not in managers:
         managers[manager] = {'sales': 0, 'profit': 0, 'orders': set(), 'clients': set()}
     managers[manager]['sales'] += pos_amt
     managers[manager]['profit'] += profit
     managers[manager]['orders'].add(order_id)
-    managers[manager]['clients'].add(cname)
+    managers[manager]['clients'].add(channel)
 
     if pname not in products:
         products[pname] = {'sales': 0, 'qty': 0, 'profit': 0, 'prices': [], 'dealers': set()}
@@ -146,7 +183,7 @@ for r in filtered:
     products[pname]['profit'] += profit
     if price > 0:
         products[pname]['prices'].append(price)
-    products[pname]['dealers'].add(cname)
+    products[pname]['dealers'].add(channel)
 
     if time_str:
         try:
@@ -158,13 +195,20 @@ for r in filtered:
             day_key = time_str[:10] # YYYY-MM-DD
             daily[day_key]['sales'] += pos_amt
             daily[day_key]['orders'].add(order_id)
+            
+            # 按省区经理维度：今日 + 本月
+            if day_key == today_key_calc:
+                managers_today[manager] += pos_amt
+            if month_key == current_month_calc:
+                managers_month[manager]['sales'] += pos_amt
+                managers_month[manager]['profit'] += profit
         except:
             pass
 
     total_sales += pos_amt
     total_profit += profit
     total_orders.add(order_id)
-    total_dealers.add(cname)
+    total_dealers.add(channel)
 
 print(f"省区经理数: {len(managers)}")
 
@@ -179,10 +223,20 @@ product_ranking = sorted(products.items(), key=lambda x: x[1]['sales'], reverse=
 manager_ranking = sorted(managers.items(), key=lambda x: x[1]['sales'], reverse=True)
 
 # ========== 输出JSON数据给HTML用 ==========
+# 本月数据
+now = datetime.now()
+current_month = now.strftime('%Y-%m')
+month_sales = round(monthly[current_month]['sales'], 2) if current_month in monthly else 0
+month_profit = round(monthly[current_month]['profit'], 2) if current_month in monthly else 0
+month_orders = len(monthly[current_month]['orders']) if current_month in monthly else 0
+month_profit_rate = round(month_profit/month_sales*100, 1) if month_sales > 0 else 0
+
+# 今日数据（数据里最后一天）
 today_sales = 0
 today_orders = 0
+today_key = ''
 if len(day_keys) > 0:
-    today_key = day_keys[-1] # 以数据里最后一天作为"今日"
+    today_key = day_keys[-1]
     today_sales = daily[today_key]['sales']
     today_orders = len(daily[today_key]['orders'])
 
@@ -190,11 +244,18 @@ data = {
     'update_time': datetime.now().strftime('%Y-%m-%d %H:%M'),
     'total_sales': round(total_sales, 2),
     'total_profit': round(total_profit, 2),
+    'total_profit_rate': round(total_profit/total_sales*100, 1) if total_sales > 0 else 0,
     'total_dealers': len(total_dealers),
     'total_orders': len(total_orders),
     'total_rows': len(filtered),
-    'profit_rate': round(total_profit/total_sales*100, 1) if total_sales > 0 else 0,
-    'today_key': today_key if len(day_keys) > 0 else '',
+    # 本月
+    'current_month': current_month,
+    'month_sales': month_sales,
+    'month_profit': month_profit,
+    'month_orders': month_orders,
+    'month_profit_rate': month_profit_rate,
+    # 今日
+    'today_key': today_key,
     'today_sales': round(today_sales, 2),
     'today_orders': today_orders,
     'months': month_keys,
@@ -211,10 +272,13 @@ data = {
     } for d in recent_days],
     'managers': [{
         'name': m[0],
+        'clients': len(m[1]['clients']),
+        'today_sales': round(managers_today.get(m[0], 0), 2),
+        'month_sales': round(managers_month[m[0]]['sales'], 2),
+        'month_profit': round(managers_month[m[0]]['profit'], 2),
         'sales': round(m[1]['sales'], 2),
         'profit': round(m[1]['profit'], 2),
         'orders': len(m[1]['orders']),
-        'clients': len(m[1]['clients']),
         'profit_rate': round(m[1]['profit']/m[1]['sales']*100, 1) if m[1]['sales'] > 0 else 0
     } for m in manager_ranking],
     'dealers': [{

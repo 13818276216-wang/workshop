@@ -13,6 +13,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header h1 span { color: #e85d04; }
 .header .sub { font-size: 13px; color: #888; }
 .cards { max-width: 1200px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+/* ===== 总览卡片 ===== */
+.overview-row { max-width: 1200px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.overview-card { border-radius: 12px; padding: 22px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); color: #fff; }
+.overview-card .oc-label { font-size: 13px; opacity: 0.85; margin-bottom: 12px; font-weight: 500; }
+.overview-card .oc-metrics { display: flex; flex-direction: column; gap: 6px; }
+.overview-card .oc-row { display: flex; justify-content: space-between; align-items: baseline; }
+.overview-card .oc-row .oc-title { font-size: 13px; opacity: 0.75; }
+.overview-card .oc-row .oc-val { font-size: 22px; font-weight: 700; }
+.overview-card .oc-row .oc-val.oc-sub { font-size: 16px; font-weight: 600; opacity: 0.9; }
+.oc-card-1 { background: linear-gradient(135deg, #e85d04, #f48c06); }
+.oc-card-2 { background: linear-gradient(135deg, #2d6a4f, #40916c); }
+.oc-card-3 { background: linear-gradient(135deg, #1a1a2e, #2d2d44); }
+
+/* ===== 原卡片（后续模块用） ===== */
 .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 .card .label { font-size: 12px; color: #888; margin-bottom: 4px; }
 .card .value { font-size: 26px; font-weight: 700; color: #1a1a2e; }
@@ -61,16 +75,14 @@ tbody tr:hover { background: #fafbfc; }
   <div class="sub" id="updateTime">加载中...</div>
 </div>
 
-<div class="cards" id="cards"></div>
+<div class="overview-row" id="overview"></div>
 
-<div class="charts-row">
-  <div class="chart-box">
-    <h3>📈 月度销售趋势</h3>
-    <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
-  </div>
-  <div class="chart-box">
-    <h3>💰 月度毛利趋势</h3>
-    <div class="chart-wrap"><canvas id="profitChart"></canvas></div>
+<div class="tables-row" id="provinceSection">
+  <div class="table-box" style="grid-column: 1 / -1;">
+    <h3>🏢 分省区经营 <span class="count" id="provinceCount"></span></h3>
+    <div class="table-wrap"><table><thead><tr>
+      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">今日新增订单金额(万元)</th><th class="num">本月累计销售金额(万元)</th><th class="num">本年累计销售金额(万元)</th><th class="num">本年累计毛利额(万元)</th><th class="num">本年累计毛利率</th>
+    </tr></thead><tbody id="provinceTable"></tbody></table></div>
   </div>
 </div>
 
@@ -78,14 +90,8 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box">
     <h3>🏪 经销商 Top 10 <span class="count" id="dealerCount"></span></h3>
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>经销商</th><th>省区经理</th><th class="num">销售额</th><th class="num">毛利</th><th class="num">毛利率</th><th class="num">订单</th>
+      <th>#</th><th>经销商</th><th>省区经理</th><th class="num">销售额(万元)</th><th class="num">毛利(万元)</th><th class="num">毛利率</th><th class="num">订单</th>
     </tr></thead><tbody id="dealerTable"></tbody></table></div>
-  </div>
-  <div class="table-box">
-    <h3>👤 省区经理战报 <span class="count" id="managerCount"></span></h3>
-    <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>省区经理</th><th class="num">负责客户</th><th class="num">销售额</th><th class="num">毛利</th><th class="num">毛利率</th>
-    </tr></thead><tbody id="managerTable"></tbody></table></div>
   </div>
 </div>
 
@@ -93,7 +99,7 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box" style="grid-column: 1 / -1;">
     <h3>📦 产品 Top 10 <span class="count" id="productCount"></span></h3>
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>产品</th><th class="num">销量</th><th class="num">均价</th><th class="num">销售额</th><th class="num">毛利率</th>
+      <th>#</th><th>产品</th><th class="num">销量</th><th class="num">均价</th><th class="num">销售额(万元)</th><th class="num">毛利率</th>
     </tr></thead><tbody id="productTable"></tbody></table></div>
   </div>
 </div>
@@ -110,6 +116,10 @@ function fmtMoney(n) {
   if (Math.abs(n) >= 10000) return (n/10000).toFixed(1) + '万';
   return n.toLocaleString();
 }
+function fmtW(n) {
+  // 万元数值，不写"万"字
+  return (n / 10000).toFixed(2);
+}
 function pctClass(v) {
   if (v >= 20) return 'pct-up';
   if (v >= 0) return 'pct-neutral';
@@ -125,15 +135,35 @@ function rankClass(i) {
 fetch('dashboard_data.json').then(r => r.json()).then(d => {
   document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
 
-  // 卡片
-  document.getElementById('cards').innerHTML = `
-    <div class="card"><div class="label">累计销售额</div><div class="value gold">${fmt(d.total_sales)}</div><div class="sub-text">${d.total_rows} 笔订单</div></div>
-    <div class="card"><div class="label">累计毛利</div><div class="value">${fmt(d.total_profit)}</div><div class="sub-text">毛利率 ${d.profit_rate}%</div></div>
-    <div class="card"><div class="label">最新日销售额 (${d.today_key.substring(5)})</div><div class="value gold">${fmt(d.today_sales)}</div><div class="sub-text">今日 ${d.today_orders} 个订单</div></div>
-    <div class="card"><div class="label">活跃经销商</div><div class="value">${d.total_dealers}</div><div class="sub-text">由 ${d.managers.length} 位省区经理跟进</div></div>
+  // ===== 总览卡片（三色块） =====
+  document.getElementById('overview').innerHTML = `
+    <div class="overview-card oc-card-1">
+      <div class="oc-label">📊 累计</div>
+      <div class="oc-metrics">
+        <div class="oc-row"><span class="oc-title">销售金额</span><span class="oc-val">${fmt(d.total_sales)}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val">${fmt(d.total_profit)}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val">${d.total_profit_rate}%</span></div>
+      </div>
+    </div>
+    <div class="overview-card oc-card-2">
+      <div class="oc-label">📅 本月（${d.current_month}）</div>
+      <div class="oc-metrics">
+        <div class="oc-row"><span class="oc-title">销售金额</span><span class="oc-val">${fmt(d.month_sales)}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val">${fmt(d.month_profit)}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val">${d.month_profit_rate}%</span></div>
+      </div>
+    </div>
+    <div class="overview-card oc-card-3">
+      <div class="oc-label">📌 今日（${d.today_key ? d.today_key.substring(5) : '-'}）</div>
+      <div class="oc-metrics">
+        <div class="oc-row"><span class="oc-title">新增订单金额</span><span class="oc-val">${fmt(d.today_sales)}</span></div>
+        <div class="oc-row"><span class="oc-title">订单数</span><span class="oc-val oc-sub">${d.today_orders} 笔</span></div>
+      </div>
+    </div>
   `;
 
-  document.getElementById('dealerCount').textContent = `· 共 ${d.dealers.length} 家`;
+  document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
+  document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
   document.getElementById('productCount').textContent = `· 共 ${d.products.length} 个`;
 
   // 经销商表
@@ -143,26 +173,43 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
       <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
       <td>${v.name}</td>
       <td>${v.manager || '-'}</td>
-      <td class="num">${fmtMoney(v.sales)}</td>
-      <td class="num">${fmtMoney(v.profit)}</td>
+      <td class="num">${fmtW(v.sales)}</td>
+      <td class="num">${fmtW(v.profit)}</td>
       <td class="num ${pctClass(pr)}">${pr}%</td>
       <td class="num">${v.orders}</td>
     </tr>`;
   }).join('');
 
-  // 省区经理表
-  document.getElementById('managerCount').textContent = `· 共 ${d.managers.length} 人`;
-  document.getElementById('managerTable').innerHTML = d.managers.map((v, i) => {
-    const pr = v.profit_rate;
+  // 分省区经营表（含总计行）
+  const manRows = d.managers.map((v, i) => {
     return `<tr>
       <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
       <td><strong>${v.name}</strong></td>
       <td class="num">${v.clients} 家</td>
-      <td class="num">${fmtMoney(v.sales)}</td>
-      <td class="num">${fmtMoney(v.profit)}</td>
-      <td class="num ${pctClass(pr)}">${pr}%</td>
+      <td class="num">${fmtW(v.today_sales)}</td>
+      <td class="num">${fmtW(v.month_sales)}</td>
+      <td class="num">${fmtW(v.sales)}</td>
+      <td class="num">${fmtW(v.profit)}</td>
+      <td class="num ${pctClass(v.profit_rate)}">${v.profit_rate}%</td>
     </tr>`;
   }).join('');
+  // 总计
+  const totalToday = d.managers.reduce((s, v) => s + v.today_sales, 0);
+  const totalMonth = d.managers.reduce((s, v) => s + v.month_sales, 0);
+  const totalYear = d.managers.reduce((s, v) => s + v.sales, 0);
+  const totalProfit = d.managers.reduce((s, v) => s + v.profit, 0);
+  const totalRate = totalYear > 0 ? (totalProfit / totalYear * 100).toFixed(1) : 0;
+  const totalClients = d.managers.reduce((s, v) => s + v.clients, 0);
+  const totalRow = `<tr style="font-weight:700;background:#f8f9fb;">
+    <td></td><td>合计</td>
+    <td class="num">${totalClients} 家</td>
+    <td class="num">${fmtW(totalToday)}</td>
+    <td class="num">${fmtW(totalMonth)}</td>
+    <td class="num">${fmtW(totalYear)}</td>
+    <td class="num">${fmtW(totalProfit)}</td>
+    <td class="num ${pctClass(totalRate)}">${totalRate}%</td>
+  </tr>`;
+  document.getElementById('provinceTable').innerHTML = manRows + totalRow;
 
   // 产品表
   document.getElementById('productTable').innerHTML = d.products.slice(0, 10).map((v, i) => {
@@ -172,54 +219,11 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
       <td>${v.name}</td>
       <td class="num">${v.qty.toLocaleString()}</td>
       <td class="num">¥${v.avg_price}</td>
-      <td class="num">${fmtMoney(v.sales)}</td>
+      <td class="num">${fmtW(v.sales)}</td>
       <td class="num ${pctClass(pr)}">${pr}%</td>
     </tr>`;
   }).join('');
 
-  // 月度销售趋势图
-  new Chart(document.getElementById('salesChart'), {
-    type: 'bar',
-    data: {
-      labels: d.monthly_data.map(v => v.month),
-      datasets: [{
-        label: '销售额',
-        data: d.monthly_data.map(v => v.sales),
-        backgroundColor: ['#e85d04', '#f48c06', '#faa307', '#ffba08'],
-        borderRadius: 4
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true, ticks: { callback: v => fmt(v) } },
-        x: { grid: { display: false } }
-      }
-    }
-  });
-
-  // 月度毛利趋势图
-  new Chart(document.getElementById('profitChart'), {
-    type: 'bar',
-    data: {
-      labels: d.monthly_data.map(v => v.month),
-      datasets: [{
-        label: '毛利',
-        data: d.monthly_data.map(v => v.profit),
-        backgroundColor: ['#2d6a4f', '#40916c', '#52b788', '#74c69d'],
-        borderRadius: 4
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true, ticks: { callback: v => fmt(v) } },
-        x: { grid: { display: false } }
-      }
-    }
-  });
 });
 </script>
 </body>
