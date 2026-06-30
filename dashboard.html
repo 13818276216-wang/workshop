@@ -59,6 +59,13 @@ tbody tr:hover { background: #fafbfc; }
 .dot-yellow { background: #ffb703; }
 .dot-red { background: #e63946; }
 .footer { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 11px; color: #bbb; padding: 20px 0; }
+/* ===== 选项卡 ===== */
+.tab-bar { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.tab-btn { padding: 5px 14px; border-radius: 6px; border: 1px solid #ddd; background: #fff; color: #666; font-size: 12px; cursor: pointer; transition: all 0.15s; }
+.tab-btn:hover { border-color: #e85d04; color: #e85d04; }
+.tab-btn.active { background: #e85d04; border-color: #e85d04; color: #fff; }
+.subtotal-row { font-weight: 600; background: #fff9f5; }
+.subtotal-row td { border-top: 2px solid #e85d04; }
 @media (max-width: 768px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-row, .tables-row { grid-template-columns: 1fr; }
@@ -89,6 +96,7 @@ tbody tr:hover { background: #fafbfc; }
 <div class="tables-row">
   <div class="table-box" style="grid-column: 1 / -1;">
     <h3>🏪 分经销商明细 <span class="count" id="dealerCount"></span></h3>
+    <div class="tab-bar" id="dealerTabs"></div>
     <div class="table-wrap"><table><thead><tr>
       <th>#</th><th>经销商</th><th class="num">今日订单额(万元)</th><th class="num">本月订单额(万元)</th><th class="num">累计订单额(万元)</th><th class="num">累计毛利率</th><th>首批订单月</th><th>省区经理</th>
     </tr></thead><tbody id="dealerTable"></tbody></table></div>
@@ -165,6 +173,65 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
   document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
   document.getElementById('productCount').textContent = `· 共 ${d.products.length} 个`;
+
+  // ===== 分经销商明细选项卡 =====
+  let currentDealerTab = '全部';
+  const managerNames = d.managers.map(m => m.name);
+
+  function renderDealerTabs() {
+    const tabs = ['全部', ...managerNames];
+    document.getElementById('dealerTabs').innerHTML = tabs.map(t =>
+      `<button class="tab-btn${t === currentDealerTab ? ' active' : ''}" onclick="switchDealerTab('${t}')">${t}</button>`
+    ).join('');
+  }
+
+  function renderDealerTable() {
+    let filtered;
+    if (currentDealerTab === '全部') {
+      filtered = d.dealers;
+    } else {
+      filtered = d.dealers.filter(v => v.manager === currentDealerTab);
+    }
+    const rows = filtered.map((v, i) => {
+      const pr = v.profit_rate;
+      return `<tr>
+        <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+        <td>${v.name}</td>
+        <td class="num">${fmtW(v.today_sales)}</td>
+        <td class="num">${fmtW(v.month_sales)}</td>
+        <td class="num">${fmtW(v.sales)}</td>
+        <td class="num ${pctClass(pr)}">${pr}%</td>
+        <td>${v.first_month || '-'}</td>
+        <td>${v.manager || '-'}</td>
+      </tr>`;
+    });
+    // 小计行
+    if (filtered.length > 0) {
+      const st = filtered.reduce((s, v) => s + v.today_sales, 0);
+      const sm = filtered.reduce((s, v) => s + v.month_sales, 0);
+      const sy = filtered.reduce((s, v) => s + v.sales, 0);
+      const sp = filtered.reduce((s, v) => s + v.profit, 0);
+      const sr = sy > 0 ? (sp / sy * 100).toFixed(1) : 0;
+      rows.push(`<tr class="subtotal-row">
+        <td></td><td>${currentDealerTab} 小计（${filtered.length}家）</td>
+        <td class="num">${fmtW(st)}</td>
+        <td class="num">${fmtW(sm)}</td>
+        <td class="num">${fmtW(sy)}</td>
+        <td class="num ${pctClass(parseFloat(sr))}">${sr}%</td>
+        <td></td><td></td>
+      </tr>`);
+    }
+    document.getElementById('dealerTable').innerHTML = rows.join('');
+  }
+
+  window.switchDealerTab = function(tab) {
+    currentDealerTab = tab;
+    renderDealerTabs();
+    renderDealerTable();
+  };
+
+  renderDealerTabs();
+  renderDealerTable();
 
   // 分经销商明细表（全量，按累计订单额降序）
   document.getElementById('dealerTable').innerHTML = d.dealers.map((v, i) => {
