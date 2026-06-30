@@ -13,22 +13,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header h1 span { color: #e85d04; }
 .header .sub { font-size: 13px; color: #888; }
 .cards { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-/* ===== 总览卡片（两个色块：本年上 + 本月下，标题+4卡片上下结构） ===== */
+/* ===== 总览表格（两个色块：本年上 + 本月下，标题+表格上下结构） ===== */
 .overview-section { max-width: 900px; margin: 0 auto 8px; background: #fff7f0; border-radius: 10px; padding: 10px 10px 10px 66px; border: 1px solid #fde8d8; }
 .overview-section .section-label { font-size: 12px; color: #999; font-weight: 600; margin-bottom: 6px; }
-.overview-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.overview-card { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: relative; overflow: hidden; }
-.overview-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-.oc-y-1::before, .oc-m-1::before { background: #e85d04; }
-.oc-y-2::before, .oc-m-2::before { background: #2d6a4f; }
-.oc-y-3::before, .oc-m-3::before { background: #3a0ca3; }
-.oc-y-4::before, .oc-m-4::before { background: #1a1a2e; }
-.overview-card .oc-label { font-size: 11px; color: #888; margin-bottom: 4px; font-weight: 500; }
-.overview-card .oc-main { font-size: 22px; font-weight: 700; color: #1a1a2e; line-height: 1; margin-bottom: 6px; }
-.overview-card .oc-sub { font-size: 11px; color: #666; display: flex; flex-direction: column; gap: 2px; }
-.overview-card .oc-sub-row { display: flex; justify-content: space-between; align-items: center; }
-.overview-card .oc-sub-row span:first-child { color: #999; font-size: 10px; }
-.overview-card .oc-sub-row span:last-child { color: #333; font-size: 11px; font-weight: 500; }
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.overview-table th { background: none; color: #aaa; font-weight: 500; padding: 4px 8px; text-align: right; border-bottom: 1px solid #fde8d8; white-space: nowrap; }
+.overview-table th:first-child { text-align: left; }
+.overview-table td { padding: 7px 8px; border-bottom: 1px solid #fef5ed; white-space: nowrap; }
+.overview-table td:first-child { font-weight: 600; color: #333; }
+.overview-table td:nth-child(2) { font-weight: 700; color: #1a1a2e; }
+.overview-table .num { text-align: right; font-family: inherit; }
+.overview-table tr:last-child td { border-bottom: none; }
+.overview-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.od-1 { background: #e85d04; }
+.od-2 { background: #2d6a4f; }
+.od-3 { background: #3a0ca3; }
+.od-4 { background: #1a1a2e; }
 /* 模块标题 */
 .section-title { max-width: 900px; margin: 0 auto 8px; font-size: 16px; font-weight: 700; color: #1a1a2e; padding: 10px 0 6px 66px; position: relative; }
 .section-title::after { content: ''; position: absolute; bottom: 0; left: 66px; right: 0; height: 2px; background: #e85d04; }
@@ -96,10 +96,8 @@ tbody tr:hover { background: #fafbfc; }
   .header h1 { font-size: 16px; }
   .header .sub { font-size: 11px; }
   .overview-section { margin-bottom: 8px; padding: 8px 8px 8px 10px; }
-  .overview-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .overview-card { padding: 10px 12px; }
-  .overview-card .oc-main { font-size: 18px; }
-  .overview-card .oc-sub { font-size: 10px; gap: 1px; }
+  .overview-table { font-size: 11px; }
+  .overview-table th, .overview-table td { padding: 4px 5px; }
   .overview-card .oc-sub-row span:first-child { font-size: 9px; }
   .overview-card .oc-sub-row span:last-child { font-size: 10px; }
   .dealer-analysis { padding: 10px 14px; flex-direction: column; align-items: flex-start; }
@@ -236,23 +234,26 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     { label: '闪电仓', key: 'overview_lightning', id: 3 },
     { label: '经销商', key: 'overview_dealer', id: 4 },
   ];
-  function makeCard(id, label, sales, profit, rate, prefix) {
-    return `<div class="overview-card ${prefix}-${id}">
-      <div class="oc-label">${label}</div>
-      <div class="oc-main">${fmtW(sales)}</div>
-      <div class="oc-sub">
-        <div class="oc-sub-row"><span>毛利</span><span>${fmtW(profit)}</span></div>
-        <div class="oc-sub-row"><span>毛利率</span><span>${rate}%</span></div>
-      </div>
-    </div>`;
+  function renderTable(period, cats, getSales, getProfit, getRate) {
+    const rows = cats.map((c, i) =>
+      `<tr>` +
+      `<td><span class="overview-dot od-${i+1}"></span>${c.label}</td>` +
+      `<td class="num">${fmtW(getSales(c))}</td>` +
+      `<td class="num">${fmtW(getProfit(c))}</td>` +
+      `<td class="num">${getRate(c)}%</td>` +
+      `</tr>`
+    ).join('');
+    return `<div class="overview-section">` +
+      `<div class="section-label">${period}</div>` +
+      `<table class="overview-table"><thead><tr><th>类别</th><th class="num">销售</th><th class="num">毛利</th><th class="num">毛利率</th></tr></thead>` +
+      `<tbody>${rows}</tbody></table>` +
+      `</div>`;
   }
   document.getElementById('overview').innerHTML =
-    '<div class="overview-section"><div class="section-label">本年累计</div><div class="overview-row">' +
-    cats.map(c => makeCard(c.id, c.label, d[c.key].year_sales, d[c.key].year_profit, d[c.key].year_rate, 'oc-y')).join('') +
-    '</div></div>' +
-    '<div class="overview-section"><div class="section-label">本月累计</div><div class="overview-row">' +
-    cats.map(c => makeCard(c.id, c.label, d[c.key].month_sales, d[c.key].month_profit, d[c.key].month_rate, 'oc-m')).join('') +
-    '</div></div>';
+    renderTable('本年累计', cats,
+      c => d[c.key].year_sales, c => d[c.key].year_profit, c => d[c.key].year_rate) +
+    renderTable('本月累计', cats,
+      c => d[c.key].month_sales, c => d[c.key].month_profit, c => d[c.key].month_rate);
 
   document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
   document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
