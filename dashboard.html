@@ -14,8 +14,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header .sub { font-size: 13px; color: #888; }
 .cards { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 /* ===== 总览卡片（8色块：本年一行 + 本月一行，标签与卡片同行） ===== */
-.overview-section { max-width: 900px; margin: 0 auto 12px; display: flex; align-items: center; gap: 10px; }
-.overview-section + .overview-section { margin-top: 6px; padding-top: 12px; border-top: 1px solid #e8e8e8; }
+.overview-section { max-width: 900px; margin: 0 auto 8px; display: flex; align-items: center; gap: 10px; }
+.overview-section + .overview-section { margin-top: 4px; padding-top: 8px; border-top: 1px solid #e8e8e8; }
 .overview-section .section-label { width: 56px; font-size: 12px; color: #888; font-weight: 600; flex-shrink: 0; text-align: center; line-height: 1.4; }
 .overview-row { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .overview-card { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: relative; overflow: hidden; }
@@ -26,11 +26,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .oc-y-4::before, .oc-m-4::before { background: #1a1a2e; }
 .overview-card .oc-label { font-size: 11px; color: #888; margin-bottom: 4px; font-weight: 500; }
 .overview-card .oc-main { font-size: 22px; font-weight: 700; color: #1a1a2e; line-height: 1; margin-bottom: 6px; }
-.overview-card .oc-sub { font-size: 12px; color: #666; display: flex; justify-content: space-between; }
-.overview-card .oc-sub span { color: #999; font-size: 11px; }
+.overview-card .oc-sub { font-size: 11px; color: #666; display: flex; flex-direction: column; gap: 2px; }
+.overview-card .oc-sub-row { display: flex; justify-content: space-between; align-items: center; }
+.overview-card .oc-sub-row span:first-child { color: #999; font-size: 10px; }
+.overview-card .oc-sub-row span:last-child { color: #333; font-size: 11px; font-weight: 500; }
 /* 模块标题 */
-.section-title { max-width: 900px; margin: 0 auto 10px; font-size: 16px; font-weight: 700; color: #1a1a2e; padding: 14px 0 6px 66px; border-bottom: 2px solid #e85d04; }
-.sub-title { max-width: 900px; margin: 0 auto 10px; font-size: 14px; font-weight: 600; color: #333; padding: 10px 0 4px 66px; }
+.section-title { max-width: 900px; margin: 0 auto 8px; font-size: 16px; font-weight: 700; color: #1a1a2e; padding: 10px 0 6px 66px; position: relative; }
+.section-title::after { content: ''; position: absolute; bottom: 0; left: 66px; right: 0; height: 2px; background: #e85d04; }
+.sub-title { max-width: 900px; margin: 0 auto 8px; font-size: 14px; font-weight: 600; color: #333; padding: 8px 0 4px 66px; }
 
 /* ===== 原卡片（后续模块用） ===== */
 .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
@@ -98,8 +101,9 @@ tbody tr:hover { background: #fafbfc; }
   .overview-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .overview-card { padding: 10px 12px; }
   .overview-card .oc-main { font-size: 18px; }
-  .overview-card .oc-sub { font-size: 10px; }
-  .overview-card .oc-sub span { font-size: 10px; }
+  .overview-card .oc-sub { font-size: 10px; gap: 1px; }
+  .overview-card .oc-sub-row span:first-child { font-size: 9px; }
+  .overview-card .oc-sub-row span:last-child { font-size: 10px; }
   .dealer-analysis { padding: 10px 14px; flex-direction: column; align-items: flex-start; }
   .dealer-analysis .da-items { gap: 14px; }
   .dealer-analysis .da-item .da-val { font-size: 13px; }
@@ -237,8 +241,8 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
       <div class="oc-label">${label}</div>
       <div class="oc-main">${fmtW(sales)}</div>
       <div class="oc-sub">
-        <span>毛利 ${fmtW(profit)}</span>
-        <span>毛利率 ${rate}%</span>
+        <div class="oc-sub-row"><span>毛利</span><span>${fmtW(profit)}</span></div>
+        <div class="oc-sub-row"><span>毛利率</span><span>${rate}%</span></div>
       </div>
     </div>`;
   }
