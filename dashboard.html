@@ -54,6 +54,11 @@ tbody tr:hover { background: #fafbfc; }
 .pct-up { color: #2d6a4f; }
 .pct-down { color: #d00000; }
 .pct-neutral { color: #999; }
+/* 环比颜色：涨红跌绿（中国习惯） */
+.ratio-up { color: #d00000; font-weight: 600; }
+.ratio-flat { color: #666; }
+.ratio-down { color: #2d6a4f; font-weight: 600; }
+.ratio-new { color: #e85d04; font-weight: 600; }
 .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
 .dot-green { background: #52b788; }
 .dot-yellow { background: #ffb703; }
@@ -124,9 +129,9 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box" style="grid-column: 1 / -1;">
     <h3>🏢 分省区经营 <span class="count" id="provinceCount"></span></h3>
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">今日</th><th class="num">本月</th><th class="num">本年</th><th class="num">毛利额</th><th class="num">毛利率</th>
+      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">今日</th><th class="num">本月</th><th class="num">环比</th><th class="num">本年</th>
     </tr></thead><tbody id="provinceTable"></tbody></table></div>
-    <div class="table-note">金额单位：万元</div>
+    <div class="table-note">金额单位：万元 · 环比 = 本月同日累计 vs 上月同日累计</div>
   </div>
 </div>
 
@@ -168,6 +173,14 @@ function fmtW(n) {
   // 万元数值，不写"万"字；0直接显示0
   if (n === 0 || n === null || n === undefined) return '0';
   return (n / 10000).toFixed(2);
+}
+function fmtRatio(monthSales, prevMonthSales) {
+  // 环比增长率：本月同日累计 vs 上月同日累计
+  if (!prevMonthSales || prevMonthSales === 0) return { text: '新增', cls: 'ratio-new' };
+  const ratio = ((monthSales - prevMonthSales) / prevMonthSales * 100);
+  const sign = ratio >= 0 ? '+' : '';
+  let cls = ratio >= 10 ? 'ratio-up' : (ratio >= 0 ? 'ratio-flat' : 'ratio-down');
+  return { text: `${sign}${ratio.toFixed(1)}%`, cls: cls };
 }
 function pctClass(v) {
   if (v >= 20) return 'pct-up';
@@ -290,32 +303,31 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
 
   // 分省区经营表（含总计行）
   const manRows = d.managers.map((v, i) => {
+    const ratio = fmtRatio(v.month_sales, v.prev_month_sales);
     return `<tr>
       <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
       <td><strong>${v.name}</strong></td>
       <td class="num">${v.clients} 家</td>
       <td class="num">${fmtW(v.today_sales)}</td>
       <td class="num">${fmtW(v.month_sales)}</td>
+      <td class="num ${ratio.cls}">${ratio.text}</td>
       <td class="num">${fmtW(v.sales)}</td>
-      <td class="num">${fmtW(v.profit)}</td>
-      <td class="num ${pctClass(v.profit_rate)}">${v.profit_rate}%</td>
     </tr>`;
   }).join('');
   // 总计
   const totalToday = d.managers.reduce((s, v) => s + v.today_sales, 0);
   const totalMonth = d.managers.reduce((s, v) => s + v.month_sales, 0);
+  const totalPrevMonth = d.managers.reduce((s, v) => s + v.prev_month_sales, 0);
   const totalYear = d.managers.reduce((s, v) => s + v.sales, 0);
-  const totalProfit = d.managers.reduce((s, v) => s + v.profit, 0);
-  const totalRate = totalYear > 0 ? (totalProfit / totalYear * 100).toFixed(1) : 0;
   const totalClients = d.managers.reduce((s, v) => s + v.clients, 0);
+  const totalRatio = fmtRatio(totalMonth, totalPrevMonth);
   const totalRow = `<tr style="font-weight:700;background:#f8f9fb;">
     <td></td><td>合计</td>
     <td class="num">${totalClients} 家</td>
     <td class="num">${fmtW(totalToday)}</td>
     <td class="num">${fmtW(totalMonth)}</td>
+    <td class="num ${totalRatio.cls}">${totalRatio.text}</td>
     <td class="num">${fmtW(totalYear)}</td>
-    <td class="num">${fmtW(totalProfit)}</td>
-    <td class="num ${pctClass(totalRate)}">${totalRate}%</td>
   </tr>`;
   document.getElementById('provinceTable').innerHTML = manRows + totalRow;
 

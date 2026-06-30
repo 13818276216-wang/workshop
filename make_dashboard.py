@@ -112,15 +112,26 @@ for r in filtered:
 all_days = sorted(set(all_times))
 today_key_calc = all_days[-1] if all_days else ''
 
-print(f"数据最后日期: {today_key_calc}, 当月: {current_month_calc}")
+# 计算上月同日：取 today_key_calc 的 day 部分，拼上月
+today_parts = today_key_calc.split('-') if today_key_calc else []
+prev_month_same_day = ''
+if len(today_parts) == 3:
+    y, m, d = int(today_parts[0]), int(today_parts[1]), today_parts[2]
+    if m == 1:
+        prev_month_same_day = f'{y-1}-12-{d}'
+    else:
+        prev_month_same_day = f'{y}-{m-1:02d}-{d}'
+
+print(f"数据最后日期: {today_key_calc}, 当月: {current_month_calc}, 上月同日: {prev_month_same_day}")
 
 dealers = {}       # dealer_name -> {销售额, 毛利, 订单数, 负责人}
 dealers_today = defaultdict(float)  # dealer_name -> 今日销售额
 dealers_month = defaultdict(float)  # dealer_name -> 本月销售额
 dealers_first_month = {}  # dealer_name -> 首批订单月(YYYY-MM)
-managers = {}      # manager_name -> {销售额, 毛利, 订单数, 负责的客户数, 今日销售额, 本月销售额, 本月毛利}
+managers = {}      # manager_name -> {销售额, 毛利, 订单数, 负责的客户数, 今日销售额, 本月销售额, 本月毛利, 上月同日累计销售额}
 managers_today = defaultdict(float)  # manager_name -> 今日销售额
 managers_month = defaultdict(lambda: {'sales': 0, 'profit': 0})  # manager_name -> 本月销售额/毛利
+managers_prev_month_same_day = defaultdict(float)  # manager_name -> 上月同日累计销售额
 products = {}      # product_name -> {销售额, 销量, 毛利, 单价列表, 本月销售额}
 products_month = defaultdict(float)  # product_name -> 本月销售额
 monthly = defaultdict(lambda: {'sales': 0, 'profit': 0, 'orders': set()})
@@ -206,12 +217,15 @@ for r in filtered:
             daily[day_key]['sales'] += pos_amt
             daily[day_key]['orders'].add(order_id)
             
-            # 按省区经理维度：今日 + 本月
+            # 按省区经理维度：今日 + 本月 + 上月同日累计
             if day_key == today_key_calc:
                 managers_today[manager] += pos_amt
             if month_key == current_month_calc:
                 managers_month[manager]['sales'] += pos_amt
                 managers_month[manager]['profit'] += profit
+            # 上月同日累计：上月同一天及之前的该月数据
+            if prev_month_same_day and time_str[:10] <= prev_month_same_day and time_str[:7] == prev_month_same_day[:7]:
+                managers_prev_month_same_day[manager] += pos_amt
             
             # 按经销商维度：今日 + 本月 + 首批月
             if day_key == today_key_calc:
@@ -308,11 +322,9 @@ data = {
         'clients': len(m[1]['clients']),
         'today_sales': round(managers_today.get(m[0], 0), 2),
         'month_sales': round(managers_month[m[0]]['sales'], 2),
-        'month_profit': round(managers_month[m[0]]['profit'], 2),
+        'prev_month_sales': round(managers_prev_month_same_day.get(m[0], 0), 2),
         'sales': round(m[1]['sales'], 2),
-        'profit': round(m[1]['profit'], 2),
         'orders': len(m[1]['orders']),
-        'profit_rate': round(m[1]['profit']/m[1]['sales']*100, 1) if m[1]['sales'] > 0 else 0
     } for m in manager_ranking],
     'dealers': [{
         'name': d[0],

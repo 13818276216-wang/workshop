@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-06-30 15:10",
+  "update_time": "2026-06-30 15:12",
   "total_sales": 1215298.79,
   "total_profit": 291193.79,
   "total_profit_rate": 24.0,
@@ -117,44 +117,36 @@
       "clients": 21,
       "today_sales": 32719.6,
       "month_sales": 341657.6,
-      "month_profit": 78579.28,
+      "prev_month_sales": 216381.0,
       "sales": 626442.1,
-      "profit": 139606.41,
-      "orders": 82,
-      "profit_rate": 22.3
+      "orders": 82
     },
     {
       "name": "刘鲁宁",
       "clients": 7,
       "today_sales": 0.0,
       "month_sales": 116527.89,
-      "month_profit": 18668.91,
+      "prev_month_sales": 207823.6,
       "sales": 396754.29,
-      "profit": 101572.5,
-      "orders": 88,
-      "profit_rate": 25.6
+      "orders": 88
     },
     {
       "name": "朱晓亮",
       "clients": 11,
       "today_sales": 10800.0,
       "month_sales": 69064.0,
-      "month_profit": 18535.85,
+      "prev_month_sales": 66515.2,
       "sales": 156502.4,
-      "profit": 40998.63,
-      "orders": 20,
-      "profit_rate": 26.2
+      "orders": 20
     },
     {
       "name": "张雪梅",
       "clients": 1,
       "today_sales": 0,
       "month_sales": 6600.0,
-      "month_profit": 1665.0,
+      "prev_month_sales": 21650.0,
       "sales": 35600.0,
-      "profit": 9016.25,
-      "orders": 7,
-      "profit_rate": 25.3
+      "orders": 7
     }
   ],
   "dealers": [
