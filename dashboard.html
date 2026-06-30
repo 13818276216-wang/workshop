@@ -78,10 +78,19 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box">
     <h3>🏪 经销商 Top 10 <span class="count" id="dealerCount"></span></h3>
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>经销商</th><th class="num">销售额</th><th class="num">毛利</th><th class="num">毛利率</th><th class="num">订单</th>
+      <th>#</th><th>经销商</th><th>省区经理</th><th class="num">销售额</th><th class="num">毛利</th><th class="num">毛利率</th><th class="num">订单</th>
     </tr></thead><tbody id="dealerTable"></tbody></table></div>
   </div>
   <div class="table-box">
+    <h3>👤 省区经理战报 <span class="count" id="managerCount"></span></h3>
+    <div class="table-wrap"><table><thead><tr>
+      <th>#</th><th>省区经理</th><th class="num">负责客户</th><th class="num">销售额</th><th class="num">毛利</th><th class="num">毛利率</th>
+    </tr></thead><tbody id="managerTable"></tbody></table></div>
+  </div>
+</div>
+
+<div class="tables-row">
+  <div class="table-box" style="grid-column: 1 / -1;">
     <h3>📦 产品 Top 10 <span class="count" id="productCount"></span></h3>
     <div class="table-wrap"><table><thead><tr>
       <th>#</th><th>产品</th><th class="num">销量</th><th class="num">均价</th><th class="num">销售额</th><th class="num">毛利率</th>
@@ -120,8 +129,8 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   document.getElementById('cards').innerHTML = `
     <div class="card"><div class="label">累计销售额</div><div class="value gold">${fmt(d.total_sales)}</div><div class="sub-text">${d.total_rows} 笔订单</div></div>
     <div class="card"><div class="label">累计毛利</div><div class="value">${fmt(d.total_profit)}</div><div class="sub-text">毛利率 ${d.profit_rate}%</div></div>
-    <div class="card"><div class="label">活跃经销商</div><div class="value">${d.total_dealers}</div><div class="sub-text">${d.total_orders} 个订单</div></div>
-    <div class="card"><div class="label">覆盖月份</div><div class="value">${d.months.length}</div><div class="sub-text">${d.months.join(' · ')}</div></div>
+    <div class="card"><div class="label">最新日销售额 (${d.today_key.substring(5)})</div><div class="value gold">${fmt(d.today_sales)}</div><div class="sub-text">今日 ${d.today_orders} 个订单</div></div>
+    <div class="card"><div class="label">活跃经销商</div><div class="value">${d.total_dealers}</div><div class="sub-text">由 ${d.managers.length} 位省区经理跟进</div></div>
   `;
 
   document.getElementById('dealerCount').textContent = `· 共 ${d.dealers.length} 家`;
@@ -133,10 +142,25 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     return `<tr>
       <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
       <td>${v.name}</td>
+      <td>${v.manager || '-'}</td>
       <td class="num">${fmtMoney(v.sales)}</td>
       <td class="num">${fmtMoney(v.profit)}</td>
       <td class="num ${pctClass(pr)}">${pr}%</td>
       <td class="num">${v.orders}</td>
+    </tr>`;
+  }).join('');
+
+  // 省区经理表
+  document.getElementById('managerCount').textContent = `· 共 ${d.managers.length} 人`;
+  document.getElementById('managerTable').innerHTML = d.managers.map((v, i) => {
+    const pr = v.profit_rate;
+    return `<tr>
+      <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+      <td><strong>${v.name}</strong></td>
+      <td class="num">${v.clients} 家</td>
+      <td class="num">${fmtMoney(v.sales)}</td>
+      <td class="num">${fmtMoney(v.profit)}</td>
+      <td class="num ${pctClass(pr)}">${pr}%</td>
     </tr>`;
   }).join('');
 
