@@ -7,7 +7,9 @@ from collections import defaultdict
 from datetime import datetime
 
 # ========== 读数据 ==========
-path = r"E:\袋鼠先生\袋鼠先生MeOS\你的MeOS\01_我的资料\订单与交付\销售单明细账.xlsx"
+# 数据源：飞书在线表格 https://daixiansheng.feishu.cn/file/Ju6Nb7V7LoEfmPxVVCEcR5WFnZf
+# 先通过 lark-cli drive +download --file-token "Ju6Nb7V7LoEfmPxVVCEcR5WFnZf" --output "sales_detail.feishu.xlsx" --as user 下载
+path = r"E:\袋鼠先生\sales_detail.feishu.xlsx"
 wb = openpyxl.load_workbook(path, data_only=True)
 ws = wb.active
 
