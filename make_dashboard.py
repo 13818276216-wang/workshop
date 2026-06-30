@@ -115,6 +115,9 @@ today_key_calc = all_days[-1] if all_days else ''
 print(f"数据最后日期: {today_key_calc}, 当月: {current_month_calc}")
 
 dealers = {}       # dealer_name -> {销售额, 毛利, 订单数, 负责人}
+dealers_today = defaultdict(float)  # dealer_name -> 今日销售额
+dealers_month = defaultdict(float)  # dealer_name -> 本月销售额
+dealers_first_month = {}  # dealer_name -> 首批订单月(YYYY-MM)
 managers = {}      # manager_name -> {销售额, 毛利, 订单数, 负责的客户数, 今日销售额, 本月销售额, 本月毛利}
 managers_today = defaultdict(float)  # manager_name -> 今日销售额
 managers_month = defaultdict(lambda: {'sales': 0, 'profit': 0})  # manager_name -> 本月销售额/毛利
@@ -202,6 +205,15 @@ for r in filtered:
             if month_key == current_month_calc:
                 managers_month[manager]['sales'] += pos_amt
                 managers_month[manager]['profit'] += profit
+            
+            # 按经销商维度：今日 + 本月 + 首批月
+            if day_key == today_key_calc:
+                dealers_today[channel] += pos_amt
+            if month_key == current_month_calc:
+                dealers_month[channel] += pos_amt
+            # 首批订单月（取最早的月份）
+            if channel not in dealers_first_month or month_key < dealers_first_month[channel]:
+                dealers_first_month[channel] = month_key
         except:
             pass
 
@@ -288,7 +300,10 @@ data = {
         'profit': round(d[1]['profit'], 2),
         'orders': len(d[1]['orders']),
         'qty': int(d[1]['qty']),
-        'profit_rate': round(d[1]['profit']/d[1]['sales']*100, 1) if d[1]['sales'] > 0 else 0
+        'profit_rate': round(d[1]['profit']/d[1]['sales']*100, 1) if d[1]['sales'] > 0 else 0,
+        'today_sales': round(dealers_today.get(d[0], 0), 2),
+        'month_sales': round(dealers_month.get(d[0], 0), 2),
+        'first_month': dealers_first_month.get(d[0], '-')
     } for d in dealer_ranking],
     'products': [{
         'name': p[0][:30],  # 截断长名

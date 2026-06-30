@@ -87,10 +87,10 @@ tbody tr:hover { background: #fafbfc; }
 </div>
 
 <div class="tables-row">
-  <div class="table-box">
-    <h3>🏪 经销商 Top 10 <span class="count" id="dealerCount"></span></h3>
+  <div class="table-box" style="grid-column: 1 / -1;">
+    <h3>🏪 分经销商明细 <span class="count" id="dealerCount"></span></h3>
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>经销商</th><th>省区经理</th><th class="num">销售额(万元)</th><th class="num">毛利(万元)</th><th class="num">毛利率</th><th class="num">订单</th>
+      <th>#</th><th>经销商</th><th class="num">今日订单额(万元)</th><th class="num">本月订单额(万元)</th><th class="num">累计订单额(万元)</th><th class="num">累计毛利率</th><th>首批订单月</th><th>省区经理</th>
     </tr></thead><tbody id="dealerTable"></tbody></table></div>
   </div>
 </div>
@@ -166,17 +166,18 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
   document.getElementById('productCount').textContent = `· 共 ${d.products.length} 个`;
 
-  // 经销商表
-  document.getElementById('dealerTable').innerHTML = d.dealers.slice(0, 10).map((v, i) => {
+  // 分经销商明细表（全量，按累计订单额降序）
+  document.getElementById('dealerTable').innerHTML = d.dealers.map((v, i) => {
     const pr = v.profit_rate;
     return `<tr>
       <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
       <td>${v.name}</td>
-      <td>${v.manager || '-'}</td>
+      <td class="num">${fmtW(v.today_sales)}</td>
+      <td class="num">${fmtW(v.month_sales)}</td>
       <td class="num">${fmtW(v.sales)}</td>
-      <td class="num">${fmtW(v.profit)}</td>
       <td class="num ${pctClass(pr)}">${pr}%</td>
-      <td class="num">${v.orders}</td>
+      <td>${v.first_month || '-'}</td>
+      <td>${v.manager || '-'}</td>
     </tr>`;
   }).join('');
 

@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-06-30 14:15",
+  "update_time": "2026-06-30 14:18",
   "total_sales": 1215298.79,
   "total_profit": 291193.79,
   "total_profit_rate": 24.0,
@@ -176,7 +176,10 @@
       "profit": 66391.02,
       "orders": 54,
       "qty": 5777,
-      "profit_rate": 34.7
+      "profit_rate": 34.7,
+      "today_sales": 0,
+      "month_sales": 17955.89,
+      "first_month": "2026-05"
     },
     {
       "name": "郑州艾尼斯商贸有限公司",
@@ -185,7 +188,10 @@
       "profit": 26789.97,
       "orders": 17,
       "qty": 34474,
-      "profit_rate": 22.4
+      "profit_rate": 22.4,
+      "today_sales": 0,
+      "month_sales": 55330.0,
+      "first_month": "2026-05"
     },
     {
       "name": "郑州锦门商贸有限公司",
@@ -194,7 +200,10 @@
       "profit": 14953.48,
       "orders": 10,
       "qty": 5448,
-      "profit_rate": 18.5
+      "profit_rate": 18.5,
+      "today_sales": 2745.6,
+      "month_sales": 11897.6,
+      "first_month": "2026-04"
     },
     {
       "name": "上海鸿召商贸有限公司",
@@ -203,7 +212,10 @@
       "profit": 8602.25,
       "orders": 12,
       "qty": 24500,
-      "profit_rate": 11.3
+      "profit_rate": 11.3,
+      "today_sales": 0,
+      "month_sales": 46328.0,
+      "first_month": "2026-04"
     },
     {
       "name": "无锡无凡食品有限公司",
@@ -212,7 +224,10 @@
       "profit": 4920.0,
       "orders": 5,
       "qty": 7140,
-      "profit_rate": 6.7
+      "profit_rate": 6.7,
+      "today_sales": 0,
+      "month_sales": 40680.0,
+      "first_month": "2026-05"
     },
     {
       "name": "贵州群顺商贸有限公司",
@@ -221,7 +236,10 @@
       "profit": 17236.4,
       "orders": 4,
       "qty": 39160,
-      "profit_rate": 29.9
+      "profit_rate": 29.9,
+      "today_sales": 0,
+      "month_sales": 11200.0,
+      "first_month": "2026-05"
     },
     {
       "name": "北京礼予甄选品牌管理有限公司",
@@ -230,7 +248,10 @@
       "profit": 16368.26,
       "orders": 4,
       "qty": 2128,
-      "profit_rate": 29.3
+      "profit_rate": 29.3,
+      "today_sales": 0,
+      "month_sales": 13140.0,
+      "first_month": "2026-05"
     },
     {
       "name": "河南省廖氏商贸有限公司",
@@ -239,7 +260,10 @@
       "profit": 9210.0,
       "orders": 9,
       "qty": 14900,
-      "profit_rate": 20.7
+      "profit_rate": 20.7,
+      "today_sales": 0,
+      "month_sales": 2250.0,
+      "first_month": "2026-05"
     },
     {
       "name": "北京顺驰兴海商贸有限公司",
@@ -248,7 +272,10 @@
       "profit": 11529.0,
       "orders": 6,
       "qty": 176,
-      "profit_rate": 29.4
+      "profit_rate": 29.4,
+      "today_sales": 1350.0,
+      "month_sales": 39150.0,
+      "first_month": "2026-06"
     },
     {
       "name": "西安海盒鲜食品有限公司",
@@ -257,7 +284,10 @@
       "profit": 9016.25,
       "orders": 7,
       "qty": 7581,
-      "profit_rate": 25.3
+      "profit_rate": 25.3,
+      "today_sales": 0,
+      "month_sales": 6600.0,
+      "first_month": "2026-04"
     },
     {
       "name": "高碑店市昊皓食品经营部",
@@ -266,7 +296,10 @@
       "profit": 9932.0,
       "orders": 3,
       "qty": 143,
-      "profit_rate": 28.3
+      "profit_rate": 28.3,
+      "today_sales": 0,
+      "month_sales": 35100.0,
+      "first_month": "2026-06"
     },
     {
       "name": "四川龙洋亿达供应链管理有限公司",
@@ -275,7 +308,10 @@
       "profit": 1068.8,
       "orders": 11,
       "qty": 334,
-      "profit_rate": 3.2
+      "profit_rate": 3.2,
+      "today_sales": 0,
+      "month_sales": 12200.0,
+      "first_month": "2026-05"
     },
     {
       "name": "合肥绿汇商贸有限公司",
@@ -284,7 +320,10 @@
       "profit": 7150.0,
       "orders": 5,
       "qty": 11000,
-      "profit_rate": 21.7
+      "profit_rate": 21.7,
+      "today_sales": 0,
+      "month_sales": 19800.0,
+      "first_month": "2026-05"
     },
     {
       "name": "杭州贵元食品有限公司",
@@ -293,7 +332,10 @@
       "profit": 7349.6,
       "orders": 3,
       "qty": 10637,
-      "profit_rate": 26.0
+      "profit_rate": 26.0,
+      "today_sales": 0,
+      "month_sales": 6080.0,
+      "first_month": "2026-05"
     },
     {
       "name": "嘉兴友创食品有限公司",
@@ -302,7 +344,10 @@
       "profit": 7360.0,
       "orders": 3,
       "qty": 145,
-      "profit_rate": 26.4
+      "profit_rate": 26.4,
+      "today_sales": 0,
+      "month_sales": 14500.0,
+      "first_month": "2026-05"
     },
     {
       "name": "无锡市大菓林商贸有限公司",
@@ -311,7 +356,10 @@
       "profit": 9500.4,
       "orders": 2,
       "qty": 2860,
-      "profit_rate": 35.9
+      "profit_rate": 35.9,
+      "today_sales": 13520.0,
+      "month_sales": 26480.0,
+      "first_month": "2026-06"
     },
     {
       "name": "温州市图薪鲜科技发展有限公司",
@@ -320,7 +368,10 @@
       "profit": 6127.5,
       "orders": 2,
       "qty": 13750,
-      "profit_rate": 25.3
+      "profit_rate": 25.3,
+      "today_sales": 0,
+      "month_sales": 0,
+      "first_month": "2026-05"
     },
     {
       "name": "重庆蓉渝福食品有限公司",
@@ -329,7 +380,10 @@
       "profit": 3467.5,
       "orders": 2,
       "qty": 6950,
-      "profit_rate": 17.5
+      "profit_rate": 17.5,
+      "today_sales": 0,
+      "month_sales": 19800.0,
+      "first_month": "2026-06"
     },
     {
       "name": "渝北区远瑞食品经营部",
@@ -338,7 +392,10 @@
       "profit": 3506.0,
       "orders": 3,
       "qty": 133,
-      "profit_rate": 18.3
+      "profit_rate": 18.3,
+      "today_sales": 0,
+      "month_sales": 19200.0,
+      "first_month": "2026-06"
     },
     {
       "name": "杭州品强电子商务有限公司",
@@ -347,7 +404,10 @@
       "profit": 4690.1,
       "orders": 3,
       "qty": 7708,
-      "profit_rate": 27.2
+      "profit_rate": 27.2,
+      "today_sales": 0,
+      "month_sales": 0,
+      "first_month": "2026-04"
     },
     {
       "name": "青岛和德发食品供应链管理有限公司",
@@ -356,7 +416,10 @@
       "profit": 1139.26,
       "orders": 3,
       "qty": 8900,
-      "profit_rate": 7.0
+      "profit_rate": 7.0,
+      "today_sales": 0,
+      "month_sales": 16250.0,
+      "first_month": "2026-06"
     },
     {
       "name": "福州众铖贸易有限责任公司",
@@ -365,7 +428,10 @@
       "profit": 4446.0,
       "orders": 1,
       "qty": 10900,
-      "profit_rate": 27.8
+      "profit_rate": 27.8,
+      "today_sales": 0,
+      "month_sales": 16000.0,
+      "first_month": "2026-06"
     },
     {
       "name": "石家庄舶来品商贸有限公司",
@@ -374,7 +440,10 @@
       "profit": 3374.0,
       "orders": 2,
       "qty": 107,
-      "profit_rate": 21.1
+      "profit_rate": 21.1,
+      "today_sales": 0,
+      "month_sales": 8000.0,
+      "first_month": "2026-05"
     },
     {
       "name": "杭州加勒比科技有限公司",
@@ -383,7 +452,10 @@
       "profit": 3968.43,
       "orders": 3,
       "qty": 9068,
-      "profit_rate": 26.0
+      "profit_rate": 26.0,
+      "today_sales": 0,
+      "month_sales": 9684.0,
+      "first_month": "2026-05"
     },
     {
       "name": "沙依巴克区炉院街昌隆食品商行",
@@ -392,7 +464,10 @@
       "profit": 3217.5,
       "orders": 2,
       "qty": 4950,
-      "profit_rate": 21.7
+      "profit_rate": 21.7,
+      "today_sales": 0,
+      "month_sales": 0,
+      "first_month": "2026-05"
     },
     {
       "name": "北京东晟恒丰商贸有限公司",
@@ -401,7 +476,10 @@
       "profit": 4009.2,
       "orders": 5,
       "qty": 445,
-      "profit_rate": 36.6
+      "profit_rate": 36.6,
+      "today_sales": 594.0,
+      "month_sales": 8780.0,
+      "first_month": "2026-05"
     },
     {
       "name": "北京新和百果商贸有限公司",
@@ -410,7 +488,10 @@
       "profit": 4490.0,
       "orders": 2,
       "qty": 35,
-      "profit_rate": 41.5
+      "profit_rate": 41.5,
+      "today_sales": 4580.0,
+      "month_sales": 10820.0,
+      "first_month": "2026-06"
     },
     {
       "name": "济南启豪京商贸有限公司",
@@ -419,7 +500,10 @@
       "profit": 3915.0,
       "orders": 1,
       "qty": 137,
-      "profit_rate": 39.4
+      "profit_rate": 39.4,
+      "today_sales": 9930.0,
+      "month_sales": 9930.0,
+      "first_month": "2026-06"
     },
     {
       "name": "成都蓉渝福食品有限公司",
@@ -428,7 +512,10 @@
       "profit": 1792.5,
       "orders": 1,
       "qty": 3450,
-      "profit_rate": 18.1
+      "profit_rate": 18.1,
+      "today_sales": 0,
+      "month_sales": 9900.0,
+      "first_month": "2026-06"
     },
     {
       "name": "汉川市胖妞商贸有限公司",
@@ -437,7 +524,10 @@
       "profit": 2166.0,
       "orders": 1,
       "qty": 63,
-      "profit_rate": 22.6
+      "profit_rate": 22.6,
+      "today_sales": 0,
+      "month_sales": 9600.0,
+      "first_month": "2026-06"
     },
     {
       "name": "山东合力兴业商贸有限公司",
@@ -446,7 +536,10 @@
       "profit": 1717.0,
       "orders": 1,
       "qty": 4400,
-      "profit_rate": 22.0
+      "profit_rate": 22.0,
+      "today_sales": 0,
+      "month_sales": 7800.0,
+      "first_month": "2026-06"
     },
     {
       "name": "天津市津南区星峰缘食品配送经营部",
@@ -455,7 +548,10 @@
       "profit": 2526.4,
       "orders": 1,
       "qty": 56,
-      "profit_rate": 34.1
+      "profit_rate": 34.1,
+      "today_sales": 0,
+      "month_sales": 7410.0,
+      "first_month": "2026-06"
     },
     {
       "name": "南京益勋商贸有限公司",
@@ -464,7 +560,10 @@
       "profit": 2016.0,
       "orders": 1,
       "qty": 4800,
-      "profit_rate": 28.4
+      "profit_rate": 28.4,
+      "today_sales": 0,
+      "month_sales": 7104.0,
+      "first_month": "2026-06"
     },
     {
       "name": "杭州邦耀食品有限公司",
@@ -473,7 +572,10 @@
       "profit": 1836.0,
       "orders": 1,
       "qty": 1320,
-      "profit_rate": 34.0
+      "profit_rate": 34.0,
+      "today_sales": 5400.0,
+      "month_sales": 5400.0,
+      "first_month": "2026-06"
     },
     {
       "name": "三明市双方贸易有限公司",
@@ -482,7 +584,10 @@
       "profit": 1440.0,
       "orders": 1,
       "qty": 22,
-      "profit_rate": 26.7
+      "profit_rate": 26.7,
+      "today_sales": 5400.0,
+      "month_sales": 5400.0,
+      "first_month": "2026-06"
     },
     {
       "name": "南京友苏智能科技有限公司",
@@ -491,7 +596,10 @@
       "profit": 1845.6,
       "orders": 1,
       "qty": 33,
-      "profit_rate": 36.6
+      "profit_rate": 36.6,
+      "today_sales": 0,
+      "month_sales": 0,
+      "first_month": "2026-05"
     },
     {
       "name": "福建零小阅商业管理有限公司",
@@ -500,7 +608,10 @@
       "profit": 915.0,
       "orders": 1,
       "qty": 30,
-      "profit_rate": 19.5
+      "profit_rate": 19.5,
+      "today_sales": 0,
+      "month_sales": 0,
+      "first_month": "2026-05"
     },
     {
       "name": "温州市亿青贸易有限公司",
@@ -509,7 +620,10 @@
       "profit": 700.0,
       "orders": 1,
       "qty": 200,
-      "profit_rate": 29.2
+      "profit_rate": 29.2,
+      "today_sales": 0,
+      "month_sales": 2400.0,
+      "first_month": "2026-06"
     },
     {
       "name": "北京飞箭商贸有限公司",
@@ -518,7 +632,10 @@
       "profit": 535.2,
       "orders": 2,
       "qty": 11,
-      "profit_rate": 31.9
+      "profit_rate": 31.9,
+      "today_sales": 0,
+      "month_sales": 1680.0,
+      "first_month": "2026-06"
     },
     {
       "name": "上海心意食光品牌管理有限公司（停）",
@@ -527,7 +644,10 @@
       "profit": -23.83,
       "orders": 1,
       "qty": 0,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "today_sales": 0.0,
+      "month_sales": 0.0,
+      "first_month": "2026-06"
     }
   ],
   "products": [
