@@ -110,9 +110,9 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box" style="grid-column: 1 / -1;">
     <h3>📦 产品 Top 10 <span class="count" id="productCount"></span></h3>
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>产品</th><th class="num">销量</th><th class="num">均价</th><th class="num">销售额</th><th class="num">毛利率</th>
+      <th>#</th><th>产品</th><th class="num">本月</th><th class="num">累计</th><th class="num">毛利情况</th>
     </tr></thead><tbody id="productTable"></tbody></table></div>
-    <div class="table-note">金额单位：万元</div>
+    <div class="table-note">金额单位：万元 · 毛利情况：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | &lt;10% 很低</div>
   </div>
 </div>
 
@@ -143,6 +143,20 @@ function rankClass(i) {
   if (i === 1) return 'rank-2';
   if (i === 2) return 'rank-3';
   return 'rank-other';
+}
+function profitLabel(rate) {
+  if (rate >= 40) return '高';
+  if (rate >= 30) return '好';
+  if (rate >= 20) return '正常';
+  if (rate >= 10) return '低';
+  return '很低';
+}
+function profitColor(rate) {
+  if (rate >= 40) return 'color:#e85d04;font-weight:700;';
+  if (rate >= 30) return 'color:#2d6a4f;font-weight:600;';
+  if (rate >= 20) return 'color:#333;';
+  if (rate >= 10) return 'color:#f48c06;';
+  return 'color:#d00000;';
 }
 
 fetch('dashboard_data.json').then(r => r.json()).then(d => {
@@ -275,10 +289,9 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     return `<tr>
       <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
       <td>${v.name}</td>
-      <td class="num">${v.qty.toLocaleString()}</td>
-      <td class="num">¥${v.avg_price}</td>
+      <td class="num">${fmtW(v.month_sales)}</td>
       <td class="num">${fmtW(v.sales)}</td>
-      <td class="num ${pctClass(pr)}">${pr}%</td>
+      <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}（${pr}%）</td>
     </tr>`;
   }).join('');
 

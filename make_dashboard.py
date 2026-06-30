@@ -121,7 +121,8 @@ dealers_first_month = {}  # dealer_name -> 首批订单月(YYYY-MM)
 managers = {}      # manager_name -> {销售额, 毛利, 订单数, 负责的客户数, 今日销售额, 本月销售额, 本月毛利}
 managers_today = defaultdict(float)  # manager_name -> 今日销售额
 managers_month = defaultdict(lambda: {'sales': 0, 'profit': 0})  # manager_name -> 本月销售额/毛利
-products = {}      # product_name -> {销售额, 销量, 毛利, 单价列表}
+products = {}      # product_name -> {销售额, 销量, 毛利, 单价列表, 本月销售额}
+products_month = defaultdict(float)  # product_name -> 本月销售额
 monthly = defaultdict(lambda: {'sales': 0, 'profit': 0, 'orders': set()})
 daily = defaultdict(lambda: {'sales': 0, 'orders': set()}) # 增加日维度
 total_sales = 0
@@ -217,6 +218,7 @@ for r in filtered:
                 dealers_today[channel] += pos_amt
             if month_key == current_month_calc:
                 dealers_month[channel] += pos_amt
+                products_month[pname] += pos_amt
             # 首批订单月（取最早的月份）
             if channel not in dealers_first_month or month_key < dealers_first_month[channel]:
                 dealers_first_month[channel] = month_key
@@ -314,6 +316,7 @@ data = {
     'products': [{
         'name': p[0][:30],  # 截断长名
         'sales': round(p[1]['sales'], 2),
+        'month_sales': round(products_month.get(p[0], 0), 2),
         'qty': int(p[1]['qty']),
         'profit': round(p[1]['profit'], 2),
         'avg_price': round(sum(p[1]['prices'])/len(p[1]['prices']), 2) if p[1]['prices'] else 0,
