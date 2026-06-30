@@ -1,79 +1,120 @@
 {
-  "update_time": "2026-06-30 15:12",
-  "total_sales": 1215298.79,
-  "total_profit": 291193.79,
-  "total_profit_rate": 24.0,
-  "total_dealers": 40,
-  "total_orders": 197,
-  "total_rows": 825,
+  "update_time": "2026-06-30 17:19",
+  "overview_all": {
+    "year_sales": 12861245.17,
+    "year_profit": 2086859.19,
+    "year_rate": 16.2,
+    "month_sales": 4768931.84,
+    "month_profit": 1045390.04,
+    "month_rate": 21.9,
+    "dealers": 52,
+    "orders": 2470
+  },
+  "overview_snack": {
+    "year_sales": 4123542.0,
+    "year_profit": 938388.0,
+    "year_rate": 22.8,
+    "month_sales": 3113034.0,
+    "month_profit": 736867.5,
+    "month_rate": 23.7,
+    "dealers": 9,
+    "orders": 225
+  },
+  "overview_lightning": {
+    "year_sales": 7522404.38,
+    "year_profit": 857277.4,
+    "year_rate": 11.4,
+    "month_sales": 1122048.35,
+    "month_profit": 191073.5,
+    "month_rate": 17.0,
+    "dealers": 3,
+    "orders": 2048
+  },
+  "overview_dealer": {
+    "year_sales": 1215298.79,
+    "year_profit": 291193.79,
+    "year_rate": 24.0,
+    "month_sales": 533849.49,
+    "month_profit": 117449.04,
+    "month_rate": 22.0,
+    "dealers": 40,
+    "orders": 197
+  },
+  "total_sales": 12861245.17,
+  "total_profit": 2086859.19,
+  "total_profit_rate": 16.2,
+  "total_dealers": 52,
+  "total_orders": 2470,
+  "total_rows": 9598,
   "current_month": "2026-06",
-  "month_sales": 533849.49,
-  "month_profit": 117449.04,
-  "month_orders": 128,
-  "month_profit_rate": 22.0,
-  "today_key": "2026-06-27",
-  "today_sales": 43519.6,
-  "today_orders": 9,
+  "month_sales": 4768931.84,
+  "month_profit": 1045390.04,
+  "month_orders": 669,
+  "month_profit_rate": 21.9,
+  "today_key": "2026-06-30",
+  "today_sales": 115958.04,
+  "today_orders": 15,
   "months": [
+    "2026-01",
+    "2026-02",
+    "2026-03",
     "2026-04",
     "2026-05",
     "2026-06"
   ],
   "monthly_data": [
     {
+      "month": "2026-01",
+      "sales": 1487305.49,
+      "profit": 166234.94,
+      "orders": 363
+    },
+    {
+      "month": "2026-02",
+      "sales": 429514.37,
+      "profit": 42954.09,
+      "orders": 122
+    },
+    {
+      "month": "2026-03",
+      "sales": 1205860.56,
+      "profit": 121905.81,
+      "orders": 358
+    },
+    {
       "month": "2026-04",
-      "sales": 56311.7,
-      "profit": 12502.72,
-      "orders": 9
+      "sales": 2020099.91,
+      "profit": 213481.72,
+      "orders": 411
     },
     {
       "month": "2026-05",
-      "sales": 625137.6,
-      "profit": 161242.03,
-      "orders": 60
+      "sales": 2949533.0,
+      "profit": 500639.8,
+      "orders": 534
     },
     {
       "month": "2026-06",
-      "sales": 533849.49,
-      "profit": 117449.04,
-      "orders": 128
+      "sales": 4768931.84,
+      "profit": 1045390.04,
+      "orders": 669
     }
   ],
   "daily_data": [
     {
-      "day": "06-07",
-      "sales": 6080.0,
-      "orders": 1
-    },
-    {
-      "day": "06-08",
-      "sales": 112490.0,
-      "orders": 14
-    },
-    {
-      "day": "06-10",
-      "sales": 4000.0,
-      "orders": 1
-    },
-    {
-      "day": "06-12",
-      "sales": 64730.0,
-      "orders": 11
-    },
-    {
       "day": "06-16",
-      "sales": 78160.0,
-      "orders": 10
+      "sales": 184722.5,
+      "orders": 17
     },
     {
       "day": "06-17",
-      "sales": 4405.8,
-      "orders": 13
+      "sales": 91205.7,
+      "orders": 42
     },
     {
       "day": "06-18",
-      "sales": 561.5,
-      "orders": 10
+      "sales": 29255.5,
+      "orders": 14
     },
     {
       "day": "06-19",
@@ -81,41 +122,61 @@
       "orders": 3
     },
     {
+      "day": "06-20",
+      "sales": 46402.49,
+      "orders": 14
+    },
+    {
       "day": "06-21",
-      "sales": 2327.08,
-      "orders": 1
+      "sales": 4467.08,
+      "orders": 2
     },
     {
       "day": "06-22",
-      "sales": 45559.07,
-      "orders": 8
+      "sales": 310398.35,
+      "orders": 32
     },
     {
       "day": "06-23",
-      "sales": 16664.44,
-      "orders": 4
+      "sales": 141220.55,
+      "orders": 25
     },
     {
       "day": "06-24",
-      "sales": 27940.0,
-      "orders": 27
+      "sales": 83637.36,
+      "orders": 39
+    },
+    {
+      "day": "06-25",
+      "sales": 78000.23,
+      "orders": 15
     },
     {
       "day": "06-26",
-      "sales": 3380.0,
-      "orders": 1
+      "sales": 223821.93,
+      "orders": 25
     },
     {
       "day": "06-27",
-      "sales": 43519.6,
-      "orders": 9
+      "sales": 70519.6,
+      "orders": 11
+    },
+    {
+      "day": "06-29",
+      "sales": 130637.61,
+      "orders": 35
+    },
+    {
+      "day": "06-30",
+      "sales": 115958.04,
+      "orders": 15
     }
   ],
   "managers": [
     {
       "name": "高玉杰",
       "clients": 21,
-      "today_sales": 32719.6,
+      "today_sales": 0,
       "month_sales": 341657.6,
       "prev_month_sales": 216381.0,
       "sales": 626442.1,
@@ -124,16 +185,16 @@
     {
       "name": "刘鲁宁",
       "clients": 7,
-      "today_sales": 0.0,
+      "today_sales": 0,
       "month_sales": 116527.89,
-      "prev_month_sales": 207823.6,
+      "prev_month_sales": 260646.4,
       "sales": 396754.29,
       "orders": 88
     },
     {
       "name": "朱晓亮",
       "clients": 11,
-      "today_sales": 10800.0,
+      "today_sales": 0,
       "month_sales": 69064.0,
       "prev_month_sales": 66515.2,
       "sales": 156502.4,
@@ -156,7 +217,7 @@
       "sales": 191092.17,
       "profit": 66391.02,
       "orders": 54,
-      "qty": 5777,
+      "qty": 4508,
       "profit_rate": 34.7,
       "today_sales": 0,
       "month_sales": 17955.89,
@@ -182,7 +243,7 @@
       "orders": 10,
       "qty": 5448,
       "profit_rate": 18.5,
-      "today_sales": 2745.6,
+      "today_sales": 0,
       "month_sales": 11897.6,
       "first_month": "2026-04"
     },
@@ -192,7 +253,7 @@
       "sales": 76208.0,
       "profit": 8602.25,
       "orders": 12,
-      "qty": 24500,
+      "qty": 20500,
       "profit_rate": 11.3,
       "today_sales": 0,
       "month_sales": 46328.0,
@@ -228,7 +289,7 @@
       "sales": 55950.12,
       "profit": 16368.26,
       "orders": 4,
-      "qty": 2128,
+      "qty": -2396,
       "profit_rate": 29.3,
       "today_sales": 0,
       "month_sales": 13140.0,
@@ -240,7 +301,7 @@
       "sales": 44550.0,
       "profit": 9210.0,
       "orders": 9,
-      "qty": 14900,
+      "qty": 14400,
       "profit_rate": 20.7,
       "today_sales": 0,
       "month_sales": 2250.0,
@@ -254,7 +315,7 @@
       "orders": 6,
       "qty": 176,
       "profit_rate": 29.4,
-      "today_sales": 1350.0,
+      "today_sales": 0,
       "month_sales": 39150.0,
       "first_month": "2026-06"
     },
@@ -338,7 +399,7 @@
       "orders": 2,
       "qty": 2860,
       "profit_rate": 35.9,
-      "today_sales": 13520.0,
+      "today_sales": 0,
       "month_sales": 26480.0,
       "first_month": "2026-06"
     },
@@ -396,7 +457,7 @@
       "sales": 16250.0,
       "profit": 1139.26,
       "orders": 3,
-      "qty": 8900,
+      "qty": 3179,
       "profit_rate": 7.0,
       "today_sales": 0,
       "month_sales": 16250.0,
@@ -458,7 +519,7 @@
       "orders": 5,
       "qty": 445,
       "profit_rate": 36.6,
-      "today_sales": 594.0,
+      "today_sales": 0,
       "month_sales": 8780.0,
       "first_month": "2026-05"
     },
@@ -470,7 +531,7 @@
       "orders": 2,
       "qty": 35,
       "profit_rate": 41.5,
-      "today_sales": 4580.0,
+      "today_sales": 0,
       "month_sales": 10820.0,
       "first_month": "2026-06"
     },
@@ -482,7 +543,7 @@
       "orders": 1,
       "qty": 137,
       "profit_rate": 39.4,
-      "today_sales": 9930.0,
+      "today_sales": 0,
       "month_sales": 9930.0,
       "first_month": "2026-06"
     },
@@ -554,7 +615,7 @@
       "orders": 1,
       "qty": 1320,
       "profit_rate": 34.0,
-      "today_sales": 5400.0,
+      "today_sales": 0,
       "month_sales": 5400.0,
       "first_month": "2026-06"
     },
@@ -566,7 +627,7 @@
       "orders": 1,
       "qty": 22,
       "profit_rate": 26.7,
-      "today_sales": 5400.0,
+      "today_sales": 0,
       "month_sales": 5400.0,
       "first_month": "2026-06"
     },
@@ -624,9 +685,9 @@
       "sales": 0,
       "profit": -23.83,
       "orders": 1,
-      "qty": 0,
+      "qty": -14,
       "profit_rate": 0,
-      "today_sales": 0.0,
+      "today_sales": 0,
       "month_sales": 0.0,
       "first_month": "2026-06"
     }
@@ -658,7 +719,7 @@
       "name": "鸡胸肉100g奥尔良-轻享版",
       "sales": 83535.0,
       "month_sales": 36810.0,
-      "qty": 28750,
+      "qty": 28250,
       "profit": 15522.5,
       "avg_price": 3.28,
       "dealers": 12,
@@ -702,7 +763,7 @@
       "name": "鸡胸肉50g黑胡椒-D",
       "sales": 50164.0,
       "month_sales": 29580.0,
-      "qty": 34200,
+      "qty": 30470,
       "profit": 12073.73,
       "avg_price": 1.55,
       "dealers": 10,
@@ -735,7 +796,7 @@
       "name": "鸡胸肉50g烧烤-D",
       "sales": 37816.0,
       "month_sales": 24680.0,
-      "qty": 24900,
+      "qty": 21774,
       "profit": 10175.56,
       "avg_price": 1.57,
       "dealers": 7,
@@ -779,7 +840,7 @@
       "name": "鸡胸肉50g奥尔良-D",
       "sales": 33060.0,
       "month_sales": 19876.0,
-      "qty": 22700,
+      "qty": 20961,
       "profit": 8329.84,
       "avg_price": 1.58,
       "dealers": 8,
@@ -1087,7 +1148,7 @@
       "name": "鸡胸肉50g原味-D",
       "sales": 5352.0,
       "month_sales": 3536.0,
-      "qty": 4100,
+      "qty": 2974,
       "profit": 549.56,
       "avg_price": 1.6,
       "dealers": 4,
@@ -1131,7 +1192,7 @@
       "name": "线下-低脂鸡胸肉肠150g原味",
       "sales": 4320.0,
       "month_sales": 4320.0,
-      "qty": 660,
+      "qty": 638,
       "profit": 1750.4,
       "avg_price": 6.65,
       "dealers": 3,
@@ -1230,7 +1291,7 @@
       "name": "线下-袋鼠先生鸡胸肉奥尔良味100g",
       "sales": 2700.0,
       "month_sales": 2700.0,
-      "qty": 660,
+      "qty": 138,
       "profit": 49.86,
       "avg_price": 4.79,
       "dealers": 4,
@@ -1241,7 +1302,7 @@
       "name": "线下-袋鼠先生鸡胸肉黑胡椒味100g",
       "sales": 2700.0,
       "month_sales": 2700.0,
-      "qty": 660,
+      "qty": 138,
       "profit": 49.86,
       "avg_price": 4.79,
       "dealers": 4,
@@ -1450,7 +1511,7 @@
       "name": "线下-金丝鸡肉卷50g香辣味",
       "sales": 256.0,
       "month_sales": 0.0,
-      "qty": 160,
+      "qty": -884,
       "profit": -457.6,
       "avg_price": 3.11,
       "dealers": 4,
@@ -1472,7 +1533,7 @@
       "name": "线下-去皮烤鸡腿香辣味70gLS",
       "sales": 0,
       "month_sales": 0.0,
-      "qty": 0,
+      "qty": -22,
       "profit": -45.98,
       "avg_price": 4.92,
       "dealers": 2,
@@ -1483,7 +1544,7 @@
       "name": "线下-鸡胸肉丸50g黑胡椒味",
       "sales": 0,
       "month_sales": 0.0,
-      "qty": 0,
+      "qty": -1044,
       "profit": -681.38,
       "avg_price": 3.94,
       "dealers": 3,
@@ -1494,7 +1555,7 @@
       "name": "线下-鸡胸肉丸50g原味",
       "sales": 0,
       "month_sales": 0.0,
-      "qty": 0,
+      "qty": -1044,
       "profit": -681.38,
       "avg_price": 3.94,
       "dealers": 3,
@@ -1505,7 +1566,7 @@
       "name": "牛肉52g黑胡椒",
       "sales": 0,
       "month_sales": 0.0,
-      "qty": 0,
+      "qty": -22,
       "profit": -106.71,
       "avg_price": 11.46,
       "dealers": 2,
@@ -1516,7 +1577,7 @@
       "name": "线下-125g口袋沙拉棒",
       "sales": 0,
       "month_sales": 0.0,
-      "qty": 0,
+      "qty": -22,
       "profit": -50.38,
       "avg_price": 5.4,
       "dealers": 2,
@@ -1527,7 +1588,7 @@
       "name": "线下-金丝鸡肉卷50g原味",
       "sales": 0,
       "month_sales": 0.0,
-      "qty": 0,
+      "qty": -1022,
       "profit": -544.37,
       "avg_price": 1.78,
       "dealers": 3,
@@ -1538,7 +1599,7 @@
       "name": "线下-去皮烤鸡腿奥尔良味70gLS",
       "sales": 0,
       "month_sales": 0.0,
-      "qty": 0,
+      "qty": -522,
       "profit": -825.38,
       "avg_price": 4.87,
       "dealers": 3,

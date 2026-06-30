@@ -13,18 +13,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header h1 span { color: #e85d04; }
 .header .sub { font-size: 13px; color: #888; }
 .cards { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-/* ===== 总览卡片 ===== */
-.overview-row { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.overview-card { border-radius: 12px; padding: 22px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); color: #fff; }
-.overview-card .oc-label { font-size: 13px; opacity: 0.85; margin-bottom: 12px; font-weight: 500; }
-.overview-card .oc-metrics { display: flex; flex-direction: column; gap: 6px; }
+/* ===== 总览卡片（四色块 2x2） ===== */
+.overview-row { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.overview-card { border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); color: #fff; }
+.overview-card .oc-label { font-size: 13px; opacity: 0.85; margin-bottom: 10px; font-weight: 600; }
+.overview-card .oc-block { margin-bottom: 8px; }
+.overview-card .oc-block:last-child { margin-bottom: 0; }
+.overview-card .oc-block-title { font-size: 10px; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
 .overview-card .oc-row { display: flex; justify-content: space-between; align-items: baseline; }
-.overview-card .oc-row .oc-title { font-size: 13px; opacity: 0.75; }
-.overview-card .oc-row .oc-val { font-size: 22px; font-weight: 700; }
-.overview-card .oc-row .oc-val.oc-sub { font-size: 16px; font-weight: 600; opacity: 0.9; }
+.overview-card .oc-row .oc-title { font-size: 12px; opacity: 0.72; }
+.overview-card .oc-row .oc-val { font-size: 17px; font-weight: 700; }
+.overview-card .oc-row .oc-val-sm { font-size: 14px; font-weight: 600; opacity: 0.9; }
 .oc-card-1 { background: linear-gradient(135deg, #e85d04, #f48c06); }
 .oc-card-2 { background: linear-gradient(135deg, #2d6a4f, #40916c); }
-.oc-card-3 { background: linear-gradient(135deg, #1a1a2e, #2d2d44); }
+.oc-card-3 { background: linear-gradient(135deg, #3a0ca3, #7209b7); }
+.oc-card-4 { background: linear-gradient(135deg, #1a1a2e, #2d2d44); }
 
 /* ===== 原卡片（后续模块用） ===== */
 .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
@@ -90,9 +93,10 @@ tbody tr:hover { background: #fafbfc; }
   .overview-row { grid-template-columns: 1fr; gap: 8px; }
   .overview-card { padding: 12px 14px; }
   .overview-card .oc-label { font-size: 12px; margin-bottom: 8px; }
+  .overview-card .oc-block-title { font-size: 9px; }
   .overview-card .oc-row .oc-title { font-size: 11px; }
-  .overview-card .oc-row .oc-val { font-size: 18px; }
-  .overview-card .oc-row .oc-val.oc-sub { font-size: 13px; }
+  .overview-card .oc-row .oc-val { font-size: 15px; }
+  .overview-card .oc-row .oc-val-sm { font-size: 12px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-row, .tables-row { grid-template-columns: 1fr; gap: 10px; }
   .table-box { padding: 10px; }
@@ -118,7 +122,7 @@ tbody tr:hover { background: #fafbfc; }
 <div class="header">
   <div>
     <h1>袋鼠先生 · <span>线下经销商销售看板</span></h1>
-    <div class="sub">数据范围：2026年4月 ~ 6月 · 已剔除鸣鸣很忙体系</div>
+    <div class="sub">数据范围：2026年4月 ~ 6月 · 线下全渠道</div>
   </div>
   <div class="sub" id="updateTime">加载中...</div>
 </div>
@@ -211,32 +215,31 @@ function profitColor(rate) {
 fetch('dashboard_data.json').then(r => r.json()).then(d => {
   document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
 
-  // ===== 总览卡片（三色块） =====
-  document.getElementById('overview').innerHTML = `
-    <div class="overview-card oc-card-1">
-      <div class="oc-label">📊 累计</div>
-      <div class="oc-metrics">
-        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${fmt(d.total_sales)}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val">${fmt(d.total_profit)}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val">${d.total_profit_rate}%</span></div>
+  // ===== 总览卡片（四色块 2x2） =====
+  function renderCard(id, label, ov) {
+    const ys = fmtW(ov.year_sales), yp = fmtW(ov.year_profit), yr = ov.year_rate;
+    const ms = fmtW(ov.month_sales), mp = fmtW(ov.month_profit), mr = ov.month_rate;
+    return `<div class="overview-card oc-card-${id}">
+      <div class="oc-label">${label}</div>
+      <div class="oc-block">
+        <div class="oc-block-title">本年累计</div>
+        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${ys}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val oc-val-sm">${yp}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val oc-val-sm">${yr}%</span></div>
       </div>
-    </div>
-    <div class="overview-card oc-card-2">
-      <div class="oc-label">📅 本月（${d.current_month}）</div>
-      <div class="oc-metrics">
-        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${fmt(d.month_sales)}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val">${fmt(d.month_profit)}</span></div>
-        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val">${d.month_profit_rate}%</span></div>
+      <div class="oc-block">
+        <div class="oc-block-title">本月累计</div>
+        <div class="oc-row"><span class="oc-title">销售</span><span class="oc-val">${ms}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利</span><span class="oc-val oc-val-sm">${mp}</span></div>
+        <div class="oc-row"><span class="oc-title">毛利率</span><span class="oc-val oc-val-sm">${mr}%</span></div>
       </div>
-    </div>
-    <div class="overview-card oc-card-3">
-      <div class="oc-label">📌 今日（${d.today_key ? d.today_key.substring(5) : '-'}）</div>
-      <div class="oc-metrics">
-        <div class="oc-row"><span class="oc-title">新增订单</span><span class="oc-val">${fmt(d.today_sales)}</span></div>
-        <div class="oc-row"><span class="oc-title">订单数</span><span class="oc-val oc-sub">${d.today_orders} 笔</span></div>
-      </div>
-    </div>
-  `;
+    </div>`;
+  }
+  document.getElementById('overview').innerHTML =
+    renderCard(1, '线下累计', d.overview_all) +
+    renderCard(2, '零食渠道', d.overview_snack) +
+    renderCard(3, '闪电仓', d.overview_lightning) +
+    renderCard(4, '经销商', d.overview_dealer);
 
   document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
   document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
