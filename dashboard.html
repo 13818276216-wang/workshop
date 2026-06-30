@@ -28,6 +28,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .overview-card .oc-main { font-size: 24px; font-weight: 700; color: #1a1a2e; line-height: 1; margin-bottom: 6px; }
 .overview-card .oc-sub { font-size: 12px; color: #666; display: flex; justify-content: space-between; }
 .overview-card .oc-sub span { color: #999; font-size: 11px; }
+/* 模块分析条 */
+.dealer-analysis { max-width: 900px; margin: 0 auto 20px; background: linear-gradient(135deg, #f0f4ff, #eef2fa); border-radius: 10px; padding: 14px 20px; border-left: 4px solid #1a1a2e; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.dealer-analysis .da-title { font-size: 13px; font-weight: 700; color: #1a1a2e; white-space: nowrap; }
+.dealer-analysis .da-items { display: flex; gap: 24px; flex-wrap: wrap; }
+.dealer-analysis .da-item { text-align: center; }
+.dealer-analysis .da-item .da-val { font-size: 15px; font-weight: 700; color: #1a1a2e; }
+.dealer-analysis .da-item .da-lbl { font-size: 10px; color: #999; margin-top: 2px; }
 
 /* ===== 原卡片（后续模块用） ===== */
 .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
@@ -97,6 +104,9 @@ tbody tr:hover { background: #fafbfc; }
   .overview-card .oc-main { font-size: 18px; }
   .overview-card .oc-sub { font-size: 10px; }
   .overview-card .oc-sub span { font-size: 10px; }
+  .dealer-analysis { padding: 10px 14px; flex-direction: column; align-items: flex-start; }
+  .dealer-analysis .da-items { gap: 14px; }
+  .dealer-analysis .da-item .da-val { font-size: 13px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-row, .tables-row { grid-template-columns: 1fr; gap: 10px; }
   .table-box { padding: 10px; }
@@ -238,7 +248,16 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     '</div></div>' +
     '<div class="overview-section"><div class="section-label">本月累计</div><div class="overview-row">' +
     cats.map(c => makeCard(c.id, c.label, d[c.key].month_sales, d[c.key].month_profit, d[c.key].month_rate, 'oc-m')).join('') +
-    '</div></div>';
+    '</div></div>' +
+    '<div class="dealer-analysis">' +
+      '<div class="da-title">经销商模块情况分析</div>' +
+      '<div class="da-items">' +
+        `<div class="da-item"><div class="da-val">${d.total_dealers} 家</div><div class="da-lbl">经销商数</div></div>` +
+        `<div class="da-item"><div class="da-val">${fmtW(d.overview_dealer.year_sales)}</div><div class="da-lbl">本年累计（万元）</div></div>` +
+        `<div class="da-item"><div class="da-val">${fmtW(d.overview_dealer.month_sales)}</div><div class="da-lbl">本月累计（万元）</div></div>` +
+        `<div class="da-item"><div class="da-val">${d.overview_dealer.month_rate}%</div><div class="da-lbl">本月毛利率</div></div>` +
+      '</div>' +
+    '</div>';
 
   document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
   document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
