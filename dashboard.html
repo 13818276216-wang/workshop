@@ -78,8 +78,27 @@ tbody tr:hover { background: #fafbfc; }
 .dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 70px; }
 
 @media (max-width: 768px) {
+  body { padding: 10px; }
+  .header { margin-bottom: 12px; }
+  .header h1 { font-size: 18px; }
+  .overview-row { grid-template-columns: 1fr; gap: 8px; }
+  .overview-card { padding: 14px 16px; }
+  .overview-card .oc-row .oc-val { font-size: 18px; }
+  .overview-card .oc-row .oc-val.oc-sub { font-size: 14px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-row, .tables-row { grid-template-columns: 1fr; }
+  .table-box { padding: 12px; }
+  .table-box h3 { font-size: 13px; }
+  table { font-size: 11px; }
+  thead th, tbody td { padding: 5px 4px; }
+  .tab-btn { padding: 4px 10px; font-size: 11px; }
+  .dealer-table th:nth-child(2), .dealer-table td:nth-child(2) { min-width: 120px; }
+  .dealer-table th:nth-child(3), .dealer-table td:nth-child(3),
+  .dealer-table th:nth-child(4), .dealer-table td:nth-child(4),
+  .dealer-table th:nth-child(5), .dealer-table td:nth-child(5) { width: 50px; }
+  .dealer-table th:nth-child(6), .dealer-table td:nth-child(6) { width: 80px; }
+  .dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 55px; }
+  .dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 55px; }
 }
 </style>
 </head>
