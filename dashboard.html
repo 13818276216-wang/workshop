@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>袋鼠先生 · 线下经销商销售看板</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #1a1a2e; padding: 20px; }
+.header { max-width: 1200px; margin: 0 auto 20px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 10px; }
+.header h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+.header h1 span { color: #e85d04; }
+.header .sub { font-size: 13px; color: #888; }
+.cards { max-width: 1200px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.card .label { font-size: 12px; color: #888; margin-bottom: 4px; }
+.card .value { font-size: 26px; font-weight: 700; color: #1a1a2e; }
+.card .value.gold { color: #e85d04; }
+.card .sub-text { font-size: 12px; color: #999; margin-top: 2px; }
+.charts-row { max-width: 1200px; margin: 0 auto 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.chart-box { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.chart-box h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 10px; }
+.chart-box .chart-wrap { position: relative; height: 200px; }
+.tables-row { max-width: 1200px; margin: 0 auto 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.table-box { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.table-box h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 10px; }
+.table-box h3 .count { font-weight: 400; color: #999; font-size: 12px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead th { background: #f8f9fb; color: #666; font-weight: 600; padding: 8px 6px; text-align: left; border-bottom: 1px solid #eee; white-space: nowrap; }
+tbody td { padding: 7px 6px; border-bottom: 1px solid #f5f5f5; white-space: nowrap; }
+tbody tr:hover { background: #fafbfc; }
+.rank { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 4px; font-size: 11px; font-weight: 600; color: #fff; }
+.rank-1 { background: #e85d04; }
+.rank-2 { background: #f48c06; }
+.rank-3 { background: #faa307; }
+.rank-other { background: #ddd; color: #666; }
+.num { font-family: 'SF Mono', 'Consolas', monospace; text-align: right; }
+.pct-up { color: #2d6a4f; }
+.pct-down { color: #d00000; }
+.pct-neutral { color: #999; }
+.status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+.dot-green { background: #52b788; }
+.dot-yellow { background: #ffb703; }
+.dot-red { background: #e63946; }
+.footer { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 11px; color: #bbb; padding: 20px 0; }
+@media (max-width: 768px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .charts-row, .tables-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🦘 袋鼠先生 · <span>线下经销商销售看板</span></h1>
+    <div class="sub">数据范围：2026年4月 ~ 6月 · 已剔除鸣鸣很忙体系</div>
+  </div>
+  <div class="sub" id="updateTime">加载中...</div>
+</div>
+
+<div class="cards" id="cards"></div>
+
+<div class="charts-row">
+  <div class="chart-box">
+    <h3>📈 月度销售趋势</h3>
+    <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
+  </div>
+  <div class="chart-box">
+    <h3>💰 月度毛利趋势</h3>
+    <div class="chart-wrap"><canvas id="profitChart"></canvas></div>
+  </div>
+</div>
+
+<div class="tables-row">
+  <div class="table-box">
+    <h3>🏪 经销商 Top 10 <span class="count" id="dealerCount"></span></h3>
+    <div class="table-wrap"><table><thead><tr>
+      <th>#</th><th>经销商</th><th class="num">销售额</th><th class="num">毛利</th><th class="num">毛利率</th><th class="num">订单</th>
+    </tr></thead><tbody id="dealerTable"></tbody></table></div>
+  </div>
+  <div class="table-box">
+    <h3>📦 产品 Top 10 <span class="count" id="productCount"></span></h3>
+    <div class="table-wrap"><table><thead><tr>
+      <th>#</th><th>产品</th><th class="num">销量</th><th class="num">均价</th><th class="num">销售额</th><th class="num">毛利率</th>
+    </tr></thead><tbody id="productTable"></tbody></table></div>
+  </div>
+</div>
+
+<div class="footer">袋鼠先生线下渠道 · 每日自动更新</div>
+
+<script>
+function fmt(n) {
+  if (n >= 10000) return (n/10000).toFixed(1) + '万';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'k';
+  return n.toLocaleString();
+}
+function fmtMoney(n) {
+  if (Math.abs(n) >= 10000) return (n/10000).toFixed(1) + '万';
+  return n.toLocaleString();
+}
+function pctClass(v) {
+  if (v >= 20) return 'pct-up';
+  if (v >= 0) return 'pct-neutral';
+  return 'pct-down';
+}
+function rankClass(i) {
+  if (i === 0) return 'rank-1';
+  if (i === 1) return 'rank-2';
+  if (i === 2) return 'rank-3';
+  return 'rank-other';
+}
+
+fetch('dashboard_data.json').then(r => r.json()).then(d => {
+  document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
+
+  // 卡片
+  document.getElementById('cards').innerHTML = `
+    <div class="card"><div class="label">累计销售额</div><div class="value gold">${fmt(d.total_sales)}</div><div class="sub-text">${d.total_rows} 笔订单</div></div>
+    <div class="card"><div class="label">累计毛利</div><div class="value">${fmt(d.total_profit)}</div><div class="sub-text">毛利率 ${d.profit_rate}%</div></div>
+    <div class="card"><div class="label">活跃经销商</div><div class="value">${d.total_dealers}</div><div class="sub-text">${d.total_orders} 个订单</div></div>
+    <div class="card"><div class="label">覆盖月份</div><div class="value">${d.months.length}</div><div class="sub-text">${d.months.join(' · ')}</div></div>
+  `;
+
+  document.getElementById('dealerCount').textContent = `· 共 ${d.dealers.length} 家`;
+  document.getElementById('productCount').textContent = `· 共 ${d.products.length} 个`;
+
+  // 经销商表
+  document.getElementById('dealerTable').innerHTML = d.dealers.slice(0, 10).map((v, i) => {
+    const pr = v.profit_rate;
+    return `<tr>
+      <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+      <td>${v.name}</td>
+      <td class="num">${fmtMoney(v.sales)}</td>
+      <td class="num">${fmtMoney(v.profit)}</td>
+      <td class="num ${pctClass(pr)}">${pr}%</td>
+      <td class="num">${v.orders}</td>
+    </tr>`;
+  }).join('');
+
+  // 产品表
+  document.getElementById('productTable').innerHTML = d.products.slice(0, 10).map((v, i) => {
+    const pr = v.profit_rate;
+    return `<tr>
+      <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+      <td>${v.name}</td>
+      <td class="num">${v.qty.toLocaleString()}</td>
+      <td class="num">¥${v.avg_price}</td>
+      <td class="num">${fmtMoney(v.sales)}</td>
+      <td class="num ${pctClass(pr)}">${pr}%</td>
+    </tr>`;
+  }).join('');
+
+  // 月度销售趋势图
+  new Chart(document.getElementById('salesChart'), {
+    type: 'bar',
+    data: {
+      labels: d.monthly_data.map(v => v.month),
+      datasets: [{
+        label: '销售额',
+        data: d.monthly_data.map(v => v.sales),
+        backgroundColor: ['#e85d04', '#f48c06', '#faa307', '#ffba08'],
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: v => fmt(v) } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // 月度毛利趋势图
+  new Chart(document.getElementById('profitChart'), {
+    type: 'bar',
+    data: {
+      labels: d.monthly_data.map(v => v.month),
+      datasets: [{
+        label: '毛利',
+        data: d.monthly_data.map(v => v.profit),
+        backgroundColor: ['#2d6a4f', '#40916c', '#52b788', '#74c69d'],
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: v => fmt(v) } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
