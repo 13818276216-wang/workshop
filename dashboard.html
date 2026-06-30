@@ -45,8 +45,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .chart-box { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 .chart-box h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 10px; }
 .chart-box .chart-wrap { position: relative; height: 200px; }
-.tables-row { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.table-box { background: #fff; border-radius: 12px; padding: 18px 18px 18px 66px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.tables-row { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: 1fr; padding-left: 66px; }
+.table-box { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 .table-box h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 10px; }
 .table-box h3 .count { font-weight: 400; color: #999; font-size: 12px; }
 .table-wrap { overflow-x: auto; }
@@ -109,6 +109,7 @@ tbody tr:hover { background: #fafbfc; }
   .dealer-analysis .da-item .da-val { font-size: 13px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-row, .tables-row { grid-template-columns: 1fr; gap: 10px; }
+  .tables-row { padding-left: 0; }
   .table-box { padding: 10px; }
   .table-box h3 { font-size: 13px; }
   table { font-size: 11px; }
