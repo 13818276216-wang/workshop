@@ -265,9 +265,12 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
 
   function renderDealerTabs() {
     const tabs = ['全部', ...managerNames];
-    document.getElementById('dealerTabs').innerHTML = tabs.map(t =>
-      `<button class="tab-btn${t === currentDealerTab ? ' active' : ''}" onclick="switchDealerTab('${t}')">${t}</button>`
-    ).join('');
+    document.getElementById('dealerTabs').innerHTML = tabs.map(t => {
+      if (t === '全部') return `<button class="tab-btn${t === currentDealerTab ? ' active' : ''}" onclick="switchDealerTab('${t}')">${t}</button>`;
+      const mgr = d.managers.find(m => m.name === t);
+      const count = mgr ? mgr.clients : 0;
+      return `<button class="tab-btn${t === currentDealerTab ? ' active' : ''}" onclick="switchDealerTab('${t}')">${t}(${count})</button>`;
+    }).join('');
   }
 
   function renderDealerTable() {
@@ -352,9 +355,11 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   let currentProductTab = '全部';
   function renderProductTabs() {
     const tabs = ['全部', ...managerNames];
-    document.getElementById('productTabs').innerHTML = tabs.map(t =>
-      `<button class="tab-btn${t === currentProductTab ? ' active' : ''}" onclick="switchProductTab('${t}')">${t}</button>`
-    ).join('');
+    document.getElementById('productTabs').innerHTML = tabs.map(t => {
+      if (t === '全部') return `<button class="tab-btn${t === currentProductTab ? ' active' : ''}" onclick="switchProductTab('${t}')">${t}</button>`;
+      const count = d.products.filter(v => v.manager === t).length;
+      return `<button class="tab-btn${t === currentProductTab ? ' active' : ''}" onclick="switchProductTab('${t}')">${t}(${count})</button>`;
+    }).join('');
   }
   function renderProductTable() {
     let filtered;
