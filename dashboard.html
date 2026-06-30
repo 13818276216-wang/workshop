@@ -229,7 +229,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(v.today_sales)}</td>
         <td class="num">${fmtW(v.month_sales)}</td>
         <td class="num">${fmtW(v.sales)}</td>
-        <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}（${pr}%）</td>
+        <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
         <td>${v.first_month || '-'}</td>
         <td>${v.manager || '-'}</td>
       </tr>`;
@@ -246,7 +246,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(st)}</td>
         <td class="num">${fmtW(sm)}</td>
         <td class="num">${fmtW(sy)}</td>
-        <td class="num" style="${profitColor(parseFloat(sr))}">${profitLabel(parseFloat(sr))}（${sr}%）</td>
+        <td class="num" style="${profitColor(parseFloat(sr))}">${profitLabel(parseFloat(sr))}</td>
         <td></td><td></td>
       </tr>`);
     }
@@ -301,7 +301,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
       <td>${v.name}</td>
       <td class="num">${fmtW(v.month_sales)}</td>
       <td class="num">${fmtW(v.sales)}</td>
-      <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}（${pr}%）</td>
+      <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
     </tr>`;
   }).join('');
 
