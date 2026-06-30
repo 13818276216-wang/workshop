@@ -13,11 +13,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header h1 span { color: #e85d04; }
 .header .sub { font-size: 13px; color: #888; }
 .cards { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-/* ===== 总览卡片（8色块：本年一行 + 本月一行） ===== */
-.overview-section { max-width: 900px; margin: 0 auto 12px; }
-.overview-section .section-label { font-size: 12px; color: #aaa; margin-bottom: 6px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
-.overview-section .section-label::after { content: ''; flex: 1; height: 1px; background: #eee; }
-.overview-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+/* ===== 总览卡片（8色块：本年一行 + 本月一行，标签与卡片同行） ===== */
+.overview-section { max-width: 900px; margin: 0 auto 12px; display: flex; align-items: center; gap: 10px; }
+.overview-section .section-label { width: 56px; font-size: 12px; color: #888; font-weight: 600; flex-shrink: 0; text-align: center; line-height: 1.4; }
+.overview-row { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .overview-card { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: relative; overflow: hidden; }
 .overview-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
 .oc-y-1::before, .oc-m-1::before { background: #e85d04; }
@@ -25,7 +24,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .oc-y-3::before, .oc-m-3::before { background: #3a0ca3; }
 .oc-y-4::before, .oc-m-4::before { background: #1a1a2e; }
 .overview-card .oc-label { font-size: 11px; color: #888; margin-bottom: 4px; font-weight: 500; }
-.overview-card .oc-main { font-size: 24px; font-weight: 700; color: #1a1a2e; line-height: 1; margin-bottom: 6px; }
+.overview-card .oc-main { font-size: 22px; font-weight: 700; color: #1a1a2e; line-height: 1; margin-bottom: 6px; }
 .overview-card .oc-sub { font-size: 12px; color: #666; display: flex; justify-content: space-between; }
 .overview-card .oc-sub span { color: #999; font-size: 11px; }
 /* 模块分析条 */
@@ -97,8 +96,8 @@ tbody tr:hover { background: #fafbfc; }
   .header { margin-bottom: 10px; }
   .header h1 { font-size: 16px; }
   .header .sub { font-size: 11px; }
-  .overview-section { margin-bottom: 8px; }
-  .overview-section .section-label { font-size: 10px; }
+  .overview-section { flex-direction: column; align-items: stretch; gap: 6px; margin-bottom: 8px; }
+  .overview-section .section-label { width: auto; text-align: left; margin-bottom: 0; }
   .overview-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .overview-card { padding: 10px 12px; }
   .overview-card .oc-main { font-size: 18px; }
