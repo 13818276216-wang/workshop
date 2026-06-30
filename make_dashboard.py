@@ -101,7 +101,7 @@ qty_idx = col['数量']
 price_idx = col['单价']
 amt_idx = col['金额']
 profit_idx = col['毛利']
-time_idx = col['货品级发货时间']
+time_idx = 29  # AD列：产品发货时间
 order_idx = col['订单编号']
 
 all_times = []
@@ -136,7 +136,7 @@ qty_idx = col['数量']
 price_idx = col['单价']
 amt_idx = col['金额']
 profit_idx = col['毛利']
-time_idx = col['货品级发货时间']
+time_idx = 29  # AD列：产品发货时间
 order_idx = col['订单编号']
 
 for r in filtered:
