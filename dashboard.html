@@ -129,7 +129,8 @@ function fmtMoney(n) {
   return n.toLocaleString();
 }
 function fmtW(n) {
-  // 万元数值，不写"万"字
+  // 万元数值，不写"万"字；0直接显示0
+  if (n === 0 || n === null || n === undefined) return '0';
   return (n / 10000).toFixed(2);
 }
 function pctClass(v) {
