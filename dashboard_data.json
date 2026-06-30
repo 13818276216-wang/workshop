@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-06-30 14:18",
+  "update_time": "2026-06-30 14:24",
   "total_sales": 1215298.79,
   "total_profit": 291193.79,
   "total_profit_rate": 24.0,
@@ -136,13 +136,13 @@
     },
     {
       "name": "朱晓亮",
-      "clients": 10,
-      "today_sales": 5400.0,
-      "month_sales": 63664.0,
-      "month_profit": 17095.85,
-      "sales": 151102.4,
-      "profit": 39558.63,
-      "orders": 19,
+      "clients": 11,
+      "today_sales": 10800.0,
+      "month_sales": 69064.0,
+      "month_profit": 18535.85,
+      "sales": 156502.4,
+      "profit": 40998.63,
+      "orders": 20,
       "profit_rate": 26.2
     },
     {
@@ -155,17 +155,6 @@
       "profit": 9016.25,
       "orders": 7,
       "profit_rate": 25.3
-    },
-    {
-      "name": "未知",
-      "clients": 1,
-      "today_sales": 5400.0,
-      "month_sales": 5400.0,
-      "month_profit": 1440.0,
-      "sales": 5400.0,
-      "profit": 1440.0,
-      "orders": 1,
-      "profit_rate": 26.7
     }
   ],
   "dealers": [
@@ -579,7 +568,7 @@
     },
     {
       "name": "三明市双方贸易有限公司",
-      "manager": "未知",
+      "manager": "朱晓亮",
       "sales": 5400.0,
       "profit": 1440.0,
       "orders": 1,

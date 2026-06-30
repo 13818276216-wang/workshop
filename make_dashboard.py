@@ -164,6 +164,12 @@ for r in filtered:
     if cname == '黄辉15257127683':
         cname = cname_fix_map.get(channel, cname)
     manager = manager_map.get(cname, '未知')
+    # 合同台账未覆盖的经销商，手动指定省区经理
+    manual_manager = {
+        '三明市双方贸易有限公司': '朱晓亮',
+    }
+    if manager == '未知' and channel in manual_manager:
+        manager = manual_manager[channel]
     
     if channel not in dealers:
         dealers[channel] = {'sales': 0, 'profit': 0, 'orders': set(), 'qty': 0, 'manager': manager}
