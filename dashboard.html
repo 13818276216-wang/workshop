@@ -67,6 +67,16 @@ tbody tr:hover { background: #fafbfc; }
 .subtotal-row { font-weight: 600; background: #fff9f5; }
 .subtotal-row td { border-top: 2px solid #e85d04; }
 .table-note { font-size: 11px; color: #aaa; margin-top: 6px; }
+/* 分经销商明细列宽 */
+.dealer-table th:nth-child(1), .dealer-table td:nth-child(1) { width: 36px; }
+.dealer-table th:nth-child(2), .dealer-table td:nth-child(2) { min-width: 180px; }
+.dealer-table th:nth-child(3), .dealer-table td:nth-child(3),
+.dealer-table th:nth-child(4), .dealer-table td:nth-child(4),
+.dealer-table th:nth-child(5), .dealer-table td:nth-child(5) { width: 60px; text-align: right; }
+.dealer-table th:nth-child(6), .dealer-table td:nth-child(6) { width: 110px; text-align: center; }
+.dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 70px; text-align: center; }
+.dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 70px; }
+
 @media (max-width: 768px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-row, .tables-row { grid-template-columns: 1fr; }
@@ -99,10 +109,10 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box" style="grid-column: 1 / -1;">
     <h3>🏪 分经销商明细 <span class="count" id="dealerCount"></span></h3>
     <div class="tab-bar" id="dealerTabs"></div>
-    <div class="table-wrap"><table><thead><tr>
+    <div class="table-wrap"><table class="dealer-table"><thead><tr>
       <th>#</th><th>经销商</th><th class="num">今日</th><th class="num">本月</th><th class="num">累计</th><th class="num">毛利率</th><th>首批月</th><th>省区经理</th>
     </tr></thead><tbody id="dealerTable"></tbody></table></div>
-    <div class="table-note">金额单位：万元</div>
+    <div class="table-note">金额单位：万元 · 毛利率：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | &lt;10% 很低</div>
   </div>
 </div>
 
@@ -219,7 +229,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(v.today_sales)}</td>
         <td class="num">${fmtW(v.month_sales)}</td>
         <td class="num">${fmtW(v.sales)}</td>
-        <td class="num ${pctClass(pr)}">${pr}%</td>
+        <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}（${pr}%）</td>
         <td>${v.first_month || '-'}</td>
         <td>${v.manager || '-'}</td>
       </tr>`;
@@ -236,7 +246,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(st)}</td>
         <td class="num">${fmtW(sm)}</td>
         <td class="num">${fmtW(sy)}</td>
-        <td class="num ${pctClass(parseFloat(sr))}">${sr}%</td>
+        <td class="num" style="${profitColor(parseFloat(sr))}">${profitLabel(parseFloat(sr))}（${sr}%）</td>
         <td></td><td></td>
       </tr>`);
     }
