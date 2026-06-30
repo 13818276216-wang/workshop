@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-06-30 14:41",
+  "update_time": "2026-06-30 15:10",
   "total_sales": 1215298.79,
   "total_profit": 291193.79,
   "total_profit_rate": 24.0,
@@ -648,7 +648,8 @@
       "profit": 47745.3,
       "avg_price": 26.28,
       "dealers": 2,
-      "profit_rate": 36.3
+      "profit_rate": 36.3,
+      "manager": "刘鲁宁"
     },
     {
       "name": "鸡胸肉100g黑胡椒-轻享版",
@@ -658,7 +659,8 @@
       "profit": 18185.0,
       "avg_price": 3.28,
       "dealers": 11,
-      "profit_rate": 20.1
+      "profit_rate": 20.1,
+      "manager": "多区"
     },
     {
       "name": "鸡胸肉100g奥尔良-轻享版",
@@ -668,7 +670,8 @@
       "profit": 15522.5,
       "avg_price": 3.28,
       "dealers": 12,
-      "profit_rate": 18.6
+      "profit_rate": 18.6,
+      "manager": "多区"
     },
     {
       "name": "轻卤牛腱肉55g原味",
@@ -678,7 +681,8 @@
       "profit": 5143.29,
       "avg_price": 8.17,
       "dealers": 2,
-      "profit_rate": 8.4
+      "profit_rate": 8.4,
+      "manager": "多区"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉350g奥尔良味-20包",
@@ -688,7 +692,8 @@
       "profit": 13152.0,
       "avg_price": 278.0,
       "dealers": 9,
-      "profit_rate": 23.6
+      "profit_rate": 23.6,
+      "manager": "多区"
     },
     {
       "name": "牛排脆25g原味",
@@ -698,7 +703,8 @@
       "profit": 3256.0,
       "avg_price": 11.88,
       "dealers": 3,
-      "profit_rate": 6.5
+      "profit_rate": 6.5,
+      "manager": "高玉杰"
     },
     {
       "name": "鸡胸肉50g黑胡椒-D",
@@ -708,7 +714,8 @@
       "profit": 12073.73,
       "avg_price": 1.55,
       "dealers": 10,
-      "profit_rate": 24.1
+      "profit_rate": 24.1,
+      "manager": "多区"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉350g黑胡椒味-20包",
@@ -718,7 +725,8 @@
       "profit": 13238.0,
       "avg_price": 275.11,
       "dealers": 7,
-      "profit_rate": 27.8
+      "profit_rate": 27.8,
+      "manager": "多区"
     },
     {
       "name": "袋鼠先生-进阶能量仓815g",
@@ -728,7 +736,8 @@
       "profit": 16123.0,
       "avg_price": 33.8,
       "dealers": 1,
-      "profit_rate": 34.0
+      "profit_rate": 34.0,
+      "manager": "刘鲁宁"
     },
     {
       "name": "鸡胸肉50g烧烤-D",
@@ -738,7 +747,8 @@
       "profit": 10175.56,
       "avg_price": 1.57,
       "dealers": 7,
-      "profit_rate": 26.9
+      "profit_rate": 26.9,
+      "manager": "多区"
     },
     {
       "name": "袋鼠先生-全能能量仓1017g",
@@ -748,7 +758,8 @@
       "profit": 11960.61,
       "avg_price": 54.8,
       "dealers": 1,
-      "profit_rate": 34.6
+      "profit_rate": 34.6,
+      "manager": "刘鲁宁"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉奥尔良味45g-80包",
@@ -758,7 +769,8 @@
       "profit": 3976.0,
       "avg_price": 124.0,
       "dealers": 4,
-      "profit_rate": 11.9
+      "profit_rate": 11.9,
+      "manager": "多区"
     },
     {
       "name": "袋鼠先生-满格能量仓1015g",
@@ -768,7 +780,8 @@
       "profit": 12200.0,
       "avg_price": 41.74,
       "dealers": 1,
-      "profit_rate": 36.5
+      "profit_rate": 36.5,
+      "manager": "刘鲁宁"
     },
     {
       "name": "鸡胸肉50g奥尔良-D",
@@ -778,7 +791,8 @@
       "profit": 8329.84,
       "avg_price": 1.58,
       "dealers": 8,
-      "profit_rate": 25.2
+      "profit_rate": 25.2,
+      "manager": "多区"
     },
     {
       "name": "鸡胸肉100g原味",
@@ -788,7 +802,8 @@
       "profit": 7334.32,
       "avg_price": 3.28,
       "dealers": 6,
-      "profit_rate": 24.2
+      "profit_rate": 24.2,
+      "manager": "多区"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉350g奥尔良味",
@@ -798,7 +813,8 @@
       "profit": 2250.0,
       "avg_price": 13.5,
       "dealers": 1,
-      "profit_rate": 9.8
+      "profit_rate": 9.8,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉50g黑胡椒D-20袋*5盒装",
@@ -808,7 +824,8 @@
       "profit": 3866.0,
       "avg_price": 160.0,
       "dealers": 4,
-      "profit_rate": 17.6
+      "profit_rate": 17.6,
+      "manager": "多区"
     },
     {
       "name": "牛排脆25g黑松露味",
@@ -818,7 +835,8 @@
       "profit": 1259.8,
       "avg_price": 11.44,
       "dealers": 1,
-      "profit_rate": 6.0
+      "profit_rate": 6.0,
+      "manager": "高玉杰"
     },
     {
       "name": "鸡胸肉100g烧烤-轻享版",
@@ -828,7 +846,8 @@
       "profit": 4642.5,
       "avg_price": 3.3,
       "dealers": 6,
-      "profit_rate": 23.4
+      "profit_rate": 23.4,
+      "manager": "多区"
     },
     {
       "name": "线下-鸡胸肉100g香辣味",
@@ -838,7 +857,8 @@
       "profit": 4402.5,
       "avg_price": 3.3,
       "dealers": 2,
-      "profit_rate": 24.3
+      "profit_rate": 24.3,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉50g奥尔良D-20袋*5盒装",
@@ -848,7 +868,8 @@
       "profit": 3896.0,
       "avg_price": 160.0,
       "dealers": 4,
-      "profit_rate": 23.4
+      "profit_rate": 23.4,
+      "manager": "多区"
     },
     {
       "name": "牛排脆25g热辣味",
@@ -858,7 +879,8 @@
       "profit": 3772.0,
       "avg_price": 11.72,
       "dealers": 3,
-      "profit_rate": 23.1
+      "profit_rate": 23.1,
+      "manager": "多区"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉黑胡椒味45g-80包",
@@ -868,7 +890,8 @@
       "profit": 2044.8,
       "avg_price": 120.36,
       "dealers": 3,
-      "profit_rate": 13.2
+      "profit_rate": 13.2,
+      "manager": "多区"
     },
     {
       "name": "鸡肉丸60g黑胡椒",
@@ -878,7 +901,8 @@
       "profit": 3936.0,
       "avg_price": 1.9,
       "dealers": 1,
-      "profit_rate": 25.9
+      "profit_rate": 25.9,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉350g香辣味-20包",
@@ -888,7 +912,8 @@
       "profit": 4010.0,
       "avg_price": 275.75,
       "dealers": 4,
-      "profit_rate": 31.7
+      "profit_rate": 31.7,
+      "manager": "多区"
     },
     {
       "name": "豆皮鸡肉卷50g香辣味",
@@ -898,7 +923,8 @@
       "profit": 4166.4,
       "avg_price": 1.5,
       "dealers": 1,
-      "profit_rate": 34.7
+      "profit_rate": 34.7,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉50g烧烤D-20袋*5盒装",
@@ -908,7 +934,8 @@
       "profit": 2670.0,
       "avg_price": 160.0,
       "dealers": 4,
-      "profit_rate": 23.2
+      "profit_rate": 23.2,
+      "manager": "多区"
     },
     {
       "name": "去皮鸡腿75g香辣味",
@@ -918,7 +945,8 @@
       "profit": 3410.14,
       "avg_price": 4.01,
       "dealers": 3,
-      "profit_rate": 30.9
+      "profit_rate": 30.9,
+      "manager": "多区"
     },
     {
       "name": "线下-375g黑胡椒鸡肉丸-20包",
@@ -928,7 +956,8 @@
       "profit": 3524.0,
       "avg_price": 276.57,
       "dealers": 3,
-      "profit_rate": 36.4
+      "profit_rate": 36.4,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉50g香辣味D",
@@ -938,7 +967,8 @@
       "profit": 2136.0,
       "avg_price": 1.6,
       "dealers": 2,
-      "profit_rate": 22.2
+      "profit_rate": 22.2,
+      "manager": "多区"
     },
     {
       "name": "牛排脆25g番茄味",
@@ -948,7 +978,8 @@
       "profit": 1467.28,
       "avg_price": 11.44,
       "dealers": 1,
-      "profit_rate": 16.0
+      "profit_rate": 16.0,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-轻卤牛腱肉80g原味",
@@ -958,7 +989,8 @@
       "profit": 2458.0,
       "avg_price": 16.9,
       "dealers": 2,
-      "profit_rate": 29.1
+      "profit_rate": 29.1,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-轻卤牛腱肉80g黑胡椒味",
@@ -968,7 +1000,8 @@
       "profit": 2672.0,
       "avg_price": 16.9,
       "dealers": 2,
-      "profit_rate": 31.6
+      "profit_rate": 31.6,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-375g低脂膳食鸡肉丸-20包",
@@ -978,7 +1011,8 @@
       "profit": 2754.0,
       "avg_price": 270.0,
       "dealers": 2,
-      "profit_rate": 34.0
+      "profit_rate": 34.0,
+      "manager": "高玉杰"
     },
     {
       "name": "去皮鸡腿75g奥尔良味",
@@ -988,7 +1022,8 @@
       "profit": 1807.17,
       "avg_price": 4.17,
       "dealers": 2,
-      "profit_rate": 24.9
+      "profit_rate": 24.9,
+      "manager": "多区"
     },
     {
       "name": "线下-375g口袋沙拉棒-20袋",
@@ -998,7 +1033,8 @@
       "profit": 2650.0,
       "avg_price": 285.0,
       "dealers": 2,
-      "profit_rate": 36.8
+      "profit_rate": 36.8,
+      "manager": "多区"
     },
     {
       "name": "豆皮鸡肉卷50g原味",
@@ -1008,7 +1044,8 @@
       "profit": 2592.0,
       "avg_price": 1.5,
       "dealers": 1,
-      "profit_rate": 36.0
+      "profit_rate": 36.0,
+      "manager": "高玉杰"
     },
     {
       "name": "鸡胸肉100g烧烤",
@@ -1018,7 +1055,8 @@
       "profit": 1757.63,
       "avg_price": 3.32,
       "dealers": 4,
-      "profit_rate": 24.7
+      "profit_rate": 24.7,
+      "manager": "多区"
     },
     {
       "name": "线下-鸡胸肉50g原味D-20袋*5盒装",
@@ -1028,7 +1066,8 @@
       "profit": 1554.0,
       "avg_price": 160.0,
       "dealers": 2,
-      "profit_rate": 26.2
+      "profit_rate": 26.2,
+      "manager": "多区"
     },
     {
       "name": "线下-低脂鸡胸肉肠375g玉米味-20包",
@@ -1038,7 +1077,8 @@
       "profit": 1594.0,
       "avg_price": 270.0,
       "dealers": 1,
-      "profit_rate": 29.5
+      "profit_rate": 29.5,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-低脂鸡胸肉肠375g原味-20包",
@@ -1048,7 +1088,8 @@
       "profit": 1462.0,
       "avg_price": 270.0,
       "dealers": 1,
-      "profit_rate": 27.1
+      "profit_rate": 27.1,
+      "manager": "高玉杰"
     },
     {
       "name": "鸡胸肉50g原味-D",
@@ -1058,7 +1099,8 @@
       "profit": 549.56,
       "avg_price": 1.6,
       "dealers": 4,
-      "profit_rate": 10.3
+      "profit_rate": 10.3,
+      "manager": "多区"
     },
     {
       "name": "黑咖啡20g",
@@ -1068,7 +1110,8 @@
       "profit": 1450.88,
       "avg_price": 2.8,
       "dealers": 2,
-      "profit_rate": 28.2
+      "profit_rate": 28.2,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-袋鼠先生鸡胸肉奥尔良味100g-30包",
@@ -1078,7 +1121,8 @@
       "profit": 1647.0,
       "avg_price": 135.0,
       "dealers": 3,
-      "profit_rate": 32.1
+      "profit_rate": 32.1,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-袋鼠先生鸡胸肉黑胡椒味100g-30包",
@@ -1088,7 +1132,8 @@
       "profit": 1809.0,
       "avg_price": 135.0,
       "dealers": 3,
-      "profit_rate": 35.3
+      "profit_rate": 35.3,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-低脂鸡胸肉肠150g原味",
@@ -1098,7 +1143,8 @@
       "profit": 1750.4,
       "avg_price": 6.65,
       "dealers": 3,
-      "profit_rate": 40.5
+      "profit_rate": 40.5,
+      "manager": "多区"
     },
     {
       "name": "线下-低脂鸡胸肉肠150g玉米味",
@@ -1108,7 +1154,8 @@
       "profit": 1891.2,
       "avg_price": 7.2,
       "dealers": 1,
-      "profit_rate": 43.8
+      "profit_rate": 43.8,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-低脂鸡胸肉肠150g泡椒笋尖肠",
@@ -1118,7 +1165,8 @@
       "profit": 1693.2,
       "avg_price": 7.2,
       "dealers": 1,
-      "profit_rate": 39.2
+      "profit_rate": 39.2,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-125g口袋沙拉棒-30袋",
@@ -1128,7 +1176,8 @@
       "profit": 1193.4,
       "avg_price": 148.5,
       "dealers": 1,
-      "profit_rate": 32.1
+      "profit_rate": 32.1,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉50g香辣味D-20袋*5盒装",
@@ -1138,7 +1187,8 @@
       "profit": 840.0,
       "avg_price": 160.0,
       "dealers": 2,
-      "profit_rate": 26.2
+      "profit_rate": 26.2,
+      "manager": "多区"
     },
     {
       "name": "鸡肉丸60g孜然",
@@ -1148,7 +1198,8 @@
       "profit": 787.2,
       "avg_price": 1.9,
       "dealers": 1,
-      "profit_rate": 25.9
+      "profit_rate": 25.9,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉香辣味45g-80包",
@@ -1158,7 +1209,8 @@
       "profit": 750.4,
       "avg_price": 144.0,
       "dealers": 1,
-      "profit_rate": 26.1
+      "profit_rate": 26.1,
+      "manager": "朱晓亮"
     },
     {
       "name": "低脂沙拉鸡胸45g奥尔良味",
@@ -1168,7 +1220,8 @@
       "profit": 846.0,
       "avg_price": 1.6,
       "dealers": 1,
-      "profit_rate": 29.4
+      "profit_rate": 29.4,
+      "manager": "刘鲁宁"
     },
     {
       "name": "线下-袋鼠先生鸡胸肉奥尔良味散称-5kg-LM",
@@ -1178,7 +1231,8 @@
       "profit": 500.0,
       "avg_price": 140.0,
       "dealers": 1,
-      "profit_rate": 17.9
+      "profit_rate": 17.9,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-袋鼠先生鸡胸肉奥尔良味100g",
@@ -1188,7 +1242,8 @@
       "profit": 49.86,
       "avg_price": 4.79,
       "dealers": 4,
-      "profit_rate": 1.8
+      "profit_rate": 1.8,
+      "manager": "多区"
     },
     {
       "name": "线下-袋鼠先生鸡胸肉黑胡椒味100g",
@@ -1198,7 +1253,8 @@
       "profit": 49.86,
       "avg_price": 4.79,
       "dealers": 4,
-      "profit_rate": 1.8
+      "profit_rate": 1.8,
+      "manager": "多区"
     },
     {
       "name": "风干鸡肉条80g香辣味",
@@ -1208,7 +1264,8 @@
       "profit": 610.45,
       "avg_price": 6.5,
       "dealers": 1,
-      "profit_rate": 31.3
+      "profit_rate": 31.3,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-去皮鸡腿奥尔良味散称-5kg",
@@ -1218,7 +1275,8 @@
       "profit": 415.0,
       "avg_price": 190.0,
       "dealers": 1,
-      "profit_rate": 21.8
+      "profit_rate": 21.8,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-375g口袋沙拉棒",
@@ -1228,7 +1286,8 @@
       "profit": 70.0,
       "avg_price": 13.5,
       "dealers": 1,
-      "profit_rate": 3.7
+      "profit_rate": 3.7,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-低脂鸡胸肉肠150g泡椒笋尖肠-30包",
@@ -1238,7 +1297,8 @@
       "profit": 653.4,
       "avg_price": 216.0,
       "dealers": 1,
-      "profit_rate": 37.8
+      "profit_rate": 37.8,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-低脂鸡胸肉肠150g玉米味-30包",
@@ -1248,7 +1308,8 @@
       "profit": 844.8,
       "avg_price": 216.0,
       "dealers": 1,
-      "profit_rate": 48.9
+      "profit_rate": 48.9,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉肠玉米味散称LJ-5kg",
@@ -1258,7 +1319,8 @@
       "profit": 720.0,
       "avg_price": 172.0,
       "dealers": 1,
-      "profit_rate": 41.9
+      "profit_rate": 41.9,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉肠原味散称LJ-5kg",
@@ -1268,7 +1330,8 @@
       "profit": 670.0,
       "avg_price": 172.0,
       "dealers": 1,
-      "profit_rate": 39.0
+      "profit_rate": 39.0,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-低脂鸡胸肉肠375g玉米味",
@@ -1278,7 +1341,8 @@
       "profit": 735.0,
       "avg_price": 16.0,
       "dealers": 1,
-      "profit_rate": 45.9
+      "profit_rate": 45.9,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-鸡胸肉丸50g孜然-100袋",
@@ -1288,7 +1352,8 @@
       "profit": 313.0,
       "avg_price": 160.0,
       "dealers": 1,
-      "profit_rate": 19.6
+      "profit_rate": 19.6,
+      "manager": "张雪梅"
     },
     {
       "name": "线下-鸡胸肉丸50g黑胡椒味-100袋",
@@ -1298,7 +1363,8 @@
       "profit": 430.0,
       "avg_price": 160.0,
       "dealers": 1,
-      "profit_rate": 26.9
+      "profit_rate": 26.9,
+      "manager": "张雪梅"
     },
     {
       "name": "线下-袋鼠先生鸡胸肉香辣味100g-30包",
@@ -1308,7 +1374,8 @@
       "profit": 459.0,
       "avg_price": 135.0,
       "dealers": 1,
-      "profit_rate": 34.0
+      "profit_rate": 34.0,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-300g去皮烤鸡腿奥尔良味-20包",
@@ -1318,7 +1385,8 @@
       "profit": 420.0,
       "avg_price": 346.0,
       "dealers": 1,
-      "profit_rate": 40.5
+      "profit_rate": 40.5,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-金丝鸡肉卷50g香辣味*20包*6盒",
@@ -1328,7 +1396,8 @@
       "profit": 205.2,
       "avg_price": 180.0,
       "dealers": 1,
-      "profit_rate": 28.5
+      "profit_rate": 28.5,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-300g去皮烤鸡腿香辣味-20包",
@@ -1338,7 +1407,8 @@
       "profit": 280.0,
       "avg_price": 346.0,
       "dealers": 1,
-      "profit_rate": 40.5
+      "profit_rate": 40.5,
+      "manager": "高玉杰"
     },
     {
       "name": "风干鸡肉条80g五香味",
@@ -1348,7 +1418,8 @@
       "profit": 142.71,
       "avg_price": 6.5,
       "dealers": 1,
-      "profit_rate": 22.0
+      "profit_rate": 22.0,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-75g口袋沙拉棒",
@@ -1358,7 +1429,8 @@
       "profit": 243.0,
       "avg_price": 3.3,
       "dealers": 1,
-      "profit_rate": 40.9
+      "profit_rate": 40.9,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-风干鸡胸肉干45g五香味-40包",
@@ -1368,7 +1440,8 @@
       "profit": 120.0,
       "avg_price": 160.0,
       "dealers": 1,
-      "profit_rate": 25.0
+      "profit_rate": 25.0,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-风干鸡胸肉干45g香辣味-40包",
@@ -1378,7 +1451,8 @@
       "profit": 210.0,
       "avg_price": 160.0,
       "dealers": 1,
-      "profit_rate": 43.8
+      "profit_rate": 43.8,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-金丝鸡肉卷50g香辣味",
@@ -1388,7 +1462,8 @@
       "profit": -457.6,
       "avg_price": 3.11,
       "dealers": 4,
-      "profit_rate": -178.7
+      "profit_rate": -178.7,
+      "manager": "多区"
     },
     {
       "name": "线下-全麦乳清蛋白棒浓郁可可味20g",
@@ -1398,7 +1473,8 @@
       "profit": 68.08,
       "avg_price": 0.77,
       "dealers": 1,
-      "profit_rate": 31.6
+      "profit_rate": 31.6,
+      "manager": "朱晓亮"
     },
     {
       "name": "线下-去皮烤鸡腿香辣味70gLS",
@@ -1408,7 +1484,8 @@
       "profit": -45.98,
       "avg_price": 4.92,
       "dealers": 2,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "manager": "刘鲁宁"
     },
     {
       "name": "线下-鸡胸肉丸50g黑胡椒味",
@@ -1418,7 +1495,8 @@
       "profit": -681.38,
       "avg_price": 3.94,
       "dealers": 3,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "manager": "刘鲁宁"
     },
     {
       "name": "线下-鸡胸肉丸50g原味",
@@ -1428,7 +1506,8 @@
       "profit": -681.38,
       "avg_price": 3.94,
       "dealers": 3,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "manager": "刘鲁宁"
     },
     {
       "name": "牛肉52g黑胡椒",
@@ -1438,7 +1517,8 @@
       "profit": -106.71,
       "avg_price": 11.46,
       "dealers": 2,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "manager": "刘鲁宁"
     },
     {
       "name": "线下-125g口袋沙拉棒",
@@ -1448,7 +1528,8 @@
       "profit": -50.38,
       "avg_price": 5.4,
       "dealers": 2,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "manager": "刘鲁宁"
     },
     {
       "name": "线下-金丝鸡肉卷50g原味",
@@ -1458,7 +1539,8 @@
       "profit": -544.37,
       "avg_price": 1.78,
       "dealers": 3,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "manager": "刘鲁宁"
     },
     {
       "name": "线下-去皮烤鸡腿奥尔良味70gLS",
@@ -1468,7 +1550,8 @@
       "profit": -825.38,
       "avg_price": 4.87,
       "dealers": 3,
-      "profit_rate": 0
+      "profit_rate": 0,
+      "manager": "刘鲁宁"
     }
   ]
 }

@@ -144,6 +144,7 @@ tbody tr:hover { background: #fafbfc; }
 <div class="tables-row">
   <div class="table-box" style="grid-column: 1 / -1;">
     <h3>📦 产品 Top 10 <span class="count" id="productCount"></span></h3>
+    <div class="tab-bar" id="productTabs"></div>
     <div class="table-wrap"><table><thead><tr>
       <th>#</th><th>产品</th><th class="num">本月</th><th class="num">累计</th><th class="num">毛利情况</th>
     </tr></thead><tbody id="productTable"></tbody></table></div>
@@ -318,17 +319,40 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   </tr>`;
   document.getElementById('provinceTable').innerHTML = manRows + totalRow;
 
-  // 产品表
-  document.getElementById('productTable').innerHTML = d.products.slice(0, 10).map((v, i) => {
-    const pr = v.profit_rate;
-    return `<tr>
-      <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
-      <td>${v.name}</td>
-      <td class="num">${fmtW(v.month_sales)}</td>
-      <td class="num">${fmtW(v.sales)}</td>
-      <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
-    </tr>`;
-  }).join('');
+  // ===== 产品表选项卡 =====
+  let currentProductTab = '全部';
+  function renderProductTabs() {
+    const tabs = ['全部', ...managerNames];
+    document.getElementById('productTabs').innerHTML = tabs.map(t =>
+      `<button class="tab-btn${t === currentProductTab ? ' active' : ''}" onclick="switchProductTab('${t}')">${t}</button>`
+    ).join('');
+  }
+  function renderProductTable() {
+    let filtered;
+    if (currentProductTab === '全部') {
+      filtered = d.products;
+    } else {
+      filtered = d.products.filter(v => v.manager === currentProductTab);
+    }
+    const rows = filtered.slice(0, 10).map((v, i) => {
+      const pr = v.profit_rate;
+      return `<tr>
+        <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+        <td>${v.name}</td>
+        <td class="num">${fmtW(v.month_sales)}</td>
+        <td class="num">${fmtW(v.sales)}</td>
+        <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
+      </tr>`;
+    });
+    document.getElementById('productTable').innerHTML = rows.join('');
+  }
+  window.switchProductTab = function(tab) {
+    currentProductTab = tab;
+    renderProductTabs();
+    renderProductTable();
+  };
+  renderProductTabs();
+  renderProductTable();
 
 });
 </script>

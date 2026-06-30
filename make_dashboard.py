@@ -260,6 +260,19 @@ if len(day_keys) > 0:
     today_sales = daily[today_key]['sales']
     today_orders = len(daily[today_key]['orders'])
 
+def resolve_product_manager(dealer_set):
+    """根据产品关联的经销商集合，解析省区经理"""
+    mgrs = set()
+    for ch in dealer_set:
+        mgr = dealers.get(ch, {}).get('manager', '未知')
+        if mgr != '未知':
+            mgrs.add(mgr)
+    if len(mgrs) == 1:
+        return list(mgrs)[0]
+    if len(mgrs) > 1:
+        return '多区'
+    return '未知'
+
 data = {
     'update_time': datetime.now().strftime('%Y-%m-%d %H:%M'),
     'total_sales': round(total_sales, 2),
@@ -321,7 +334,8 @@ data = {
         'profit': round(p[1]['profit'], 2),
         'avg_price': round(sum(p[1]['prices'])/len(p[1]['prices']), 2) if p[1]['prices'] else 0,
         'dealers': len(p[1]['dealers']),
-        'profit_rate': round(p[1]['profit']/p[1]['sales']*100, 1) if p[1]['sales'] > 0 else 0
+        'profit_rate': round(p[1]['profit']/p[1]['sales']*100, 1) if p[1]['sales'] > 0 else 0,
+        'manager': resolve_product_manager(p[1]['dealers'])
     } for p in product_ranking]
 }
 
