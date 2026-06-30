@@ -40,23 +40,52 @@ filtered = [r for r in rows_data if not is_mingmang(r[col['客户名称']])]
 print(f"剔除鸣鸣很忙后: {len(filtered)} 行")
 
 # ========== 读合同台账获取省区经理 ==========
-contract_path = r"E:\袋鼠先生\袋鼠先生MeOS\你的MeOS\01_我的资料\经销商管理\线下记录（授权书_证明关系）.xlsx"
+# 数据源：飞书在线表格「线下记录（授权书/证明关系）」→ sheet「合同台账」
+# URL: https://daishuxiansheng.feishu.cn/wiki/PZgMwdwlGimD60kypFOcBVasn9c?sheet=M4qpLc
+import subprocess, tempfile, csv, io
+LARK_CLI = r'C:\Users\Administrator\.workbuddy\binaries\node\cli-connector-packages\lark-cli.cmd'
 try:
-    wb_contract = openpyxl.load_workbook(contract_path, data_only=True)
-    ws_contract = wb_contract['合同台账']
-    contract_headers = [cell.value for cell in next(ws_contract.iter_rows(max_row=1))]
+    result = subprocess.run([
+        LARK_CLI, 'sheets', '+csv-get',
+        '--url', 'https://daishuxiansheng.feishu.cn/wiki/PZgMwdwlGimD60kypFOcBVasn9c',
+        '--sheet-id', 'M4qpLc',
+        '--range', 'A1:N61'
+    ], capture_output=True, text=True, encoding='utf-8')
+    import json as _json
+    resp = _json.loads(result.stdout)
+    csv_text = resp['data']['annotated_csv']
+    # 按 [row=N] 前缀切分行，处理含换行的单元格
+    import re
+    raw_lines = csv_text.strip().split('\n')
+    rows = []
+    current = None
+    for line in raw_lines:
+        m = re.match(r'\[row=(\d+)\]\s(.*)', line)
+        if m:
+            if current is not None:
+                rows.append(current)
+            current = m.group(2)
+        else:
+            if current is not None:
+                current += '\n' + line
+    if current is not None:
+        rows.append(current)
+    # 用csv解析每行
+    reader = csv.reader(io.StringIO('\n'.join(rows)))
+    contract_headers = next(reader)
     contract_col = {h: i for i, h in enumerate(contract_headers)}
     
     manager_map = {} # 客户名称 -> 负责人
-    for row in ws_contract.iter_rows(min_row=2, values_only=True):
+    for row in reader:
+        if len(row) < 12:
+            continue
         cname = str(row[contract_col.get('合作方', 2)] or '').strip()
         manager = str(row[contract_col.get('负责人', 11)] or '').strip()
         if cname and manager and manager != 'None':
             manager_map[cname] = manager
-    wb_contract.close()
-    print(f"成功读取合同台账，匹配到 {len(manager_map)} 个负责人的映射。")
+    print(f"成功从飞书读取合同台账，匹配到 {len(manager_map)} 个负责人的映射。")
 except Exception as e:
-    print("读取合同台账失败:", e)
+    print("读取飞书合同台账失败:", e)
     manager_map = {}
 
 # ========== 解析数据 ==========
