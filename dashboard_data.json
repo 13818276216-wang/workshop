@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-01 10:31",
+  "update_time": "2026-07-01 10:51",
   "overview_all": {
     "year_sales": 12861245.17,
     "year_profit": 2086859.19,
@@ -182,7 +182,7 @@
       "prev_month_sales": 216381.0,
       "sales": 626442.1,
       "orders": 82,
-      "data_months": 7
+      "data_months": 4
     },
     {
       "name": "刘鲁宁",
@@ -193,7 +193,7 @@
       "prev_month_sales": 260646.4,
       "sales": 396754.29,
       "orders": 88,
-      "data_months": 7
+      "data_months": 4
     },
     {
       "name": "朱晓亮",
@@ -204,7 +204,7 @@
       "prev_month_sales": 66515.2,
       "sales": 156502.4,
       "orders": 20,
-      "data_months": 7
+      "data_months": 4
     },
     {
       "name": "张雪梅",
@@ -215,7 +215,7 @@
       "prev_month_sales": 21650.0,
       "sales": 35600.0,
       "orders": 7,
-      "data_months": 7
+      "data_months": 4
     }
   ],
   "dealers": [

@@ -289,13 +289,22 @@ if today_key_calc:
             if mgr != '未知':
                 managers_active_clients[mgr].add(ch)
 
-# ========== 计算月数（最早月 → 当前月跨度） ==========
-if month_keys:
-    earliest_dt = datetime.strptime(month_keys[0], '%Y-%m')
-    current_dt = datetime.strptime(current_month_calc, '%Y-%m')
-    data_months = (current_dt.year - earliest_dt.year) * 12 + (current_dt.month - earliest_dt.month) + 1
-else:
-    data_months = 1
+# ========== 计算月数（每个经理从最早经销商首单月 → 当前月跨度） ==========
+manager_earliest_month = {}
+for mgr_name, mdata in managers.items():
+    earliest = None
+    for ch in mdata['clients']:
+        ch_first = dealers_first_month.get(ch)
+        if ch_first and (earliest is None or ch_first < earliest):
+            earliest = ch_first
+    manager_earliest_month[mgr_name] = earliest
+
+current_dt = datetime.strptime(current_month_calc, '%Y-%m')
+def calc_months(earliest_month):
+    if earliest_month:
+        e_dt = datetime.strptime(earliest_month, '%Y-%m')
+        return (current_dt.year - e_dt.year) * 12 + (current_dt.month - e_dt.month) + 1
+    return 1
 
 # ========== 本月全量 ==========
 month_sales = round(monthly[current_month_calc]['sales'], 2) if current_month_calc in monthly else 0
@@ -387,7 +396,7 @@ data = {
         'prev_month_sales': round(managers_prev_month_same_day.get(m[0], 0), 2),
         'sales': round(m[1]['sales'], 2),
         'orders': len(m[1]['orders']),
-        'data_months': data_months,
+        'data_months': calc_months(manager_earliest_month.get(m[0])),
     } for m in manager_ranking],
     'dealers': [{
         'name': d[0],
