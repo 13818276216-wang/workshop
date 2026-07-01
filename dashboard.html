@@ -290,7 +290,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(v.month_sales)}</td>
         <td class="num">${fmtW(v.sales)}</td>
         <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
-        <td class="num">${v.active_days} 天</td>
+        <td class="num">${v.active_days || 0} 天</td>
         <td>${v.first_month || '-'}</td>
         <td>${v.manager || '-'}</td>
       </tr>`;
