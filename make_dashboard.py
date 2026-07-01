@@ -134,6 +134,7 @@ daily = defaultdict(lambda: {'sales': 0, 'orders': set()})
 cat_stats = defaultdict(lambda: {
     'year_sales': 0, 'year_profit': 0,
     'month_sales': 0, 'month_profit': 0,
+    'today_sales': 0,
     'orders': set(), 'dealers': set()
 })
 
@@ -209,6 +210,8 @@ for r in rows_data:
                 if time_str[:7] == current_month_calc:
                     cat_stats[cat_key]['month_sales'] += pos_amt
                     cat_stats[cat_key]['month_profit'] += profit
+                if time_str[:10] == today_key_calc:
+                    cat_stats[cat_key]['today_sales'] += pos_amt
             except:
                 pass
 
@@ -366,6 +369,7 @@ def make_overview(cat_key):
         'month_sales': mo_sales,
         'month_profit': mo_profit,
         'month_rate': mo_rate,
+        'today_sales': round(s['today_sales'], 2),
         'dealers': len(s['dealers']),
         'orders': len(s['orders']),
     }

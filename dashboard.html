@@ -12,8 +12,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; }
 .header h1 span { color: #e85d04; }
 .header .sub { font-size: 13px; color: #888; }
-.cards { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-/* ===== 总览表格（与下方表格风格一致） ===== */
+/* ===== 主选项卡 ===== */
+.main-tabs { max-width: 900px; margin: 0 auto 16px; display: flex; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+.main-tab-btn { flex: 1; padding: 10px 0; border: none; background: #fff; color: #666; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.main-tab-btn:first-child { border-right: 1px solid #e0e0e0; }
+.main-tab-btn:hover { background: #fef5f0; color: #e85d04; }
+.main-tab-btn.active { background: #e85d04; color: #fff; }
+/* 总览表格（与下方表格风格一致） */
 .overview-section { max-width: 900px; margin: 0 auto 8px; background: #fff; border-radius: 12px; padding: 14px 18px 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
 .overview-section .section-label { font-size: 13px; color: #333; font-weight: 600; margin-bottom: 8px; }
 .overview-table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -137,8 +142,14 @@ tbody tr:hover { background: #fafbfc; }
   <div class="sub" id="updateTime">加载中...</div>
 </div>
 
+<div class="main-tabs">
+  <button class="main-tab-btn active" onclick="switchMainTab('mgmt')">管理层</button>
+  <button class="main-tab-btn" onclick="switchMainTab('biz')">业务层</button>
+</div>
+
 <div class="section-title">线下总览</div>
-<div class="overview-row" id="overview"></div>
+<div class="mgmt-content" id="overviewMgmt"></div>
+<div class="biz-content" id="overviewBiz" style="display:none"></div>
 
 <div class="section-title">经销商模块情况</div>
 
@@ -146,7 +157,7 @@ tbody tr:hover { background: #fafbfc; }
 <div class="tables-row" id="provinceSection">
   <div class="table-box" style="grid-column: 1 / -1;">
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">活跃家数</th><th class="num">活跃率</th><th class="num">今日订单金额</th><th class="num">本月累计</th><th class="num">环比</th><th class="num">本年累计</th><th class="num">客月均订单</th>
+      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">活跃家数</th><th class="num">活跃率</th><th class="num">今日订单金额</th><th class="num">本月累计金额</th><th class="num">环比</th><th class="num">年度累计金额</th><th class="num">客月均订单</th>
     </tr></thead><tbody id="provinceTable"></tbody></table></div>
     <div class="table-note">金额单位：万元 · 活跃家数：30天内有订单 · 客月均订单=本年÷月数÷客户数 · 环比=本月同日累计 vs 上月同日累计</div>
   </div>
@@ -156,10 +167,10 @@ tbody tr:hover { background: #fafbfc; }
 <div class="tables-row">
   <div class="table-box" style="grid-column: 1 / -1;">
     <div class="tab-bar" id="dealerTabs"></div>
-    <div class="table-wrap"><table class="dealer-table"><thead><tr>
-      <th>#</th><th>经销商</th><th class="num">今日订单金额</th><th class="num">本月累计</th><th class="num">年度累计</th><th class="num">年毛利率</th><th class="num">30天内活跃次数</th><th>首批月</th><th>省区经理</th>
-    </tr></thead><tbody id="dealerTable"></tbody></table></div>
-    <div class="table-note">金额单位：万元 · 毛利率：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | &lt;10% 很低</div>
+    <div class="table-wrap"><table class="dealer-table"><thead>
+      <tr id="dealerHeader"></tr>
+    </thead><tbody id="dealerTable"></tbody></table></div>
+    <div class="table-note" id="dealerNote"></div>
   </div>
 </div>
 
@@ -167,10 +178,10 @@ tbody tr:hover { background: #fafbfc; }
 <div class="tables-row">
   <div class="table-box" style="grid-column: 1 / -1;">
     <div class="tab-bar" id="productTabs"></div>
-    <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>产品</th><th class="num">本月金额</th><th class="num">累计金额</th><th class="num">30天内下单次数</th><th class="num">年毛利情况</th>
-    </tr></thead><tbody id="productTable"></tbody></table></div>
-    <div class="table-note">金额单位：万元 · 毛利情况：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | &lt;10% 很低</div>
+    <div class="table-wrap"><table><thead>
+      <tr id="productHeader"></tr>
+    </thead><tbody id="productTable"></tbody></table></div>
+    <div class="table-note" id="productNote"></div>
   </div>
 </div>
 
@@ -182,27 +193,16 @@ function fmt(n) {
   if (n >= 1000) return (n/1000).toFixed(1) + 'k';
   return n.toLocaleString();
 }
-function fmtMoney(n) {
-  if (Math.abs(n) >= 10000) return (n/10000).toFixed(1) + '万';
-  return n.toLocaleString();
-}
 function fmtW(n) {
-  // 万元数值，不写"万"字；0直接显示0
   if (n === 0 || n === null || n === undefined) return '0';
   return (n / 10000).toFixed(2);
 }
 function fmtRatio(monthSales, prevMonthSales) {
-  // 环比增长率：本月同日累计 vs 上月同日累计
   if (!prevMonthSales || prevMonthSales === 0) return { text: '新增', cls: 'ratio-new' };
   const ratio = ((monthSales - prevMonthSales) / prevMonthSales * 100);
   const sign = ratio >= 0 ? '+' : '';
   let cls = ratio >= 10 ? 'ratio-up' : (ratio >= 0 ? 'ratio-flat' : 'ratio-down');
   return { text: `${sign}${ratio.toFixed(1)}%`, cls: cls };
-}
-function pctClass(v) {
-  if (v >= 20) return 'pct-up';
-  if (v >= 0) return 'pct-neutral';
-  return 'pct-down';
 }
 function rankClass(i) {
   if (i === 0) return 'rank-1';
@@ -218,24 +218,79 @@ function profitLabel(rate) {
   return '很低';
 }
 function profitColor(rate) {
-  if (rate >= 40) return 'color:#e85d04;font-weight:700;';
-  if (rate >= 30) return 'color:#2d6a4f;font-weight:600;';
-  if (rate >= 20) return 'color:#333;';
-  if (rate >= 10) return 'color:#f48c06;';
-  return 'color:#d00000;';
+  if (rate >= 40) return '#e85d04';
+  if (rate >= 30) return '#2d6a4f';
+  if (rate >= 20) return '#333';
+  if (rate >= 10) return '#f48c06';
+  return '#d00000';
+}
+function profitHtml(rate, isMgmt) {
+  const c = profitColor(rate);
+  if (isMgmt) {
+    return `<span style="color:${c};font-weight:700;">${rate.toFixed(1)}%</span>`;
+  } else {
+    const l = profitLabel(rate);
+    const w = rate >= 30 ? 700 : 600;
+    return `<span style="color:${c};font-weight:${w};">${l}</span>`;
+  }
 }
 
-fetch('dashboard_data.json').then(r => r.json()).then(d => {
+let currentMainTab = 'mgmt';
+let d = null;
+let currentDealerTab = '全部';
+let currentProductTab = '全部';
+
+function switchMainTab(tab) {
+  currentMainTab = tab;
+  document.querySelectorAll('.main-tab-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === (tab === 'mgmt' ? '管理层' : '业务层'));
+  });
+  // 总览切换
+  document.getElementById('overviewMgmt').style.display = tab === 'mgmt' ? '' : 'none';
+  document.getElementById('overviewBiz').style.display = tab === 'biz' ? '' : 'none';
+  // 重新渲染经销商/产品表
+  renderDealerHeader();
+  renderDealerTable();
+  renderProductHeader();
+  renderProductTable();
+}
+
+// ===== 经销商表头 =====
+function renderDealerHeader() {
+  const isMgmt = currentMainTab === 'mgmt';
+  document.getElementById('dealerHeader').innerHTML =
+    `<th>#</th><th>经销商</th><th class="num">今日订单金额</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th>` +
+    (isMgmt ? `<th class="num">年毛利率</th>` : `<th class="num">毛利标签</th>`) +
+    `<th class="num">30天内活跃次数</th><th>首批月</th><th>省区经理</th>`;
+  document.getElementById('dealerNote').textContent = isMgmt
+    ? '金额单位：万元 · 毛利率：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低'
+    : '金额单位：万元 · 标签：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低';
+}
+
+// ===== 产品表头 =====
+function renderProductHeader() {
+  const isMgmt = currentMainTab === 'mgmt';
+  document.getElementById('productHeader').innerHTML =
+    `<th>#</th><th>产品</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th><th class="num">30天内下单次数</th>` +
+    (isMgmt ? `<th class="num">年毛利情况</th>` : `<th class="num">毛利标签</th>`);
+  document.getElementById('productNote').textContent = isMgmt
+    ? '金额单位：万元 · 毛利情况：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低'
+    : '金额单位：万元 · 标签：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低';
+}
+
+fetch('dashboard_data.json').then(r => r.json()).then(data => {
+  d = data;
   document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
 
-  // ===== 总览卡片（8色块：本年一行 + 本月一行，每行渠道||经销商分开） =====
   const cats = [
     { label: '线下累计', key: 'overview_all', id: 1 },
     { label: '零食渠道', key: 'overview_snack', id: 2 },
     { label: '闪电仓', key: 'overview_lightning', id: 3 },
     { label: '经销商', key: 'overview_dealer', id: 4 },
   ];
-  function renderTable(period, cats, getSales, getProfit, getRate) {
+
+  // ===== 管理层总览（两个表格） =====
+  function renderOverviewTable(period, cats, getSales, getProfit, getRate) {
     const rows = cats.map((c, i) =>
       `<tr>` +
       `<td><span class="overview-dot od-${i+1}"></span>${c.label}</td>` +
@@ -250,18 +305,32 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
       `<tbody>${rows}</tbody></table>` +
       `</div>`;
   }
-  document.getElementById('overview').innerHTML =
-    renderTable('本年累计', cats,
+  document.getElementById('overviewMgmt').innerHTML =
+    renderOverviewTable('本年累计', cats,
       c => d[c.key].year_sales, c => d[c.key].year_profit, c => d[c.key].year_rate) +
-    renderTable('本月累计', cats,
+    renderOverviewTable('本月累计', cats,
       c => d[c.key].month_sales, c => d[c.key].month_profit, c => d[c.key].month_rate);
+
+  // ===== 业务层总览（一个表格：类别|今日订单金额|本月累计金额|年度累计金额） =====
+  const bizRows = cats.map((c, i) =>
+    `<tr>` +
+    `<td><span class="overview-dot od-${i+1}"></span>${c.label}</td>` +
+    `<td class="num">${fmtW(d[c.key].today_sales)}</td>` +
+    `<td class="num">${fmtW(d[c.key].month_sales)}</td>` +
+    `<td class="num">${fmtW(d[c.key].year_sales)}</td>` +
+    `</tr>`
+  ).join('');
+  document.getElementById('overviewBiz').innerHTML =
+    `<div class="overview-section">` +
+    `<table class="overview-table"><thead><tr><th>类别</th><th class="num">今日订单金额</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th></tr></thead>` +
+    `<tbody>${bizRows}</tbody></table>` +
+    `</div>`;
 
   document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
   document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
   document.getElementById('productCount').textContent = `· 共 ${d.products.length} 个`;
 
-  // ===== 分经销商明细选项卡 =====
-  let currentDealerTab = '全部';
+  // ===== 分经销商 =====
   const managerNames = d.managers.map(m => m.name);
 
   function renderDealerTabs() {
@@ -275,6 +344,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   }
 
   function renderDealerTable() {
+    const isMgmt = currentMainTab === 'mgmt';
     let filtered;
     if (currentDealerTab === '全部') {
       filtered = d.dealers;
@@ -289,25 +359,24 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(v.today_sales)}</td>
         <td class="num">${fmtW(v.month_sales)}</td>
         <td class="num">${fmtW(v.sales)}</td>
-        <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
+        <td class="num">${profitHtml(pr, isMgmt)}</td>
         <td class="num">${v.active_days || 0} 天</td>
         <td>${v.first_month || '-'}</td>
         <td>${v.manager || '-'}</td>
       </tr>`;
     });
-    // 小计行
     if (filtered.length > 0) {
       const st = filtered.reduce((s, v) => s + v.today_sales, 0);
       const sm = filtered.reduce((s, v) => s + v.month_sales, 0);
       const sy = filtered.reduce((s, v) => s + v.sales, 0);
       const sp = filtered.reduce((s, v) => s + v.profit, 0);
-      const sr = sy > 0 ? (sp / sy * 100).toFixed(1) : 0;
+      const sr = sy > 0 ? parseFloat((sp / sy * 100).toFixed(1)) : 0;
       rows.push(`<tr class="subtotal-row">
         <td></td><td>${currentDealerTab} 小计（${filtered.length}家）</td>
         <td class="num">${fmtW(st)}</td>
         <td class="num">${fmtW(sm)}</td>
         <td class="num">${fmtW(sy)}</td>
-        <td class="num" style="${profitColor(parseFloat(sr))}">${profitLabel(parseFloat(sr))}</td>
+        <td class="num">${profitHtml(sr, isMgmt)}</td>
         <td></td><td></td><td></td>
       </tr>`);
     }
@@ -320,10 +389,11 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     renderDealerTable();
   };
 
+  renderDealerHeader();
   renderDealerTabs();
   renderDealerTable();
 
-  // 分省区经营表（含总计行）
+  // ===== 分省区（两边相同） =====
   const manRows = d.managers.map((v, i) => {
     const ratio = fmtRatio(v.month_sales, v.prev_month_sales);
     const activeRate = v.clients > 0 ? (v.active_clients / v.clients * 100).toFixed(0) + '%' : '-';
@@ -341,7 +411,6 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
       <td class="num">${avgMonthly}</td>
     </tr>`;
   }).join('');
-  // 总计
   const totalToday = d.managers.reduce((s, v) => s + v.today_sales, 0);
   const totalMonth = d.managers.reduce((s, v) => s + v.month_sales, 0);
   const totalPrevMonth = d.managers.reduce((s, v) => s + v.prev_month_sales, 0);
@@ -352,7 +421,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   const totalRatio = fmtRatio(totalMonth, totalPrevMonth);
   const dataMonths = d.managers.length > 0 ? d.managers[0].data_months : 1;
   const totalAvg = (totalClients > 0 && dataMonths > 0) ? fmtW(totalYear / dataMonths / totalClients) : '-';
-  const totalRow = `<tr style="font-weight:700;background:#f8f9fb;">
+  document.getElementById('provinceTable').innerHTML = manRows + `<tr style="font-weight:700;background:#f8f9fb;">
     <td></td><td>合计</td>
     <td class="num">${totalClients}</td>
     <td class="num">${totalActive}</td>
@@ -363,10 +432,8 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     <td class="num">${fmtW(totalYear)}</td>
     <td class="num">${totalAvg}</td>
   </tr>`;
-  document.getElementById('provinceTable').innerHTML = manRows + totalRow;
 
-  // ===== 产品表选项卡 =====
-  let currentProductTab = '全部';
+  // ===== 分产品 =====
   function renderProductTabs() {
     const tabs = ['全部', ...managerNames];
     document.getElementById('productTabs').innerHTML = tabs.map(t => {
@@ -375,7 +442,9 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
       return `<button class="tab-btn${t === currentProductTab ? ' active' : ''}" onclick="switchProductTab('${t}')">${t}(${count})</button>`;
     }).join('');
   }
+
   function renderProductTable() {
+    const isMgmt = currentMainTab === 'mgmt';
     let filtered;
     if (currentProductTab === '全部') {
       filtered = d.products;
@@ -390,16 +459,19 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(v.month_sales)}</td>
         <td class="num">${fmtW(v.sales)}</td>
         <td class="num">${v.active_days_30 || 0} 次</td>
-        <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
+        <td class="num">${profitHtml(pr, isMgmt)}</td>
       </tr>`;
     });
     document.getElementById('productTable').innerHTML = rows.join('');
   }
+
   window.switchProductTab = function(tab) {
     currentProductTab = tab;
     renderProductTabs();
     renderProductTable();
   };
+
+  renderProductHeader();
   renderProductTabs();
   renderProductTable();
 
