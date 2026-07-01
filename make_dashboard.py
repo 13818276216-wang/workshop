@@ -146,6 +146,8 @@ managers = {}
 managers_today = defaultdict(float)
 managers_month = defaultdict(lambda: {'sales': 0, 'profit': 0})
 managers_prev_month_same_day = defaultdict(float)
+managers_active_clients = defaultdict(set)   # 30天内有订单的经销商
+dealers_last_order_day = {}                   # 经销商最后一笔订单日期
 products = {}
 products_month = defaultdict(float)
 
@@ -258,6 +260,9 @@ for r in rows_data:
                 managers_prev_month_same_day[manager] += pos_amt
             if channel not in dealers_first_month or month_key < dealers_first_month[channel]:
                 dealers_first_month[channel] = month_key
+            # 更新经销商最近一笔订单日期
+            if channel not in dealers_last_order_day or day_key > dealers_last_order_day[channel]:
+                dealers_last_order_day[channel] = day_key
         except:
             pass
 
@@ -271,6 +276,26 @@ recent_days = day_keys[-14:] if len(day_keys) > 14 else day_keys
 dealer_ranking = sorted(dealers.items(), key=lambda x: x[1]['sales'], reverse=True)
 product_ranking = sorted(products.items(), key=lambda x: x[1]['sales'], reverse=True)
 manager_ranking = sorted(managers.items(), key=lambda x: x[1]['sales'], reverse=True)
+
+# ========== 计算活跃家数（30天内有订单） ==========
+from datetime import timedelta
+if today_key_calc:
+    today_dt = datetime.strptime(today_key_calc, '%Y-%m-%d')
+    cutoff_dt = today_dt - timedelta(days=30)
+    cutoff_key = cutoff_dt.strftime('%Y-%m-%d')
+    for ch, last_day in dealers_last_order_day.items():
+        if last_day >= cutoff_key:
+            mgr = dealers.get(ch, {}).get('manager', '未知')
+            if mgr != '未知':
+                managers_active_clients[mgr].add(ch)
+
+# ========== 计算月数（最早月 → 当前月跨度） ==========
+if month_keys:
+    earliest_dt = datetime.strptime(month_keys[0], '%Y-%m')
+    current_dt = datetime.strptime(current_month_calc, '%Y-%m')
+    data_months = (current_dt.year - earliest_dt.year) * 12 + (current_dt.month - earliest_dt.month) + 1
+else:
+    data_months = 1
 
 # ========== 本月全量 ==========
 month_sales = round(monthly[current_month_calc]['sales'], 2) if current_month_calc in monthly else 0
@@ -356,11 +381,13 @@ data = {
     'managers': [{
         'name': m[0],
         'clients': len(m[1]['clients']),
+        'active_clients': len(managers_active_clients.get(m[0], set())),
         'today_sales': round(managers_today.get(m[0], 0), 2),
         'month_sales': round(managers_month[m[0]]['sales'], 2),
         'prev_month_sales': round(managers_prev_month_same_day.get(m[0], 0), 2),
         'sales': round(m[1]['sales'], 2),
         'orders': len(m[1]['orders']),
+        'data_months': data_months,
     } for m in manager_ranking],
     'dealers': [{
         'name': d[0],

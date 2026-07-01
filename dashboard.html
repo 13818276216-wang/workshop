@@ -145,9 +145,9 @@ tbody tr:hover { background: #fafbfc; }
 <div class="tables-row" id="provinceSection">
   <div class="table-box" style="grid-column: 1 / -1;">
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">今日</th><th class="num">本月</th><th class="num">环比</th><th class="num">本年</th>
+      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">活跃家数</th><th class="num">活跃率</th><th class="num">今日</th><th class="num">本月</th><th class="num">环比</th><th class="num">本年</th><th class="num">客月均订单</th>
     </tr></thead><tbody id="provinceTable"></tbody></table></div>
-    <div class="table-note">金额单位：万元 · 环比 = 本月同日累计 vs 上月同日累计</div>
+    <div class="table-note">金额单位：万元 · 活跃家数：30天内有订单 · 客月均订单=本年÷月数÷客户数 · 环比=本月同日累计 vs 上月同日累计</div>
   </div>
 </div>
 
@@ -324,14 +324,19 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   // 分省区经营表（含总计行）
   const manRows = d.managers.map((v, i) => {
     const ratio = fmtRatio(v.month_sales, v.prev_month_sales);
+    const activeRate = v.clients > 0 ? (v.active_clients / v.clients * 100).toFixed(0) + '%' : '-';
+    const avgMonthly = (v.clients > 0 && v.data_months > 0) ? fmtW(v.sales / v.data_months / v.clients) : '-';
     return `<tr>
       <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
       <td><strong>${v.name}</strong></td>
-      <td class="num">${v.clients} 家</td>
+      <td class="num">${v.clients}</td>
+      <td class="num">${v.active_clients}</td>
+      <td class="num">${activeRate}</td>
       <td class="num">${fmtW(v.today_sales)}</td>
       <td class="num">${fmtW(v.month_sales)}</td>
       <td class="num ${ratio.cls}">${ratio.text}</td>
       <td class="num">${fmtW(v.sales)}</td>
+      <td class="num">${avgMonthly}</td>
     </tr>`;
   }).join('');
   // 总计
@@ -340,14 +345,21 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
   const totalPrevMonth = d.managers.reduce((s, v) => s + v.prev_month_sales, 0);
   const totalYear = d.managers.reduce((s, v) => s + v.sales, 0);
   const totalClients = d.managers.reduce((s, v) => s + v.clients, 0);
+  const totalActive = d.managers.reduce((s, v) => s + v.active_clients, 0);
+  const totalActiveRate = totalClients > 0 ? (totalActive / totalClients * 100).toFixed(0) + '%' : '-';
   const totalRatio = fmtRatio(totalMonth, totalPrevMonth);
+  const dataMonths = d.managers.length > 0 ? d.managers[0].data_months : 1;
+  const totalAvg = (totalClients > 0 && dataMonths > 0) ? fmtW(totalYear / dataMonths / totalClients) : '-';
   const totalRow = `<tr style="font-weight:700;background:#f8f9fb;">
     <td></td><td>合计</td>
-    <td class="num">${totalClients} 家</td>
+    <td class="num">${totalClients}</td>
+    <td class="num">${totalActive}</td>
+    <td class="num">${totalActiveRate}</td>
     <td class="num">${fmtW(totalToday)}</td>
     <td class="num">${fmtW(totalMonth)}</td>
     <td class="num ${totalRatio.cls}">${totalRatio.text}</td>
     <td class="num">${fmtW(totalYear)}</td>
+    <td class="num">${totalAvg}</td>
   </tr>`;
   document.getElementById('provinceTable').innerHTML = manRows + totalRow;
 
