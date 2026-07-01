@@ -168,7 +168,7 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box" style="grid-column: 1 / -1;">
     <div class="tab-bar" id="productTabs"></div>
     <div class="table-wrap"><table><thead><tr>
-      <th>#</th><th>产品</th><th class="num">本月</th><th class="num">累计</th><th class="num">毛利情况</th>
+      <th>#</th><th>产品</th><th class="num">本月金额</th><th class="num">累计金额</th><th class="num">30天内下单次数</th><th class="num">年毛利情况</th>
     </tr></thead><tbody id="productTable"></tbody></table></div>
     <div class="table-note">金额单位：万元 · 毛利情况：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | &lt;10% 很低</div>
   </div>
@@ -382,13 +382,14 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
     } else {
       filtered = d.products.filter(v => v.manager === currentProductTab);
     }
-    const rows = filtered.slice(0, 10).map((v, i) => {
+    const rows = filtered.map((v, i) => {
       const pr = v.profit_rate;
       return `<tr>
         <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
         <td>${v.name}</td>
         <td class="num">${fmtW(v.month_sales)}</td>
         <td class="num">${fmtW(v.sales)}</td>
+        <td class="num">${v.active_days_30 || 0} 次</td>
         <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
       </tr>`;
     });
