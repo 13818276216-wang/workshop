@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-01 10:51",
+  "update_time": "2026-07-01 11:08",
   "overview_all": {
     "year_sales": 12861245.17,
     "year_profit": 2086859.19,
@@ -229,6 +229,7 @@
       "profit_rate": 34.7,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 6,
       "first_month": "2026-05"
     },
     {
@@ -241,6 +242,7 @@
       "profit_rate": 22.4,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 5,
       "first_month": "2026-05"
     },
     {
@@ -253,6 +255,7 @@
       "profit_rate": 18.5,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-04"
     },
     {
@@ -265,6 +268,7 @@
       "profit_rate": 11.3,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 4,
       "first_month": "2026-04"
     },
     {
@@ -277,6 +281,7 @@
       "profit_rate": 6.7,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 4,
       "first_month": "2026-05"
     },
     {
@@ -289,6 +294,7 @@
       "profit_rate": 29.9,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-05"
     },
     {
@@ -301,6 +307,7 @@
       "profit_rate": 29.3,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 3,
       "first_month": "2026-05"
     },
     {
@@ -313,6 +320,7 @@
       "profit_rate": 20.7,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-05"
     },
     {
@@ -325,6 +333,7 @@
       "profit_rate": 29.4,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 5,
       "first_month": "2026-06"
     },
     {
@@ -337,6 +346,7 @@
       "profit_rate": 25.3,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-04"
     },
     {
@@ -349,6 +359,7 @@
       "profit_rate": 28.3,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 3,
       "first_month": "2026-06"
     },
     {
@@ -361,6 +372,7 @@
       "profit_rate": 3.2,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 3,
       "first_month": "2026-05"
     },
     {
@@ -373,6 +385,7 @@
       "profit_rate": 21.7,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 3,
       "first_month": "2026-05"
     },
     {
@@ -385,6 +398,7 @@
       "profit_rate": 26.0,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-05"
     },
     {
@@ -397,6 +411,7 @@
       "profit_rate": 26.4,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-05"
     },
     {
@@ -409,6 +424,7 @@
       "profit_rate": 35.9,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-06"
     },
     {
@@ -421,6 +437,7 @@
       "profit_rate": 25.3,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-05"
     },
     {
@@ -433,6 +450,7 @@
       "profit_rate": 17.5,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-06"
     },
     {
@@ -445,6 +463,7 @@
       "profit_rate": 18.3,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 3,
       "first_month": "2026-06"
     },
     {
@@ -457,6 +476,7 @@
       "profit_rate": 27.2,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 0,
       "first_month": "2026-04"
     },
     {
@@ -469,6 +489,7 @@
       "profit_rate": 7.0,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 3,
       "first_month": "2026-06"
     },
     {
@@ -481,6 +502,7 @@
       "profit_rate": 27.8,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -493,6 +515,7 @@
       "profit_rate": 21.1,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-05"
     },
     {
@@ -505,6 +528,7 @@
       "profit_rate": 26.0,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-05"
     },
     {
@@ -517,6 +541,7 @@
       "profit_rate": 21.7,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-05"
     },
     {
@@ -529,6 +554,7 @@
       "profit_rate": 36.6,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 4,
       "first_month": "2026-05"
     },
     {
@@ -541,6 +567,7 @@
       "profit_rate": 41.5,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-06"
     },
     {
@@ -553,6 +580,7 @@
       "profit_rate": 39.4,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -565,6 +593,7 @@
       "profit_rate": 18.1,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -577,6 +606,7 @@
       "profit_rate": 22.6,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -589,6 +619,7 @@
       "profit_rate": 22.0,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -601,6 +632,7 @@
       "profit_rate": 34.1,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -613,6 +645,7 @@
       "profit_rate": 28.4,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -625,6 +658,7 @@
       "profit_rate": 34.0,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -637,6 +671,7 @@
       "profit_rate": 26.7,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -649,6 +684,7 @@
       "profit_rate": 36.6,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 0,
       "first_month": "2026-05"
     },
     {
@@ -661,6 +697,7 @@
       "profit_rate": 19.5,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-05"
     },
     {
@@ -673,6 +710,7 @@
       "profit_rate": 29.2,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -685,6 +723,7 @@
       "profit_rate": 31.9,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 2,
       "first_month": "2026-06"
     },
     {
@@ -697,6 +736,7 @@
       "profit_rate": 0,
       "today_sales": 0,
       "month_sales": 0,
+      "active_days": 1,
       "first_month": "2026-06"
     }
   ],

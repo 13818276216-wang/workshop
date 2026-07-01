@@ -148,6 +148,7 @@ managers_month = defaultdict(lambda: {'sales': 0, 'profit': 0})
 managers_prev_month_same_day = defaultdict(float)
 managers_active_clients = defaultdict(set)   # 30天内有订单的经销商
 dealers_last_order_day = {}                   # 经销商最后一笔订单日期
+dealers_order_days = defaultdict(set)           # 经销商所有下单日期（去重）
 products = {}
 products_month = defaultdict(float)
 
@@ -263,6 +264,7 @@ for r in rows_data:
             # 更新经销商最近一笔订单日期
             if channel not in dealers_last_order_day or day_key > dealers_last_order_day[channel]:
                 dealers_last_order_day[channel] = day_key
+            dealers_order_days[channel].add(day_key)
         except:
             pass
 
@@ -288,6 +290,13 @@ if today_key_calc:
             mgr = dealers.get(ch, {}).get('manager', '未知')
             if mgr != '未知':
                 managers_active_clients[mgr].add(ch)
+
+# ========== 计算经销商30天活跃天数 ==========
+dealers_active_days = {}
+if today_key_calc:
+    for ch, days_set in dealers_order_days.items():
+        active_count = sum(1 for d in days_set if d >= cutoff_key)
+        dealers_active_days[ch] = active_count
 
 # ========== 计算月数（每个经理从最早经销商首单月 → 当前月跨度） ==========
 manager_earliest_month = {}
@@ -408,6 +417,7 @@ data = {
         'profit_rate': round(d[1]['profit']/d[1]['sales']*100, 1) if d[1]['sales'] > 0 else 0,
         'today_sales': round(dealers_today.get(d[0], 0), 2),
         'month_sales': round(dealers_month.get(d[0], 0), 2),
+        'active_days': dealers_active_days.get(d[0], 0),
         'first_month': dealers_first_month.get(d[0], '-')
     } for d in dealer_ranking],
     'products': [{

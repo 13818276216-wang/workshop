@@ -87,6 +87,7 @@ tbody tr:hover { background: #fafbfc; }
 .dealer-table th:nth-child(4), .dealer-table td:nth-child(4),
 .dealer-table th:nth-child(5), .dealer-table td:nth-child(5) { width: 60px; text-align: right; }
 .dealer-table th:nth-child(6), .dealer-table td:nth-child(6) { width: 110px; text-align: center; }
+.dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 90px; text-align: right; }
 .dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 70px; text-align: center; }
 .dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 70px; }
 
@@ -156,7 +157,7 @@ tbody tr:hover { background: #fafbfc; }
   <div class="table-box" style="grid-column: 1 / -1;">
     <div class="tab-bar" id="dealerTabs"></div>
     <div class="table-wrap"><table class="dealer-table"><thead><tr>
-      <th>#</th><th>经销商</th><th class="num">今日</th><th class="num">本月</th><th class="num">累计</th><th class="num">毛利率</th><th>首批月</th><th>省区经理</th>
+      <th>#</th><th>经销商</th><th class="num">今日订单金额</th><th class="num">本月累计</th><th class="num">年度累计</th><th class="num">年毛利率</th><th class="num">30天内活跃次数</th><th>首批月</th><th>省区经理</th>
     </tr></thead><tbody id="dealerTable"></tbody></table></div>
     <div class="table-note">金额单位：万元 · 毛利率：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | &lt;10% 很低</div>
   </div>
@@ -289,6 +290,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(v.month_sales)}</td>
         <td class="num">${fmtW(v.sales)}</td>
         <td class="num" style="${profitColor(pr)}">${profitLabel(pr)}</td>
+        <td class="num">${v.active_days} 天</td>
         <td>${v.first_month || '-'}</td>
         <td>${v.manager || '-'}</td>
       </tr>`;
@@ -306,7 +308,7 @@ fetch('dashboard_data.json').then(r => r.json()).then(d => {
         <td class="num">${fmtW(sm)}</td>
         <td class="num">${fmtW(sy)}</td>
         <td class="num" style="${profitColor(parseFloat(sr))}">${profitLabel(parseFloat(sr))}</td>
-        <td></td><td></td>
+        <td></td><td></td><td></td>
       </tr>`);
     }
     document.getElementById('dealerTable').innerHTML = rows.join('');
