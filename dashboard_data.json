@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-01 11:11",
+  "update_time": "2026-07-01 11:16",
   "overview_all": {
     "year_sales": 12861245.17,
     "year_profit": 2086859.19,
@@ -750,7 +750,7 @@
       "avg_price": 26.28,
       "dealers": 2,
       "profit_rate": 36.3,
-      "active_days_30": 0,
+      "active_days_30": 3,
       "manager": "刘鲁宁"
     },
     {
@@ -762,7 +762,7 @@
       "avg_price": 3.28,
       "dealers": 11,
       "profit_rate": 20.1,
-      "active_days_30": 0,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
@@ -774,7 +774,7 @@
       "avg_price": 3.28,
       "dealers": 12,
       "profit_rate": 18.6,
-      "active_days_30": 0,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
@@ -786,7 +786,7 @@
       "avg_price": 8.17,
       "dealers": 2,
       "profit_rate": 8.4,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "多区"
     },
     {
@@ -798,7 +798,7 @@
       "avg_price": 278.0,
       "dealers": 9,
       "profit_rate": 23.6,
-      "active_days_30": 0,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
@@ -810,7 +810,7 @@
       "avg_price": 11.88,
       "dealers": 3,
       "profit_rate": 6.5,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -822,7 +822,7 @@
       "avg_price": 1.55,
       "dealers": 10,
       "profit_rate": 24.1,
-      "active_days_30": 0,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
@@ -834,7 +834,7 @@
       "avg_price": 275.11,
       "dealers": 7,
       "profit_rate": 27.8,
-      "active_days_30": 0,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
@@ -858,7 +858,7 @@
       "avg_price": 1.57,
       "dealers": 7,
       "profit_rate": 26.9,
-      "active_days_30": 0,
+      "active_days_30": 5,
       "manager": "多区"
     },
     {
@@ -870,7 +870,7 @@
       "avg_price": 54.8,
       "dealers": 1,
       "profit_rate": 34.6,
-      "active_days_30": 0,
+      "active_days_30": 4,
       "manager": "刘鲁宁"
     },
     {
@@ -882,7 +882,7 @@
       "avg_price": 124.0,
       "dealers": 4,
       "profit_rate": 11.9,
-      "active_days_30": 0,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
@@ -906,7 +906,7 @@
       "avg_price": 1.58,
       "dealers": 8,
       "profit_rate": 25.2,
-      "active_days_30": 0,
+      "active_days_30": 7,
       "manager": "多区"
     },
     {
@@ -918,7 +918,7 @@
       "avg_price": 3.28,
       "dealers": 6,
       "profit_rate": 24.2,
-      "active_days_30": 0,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
@@ -930,7 +930,7 @@
       "avg_price": 13.5,
       "dealers": 1,
       "profit_rate": 9.8,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -942,7 +942,7 @@
       "avg_price": 160.0,
       "dealers": 4,
       "profit_rate": 17.6,
-      "active_days_30": 0,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
@@ -954,7 +954,7 @@
       "avg_price": 11.44,
       "dealers": 1,
       "profit_rate": 6.0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -966,7 +966,7 @@
       "avg_price": 3.3,
       "dealers": 6,
       "profit_rate": 23.4,
-      "active_days_30": 0,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
@@ -978,7 +978,7 @@
       "avg_price": 3.3,
       "dealers": 2,
       "profit_rate": 24.3,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -990,7 +990,7 @@
       "avg_price": 160.0,
       "dealers": 4,
       "profit_rate": 23.4,
-      "active_days_30": 0,
+      "active_days_30": 5,
       "manager": "多区"
     },
     {
@@ -1002,7 +1002,7 @@
       "avg_price": 11.72,
       "dealers": 3,
       "profit_rate": 23.1,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "多区"
     },
     {
@@ -1014,7 +1014,7 @@
       "avg_price": 120.36,
       "dealers": 3,
       "profit_rate": 13.2,
-      "active_days_30": 0,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
@@ -1026,7 +1026,7 @@
       "avg_price": 1.9,
       "dealers": 1,
       "profit_rate": 25.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "朱晓亮"
     },
     {
@@ -1038,7 +1038,7 @@
       "avg_price": 275.75,
       "dealers": 4,
       "profit_rate": 31.7,
-      "active_days_30": 0,
+      "active_days_30": 3,
       "manager": "多区"
     },
     {
@@ -1050,7 +1050,7 @@
       "avg_price": 1.5,
       "dealers": 1,
       "profit_rate": 34.7,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1062,7 +1062,7 @@
       "avg_price": 160.0,
       "dealers": 4,
       "profit_rate": 23.2,
-      "active_days_30": 0,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
@@ -1074,7 +1074,7 @@
       "avg_price": 4.01,
       "dealers": 3,
       "profit_rate": 30.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "多区"
     },
     {
@@ -1086,7 +1086,7 @@
       "avg_price": 276.57,
       "dealers": 3,
       "profit_rate": 36.4,
-      "active_days_30": 0,
+      "active_days_30": 3,
       "manager": "高玉杰"
     },
     {
@@ -1098,7 +1098,7 @@
       "avg_price": 1.6,
       "dealers": 2,
       "profit_rate": 22.2,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "多区"
     },
     {
@@ -1122,7 +1122,7 @@
       "avg_price": 16.9,
       "dealers": 2,
       "profit_rate": 29.1,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -1134,7 +1134,7 @@
       "avg_price": 16.9,
       "dealers": 2,
       "profit_rate": 31.6,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -1146,7 +1146,7 @@
       "avg_price": 270.0,
       "dealers": 2,
       "profit_rate": 34.0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -1158,7 +1158,7 @@
       "avg_price": 4.17,
       "dealers": 2,
       "profit_rate": 24.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "多区"
     },
     {
@@ -1170,7 +1170,7 @@
       "avg_price": 285.0,
       "dealers": 2,
       "profit_rate": 36.8,
-      "active_days_30": 0,
+      "active_days_30": 3,
       "manager": "多区"
     },
     {
@@ -1206,7 +1206,7 @@
       "avg_price": 160.0,
       "dealers": 2,
       "profit_rate": 26.2,
-      "active_days_30": 0,
+      "active_days_30": 3,
       "manager": "多区"
     },
     {
@@ -1218,7 +1218,7 @@
       "avg_price": 270.0,
       "dealers": 1,
       "profit_rate": 29.5,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1230,7 +1230,7 @@
       "avg_price": 270.0,
       "dealers": 1,
       "profit_rate": 27.1,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1242,7 +1242,7 @@
       "avg_price": 1.6,
       "dealers": 4,
       "profit_rate": 10.3,
-      "active_days_30": 0,
+      "active_days_30": 3,
       "manager": "多区"
     },
     {
@@ -1254,7 +1254,7 @@
       "avg_price": 2.8,
       "dealers": 2,
       "profit_rate": 28.2,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "朱晓亮"
     },
     {
@@ -1266,7 +1266,7 @@
       "avg_price": 135.0,
       "dealers": 3,
       "profit_rate": 32.1,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -1278,7 +1278,7 @@
       "avg_price": 135.0,
       "dealers": 3,
       "profit_rate": 35.3,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "高玉杰"
     },
     {
@@ -1290,7 +1290,7 @@
       "avg_price": 6.65,
       "dealers": 3,
       "profit_rate": 40.5,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "多区"
     },
     {
@@ -1302,7 +1302,7 @@
       "avg_price": 7.2,
       "dealers": 1,
       "profit_rate": 43.8,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1314,7 +1314,7 @@
       "avg_price": 7.2,
       "dealers": 1,
       "profit_rate": 39.2,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1338,7 +1338,7 @@
       "avg_price": 160.0,
       "dealers": 2,
       "profit_rate": 26.2,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "多区"
     },
     {
@@ -1386,7 +1386,7 @@
       "avg_price": 140.0,
       "dealers": 1,
       "profit_rate": 17.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "朱晓亮"
     },
     {
@@ -1398,7 +1398,7 @@
       "avg_price": 4.79,
       "dealers": 4,
       "profit_rate": 1.8,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "多区"
     },
     {
@@ -1410,7 +1410,7 @@
       "avg_price": 4.79,
       "dealers": 4,
       "profit_rate": 1.8,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "多区"
     },
     {
@@ -1434,7 +1434,7 @@
       "avg_price": 190.0,
       "dealers": 1,
       "profit_rate": 21.8,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "朱晓亮"
     },
     {
@@ -1446,7 +1446,7 @@
       "avg_price": 13.5,
       "dealers": 1,
       "profit_rate": 3.7,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1458,7 +1458,7 @@
       "avg_price": 216.0,
       "dealers": 1,
       "profit_rate": 37.8,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1470,7 +1470,7 @@
       "avg_price": 216.0,
       "dealers": 1,
       "profit_rate": 48.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1482,7 +1482,7 @@
       "avg_price": 172.0,
       "dealers": 1,
       "profit_rate": 41.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1494,7 +1494,7 @@
       "avg_price": 172.0,
       "dealers": 1,
       "profit_rate": 39.0,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1506,7 +1506,7 @@
       "avg_price": 16.0,
       "dealers": 1,
       "profit_rate": 45.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1542,7 +1542,7 @@
       "avg_price": 135.0,
       "dealers": 1,
       "profit_rate": 34.0,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1554,7 +1554,7 @@
       "avg_price": 346.0,
       "dealers": 1,
       "profit_rate": 40.5,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1566,7 +1566,7 @@
       "avg_price": 180.0,
       "dealers": 1,
       "profit_rate": 28.5,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1578,7 +1578,7 @@
       "avg_price": 346.0,
       "dealers": 1,
       "profit_rate": 40.5,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1602,7 +1602,7 @@
       "avg_price": 3.3,
       "dealers": 1,
       "profit_rate": 40.9,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1614,7 +1614,7 @@
       "avg_price": 160.0,
       "dealers": 1,
       "profit_rate": 25.0,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1626,7 +1626,7 @@
       "avg_price": 160.0,
       "dealers": 1,
       "profit_rate": 43.8,
-      "active_days_30": 0,
+      "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
@@ -1638,7 +1638,7 @@
       "avg_price": 3.11,
       "dealers": 4,
       "profit_rate": -178.7,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "多区"
     },
     {
@@ -1662,7 +1662,7 @@
       "avg_price": 4.92,
       "dealers": 2,
       "profit_rate": 0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "刘鲁宁"
     },
     {
@@ -1674,7 +1674,7 @@
       "avg_price": 3.94,
       "dealers": 3,
       "profit_rate": 0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "刘鲁宁"
     },
     {
@@ -1686,7 +1686,7 @@
       "avg_price": 3.94,
       "dealers": 3,
       "profit_rate": 0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "刘鲁宁"
     },
     {
@@ -1698,7 +1698,7 @@
       "avg_price": 11.46,
       "dealers": 2,
       "profit_rate": 0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "刘鲁宁"
     },
     {
@@ -1710,7 +1710,7 @@
       "avg_price": 5.4,
       "dealers": 2,
       "profit_rate": 0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "刘鲁宁"
     },
     {
@@ -1722,7 +1722,7 @@
       "avg_price": 1.78,
       "dealers": 3,
       "profit_rate": 0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "刘鲁宁"
     },
     {
@@ -1734,7 +1734,7 @@
       "avg_price": 4.87,
       "dealers": 3,
       "profit_rate": 0,
-      "active_days_30": 0,
+      "active_days_30": 2,
       "manager": "刘鲁宁"
     }
   ]

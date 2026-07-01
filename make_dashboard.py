@@ -258,7 +258,6 @@ for r in rows_data:
                 managers_month[manager]['profit'] += profit
                 dealers_month[channel] += pos_amt
                 products_month[pname] += pos_amt
-                products_order_days[pname].add(day_key)
             if prev_month_same_day and time_str[:10] <= prev_month_same_day and time_str[:7] == prev_month_same_day[:7]:
                 managers_prev_month_same_day[manager] += pos_amt
             if channel not in dealers_first_month or month_key < dealers_first_month[channel]:
@@ -267,6 +266,7 @@ for r in rows_data:
             if channel not in dealers_last_order_day or day_key > dealers_last_order_day[channel]:
                 dealers_last_order_day[channel] = day_key
             dealers_order_days[channel].add(day_key)
+            products_order_days[pname].add(day_key)
         except:
             pass
 
