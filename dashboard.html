@@ -260,7 +260,7 @@ function renderDealerHeader() {
   const isMgmt = currentMainTab === 'mgmt';
   document.getElementById('dealerHeader').innerHTML =
     `<th>#</th><th>经销商</th><th class="num">今日订单金额</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th>` +
-    (isMgmt ? `<th class="num">年毛利率</th>` : `<th class="num">毛利标签</th>`) +
+    (isMgmt ? `<th class="num">年毛利率</th>` : `<th class="num">毛利率</th>`) +
     `<th class="num">30天内活跃次数</th><th>首批月</th><th>省区经理</th>`;
   document.getElementById('dealerNote').textContent = isMgmt
     ? '金额单位：万元 · 毛利率：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低'
@@ -272,7 +272,7 @@ function renderProductHeader() {
   const isMgmt = currentMainTab === 'mgmt';
   document.getElementById('productHeader').innerHTML =
     `<th>#</th><th>产品</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th><th class="num">30天内下单次数</th>` +
-    (isMgmt ? `<th class="num">年毛利情况</th>` : `<th class="num">毛利标签</th>`);
+    (isMgmt ? `<th class="num">年毛利情况</th>` : `<th class="num">毛利率</th>`);
   document.getElementById('productNote').textContent = isMgmt
     ? '金额单位：万元 · 毛利情况：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低'
     : '金额单位：万元 · 标签：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低';
