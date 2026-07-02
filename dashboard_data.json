@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-02 20:01",
+  "update_time": "2026-07-02 20:05",
   "overview_all": {
     "year_sales": 12821182.53,
     "year_profit": 2133244.37,
@@ -7,6 +7,10 @@
     "month_sales": 4775419.84,
     "month_profit": 1091775.22,
     "month_rate": 22.9,
+    "prev_month_sales": 2943217.16,
+    "prev_month_rate": 17.0,
+    "sales_mom": 62.3,
+    "rate_mom": 5.9,
     "today_sales": 160381.22,
     "dealers": 52,
     "orders": 2484
@@ -18,6 +22,10 @@
     "month_sales": 3112815.0,
     "month_profit": 736867.5,
     "month_rate": 23.7,
+    "prev_month_sales": 1010508.0,
+    "prev_month_rate": 19.9,
+    "sales_mom": 208.0,
+    "rate_mom": 3.8,
     "today_sales": 82350.0,
     "dealers": 9,
     "orders": 225
@@ -29,6 +37,10 @@
     "month_sales": 1157050.66,
     "month_profit": 237458.68,
     "month_rate": 20.5,
+    "prev_month_sales": 1309071.56,
+    "prev_month_rate": 10.5,
+    "sales_mom": -11.6,
+    "rate_mom": 10.0,
     "today_sales": 78031.22,
     "dealers": 3,
     "orders": 2062
@@ -40,6 +52,10 @@
     "month_sales": 505554.18,
     "month_profit": 117449.04,
     "month_rate": 23.2,
+    "prev_month_sales": 623637.6,
+    "prev_month_rate": 25.9,
+    "sales_mom": -18.9,
+    "rate_mom": -2.7,
     "today_sales": 0,
     "dealers": 40,
     "orders": 197

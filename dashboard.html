@@ -290,26 +290,34 @@ fetch('dashboard_data.json?v=6').then(r => r.json()).then(data => {
   ];
 
   // ===== 管理层总览（两个表格） =====
-  function renderOverviewTable(period, cats, getSales, getProfit, getRate) {
+  function renderOverviewTable(period, cats, getSales, getProfit, getRate, getSalesMom, getRateMom) {
     const rows = cats.map((c, i) =>
       `<tr>` +
       `<td><span class="overview-dot od-${i+1}"></span>${c.label}</td>` +
       `<td class="num">${fmtW(getSales(c))}</td>` +
       `<td class="num">${fmtW(getProfit(c))}</td>` +
       `<td class="num">${getRate(c)}%</td>` +
+      (getSalesMom ? `<td class="num ${salesMomCls(getSalesMom(c))}">${salesMomText(getSalesMom(c))}</td>` : '') +
+      (getRateMom ? `<td class="num ${rateMomCls(getRateMom(c))}">${rateMomText(getRateMom(c))}</td>` : '') +
       `</tr>`
     ).join('');
+    const momHeaders = getSalesMom ? '<th class="num">销售环比</th><th class="num">毛利率环比</th>' : '';
     return `<div class="overview-section">` +
       `<div class="section-label">${period}</div>` +
-      `<table class="overview-table"><thead><tr><th>类别</th><th class="num">销售</th><th class="num">毛利</th><th class="num">毛利率</th></tr></thead>` +
+      `<table class="overview-table"><thead><tr><th>类别</th><th class="num">销售</th><th class="num">毛利</th><th class="num">毛利率</th>${momHeaders}</tr></thead>` +
       `<tbody>${rows}</tbody></table>` +
       `</div>`;
   }
+  function salesMomText(v) { if (v === null || v === undefined) return '新增'; const s = v >= 0 ? '+' : ''; return `${s}${v.toFixed(1)}%`; }
+  function salesMomCls(v) { if (v === null || v === undefined) return 'ratio-new'; if (v >= 10) return 'ratio-up'; if (v >= 0) return 'ratio-flat'; return 'ratio-down'; }
+  function rateMomText(v) { if (v === null || v === undefined) return '-'; const s = v >= 0 ? '+' : ''; return `${s}${v.toFixed(1)}%`; }
+  function rateMomCls(v) { if (v === null || v === undefined) return 'ratio-flat'; if (v > 2) return 'ratio-up'; if (v < -2) return 'ratio-down'; return 'ratio-flat'; }
   document.getElementById('overviewMgmt').innerHTML =
     renderOverviewTable('本年累计', cats,
-      c => d[c.key].year_sales, c => d[c.key].year_profit, c => d[c.key].year_rate) +
+      c => d[c.key].year_sales, c => d[c.key].year_profit, c => d[c.key].year_rate, null, null) +
     renderOverviewTable('本月累计', cats,
-      c => d[c.key].month_sales, c => d[c.key].month_profit, c => d[c.key].month_rate);
+      c => d[c.key].month_sales, c => d[c.key].month_profit, c => d[c.key].month_rate,
+      c => d[c.key].sales_mom, c => d[c.key].rate_mom);
 
   // ===== 业务层总览（一个表格：类别|今日订单金额|本月累计金额|年度累计金额） =====
   const bizRows = cats.map((c, i) =>

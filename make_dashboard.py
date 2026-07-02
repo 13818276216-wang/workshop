@@ -139,6 +139,8 @@ cat_stats = defaultdict(lambda: {
     'today_sales': 0,
     'orders': set(), 'dealers': set()
 })
+# 按分类×月份 记录销售和毛利（用于算环比）
+cat_monthly = defaultdict(lambda: defaultdict(lambda: {'sales': 0, 'profit': 0}))
 
 # 经销商维度（省区经理）
 dealers = {}
@@ -209,11 +211,15 @@ for r in rows_data:
         cat_stats[cat_key]['dealers'].add(channel)
         if time_str:
             try:
-                if time_str[:7] == current_month_calc:
+                month_key = time_str[:7]
+                if month_key == current_month_calc:
                     cat_stats[cat_key]['month_sales'] += pos_amt
                     cat_stats[cat_key]['month_profit'] += profit
                 if time_str[:10] == today_key_calc:
                     cat_stats[cat_key]['today_sales'] += pos_amt
+                # 按分类×月份记录（用于环比计算）
+                cat_monthly[cat_key][month_key]['sales'] += pos_amt
+                cat_monthly[cat_key][month_key]['profit'] += profit
             except:
                 pass
 
@@ -364,6 +370,23 @@ def make_overview(cat_key):
     mo_sales = round(s['month_sales'], 2)
     mo_profit = round(s['month_profit'], 2)
     mo_rate = round(mo_profit / mo_sales * 100, 1) if mo_sales > 0 else 0
+
+    # 上月数据（用于环比）
+    from datetime import datetime as dt
+    cur_dt = dt.strptime(current_month_calc, '%Y-%m')
+    if cur_dt.month == 1:
+        prev_month_key = f'{cur_dt.year-1}-12'
+    else:
+        prev_month_key = f'{cur_dt.year}-{cur_dt.month-1:02d}'
+    pm = cat_monthly[cat_key].get(prev_month_key, {'sales': 0, 'profit': 0})
+    pm_sales = round(pm['sales'], 2)
+    pm_profit = round(pm['profit'], 2)
+    pm_rate = round(pm_profit / pm_sales * 100, 1) if pm_sales > 0 else 0
+
+    # 环比计算
+    sales_mom = round((mo_sales - pm_sales) / pm_sales * 100, 1) if pm_sales > 0 else None
+    rate_mom = round(mo_rate - pm_rate, 1) if pm_sales > 0 else None
+
     return {
         'year_sales': yr_sales,
         'year_profit': yr_profit,
@@ -371,6 +394,10 @@ def make_overview(cat_key):
         'month_sales': mo_sales,
         'month_profit': mo_profit,
         'month_rate': mo_rate,
+        'prev_month_sales': pm_sales,
+        'prev_month_rate': pm_rate,
+        'sales_mom': sales_mom,
+        'rate_mom': rate_mom,
         'today_sales': round(s['today_sales'], 2),
         'dealers': len(s['dealers']),
         'orders': len(s['orders']),
