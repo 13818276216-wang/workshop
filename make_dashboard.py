@@ -118,7 +118,9 @@ if len(today_parts) == 3:
         prev_month_same_day = f'{y}-{m-1:02d}-{d}'
 
 now = datetime.now()
-current_month_calc = now.strftime('%Y-%m')
+system_month = now.strftime('%Y-%m')
+latest_data_month = today_key_calc[:7] if today_key_calc else system_month
+current_month_calc = latest_data_month if latest_data_month < system_month else system_month
 print(f"数据最后日期: {today_key_calc}, 当月: {current_month_calc}, 上月同日: {prev_month_same_day}")
 
 # ========== 四维度统计容器 ==========
@@ -179,7 +181,7 @@ for r in rows_data:
     if qty == 0 and amt == 0:
         continue
 
-    pos_amt = max(amt, 0)
+    pos_amt = amt
     cat = get_category(cname)
 
     # === 全量统计 ===
