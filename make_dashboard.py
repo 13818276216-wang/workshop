@@ -87,11 +87,11 @@ profit_idx = col['毛利']
 time_idx = 29  # AD列：产品发货时间
 order_idx = col['订单编号']
 
-# 先扫一遍时间戳
+# 先扫一遍时间戳（排除7月13-15日，这些日期成本未核算）
 all_times = []
 for r in rows_data:
     ts = str(r[time_idx] or '').strip()
-    if ts:
+    if ts and ts[:10] not in ('2026-07-13', '2026-07-14', '2026-07-15'):
         all_times.append(ts[:10])
 all_days = sorted(set(all_times))
 today_key_calc = all_days[-1] if all_days else ''
@@ -170,6 +170,10 @@ for r in rows_data:
     time_str = str(r[time_idx] or '')
 
     if qty == 0 and amt == 0:
+        continue
+
+    # 跳过7月13-15日订单（系统未核算成本，毛利数据不完整）
+    if time_str and time_str[:10] in ('2026-07-13', '2026-07-14', '2026-07-15'):
         continue
 
     pos_amt = amt
