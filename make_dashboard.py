@@ -7,9 +7,9 @@ from collections import defaultdict
 from datetime import datetime
 
 # ========== 读数据 ==========
-path = r"E:\袋鼠先生\袋鼠先生MeOS\你的MeOS\01_我的资料\订单与交付\销售单明细账.xlsx"
+path = r"E:\袋鼠先生\袋鼠先生MeOS\你的MeOS\01_我的资料\订单与交付\销售单明细账 (1).xlsx"
 wb = openpyxl.load_workbook(path, data_only=True)
-ws = wb.active
+ws = wb['sheetTitle']
 
 headers = [cell.value for cell in next(ws.iter_rows(max_row=1))]
 col = {h: i for i, h in enumerate(headers)}
@@ -45,37 +45,25 @@ def get_category(cname):
     return 'dealer'
 
 # ========== 读合同台账获取省区经理 ==========
-import subprocess, csv, io, re
-LARK_CLI = r'C:\Users\Administrator\.workbuddy\binaries\node\cli-connector-packages\lark-cli.cmd'
+import subprocess, re
+LARK_CLI = r'C:\nodejs\lark-cli.cmd'
 try:
     result = subprocess.run([
-        LARK_CLI, 'sheets', '+csv-get',
-        '--url', 'https://daishuxiansheng.feishu.cn/wiki/PZgMwdwlGimD60kypFOcBVasn9c',
+        LARK_CLI, 'sheets', '+read',
+        '--spreadsheet-token', 'P9ZzsXgg7hv1NjtqnveccFAknRe',
         '--sheet-id', 'M4qpLc',
-        '--range', 'A1:N61'
+        '--range', 'A1:N61',
+        '--as', 'user'
     ], capture_output=True, text=True, encoding='utf-8')
     resp = json.loads(result.stdout)
-    csv_text = resp['data']['annotated_csv']
-    raw_lines = csv_text.strip().split('\n')
-    csv_rows = []
-    current = None
-    for line in raw_lines:
-        m = re.match(r'\[row=(\d+)\]\s(.*)', line)
-        if m:
-            if current is not None:
-                csv_rows.append(current)
-            current = m.group(2)
-        else:
-            if current is not None:
-                current += '\n' + line
-    if current is not None:
-        csv_rows.append(current)
-    reader = csv.reader(io.StringIO('\n'.join(csv_rows)))
-    contract_headers = next(reader)
-    contract_col = {h: i for i, h in enumerate(contract_headers)}
-    
+    if not resp.get('ok'):
+        raise Exception(resp.get('error', {}).get('message', 'unknown error'))
+    values = resp['data']['valueRange']['values']
+    contract_headers = values[0] if values else []
+    contract_col = {str(h or ''): i for i, h in enumerate(contract_headers)}
+
     manager_map = {}
-    for row in reader:
+    for row in values[1:]:
         if len(row) < 12:
             continue
         cname = str(row[contract_col.get('合作方', 2)] or '').strip()

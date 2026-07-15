@@ -137,7 +137,7 @@ tbody tr:hover { background: #fafbfc; }
 <div class="header">
   <div>
     <h1>袋鼠先生 · <span>线下渠道综合看板</span></h1>
-    <div class="sub">数据范围：2026年4月 ~ 6月 · 线下全渠道</div>
+    <div class="sub">数据范围：2026年1月 ~ 7月 · 线下全渠道</div>
   </div>
   <div class="sub" id="updateTime">加载中...</div>
 </div>
@@ -185,7 +185,7 @@ tbody tr:hover { background: #fafbfc; }
   </div>
 </div>
 
-<div class="footer">袋鼠先生线下渠道 · 每日自动更新 · v20260701</div>
+<div class="footer">袋鼠先生线下渠道 · 每日自动更新 · v20260715</div>
 
 <script>
 function fmt(n) {
@@ -278,7 +278,7 @@ function renderProductHeader() {
     : '金额单位：万元 · 标签：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低';
 }
 
-fetch('dashboard_data.json?v=6').then(r => r.json()).then(data => {
+fetch('dashboard_data.json?v=7').then(r => r.json()).then(data => {
   d = data;
   document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
 
