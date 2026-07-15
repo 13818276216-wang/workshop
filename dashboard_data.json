@@ -1,17 +1,17 @@
 {
-  "update_time": "2026-07-15 19:15",
+  "update_time": "2026-07-15 19:38",
   "overview_all": {
-    "year_sales": 14140193.53,
-    "year_profit": 2193830.97,
-    "year_rate": 15.5,
-    "month_sales": 1319008.3,
-    "month_profit": 312482.67,
-    "month_rate": 23.7,
+    "year_sales": 14018424.13,
+    "year_profit": 2062963.67,
+    "year_rate": 14.7,
+    "month_sales": 1197238.9,
+    "month_profit": 181615.37,
+    "month_rate": 15.2,
     "prev_month_sales": 4775421.19,
     "prev_month_rate": 17.6,
-    "sales_mom": -72.4,
-    "rate_mom": 6.1,
-    "today_sales": 35014.61,
+    "sales_mom": -74.9,
+    "rate_mom": -2.4,
+    "today_sales": 13825.0,
     "dealers": 60,
     "orders": 2707
   },
@@ -31,49 +31,49 @@
     "orders": 245
   },
   "overview_lightning": {
-    "year_sales": 8162494.64,
-    "year_profit": 864795.13,
-    "year_rate": 10.6,
-    "month_sales": 650138.59,
-    "month_profit": 78423.62,
-    "month_rate": 12.1,
+    "year_sales": 8153038.24,
+    "year_profit": 855338.73,
+    "year_rate": 10.5,
+    "month_sales": 640682.19,
+    "month_profit": 68967.22,
+    "month_rate": 10.8,
     "prev_month_sales": 1157050.66,
     "prev_month_rate": 10.4,
-    "sales_mom": -43.8,
-    "rate_mom": 1.7,
-    "today_sales": 35014.61,
+    "sales_mom": -44.6,
+    "rate_mom": 0.4,
+    "today_sales": 0,
     "dealers": 1,
     "orders": 2214
   },
   "overview_dealer": {
-    "year_sales": 1574559.89,
-    "year_profit": 481916.84,
-    "year_rate": 30.6,
-    "month_sales": 389053.71,
-    "month_profit": 190723.05,
-    "month_rate": 49.0,
+    "year_sales": 1462246.89,
+    "year_profit": 360505.94,
+    "year_rate": 24.7,
+    "month_sales": 276740.71,
+    "month_profit": 69312.15,
+    "month_rate": 25.0,
     "prev_month_sales": 505555.53,
     "prev_month_rate": 23.2,
-    "sales_mom": -23.0,
-    "rate_mom": 25.8,
-    "today_sales": 0,
+    "sales_mom": -45.3,
+    "rate_mom": 1.8,
+    "today_sales": 13825.0,
     "dealers": 50,
     "orders": 248
   },
-  "total_sales": 14140193.53,
-  "total_profit": 2193830.97,
-  "total_profit_rate": 15.5,
+  "total_sales": 14018424.13,
+  "total_profit": 2062963.67,
+  "total_profit_rate": 14.7,
   "total_dealers": 60,
   "total_orders": 2707,
   "total_rows": 10925,
   "current_month": "2026-07",
-  "month_sales": 1319008.3,
-  "month_profit": 312482.67,
+  "month_sales": 1197238.9,
+  "month_profit": 181615.37,
   "month_orders": 223,
-  "month_profit_rate": 23.7,
-  "today_key": "2026-07-11",
-  "today_sales": 35014.61,
-  "today_orders": 17,
+  "month_profit_rate": 15.2,
+  "today_key": "2026-07-13",
+  "today_sales": 13825.0,
+  "today_orders": 1,
   "months": [
     "2026-01",
     "2026-02",
@@ -122,17 +122,12 @@
     },
     {
       "month": "2026-07",
-      "sales": 1319008.3,
-      "profit": 312482.67,
+      "sales": 1197238.9,
+      "profit": 181615.37,
       "orders": 223
     }
   ],
   "daily_data": [
-    {
-      "day": "06-27",
-      "sales": 70463.44,
-      "orders": 11
-    },
     {
       "day": "06-29",
       "sales": 130637.61,
@@ -170,8 +165,8 @@
     },
     {
       "day": "07-06",
-      "sales": 271500.1,
-      "orders": 23
+      "sales": 135905.7,
+      "orders": 22
     },
     {
       "day": "07-07",
@@ -197,17 +192,22 @@
       "day": "07-11",
       "sales": 35014.61,
       "orders": 17
+    },
+    {
+      "day": "07-13",
+      "sales": 13825.0,
+      "orders": 1
     }
   ],
   "managers": [
     {
       "name": "高玉杰",
       "clients": 27,
-      "active_clients": 21,
-      "today_sales": 0,
-      "month_sales": 280232.35,
-      "prev_month_sales": 142638.0,
-      "sales": 897177.15,
+      "active_clients": 19,
+      "today_sales": 13825.0,
+      "month_sales": 187699.35,
+      "prev_month_sales": 191768.0,
+      "sales": 804644.15,
       "orders": 105,
       "data_months": 4
     },
@@ -217,7 +217,7 @@
       "active_clients": 7,
       "today_sales": 0,
       "month_sales": 25681.36,
-      "prev_month_sales": 45412.0,
+      "prev_month_sales": 61012.0,
       "sales": 402140.34,
       "orders": 104,
       "data_months": 4
@@ -227,9 +227,9 @@
       "clients": 13,
       "active_clients": 9,
       "today_sales": 0,
-      "month_sales": 57800.0,
+      "month_sales": 48020.0,
       "prev_month_sales": 28032.0,
-      "sales": 214302.4,
+      "sales": 204522.4,
       "orders": 29,
       "data_months": 4
     },
@@ -238,9 +238,9 @@
       "clients": 3,
       "active_clients": 3,
       "today_sales": 0,
-      "month_sales": 25340.0,
+      "month_sales": 15340.0,
       "prev_month_sales": 0,
-      "sales": 60940.0,
+      "sales": 50940.0,
       "orders": 10,
       "data_months": 4
     }
@@ -269,47 +269,34 @@
       "profit_rate": 22.3,
       "today_sales": 0,
       "month_sales": 8250.0,
-      "active_days": 4,
+      "active_days": 3,
       "first_month": "2026-05"
     },
     {
       "name": "无锡无凡食品有限公司",
       "manager": "高玉杰",
-      "sales": 126720.0,
-      "profit": 23060.0,
+      "sales": 110790.0,
+      "profit": 7130.0,
       "orders": 7,
-      "qty": 7360,
-      "profit_rate": 18.2,
+      "qty": 7280,
+      "profit_rate": 6.4,
       "today_sales": 0,
-      "month_sales": 52980.0,
-      "active_days": 6,
+      "month_sales": 37050.0,
+      "active_days": 5,
       "first_month": "2026-05"
     },
     {
       "name": "郑州锦门商贸有限公司",
       "manager": "高玉杰",
-      "sales": 93540.1,
-      "profit": 22656.18,
+      "sales": 87091.1,
+      "profit": 16207.18,
       "orders": 11,
-      "qty": 7990,
-      "profit_rate": 24.2,
+      "qty": 6719,
+      "profit_rate": 18.6,
       "today_sales": 0,
-      "month_sales": 12898.0,
+      "month_sales": 6449.0,
       "active_days": 2,
       "first_month": "2026-04"
-    },
-    {
-      "name": "北京顺驰兴海商贸有限公司",
-      "manager": "高玉杰",
-      "sales": 82610.0,
-      "profit": 38313.0,
-      "orders": 8,
-      "qty": 726,
-      "profit_rate": 46.4,
-      "today_sales": 0,
-      "month_sales": 43460.0,
-      "active_days": 5,
-      "first_month": "2026-06"
     },
     {
       "name": "上海鸿召商贸有限公司",
@@ -321,34 +308,21 @@
       "profit_rate": 12.2,
       "today_sales": 0,
       "month_sales": 0,
-      "active_days": 2,
+      "active_days": 1,
       "first_month": "2026-04"
     },
     {
-      "name": "无锡市大菓林商贸有限公司",
+      "name": "北京顺驰兴海商贸有限公司",
       "manager": "高玉杰",
-      "sales": 69376.0,
-      "profit": 39952.0,
-      "orders": 3,
-      "qty": 7880,
-      "profit_rate": 57.6,
+      "sales": 62230.0,
+      "profit": 17933.0,
+      "orders": 8,
+      "qty": 462,
+      "profit_rate": 28.8,
       "today_sales": 0,
-      "month_sales": 42896.0,
-      "active_days": 3,
+      "month_sales": 23080.0,
+      "active_days": 4,
       "first_month": "2026-06"
-    },
-    {
-      "name": "河南省廖氏商贸有限公司",
-      "manager": "高玉杰",
-      "sales": 62850.0,
-      "profit": 19962.5,
-      "orders": 11,
-      "qty": 21000,
-      "profit_rate": 31.8,
-      "today_sales": 0,
-      "month_sales": 19800.0,
-      "active_days": 3,
-      "first_month": "2026-05"
     },
     {
       "name": "贵州群顺商贸有限公司",
@@ -362,6 +336,32 @@
       "month_sales": 0,
       "active_days": 0,
       "first_month": "2026-05"
+    },
+    {
+      "name": "河南省廖氏商贸有限公司",
+      "manager": "高玉杰",
+      "sales": 54600.0,
+      "profit": 11712.5,
+      "orders": 11,
+      "qty": 18250,
+      "profit_rate": 21.5,
+      "today_sales": 0,
+      "month_sales": 11550.0,
+      "active_days": 2,
+      "first_month": "2026-05"
+    },
+    {
+      "name": "无锡市大菓林商贸有限公司",
+      "manager": "高玉杰",
+      "sales": 47928.0,
+      "profit": 18504.0,
+      "orders": 3,
+      "qty": 5370,
+      "profit_rate": 38.6,
+      "today_sales": 0,
+      "month_sales": 21448.0,
+      "active_days": 3,
+      "first_month": "2026-06"
     },
     {
       "name": "西安海盒鲜食品有限公司",
@@ -425,7 +425,7 @@
       "profit_rate": 21.7,
       "today_sales": 0,
       "month_sales": 0,
-      "active_days": 2,
+      "active_days": 1,
       "first_month": "2026-05"
     },
     {
@@ -440,19 +440,6 @@
       "month_sales": 6400.0,
       "active_days": 1,
       "first_month": "2026-05"
-    },
-    {
-      "name": "焦作锋晨商贸有限公司",
-      "manager": "高玉杰",
-      "sales": 29100.0,
-      "profit": 12503.72,
-      "orders": 2,
-      "qty": 3300,
-      "profit_rate": 43.0,
-      "today_sales": 0,
-      "month_sales": 29100.0,
-      "active_days": 2,
-      "first_month": "2026-07"
     },
     {
       "name": "汉川市胖妞商贸有限公司",
@@ -494,19 +481,6 @@
       "first_month": "2026-05"
     },
     {
-      "name": "太原红昌龙商贸有限公司",
-      "manager": "张雪梅",
-      "sales": 24800.0,
-      "profit": 15830.0,
-      "orders": 2,
-      "qty": 40,
-      "profit_rate": 63.8,
-      "today_sales": 0,
-      "month_sales": 24800.0,
-      "active_days": 2,
-      "first_month": "2026-07"
-    },
-    {
       "name": "青岛和德发食品供应链管理有限公司",
       "manager": "高玉杰",
       "sales": 24750.0,
@@ -533,17 +507,17 @@
       "first_month": "2026-07"
     },
     {
-      "name": "杭州加勒比科技有限公司",
-      "manager": "朱晓亮",
-      "sales": 21212.0,
-      "profit": 7116.46,
-      "orders": 5,
-      "qty": 13068,
-      "profit_rate": 33.5,
+      "name": "焦作锋晨商贸有限公司",
+      "manager": "高玉杰",
+      "sales": 20370.0,
+      "profit": 3773.72,
+      "orders": 2,
+      "qty": 2310,
+      "profit_rate": 18.5,
       "today_sales": 0,
-      "month_sales": 5920.0,
-      "active_days": 3,
-      "first_month": "2026-05"
+      "month_sales": 20370.0,
+      "active_days": 2,
+      "first_month": "2026-07"
     },
     {
       "name": "重庆蓉渝福食品有限公司",
@@ -568,8 +542,21 @@
       "profit_rate": 18.3,
       "today_sales": 0,
       "month_sales": 0,
-      "active_days": 1,
+      "active_days": 0,
       "first_month": "2026-06"
+    },
+    {
+      "name": "杭州加勒比科技有限公司",
+      "manager": "朱晓亮",
+      "sales": 18992.0,
+      "profit": 4896.46,
+      "orders": 5,
+      "qty": 11568,
+      "profit_rate": 25.8,
+      "today_sales": 0,
+      "month_sales": 3700.0,
+      "active_days": 3,
+      "first_month": "2026-05"
     },
     {
       "name": "杭州品强电子商务有限公司",
@@ -583,19 +570,6 @@
       "month_sales": 0,
       "active_days": 0,
       "first_month": "2026-04"
-    },
-    {
-      "name": "阜康市旺联商贸有限公司",
-      "manager": "高玉杰",
-      "sales": 16200.0,
-      "profit": 10773.0,
-      "orders": 1,
-      "qty": 134,
-      "profit_rate": 66.5,
-      "today_sales": 0,
-      "month_sales": 16200.0,
-      "active_days": 1,
-      "first_month": "2026-07"
     },
     {
       "name": "福州众铖贸易有限责任公司",
@@ -624,19 +598,6 @@
       "first_month": "2026-05"
     },
     {
-      "name": "南昌县阿志食品批发部",
-      "manager": "朱晓亮",
-      "sales": 15120.0,
-      "profit": 9242.0,
-      "orders": 1,
-      "qty": 4412,
-      "profit_rate": 61.1,
-      "today_sales": 0,
-      "month_sales": 15120.0,
-      "active_days": 1,
-      "first_month": "2026-07"
-    },
-    {
       "name": "沙依巴克区炉院街昌隆食品商行",
       "manager": "高玉杰",
       "sales": 14850.0,
@@ -650,14 +611,27 @@
       "first_month": "2026-05"
     },
     {
+      "name": "太原红昌龙商贸有限公司",
+      "manager": "张雪梅",
+      "sales": 14800.0,
+      "profit": 5830.0,
+      "orders": 2,
+      "qty": 30,
+      "profit_rate": 39.4,
+      "today_sales": 0,
+      "month_sales": 14800.0,
+      "active_days": 2,
+      "first_month": "2026-07"
+    },
+    {
       "name": "南京润辰商贸有限公司",
       "manager": "高玉杰",
       "sales": 13825.0,
-      "profit": 13825.0,
+      "profit": 4727.1,
       "orders": 1,
       "qty": 3732,
-      "profit_rate": 100.0,
-      "today_sales": 0,
+      "profit_rate": 34.2,
+      "today_sales": 13825.0,
       "month_sales": 13825.0,
       "active_days": 1,
       "first_month": "2026-07"
@@ -689,19 +663,6 @@
       "first_month": "2026-07"
     },
     {
-      "name": "北京东晟恒丰商贸有限公司",
-      "manager": "高玉杰",
-      "sales": 13086.05,
-      "profit": 5026.2,
-      "orders": 7,
-      "qty": 696,
-      "profit_rate": 38.4,
-      "today_sales": 0,
-      "month_sales": 2143.35,
-      "active_days": 5,
-      "first_month": "2026-05"
-    },
-    {
       "name": "南京益勋商贸有限公司",
       "manager": "刘鲁宁",
       "sales": 13024.0,
@@ -715,17 +676,17 @@
       "first_month": "2026-06"
     },
     {
-      "name": "南京宁悦商贸有限公司",
+      "name": "北京东晟恒丰商贸有限公司",
       "manager": "高玉杰",
-      "sales": 12020.0,
-      "profit": 6178.6,
-      "orders": 2,
-      "qty": 722,
-      "profit_rate": 51.4,
+      "sales": 12690.05,
+      "profit": 4630.2,
+      "orders": 7,
+      "qty": 576,
+      "profit_rate": 36.5,
       "today_sales": 0,
-      "month_sales": 12020.0,
-      "active_days": 2,
-      "first_month": "2026-07"
+      "month_sales": 1747.35,
+      "active_days": 5,
+      "first_month": "2026-05"
     },
     {
       "name": "北京新和百果商贸有限公司",
@@ -737,7 +698,7 @@
       "profit_rate": 41.5,
       "today_sales": 0,
       "month_sales": 0,
-      "active_days": 2,
+      "active_days": 1,
       "first_month": "2026-06"
     },
     {
@@ -767,6 +728,32 @@
       "first_month": "2026-06"
     },
     {
+      "name": "南京宁悦商贸有限公司",
+      "manager": "高玉杰",
+      "sales": 9170.0,
+      "profit": 3328.6,
+      "orders": 2,
+      "qty": 372,
+      "profit_rate": 36.3,
+      "today_sales": 0,
+      "month_sales": 9170.0,
+      "active_days": 2,
+      "first_month": "2026-07"
+    },
+    {
+      "name": "阜康市旺联商贸有限公司",
+      "manager": "高玉杰",
+      "sales": 8100.0,
+      "profit": 2673.0,
+      "orders": 1,
+      "qty": 67,
+      "profit_rate": 33.0,
+      "today_sales": 0,
+      "month_sales": 8100.0,
+      "active_days": 1,
+      "first_month": "2026-07"
+    },
+    {
       "name": "山东合力兴业商贸有限公司",
       "manager": "高玉杰",
       "sales": 7800.0,
@@ -776,8 +763,21 @@
       "profit_rate": 22.0,
       "today_sales": 0,
       "month_sales": 0,
-      "active_days": 1,
+      "active_days": 0,
       "first_month": "2026-06"
+    },
+    {
+      "name": "南昌县阿志食品批发部",
+      "manager": "朱晓亮",
+      "sales": 7560.0,
+      "profit": 1682.0,
+      "orders": 1,
+      "qty": 2206,
+      "profit_rate": 22.2,
+      "today_sales": 0,
+      "month_sales": 7560.0,
+      "active_days": 1,
+      "first_month": "2026-07"
     },
     {
       "name": "天津市津南区星峰缘食品配送经营部",
@@ -912,74 +912,74 @@
     },
     {
       "name": "鸡胸肉100g黑胡椒-轻享版",
-      "sales": 119040.0,
-      "month_sales": 28695.0,
-      "qty": 40700,
-      "profit": 28902.5,
+      "sales": 112440.0,
+      "month_sales": 22095.0,
+      "qty": 38350,
+      "profit": 22302.5,
       "avg_price": 3.28,
       "dealers": 15,
-      "profit_rate": 24.3,
-      "active_days_30": 7,
+      "profit_rate": 19.8,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
       "name": "鸡胸肉100g奥尔良-轻享版",
-      "sales": 102495.0,
-      "month_sales": 20460.0,
-      "qty": 35200,
-      "profit": 23997.5,
+      "sales": 96720.0,
+      "month_sales": 14685.0,
+      "qty": 33350,
+      "profit": 18222.5,
       "avg_price": 3.29,
       "dealers": 15,
-      "profit_rate": 23.4,
-      "active_days_30": 7,
-      "manager": "多区"
-    },
-    {
-      "name": "线下-袋鼠先生原型鸡胸肉350g奥尔良味-20包",
-      "sales": 93352.0,
-      "month_sales": 37720.0,
-      "qty": 411,
-      "profit": 34132.0,
-      "avg_price": 278.36,
-      "dealers": 10,
-      "profit_rate": 36.6,
-      "active_days_30": 5,
+      "profit_rate": 18.8,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
       "name": "轻卤牛腱肉55g原味",
-      "sales": 90000.0,
-      "month_sales": 29100.0,
-      "qty": 11160,
-      "profit": 17647.01,
-      "avg_price": 8.89,
+      "sales": 81270.0,
+      "month_sales": 20370.0,
+      "qty": 10170,
+      "profit": 8917.01,
+      "avg_price": 8.78,
       "dealers": 3,
-      "profit_rate": 19.6,
-      "active_days_30": 3,
+      "profit_rate": 11.0,
+      "active_days_30": 2,
+      "manager": "多区"
+    },
+    {
+      "name": "线下-袋鼠先生原型鸡胸肉350g奥尔良味-20包",
+      "sales": 76072.0,
+      "month_sales": 20440.0,
+      "qty": 329,
+      "profit": 16852.0,
+      "avg_price": 279.52,
+      "dealers": 10,
+      "profit_rate": 22.2,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉350g黑胡椒味-20包",
-      "sales": 61578.0,
-      "month_sales": 13960.0,
-      "qty": 246,
-      "profit": 21258.0,
-      "avg_price": 277.67,
+      "sales": 56178.0,
+      "month_sales": 8560.0,
+      "qty": 224,
+      "profit": 15858.0,
+      "avg_price": 278.36,
       "dealers": 8,
-      "profit_rate": 34.5,
-      "active_days_30": 5,
+      "profit_rate": 28.2,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
       "name": "鸡胸肉50g黑胡椒-D",
-      "sales": 53804.0,
-      "month_sales": 9000.0,
-      "qty": 36570,
-      "profit": 15563.87,
+      "sales": 52324.0,
+      "month_sales": 7520.0,
+      "qty": 35570,
+      "profit": 14083.87,
       "avg_price": 1.55,
       "dealers": 10,
-      "profit_rate": 28.9,
-      "active_days_30": 7,
+      "profit_rate": 26.9,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
@@ -1019,18 +1019,6 @@
       "manager": "多区"
     },
     {
-      "name": "鸡胸肉100g原味",
-      "sales": 40050.0,
-      "month_sales": 9750.0,
-      "qty": 12950,
-      "profit": 12736.82,
-      "avg_price": 3.27,
-      "dealers": 7,
-      "profit_rate": 31.8,
-      "active_days_30": 5,
-      "manager": "多区"
-    },
-    {
       "name": "袋鼠先生-全能能量仓1017g",
       "sales": 38521.45,
       "month_sales": 3921.56,
@@ -1043,18 +1031,6 @@
       "manager": "刘鲁宁"
     },
     {
-      "name": "鸡胸肉50g奥尔良-D",
-      "sales": 36700.0,
-      "month_sales": 6040.0,
-      "qty": 25061,
-      "profit": 10428.19,
-      "avg_price": 1.56,
-      "dealers": 8,
-      "profit_rate": 28.4,
-      "active_days_30": 8,
-      "manager": "多区"
-    },
-    {
       "name": "鸡胸肉50g烧烤-D",
       "sales": 36456.0,
       "month_sales": 3200.0,
@@ -1063,6 +1039,30 @@
       "avg_price": 1.58,
       "dealers": 7,
       "profit_rate": 30.0,
+      "active_days_30": 3,
+      "manager": "多区"
+    },
+    {
+      "name": "鸡胸肉50g奥尔良-D",
+      "sales": 35960.0,
+      "month_sales": 5300.0,
+      "qty": 24561,
+      "profit": 9688.19,
+      "avg_price": 1.57,
+      "dealers": 8,
+      "profit_rate": 26.9,
+      "active_days_30": 7,
+      "manager": "多区"
+    },
+    {
+      "name": "鸡胸肉100g原味",
+      "sales": 35925.0,
+      "month_sales": 5625.0,
+      "qty": 11600,
+      "profit": 8611.82,
+      "avg_price": 3.27,
+      "dealers": 7,
+      "profit_rate": 24.0,
       "active_days_30": 4,
       "manager": "多区"
     },
@@ -1080,38 +1080,38 @@
     },
     {
       "name": "线下-鸡胸肉50g黑胡椒D-20袋*5盒装",
-      "sales": 30880.0,
-      "month_sales": 8960.0,
-      "qty": 209,
-      "profit": 6572.0,
+      "sales": 30400.0,
+      "month_sales": 8480.0,
+      "qty": 206,
+      "profit": 6092.0,
       "avg_price": 160.0,
       "dealers": 5,
-      "profit_rate": 21.3,
-      "active_days_30": 5,
+      "profit_rate": 20.0,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
       "name": "鸡胸肉100g烧烤-轻享版",
-      "sales": 28545.0,
-      "month_sales": 8745.0,
-      "qty": 9300,
-      "profit": 7865.0,
+      "sales": 26895.0,
+      "month_sales": 7095.0,
+      "qty": 8800,
+      "profit": 6215.0,
       "avg_price": 3.3,
       "dealers": 9,
-      "profit_rate": 27.6,
-      "active_days_30": 7,
+      "profit_rate": 23.1,
+      "active_days_30": 6,
       "manager": "多区"
     },
     {
       "name": "线下-鸡胸肉50g奥尔良D-20袋*5盒装",
-      "sales": 25600.0,
-      "month_sales": 8960.0,
-      "qty": 164,
-      "profit": 6602.0,
+      "sales": 25120.0,
+      "month_sales": 8480.0,
+      "qty": 161,
+      "profit": 6122.0,
       "avg_price": 160.0,
       "dealers": 5,
-      "profit_rate": 25.8,
-      "active_days_30": 5,
+      "profit_rate": 24.4,
+      "active_days_30": 4,
       "manager": "多区"
     },
     {
@@ -1127,18 +1127,6 @@
       "manager": "多区"
     },
     {
-      "name": "牛排脆25g黑松露味",
-      "sales": 24377.6,
-      "month_sales": 3328.0,
-      "qty": 2320,
-      "profit": 3003.8,
-      "avg_price": 11.09,
-      "dealers": 1,
-      "profit_rate": 12.3,
-      "active_days_30": 2,
-      "manager": "高玉杰"
-    },
-    {
       "name": "线下-袋鼠先生原型鸡胸肉350g奥尔良味",
       "sales": 22950.0,
       "month_sales": 0,
@@ -1147,6 +1135,18 @@
       "avg_price": 13.5,
       "dealers": 1,
       "profit_rate": 9.8,
+      "active_days_30": 2,
+      "manager": "高玉杰"
+    },
+    {
+      "name": "牛排脆25g黑松露味",
+      "sales": 22713.6,
+      "month_sales": 1664.0,
+      "qty": 2160,
+      "profit": 1339.8,
+      "avg_price": 11.23,
+      "dealers": 1,
+      "profit_rate": 5.9,
       "active_days_30": 2,
       "manager": "高玉杰"
     },
@@ -1175,30 +1175,6 @@
       "manager": "高玉杰"
     },
     {
-      "name": "线下-低脂鸡胸肉肠150g玉米味",
-      "sales": 19440.0,
-      "month_sales": 15120.0,
-      "qty": 2820,
-      "profit": 13036.8,
-      "avg_price": 7.2,
-      "dealers": 1,
-      "profit_rate": 67.1,
-      "active_days_30": 2,
-      "manager": "高玉杰"
-    },
-    {
-      "name": "线下-低脂鸡胸肉肠150g原味",
-      "sales": 18430.8,
-      "month_sales": 14256.0,
-      "qty": 2618,
-      "profit": 12244.4,
-      "avg_price": 6.69,
-      "dealers": 2,
-      "profit_rate": 66.4,
-      "active_days_30": 3,
-      "manager": "多区"
-    },
-    {
       "name": "牛排脆25g热辣味",
       "sales": 16352.0,
       "month_sales": 0,
@@ -1209,42 +1185,6 @@
       "profit_rate": 23.1,
       "active_days_30": 1,
       "manager": "多区"
-    },
-    {
-      "name": "线下-375g口袋沙拉棒-20袋",
-      "sales": 15300.0,
-      "month_sales": 8100.0,
-      "qty": 65,
-      "profit": 7110.0,
-      "avg_price": 277.5,
-      "dealers": 3,
-      "profit_rate": 46.5,
-      "active_days_30": 4,
-      "manager": "多区"
-    },
-    {
-      "name": "线下-轻卤牛腱肉80g原味",
-      "sales": 15210.0,
-      "month_sales": 6760.0,
-      "qty": 1000,
-      "profit": 6864.0,
-      "avg_price": 16.9,
-      "dealers": 2,
-      "profit_rate": 45.1,
-      "active_days_30": 3,
-      "manager": "高玉杰"
-    },
-    {
-      "name": "线下-轻卤牛腱肉80g黑胡椒味",
-      "sales": 15210.0,
-      "month_sales": 6760.0,
-      "qty": 980,
-      "profit": 7078.0,
-      "avg_price": 16.9,
-      "dealers": 2,
-      "profit_rate": 46.5,
-      "active_days_30": 3,
-      "manager": "高玉杰"
     },
     {
       "name": "鸡肉丸60g黑胡椒",
@@ -1271,30 +1211,6 @@
       "manager": "多区"
     },
     {
-      "name": "线下-袋鼠先生鸡胸肉奥尔良味100g-30包",
-      "sales": 12827.7,
-      "month_sales": 7695.0,
-      "qty": 107,
-      "profit": 6021.0,
-      "avg_price": 135.0,
-      "dealers": 5,
-      "profit_rate": 46.9,
-      "active_days_30": 4,
-      "manager": "多区"
-    },
-    {
-      "name": "线下-袋鼠先生鸡胸肉黑胡椒味100g-30包",
-      "sales": 12826.35,
-      "month_sales": 7696.35,
-      "qty": 104,
-      "profit": 6183.0,
-      "avg_price": 135.0,
-      "dealers": 5,
-      "profit_rate": 48.2,
-      "active_days_30": 4,
-      "manager": "多区"
-    },
-    {
       "name": "线下-袋鼠先生原型鸡胸肉350g香辣味-20包",
       "sales": 12650.0,
       "month_sales": 0,
@@ -1303,7 +1219,7 @@
       "avg_price": 275.75,
       "dealers": 4,
       "profit_rate": 31.7,
-      "active_days_30": 2,
+      "active_days_30": 1,
       "manager": "多区"
     },
     {
@@ -1319,6 +1235,66 @@
       "manager": "高玉杰"
     },
     {
+      "name": "线下-低脂鸡胸肉肠150g玉米味",
+      "sales": 11880.0,
+      "month_sales": 7560.0,
+      "qty": 1740,
+      "profit": 5476.8,
+      "avg_price": 7.2,
+      "dealers": 1,
+      "profit_rate": 46.1,
+      "active_days_30": 2,
+      "manager": "高玉杰"
+    },
+    {
+      "name": "线下-轻卤牛腱肉80g原味",
+      "sales": 11830.0,
+      "month_sales": 3380.0,
+      "qty": 780,
+      "profit": 3484.0,
+      "avg_price": 16.9,
+      "dealers": 2,
+      "profit_rate": 29.5,
+      "active_days_30": 3,
+      "manager": "高玉杰"
+    },
+    {
+      "name": "线下-轻卤牛腱肉80g黑胡椒味",
+      "sales": 11830.0,
+      "month_sales": 3380.0,
+      "qty": 760,
+      "profit": 3698.0,
+      "avg_price": 16.9,
+      "dealers": 2,
+      "profit_rate": 31.3,
+      "active_days_30": 3,
+      "manager": "高玉杰"
+    },
+    {
+      "name": "线下-低脂鸡胸肉肠150g原味",
+      "sales": 11302.8,
+      "month_sales": 7128.0,
+      "qty": 1628,
+      "profit": 5116.4,
+      "avg_price": 6.67,
+      "dealers": 2,
+      "profit_rate": 45.3,
+      "active_days_30": 3,
+      "manager": "多区"
+    },
+    {
+      "name": "线下-375g口袋沙拉棒-20袋",
+      "sales": 11250.0,
+      "month_sales": 4050.0,
+      "qty": 45,
+      "profit": 3060.0,
+      "avg_price": 280.0,
+      "dealers": 3,
+      "profit_rate": 27.2,
+      "active_days_30": 3,
+      "manager": "多区"
+    },
+    {
       "name": "去皮鸡腿75g香辣味",
       "sales": 11030.0,
       "month_sales": 0,
@@ -1331,52 +1307,28 @@
       "manager": "多区"
     },
     {
-      "name": "线下-轻卤牛腱肉240g原味",
-      "sales": 10450.0,
-      "month_sales": 10450.0,
-      "qty": 260,
-      "profit": 6329.0,
-      "avg_price": 45.7,
-      "dealers": 2,
-      "profit_rate": 60.6,
-      "active_days_30": 1,
-      "manager": "高玉杰"
+      "name": "线下-袋鼠先生鸡胸肉奥尔良味100g-30包",
+      "sales": 10127.7,
+      "month_sales": 4995.0,
+      "qty": 84,
+      "profit": 3321.0,
+      "avg_price": 135.0,
+      "dealers": 5,
+      "profit_rate": 32.8,
+      "active_days_30": 3,
+      "manager": "多区"
     },
     {
-      "name": "线下-轻卤牛腱肉240g黑胡椒味",
-      "sales": 10450.0,
-      "month_sales": 10450.0,
-      "qty": 220,
-      "profit": 6963.0,
-      "avg_price": 45.7,
-      "dealers": 2,
-      "profit_rate": 66.6,
-      "active_days_30": 1,
-      "manager": "高玉杰"
-    },
-    {
-      "name": "线下-散称轻卤牛腱肉原味-5kg",
-      "sales": 10000.0,
-      "month_sales": 10000.0,
-      "qty": 10,
-      "profit": 7000.0,
-      "avg_price": 1000.0,
-      "dealers": 1,
-      "profit_rate": 70.0,
-      "active_days_30": 1,
-      "manager": "张雪梅"
-    },
-    {
-      "name": "线下-散称轻卤牛腱肉黑胡椒味-5kg",
-      "sales": 10000.0,
-      "month_sales": 10000.0,
-      "qty": 10,
-      "profit": 7000.0,
-      "avg_price": 1000.0,
-      "dealers": 1,
-      "profit_rate": 70.0,
-      "active_days_30": 1,
-      "manager": "张雪梅"
+      "name": "线下-袋鼠先生鸡胸肉黑胡椒味100g-30包",
+      "sales": 10126.35,
+      "month_sales": 4996.35,
+      "qty": 82,
+      "profit": 3483.0,
+      "avg_price": 135.0,
+      "dealers": 5,
+      "profit_rate": 34.4,
+      "active_days_30": 3,
+      "manager": "多区"
     },
     {
       "name": "线下-375g低脂膳食鸡肉丸-20包",
@@ -1463,30 +1415,6 @@
       "manager": "多区"
     },
     {
-      "name": "线下-袋鼠先生鸡胸肉香辣味100g-30包",
-      "sales": 6750.0,
-      "month_sales": 5400.0,
-      "qty": 55,
-      "profit": 4077.0,
-      "avg_price": 135.0,
-      "dealers": 2,
-      "profit_rate": 60.4,
-      "active_days_30": 2,
-      "manager": "高玉杰"
-    },
-    {
-      "name": "线下-125g口袋沙拉棒-30袋",
-      "sales": 6682.5,
-      "month_sales": 2970.0,
-      "qty": 49,
-      "profit": 3137.1,
-      "avg_price": 148.5,
-      "dealers": 1,
-      "profit_rate": 46.9,
-      "active_days_30": 1,
-      "manager": "高玉杰"
-    },
-    {
       "name": "线下-鸡胸肉50g原味D-20袋*5盒装",
       "sales": 5920.0,
       "month_sales": 0,
@@ -1523,6 +1451,42 @@
       "manager": "高玉杰"
     },
     {
+      "name": "线下-轻卤牛腱肉240g原味",
+      "sales": 5225.0,
+      "month_sales": 5225.0,
+      "qty": 130,
+      "profit": 1104.0,
+      "avg_price": 45.7,
+      "dealers": 2,
+      "profit_rate": 21.1,
+      "active_days_30": 1,
+      "manager": "高玉杰"
+    },
+    {
+      "name": "线下-轻卤牛腱肉240g黑胡椒味",
+      "sales": 5225.0,
+      "month_sales": 5225.0,
+      "qty": 110,
+      "profit": 1738.0,
+      "avg_price": 45.7,
+      "dealers": 2,
+      "profit_rate": 33.3,
+      "active_days_30": 1,
+      "manager": "高玉杰"
+    },
+    {
+      "name": "线下-125g口袋沙拉棒-30袋",
+      "sales": 5197.5,
+      "month_sales": 1485.0,
+      "qty": 38,
+      "profit": 1652.1,
+      "avg_price": 148.5,
+      "dealers": 1,
+      "profit_rate": 31.8,
+      "active_days_30": 1,
+      "manager": "高玉杰"
+    },
+    {
       "name": "黑咖啡20g",
       "sales": 5140.8,
       "month_sales": 0,
@@ -1533,6 +1497,30 @@
       "profit_rate": 28.2,
       "active_days_30": 1,
       "manager": "朱晓亮"
+    },
+    {
+      "name": "线下-散称轻卤牛腱肉原味-5kg",
+      "sales": 5000.0,
+      "month_sales": 5000.0,
+      "qty": 5,
+      "profit": 2000.0,
+      "avg_price": 1000.0,
+      "dealers": 1,
+      "profit_rate": 40.0,
+      "active_days_30": 1,
+      "manager": "张雪梅"
+    },
+    {
+      "name": "线下-散称轻卤牛腱肉黑胡椒味-5kg",
+      "sales": 5000.0,
+      "month_sales": 5000.0,
+      "qty": 5,
+      "profit": 2000.0,
+      "avg_price": 1000.0,
+      "dealers": 1,
+      "profit_rate": 40.0,
+      "active_days_30": 1,
+      "manager": "张雪梅"
     },
     {
       "name": "线下-低脂鸡胸肉肠150g泡椒笋尖肠",
@@ -1559,26 +1547,26 @@
       "manager": "多区"
     },
     {
-      "name": "线下-金丝鸡肉卷50g香辣味*20包*6盒",
-      "sales": 3960.0,
-      "month_sales": 3240.0,
-      "qty": 21,
-      "profit": 3445.2,
-      "avg_price": 204.0,
+      "name": "线下-袋鼠先生鸡胸肉香辣味100g-30包",
+      "sales": 4050.0,
+      "month_sales": 2700.0,
+      "qty": 33,
+      "profit": 1377.0,
+      "avg_price": 135.0,
       "dealers": 2,
-      "profit_rate": 87.0,
+      "profit_rate": 34.0,
       "active_days_30": 1,
       "manager": "高玉杰"
     },
     {
-      "name": "线下-150g口袋沙拉棒",
+      "name": "线下-金丝鸡肉卷50g香辣味*20包*6盒",
       "sales": 3960.0,
-      "month_sales": 3960.0,
-      "qty": 660,
-      "profit": 2712.6,
-      "avg_price": 6.6,
-      "dealers": 1,
-      "profit_rate": 68.5,
+      "month_sales": 3240.0,
+      "qty": 21,
+      "profit": 1257.3,
+      "avg_price": 204.0,
+      "dealers": 2,
+      "profit_rate": 31.8,
       "active_days_30": 1,
       "manager": "高玉杰"
     },
@@ -1607,18 +1595,6 @@
       "manager": "多区"
     },
     {
-      "name": "线下-75g口袋沙拉棒",
-      "sales": 3366.0,
-      "month_sales": 2772.0,
-      "qty": 1080,
-      "profit": 2781.0,
-      "avg_price": 3.3,
-      "dealers": 2,
-      "profit_rate": 82.6,
-      "active_days_30": 2,
-      "manager": "高玉杰"
-    },
-    {
       "name": "线下-鸡胸肉50g香辣味D-20袋*5盒装",
       "sales": 3200.0,
       "month_sales": 0.0,
@@ -1641,6 +1617,18 @@
       "profit_rate": 25.9,
       "active_days_30": 0,
       "manager": "朱晓亮"
+    },
+    {
+      "name": "线下-75g口袋沙拉棒",
+      "sales": 2970.0,
+      "month_sales": 2376.0,
+      "qty": 960,
+      "profit": 1098.0,
+      "avg_price": 3.3,
+      "dealers": 2,
+      "profit_rate": 37.0,
+      "active_days_30": 3,
+      "manager": "高玉杰"
     },
     {
       "name": "线下-袋鼠先生原型鸡胸肉香辣味45g-80包",
@@ -1691,6 +1679,18 @@
       "manager": "张雪梅"
     },
     {
+      "name": "线下-150g口袋沙拉棒",
+      "sales": 1980.0,
+      "month_sales": 1980.0,
+      "qty": 330,
+      "profit": 732.6,
+      "avg_price": 6.6,
+      "dealers": 1,
+      "profit_rate": 37.0,
+      "active_days_30": 1,
+      "manager": "高玉杰"
+    },
+    {
       "name": "风干鸡肉条80g香辣味",
       "sales": 1950.0,
       "month_sales": 0,
@@ -1711,7 +1711,7 @@
       "avg_price": 13.5,
       "dealers": 1,
       "profit_rate": 3.7,
-      "active_days_30": 1,
+      "active_days_30": 0,
       "manager": "高玉杰"
     },
     {
@@ -1827,10 +1827,10 @@
       "sales": 1080.0,
       "month_sales": 1080.0,
       "qty": 5,
-      "profit": 1080.0,
+      "profit": 436.5,
       "avg_price": 216.0,
       "dealers": 1,
-      "profit_rate": 100.0,
+      "profit_rate": 40.4,
       "active_days_30": 1,
       "manager": "高玉杰"
     },
@@ -1947,7 +1947,7 @@
       "sales": -972.04,
       "month_sales": 1330.6,
       "qty": -171,
-      "profit": 1920.22,
+      "profit": -485.28,
       "avg_price": 4.83,
       "dealers": 3,
       "profit_rate": 0,
@@ -1959,7 +1959,7 @@
       "sales": -1716.18,
       "month_sales": 186.68,
       "qty": -943,
-      "profit": 675.3,
+      "profit": -611.7,
       "avg_price": 3.78,
       "dealers": 3,
       "profit_rate": 0,
@@ -1971,7 +1971,7 @@
       "sales": -1716.18,
       "month_sales": 186.68,
       "qty": -943,
-      "profit": 675.3,
+      "profit": -611.7,
       "avg_price": 3.78,
       "dealers": 3,
       "profit_rate": 0,
