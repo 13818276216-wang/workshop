@@ -52,7 +52,7 @@ try:
         LARK_CLI, 'sheets', '+read',
         '--spreadsheet-token', 'P9ZzsXgg7hv1NjtqnveccFAknRe',
         '--sheet-id', 'M4qpLc',
-        '--range', 'A1:N61',
+        '--range', 'A1:N120',
         '--as', 'user'
     ], capture_output=True, text=True, encoding='utf-8')
     resp = json.loads(result.stdout)

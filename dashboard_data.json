@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-15 18:43",
+  "update_time": "2026-07-15 18:53",
   "overview_all": {
     "year_sales": 14766725.26,
     "year_profit": 2811264.8,
@@ -202,13 +202,13 @@
   "managers": [
     {
       "name": "高玉杰",
-      "clients": 22,
-      "active_clients": 14,
+      "clients": 27,
+      "active_clients": 19,
       "today_sales": 0,
-      "month_sales": 235849.35,
+      "month_sales": 352679.35,
       "prev_month_sales": 191768.0,
-      "sales": 852794.15,
-      "orders": 101,
+      "sales": 969624.15,
+      "orders": 111,
       "data_months": 4
     },
     {
@@ -223,36 +223,36 @@
       "data_months": 4
     },
     {
-      "name": "未知",
-      "clients": 9,
-      "active_clients": 0,
-      "today_sales": 68600.0,
-      "month_sales": 230086.0,
-      "prev_month_sales": 0,
-      "sales": 230086.0,
-      "orders": 20,
-      "data_months": 1
-    },
-    {
       "name": "朱晓亮",
-      "clients": 12,
-      "active_clients": 9,
+      "clients": 13,
+      "active_clients": 10,
       "today_sales": 0,
-      "month_sales": 54304.0,
+      "month_sales": 69424.0,
       "prev_month_sales": 28032.0,
-      "sales": 210806.4,
-      "orders": 30,
+      "sales": 225926.4,
+      "orders": 31,
       "data_months": 4
     },
     {
-      "name": "张雪梅",
+      "name": "田秀双",
       "clients": 1,
       "active_clients": 1,
-      "today_sales": 0,
-      "month_sales": 0,
+      "today_sales": 68600.0,
+      "month_sales": 68600.0,
       "prev_month_sales": 0,
-      "sales": 35600.0,
-      "orders": 7,
+      "sales": 68600.0,
+      "orders": 4,
+      "data_months": 1
+    },
+    {
+      "name": "张雪梅",
+      "clients": 3,
+      "active_clients": 3,
+      "today_sales": 0,
+      "month_sales": 29536.0,
+      "prev_month_sales": 0,
+      "sales": 65136.0,
+      "orders": 12,
       "data_months": 4
     }
   ],
@@ -350,7 +350,7 @@
     },
     {
       "name": "四川蓉志楚远供应链管理有限公司",
-      "manager": "未知",
+      "manager": "田秀双",
       "sales": 68600.0,
       "profit": 68600.0,
       "orders": 4,
@@ -402,7 +402,7 @@
     },
     {
       "name": "焦作锋晨商贸有限公司",
-      "manager": "未知",
+      "manager": "高玉杰",
       "sales": 37830.0,
       "profit": 21233.72,
       "orders": 3,
@@ -480,7 +480,7 @@
     },
     {
       "name": "南京润辰商贸有限公司",
-      "manager": "未知",
+      "manager": "高玉杰",
       "sales": 29330.0,
       "profit": 20232.1,
       "orders": 2,
@@ -506,7 +506,7 @@
     },
     {
       "name": "太原红昌龙商贸有限公司",
-      "manager": "未知",
+      "manager": "张雪梅",
       "sales": 28600.0,
       "profit": 19630.0,
       "orders": 3,
@@ -584,7 +584,7 @@
     },
     {
       "name": "新疆禾峰嘉业商贸有限公司",
-      "manager": "未知",
+      "manager": "高玉杰",
       "sales": 21450.0,
       "profit": 4647.5,
       "orders": 2,
@@ -662,7 +662,7 @@
     },
     {
       "name": "阜康市旺联商贸有限公司",
-      "manager": "未知",
+      "manager": "高玉杰",
       "sales": 16200.0,
       "profit": 10773.0,
       "orders": 1,
@@ -688,7 +688,7 @@
     },
     {
       "name": "南昌县阿志食品批发部",
-      "manager": "未知",
+      "manager": "朱晓亮",
       "sales": 15120.0,
       "profit": 9242.0,
       "orders": 1,
@@ -740,7 +740,7 @@
     },
     {
       "name": "南京宁悦商贸有限公司",
-      "manager": "未知",
+      "manager": "高玉杰",
       "sales": 12020.0,
       "profit": 6178.6,
       "orders": 2,
@@ -896,7 +896,7 @@
     },
     {
       "name": "陕西棋盛商贸有限公司",
-      "manager": "未知",
+      "manager": "张雪梅",
       "sales": 936.0,
       "profit": 612.0,
       "orders": 2,
@@ -1124,7 +1124,7 @@
       "dealers": 6,
       "profit_rate": 79.5,
       "active_days_30": 4,
-      "manager": "高玉杰"
+      "manager": "多区"
     },
     {
       "name": "线下-鸡胸肉50g黑胡椒D-20袋*5盒装",
@@ -1148,7 +1148,7 @@
       "dealers": 6,
       "profit_rate": 78.1,
       "active_days_30": 4,
-      "manager": "高玉杰"
+      "manager": "多区"
     },
     {
       "name": "鸡胸肉100g烧烤-轻享版",
@@ -1232,7 +1232,7 @@
       "dealers": 3,
       "profit_rate": 93.0,
       "active_days_30": 3,
-      "manager": "高玉杰"
+      "manager": "多区"
     },
     {
       "name": "线下-低脂鸡胸肉肠150g玉米味",
@@ -1268,7 +1268,7 @@
       "dealers": 3,
       "profit_rate": 93.7,
       "active_days_30": 3,
-      "manager": "高玉杰"
+      "manager": "多区"
     },
     {
       "name": "线下-轻卤牛腱肉80g原味",
@@ -1436,7 +1436,7 @@
       "dealers": 1,
       "profit_rate": 70.0,
       "active_days_30": 1,
-      "manager": "未知"
+      "manager": "张雪梅"
     },
     {
       "name": "线下-散称轻卤牛腱肉黑胡椒味-5kg",
@@ -1448,7 +1448,7 @@
       "dealers": 1,
       "profit_rate": 70.0,
       "active_days_30": 1,
-      "manager": "未知"
+      "manager": "张雪梅"
     },
     {
       "name": "线下-鸡胸肉50g香辣味D",
@@ -1568,7 +1568,7 @@
       "dealers": 3,
       "profit_rate": 67.4,
       "active_days_30": 3,
-      "manager": "高玉杰"
+      "manager": "多区"
     },
     {
       "name": "线下-低脂鸡胸肉肠375g玉米味-20包",
@@ -1640,7 +1640,7 @@
       "dealers": 2,
       "profit_rate": 30.9,
       "active_days_30": 1,
-      "manager": "朱晓亮"
+      "manager": "多区"
     },
     {
       "name": "线下-150g口袋沙拉棒",
@@ -1652,7 +1652,7 @@
       "dealers": 1,
       "profit_rate": 68.5,
       "active_days_30": 1,
-      "manager": "未知"
+      "manager": "高玉杰"
     },
     {
       "name": "线下-低脂鸡胸肉肠375g原味",
@@ -1676,7 +1676,7 @@
       "dealers": 2,
       "profit_rate": 37.1,
       "active_days_30": 1,
-      "manager": "朱晓亮"
+      "manager": "多区"
     },
     {
       "name": "线下-鸡胸肉50g香辣味D-20袋*5盒装",
@@ -1736,7 +1736,7 @@
       "dealers": 3,
       "profit_rate": 119.1,
       "active_days_30": 5,
-      "manager": "刘鲁宁"
+      "manager": "多区"
     },
     {
       "name": "线下-去皮鸡腿香辣味散称-5kg",
@@ -1748,7 +1748,7 @@
       "dealers": 1,
       "profit_rate": 38.1,
       "active_days_30": 1,
-      "manager": "未知"
+      "manager": "张雪梅"
     },
     {
       "name": "线下-金丝鸡肉卷50g原味*20包*6盒",
@@ -1760,7 +1760,7 @@
       "dealers": 1,
       "profit_rate": 70.2,
       "active_days_30": 2,
-      "manager": "未知"
+      "manager": "高玉杰"
     },
     {
       "name": "风干鸡肉条80g香辣味",
@@ -1940,7 +1940,7 @@
       "dealers": 3,
       "profit_rate": 489.1,
       "active_days_30": 5,
-      "manager": "刘鲁宁"
+      "manager": "多区"
     },
     {
       "name": "线下-鸡胸肉丸50g原味",
@@ -1952,7 +1952,7 @@
       "dealers": 3,
       "profit_rate": 489.1,
       "active_days_30": 5,
-      "manager": "刘鲁宁"
+      "manager": "多区"
     },
     {
       "name": "线下-全麦乳清蛋白棒浓郁可可味20g",
