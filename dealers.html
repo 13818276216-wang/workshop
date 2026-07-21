@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>线下传统经销商经营分析</title>
+<title>线下渠道经营诊断看板</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 17px; background: #f4f6f9; color: #1a1f36; min-height: 100vh; zoom: 0.75; }
@@ -26,7 +26,7 @@
   .container { padding: 24px 32px; max-width: 1440px; }
   .section-title { font-size: 15px; font-weight: 700; color: #1a1f36; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .section-title::before { content:""; display:inline-block; width:4px; height:18px; background:#ff7020; border-radius:2px; }
-  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .cards { display: grid; gap: 16px; margin-bottom: 24px; }
   .card { background: #fff; border-radius: 12px; padding: 20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #eaecf0; position: relative; overflow: hidden; transition: box-shadow 0.2s; }
   .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06); }
   .card .label { font-size: 12px; color: #9ba3b5; margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -57,9 +57,11 @@
   .tag.red { background: #fef0f0; color: #cf1322; }
   .tag.blue { background: #eff4ff; color: #2d5be3; }
   .tag.normal { background: #f4f6f9; color: #6b7280; }
+  .tag.purple { background: #f0e8ff; color: #6b35e3; }
   .bar-wrap { background: #f0f2f5; border-radius: 4px; height: 7px; overflow: hidden; margin-top: 4px; }
   .bar-fill { height: 100%; border-radius: 4px; }
   .footer { text-align: center; padding: 20px; font-size: 12px; color: #c0c4ce; letter-spacing: 0.3px; }
+  .ka-section { background: #f0f8ff; border-radius: 12px; border: 1px solid #b8d8f0; border-top: 3px solid #2d5be3; padding: 18px 20px; margin-bottom: 20px; }
   @media (max-width: 768px) { #side-nav { display:none; } .main { margin-left: 0; } .cards { grid-template-columns: 1fr 1fr !important; } .insight-box { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -67,17 +69,17 @@
 <div id="side-nav">
   <div class="nav-logo">
     <div class="logo-box">袋鼠<br>先生</div>
-    <div class="logo-text">经营分析</div>
+    <div class="logo-text">经营诊断</div>
   </div>
-  <div class="nav-group">数据看板</div>
+  <div class="nav-group">传统经销商</div>
   <a href="#sec1" class="active">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>总览
   </a>
   <a href="#sec2">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>销售趋势
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>月度趋势
   </a>
   <a href="#sec3">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>销售结构
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>渠道结构
   </a>
   <a href="#sec4">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>经销商健康
@@ -88,14 +90,18 @@
   <a href="#sec6">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>省份覆盖
   </a>
+  <div class="nav-group">零食量贩KA</div>
+  <a href="#sec7">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8M8 12h8"/></svg>KA看板
+  </a>
 </div>
 <div class="main">
 <div class="header">
   <div class="header-inner">
     <div style="font-size:26px;font-weight:800;color:#e05810;letter-spacing:1px;flex-shrink:0;">袋鼠先生<span style="font-size:12px;vertical-align:super;font-weight:400">®</span></div>
     <div style="flex:1;text-align:center;padding:0 24px;">
-      <div class="header" style="font-size:21px;font-weight:800;letter-spacing:1px;color:#2d1200;background:none;border:none;box-shadow:none;padding:0;">线下传统经销商经营分析</div>
-      <div class="header-sub">数据来源：吉客云销售单明细账 &nbsp;|&nbsp; 合同台账：飞书线下记录 &nbsp;|&nbsp; 更新于 2026-07-04</div>
+      <div style="font-size:21px;font-weight:800;letter-spacing:1px;color:#2d1200;">线下渠道经营诊断看板</div>
+      <div class="header-sub">数据来源：吉客云销售单明细账 · 飞书线下记录（授权书/合同/证明） &nbsp;|&nbsp; 更新于 2026-07-21 &nbsp;|&nbsp; 传统经销商 4个月 · 零食KA 3个月</div>
     </div>
     <div class="slogan">干净配方 · 安心吃好肉<span class="slogan-dot"></span></div>
   </div>
@@ -103,71 +109,79 @@
 <div class="container">
 
 <!-- 一、总览 -->
-<div id="sec1" class="section-title" style="margin-top:4px">总览看板</div>
-<div class="cards" style="grid-template-columns:repeat(5,1fr);gap:14px">
+<div id="sec1" class="section-title" style="margin-top:4px">线下传统经销商总览</div>
+<div class="cards" style="grid-template-columns:repeat(6,1fr);gap:14px">
   <div class="card" style="padding:18px 20px">
     <div class="accent-bar" style="background:linear-gradient(90deg,#ff7020,#ffb080)"></div>
     <div class="label">累计销售额</div>
-    <div class="value">118.6 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
-    <div class="sub" style="margin-top:6px">月均 <b>39.5 万</b> · 3个月累计</div>
+    <div class="value">171.3 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
+    <div class="sub" style="margin-top:6px">月均 <b>42.8 万</b> · 4个月累计</div>
     <div class="badge neutral" style="margin-top:8px">▶ 持续增长中</div>
   </div>
   <div class="card" style="padding:18px 20px">
     <div class="accent-bar" style="background:linear-gradient(90deg,#e05810,#ff9040)"></div>
-    <div class="label">本月销售额</div>
-    <div class="value">50.6 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
-    <div style="margin:10px 0 4px;background:#f0f2f5;border-radius:4px;height:6px;overflow:hidden"><div style="width:42.6%;height:100%;background:linear-gradient(90deg,#e05810,#ff9040);border-radius:4px"></div></div>
-    <div class="sub">占累计 42.6%</div>
-    <div class="badge down" style="margin-top:8px">↓ 较上月 -18.9%</div>
+    <div class="label">本月(7月)销售额</div>
+    <div class="value">52.7 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
+    <div style="margin:10px 0 4px;background:#f0f2f5;border-radius:4px;height:6px;overflow:hidden"><div style="width:30.7%;height:100%;background:linear-gradient(90deg,#e05810,#ff9040);border-radius:4px"></div></div>
+    <div class="sub">占累计 30.7%</div>
+    <div class="badge up" style="margin-top:8px">↑ 较上月 +4.3%</div>
   </div>
   <div class="card" style="padding:18px 20px">
-    <div class="accent-bar" style="background:linear-gradient(90deg,#fa8c16,#ffc53d)"></div>
-    <div class="label">累计产品毛利</div>
-    <div class="value">29.1 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
-    <div class="sub" style="margin-top:6px">累计毛利率 <b>24.6%</b></div>
-    <div class="sub">本月毛利 <b>11.7万</b> · 毛利率 23.2%</div>
-    <div class="badge down" style="margin-top:8px">↓ 较上月 -2.6%</div>
+    <div class="accent-bar" style="background:linear-gradient(90deg,#0a8a4e,#36cf80)"></div>
+    <div class="label">7月毛利率</div>
+    <div class="value">29.2 <span style="font-size:16px;font-weight:500;color:#9ba3b5">%</span></div>
+    <div class="sub" style="margin-top:6px">累计毛利率 <b>26.0%</b></div>
+    <div class="sub">7月毛利 <b>15.38万</b></div>
+    <div class="badge up" style="margin-top:8px">↑ 较上月 +6.0%</div>
   </div>
   <div class="card" style="padding:18px 20px">
     <div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div>
     <div class="label">传统经销商</div>
-    <div class="value">39 <span style="font-size:16px;font-weight:500;color:#9ba3b5">家</span></div>
-    <div class="sub" style="margin-top:6px">本月活跃 34 家 · 均单 <b>1.44万</b></div>
-    <div class="sub">最高 <b>5.53万</b>（艾尼斯）· 最低 <b>0.01万</b></div>
-    <div class="badge up" style="margin-top:8px">↑ 本月新增 18 家</div>
+    <div class="value">53 <span style="font-size:16px;font-weight:500;color:#9ba3b5">家</span></div>
+    <div class="sub" style="margin-top:6px">7月活跃 35 家 · 均单 <b>1.51万</b></div>
+    <div class="sub">7月新增 <b>14家</b></div>
+    <div class="badge up" style="margin-top:8px">↑ 新增持续</div>
   </div>
   <div class="card" style="padding:18px 20px">
-    <div class="accent-bar" style="background:linear-gradient(90deg,#0a8a4e,#36cf80)"></div>
+    <div class="accent-bar" style="background:linear-gradient(90deg,#fa8c16,#ffc53d)"></div>
     <div class="label">覆盖省份</div>
-    <div class="value">16 <span style="font-size:16px;font-weight:500;color:#9ba3b5">个</span></div>
-    <div class="sub" style="margin-top:6px">TOP3：上海 22% · 河南 24% · 浙江 10%</div>
-    <div class="badge up" style="margin-top:8px">↑ 本月新增 天津</div>
+    <div class="value">19 <span style="font-size:16px;font-weight:500;color:#9ba3b5">个</span></div>
+    <div class="sub" style="margin-top:6px">TOP3：江苏 19.3% · 安徽 11.7% · 广东 11.5%</div>
+    <div class="badge up" style="margin-top:8px">↑ 7月新增 广东·山西·江西·辽宁</div>
+  </div>
+  <div class="card" style="padding:18px 20px">
+    <div class="accent-bar" style="background:linear-gradient(90deg,#6b35e3,#9b70f5)"></div>
+    <div class="label">零食量贩KA</div>
+    <div class="value">571.6 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
+    <div class="sub" style="margin-top:6px">10家连锁 · 3个月累计</div>
+    <div class="sub">7月 <b>159.3万</b> · 毛利率 <b>37.1%</b></div>
+    <div class="badge neutral" style="margin-top:8px">▶ 占线下总量77%</div>
   </div>
 </div>
 
-<!-- 二、月度销售趋势 -->
+<!-- 二、月度趋势 -->
 <div id="sec2" class="panel" style="margin-bottom:22px">
-  <div class="section-title">月度销售趋势</div>
+  <div class="section-title">月度销售趋势（传统经销商）</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
     <div>
       <div style="font-size:13px;font-weight:700;color:#7a3010;margin-bottom:8px;text-align:center">月度销售额（万元）</div>
       <div style="position:relative;height:180px"><canvas id="chartSales"></canvas></div>
       <div style="margin-top:10px;padding:10px 12px;background:#fff8f2;border-radius:8px;border-left:3px solid #e05810;font-size:12px;color:#7a3010;line-height:1.7">
-        5月爆发式增长（<b>+1008%</b>），主因上海心意食光首单集中放量；6月50.6万，活跃经销商增至<b>35家</b>，较5月下降18.9%，属正常回调
+        5月爆发式增长（<b>+1108%</b>），主因多经销商首单集中放量；7月52.7万环比<b>+4.3%</b>，增速放缓但连续3个月>50万，增长趋势稳固
       </div>
     </div>
     <div>
       <div style="font-size:13px;font-weight:700;color:#7a3010;margin-bottom:8px;text-align:center">月度毛利额（万元）</div>
       <div style="position:relative;height:180px"><canvas id="chartProfit"></canvas></div>
       <div style="margin-top:10px;padding:10px 12px;background:#fff8f2;border-radius:8px;border-left:3px solid #e07030;font-size:12px;color:#7a3010;line-height:1.7">
-        毛利额随销售额波动，6月 <b>11.7万</b>，较5月（16.1万）下降；毛利率23.2%，较上月回落2.6%，需关注低毛利新客占比
+        7月毛利 <b>15.38万</b>，创4个月新高；6月11.74万 →7月15.38万，增幅<b>+31%</b>，高毛利经销商占比提升
       </div>
     </div>
     <div>
       <div style="font-size:13px;font-weight:700;color:#7a3010;margin-bottom:8px;text-align:center">月度毛利率（%）</div>
       <div style="position:relative;height:180px"><canvas id="chartMargin"></canvas></div>
       <div style="margin-top:10px;padding:10px 12px;background:#fff8f2;border-radius:8px;border-left:3px solid #c06020;font-size:12px;color:#7a3010;line-height:1.7">
-        6月毛利率 <b>23.2%</b>，较5月（25.9%）回落2.6%；19家新增经销商中部分为首单小批量，拉低整体均值，随复购增加毛利率有望修复
+        7月毛利率 <b>29.2%</b>，较6月(23.2%)回升<b>6%</b>，为4个月最高；特通经销商贡献显著，结构持续优化
       </div>
     </div>
   </div>
@@ -177,15 +191,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script>
 Chart.register(ChartDataLabels);
-const months = ['2026-04', '2026-05', '2026-06'];
+const months4 = ['2026-04', '2026-05', '2026-06', '2026-07'];
 const barBase = { borderRadius: 8, borderSkipped: false };
 const labelOpts = { anchor: 'end', align: 'top', offset: 2, font: { size: 11, weight: '700' }, color: '#7a3010' };
 const scaleBase = { grid: { color: '#f5ede0' }, ticks: { font: { size: 11 } } };
 
 new Chart(document.getElementById('chartSales').getContext('2d'), {
   type: 'bar',
-  data: { labels: months, datasets: [{ label: '销售额（万）', data: [5.6, 62.4, 50.6],
-    backgroundColor: ['rgba(200,185,170,0.75)','rgba(224,88,16,0.88)','rgba(224,120,48,0.85)'], ...barBase }] },
+  data: { labels: months4, datasets: [{ label: '销售额（万）', data: [5.63, 62.36, 50.56, 52.72],
+    backgroundColor: ['rgba(200,185,170,0.75)','rgba(224,88,16,0.88)','rgba(224,120,48,0.85)','rgba(224,88,16,0.92)'], ...barBase }] },
   options: { responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false }, datalabels: { ...labelOpts, formatter: v => v + '万' } },
     scales: { y: { ...scaleBase, ticks: { ...scaleBase.ticks, callback: v => v + '万' } } },
@@ -194,8 +208,8 @@ new Chart(document.getElementById('chartSales').getContext('2d'), {
 
 new Chart(document.getElementById('chartProfit').getContext('2d'), {
   type: 'bar',
-  data: { labels: months, datasets: [{ label: '毛利额（万）', data: [1.3, 16.1, 11.7],
-    backgroundColor: ['rgba(200,180,155,0.75)','rgba(255,165,40,0.88)','rgba(255,185,70,0.85)'], ...barBase }] },
+  data: { labels: months4, datasets: [{ label: '毛利额（万）', data: [1.25, 16.12, 11.74, 15.38],
+    backgroundColor: ['rgba(200,180,155,0.75)','rgba(255,165,40,0.88)','rgba(255,185,70,0.85)','rgba(255,165,40,0.92)'], ...barBase }] },
   options: { responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false }, datalabels: { ...labelOpts, formatter: v => v + '万' } },
     scales: { y: { ...scaleBase, ticks: { ...scaleBase.ticks, callback: v => v + '万' } } },
@@ -204,7 +218,7 @@ new Chart(document.getElementById('chartProfit').getContext('2d'), {
 
 new Chart(document.getElementById('chartMargin').getContext('2d'), {
   type: 'line',
-  data: { labels: months, datasets: [{ label: '毛利率%', data: [22.2, 25.9, 23.2],
+  data: { labels: months4, datasets: [{ label: '毛利率%', data: [22.2, 25.9, 23.2, 29.2],
     borderColor: '#c05010', backgroundColor: 'rgba(224,88,16,0.10)',
     pointBackgroundColor: '#c05010', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 6, tension: 0.3, fill: true }] },
   options: { responsive: true, maintainAspectRatio: false,
@@ -218,51 +232,53 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
 <div class="insight-box">
   <div class="opp-panel">
     <div class="insight-title" style="color:#389e0d">✅ 机会点</div>
-    <div class="insight-item">📍 <b>高毛利来自渠道选择，特通渠道毛利率39.3%领跑</b>——北京礼予甄选49.1%、重庆蓉渝福58.5%、东晟恒丰39.3%，特通路径是核心利润引擎；6月新增13家中特通/高毛利占比高，结构持续优化；建议在招商中持续优先引导特通类经销商</div>
-    <div class="insight-item">📦 <b>100g鸡胸肉是渠道最广品类</b>——黑胡椒/奥尔良覆盖11-12家，是经销商首选主力；毛利率25-27%；可引导搭配原型350g和烧烤款提升整体利润结构</div>
-    <div class="insight-item">🏫 <b>新增3省（山东·重庆·天津）扩张提速</b>——6月新覆盖3个省份，网络快速下沉；重庆双经销商已实现4.9万销售额，验证西南市场潜力；建议优先深耕已覆盖省份，单省经销商密度当前仅~2.3家/省，扩渗透空间大</div>
+    <div class="insight-item">📍 <b>7月毛利率29.2%创4个月新高</b>——特通经销商贡献突出（35.3%毛利率），高毛利新客占比提升；太原红昌龙55.2%、青岛海太59.9%、无锡大菓林50.1%领跑，特通路径仍是核心利润引擎</div>
+    <div class="insight-item">📍 <b>7月连续3个月>50万，增长趋势稳固</b>——5月62万爆发→6月50.6万→7月52.7万，回调后企稳回升；7月环比+4.3%，不再依赖单客放量，结构更健康</div>
+    <div class="insight-item">📍 <b>7月新增14家经销商，新增3省（广东·山西·江西·辽宁）</b>——上海心意食光拉动广东19.66万（排名第1），广东首次覆盖即成第二大市场；山西太原红昌龙3.72万验证北方特通潜力</div>
+    <div class="insight-item">📍 <b>零食量贩KA已成线下最大收入源</b>——10家连锁3个月571.61万，占线下总量77%（含自营排除后）；7月单月159.28万，是传统经销商的3倍</div>
   </div>
   <div class="warn-panel">
     <div class="insight-title" style="color:#d46b08">⚠️ 预警</div>
-    <div class="insight-item">🔴 <b>山东青岛和德发毛利率-59.7%，累计亏损4925元</b>——属严重异常，需排查是否为促销/退货/定价问题；该经销商为本月新增，3单订单即出现大额负毛利，建议立即介入核查并暂停发货</div>
-    <div class="insight-item">🔴 <b>上海鸿召商贸毛利率11.3%，低于警戒线</b>——自贩机渠道供货价被压低+小包装成本高是结构性原因；累计销售6.66万但毛利仅0.75万；需决策是否调整供货策略或评估终止合作</div>
-    <div class="insight-item">⚠️ <b>6月销售额较5月下降30.9%，需监控是否趋势性回落</b>——5月62.4万含心意食光首批大单放量，6月回归至43.1万属正常回调；但需密切关注心意食光7月复购情况，该客户占累计销售16.1%，单客依赖风险仍高</div>
+    <div class="insight-item">🔴 <b>无锡无凡毛利率6.6%，累计毛利仅0.93万</b>——14万销售额但毛利极低，属结构性低毛利（牛排脆搭赠35%+低出厂价）；需决策是否调整供货策略或终止合作</div>
+    <div class="insight-item">🔴 <b>四川龙洋亿达毛利率3.2%</b>——3.34万销售但毛利仅0.11万，接近亏损；辽宁区域经销商，需排查定价或搭赠问题</div>
+    <div class="insight-item">⚠️ <b>流通批发毛利率19.2%，低于整体均值6.8%</b>——21家流通批发贡献38.6%销售额但毛利率最低，新增批发类经销商需评估毛利结构</div>
+    <div class="insight-item">⚠️ <b>零食KA 7月环比-49%（311→159万）</b>——6月集中放量后回调，需关注8月复购；四川蓉志楚远7月首月53.59万是主要增量</div>
   </div>
 </div>
 
-<!-- 三、渠道结构分析 -->
+<!-- 三、渠道结构 -->
 <div id="sec3" class="panel">
   <div class="section-title">渠道结构分析</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
     <div>
-      <div style="font-size:12px;font-weight:600;color:#9ba3b5;margin-bottom:14px;letter-spacing:0.5px;text-transform:uppercase">当前渠道分布</div>
+      <div style="font-size:12px;font-weight:600;color:#9ba3b5;margin-bottom:14px;letter-spacing:0.5px;text-transform:uppercase">传统经销商渠道分布</div>
       <table>
         <thead><tr><th>渠道类型</th><th style="text-align:center">家数</th><th style="text-align:right">销售额</th><th style="text-align:right">毛利</th><th style="text-align:right">毛利率</th></tr></thead>
         <tbody>
-          <tr><td>流通批发</td><td style="text-align:center">20</td><td style="text-align:right">60.5万</td><td style="text-align:right">12.7万</td><td style="text-align:right;font-weight:700;color:#555">21.1%</td></tr>
-          <tr><td>特通</td><td style="text-align:center">7</td><td style="text-align:right">23.3万</td><td style="text-align:right">8.3万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">35.6%</td></tr>
-          <tr><td>即时零售</td><td style="text-align:center">7</td><td style="text-align:right">21.7万</td><td style="text-align:right">5.2万</td><td style="text-align:right;font-weight:700;color:#555">24.2%</td></tr>
-          <tr><td>KA流通</td><td style="text-align:center">4</td><td style="text-align:right">12.0万</td><td style="text-align:right">2.4万</td><td style="text-align:right;font-weight:700;color:#555">20.1%</td></tr>
-          <tr><td>CVS便利店</td><td style="text-align:center">1</td><td style="text-align:right">1.1万</td><td style="text-align:right">0.4万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">41.5%</td></tr>
-          <tr class="sum-row"><td>合计</td><td style="text-align:center">39</td><td style="text-align:right">118.6万</td><td style="text-align:right">29.1万</td><td style="text-align:right;color:#e05810">24.6%</td></tr>
+          <tr><td>特通</td><td style="text-align:center">21</td><td style="text-align:right">60.27万</td><td style="text-align:right">21.27万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">35.3%</td></tr>
+          <tr><td>流通批发</td><td style="text-align:center">21</td><td style="text-align:right">66.02万</td><td style="text-align:right">12.66万</td><td style="text-align:right;font-weight:700;color:#555">19.2%</td></tr>
+          <tr><td>即时零售</td><td style="text-align:center">6</td><td style="text-align:right">26.37万</td><td style="text-align:right">6.28万</td><td style="text-align:right;font-weight:700;color:#555">23.8%</td></tr>
+          <tr><td>KA流通</td><td style="text-align:center">3</td><td style="text-align:right">18.04万</td><td style="text-align:right">4.13万</td><td style="text-align:right;font-weight:700;color:#555">22.9%</td></tr>
+          <tr><td>CVS便利店</td><td style="text-align:center">1</td><td style="text-align:right">0.58万</td><td style="text-align:right">0.15万</td><td style="text-align:right;font-weight:700;color:#555">26.1%</td></tr>
+          <tr class="sum-row"><td>合计</td><td style="text-align:center">53</td><td style="text-align:right">171.27万</td><td style="text-align:right">44.50万</td><td style="text-align:right;color:#e05810">26.0%</td></tr>
         </tbody>
       </table>
       <div style="margin-top:18px;display:flex;flex-direction:column;gap:12px">
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>流通批发</span><span>51.0%</span></div>
-          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:51.0%;background:linear-gradient(90deg,#fa8c16,#ffc53d)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>特通渠道</span><span style="color:#0a8a4e">35.1%</span></div>
+          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:35.1%;background:linear-gradient(90deg,#0a8a4e,#36cf80)"></div></div>
         </div>
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>特通渠道</span><span style="color:#389e0d">19.6%</span></div>
-          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:19.6%;background:linear-gradient(90deg,#e05810,#ff9040)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>流通批发</span><span>38.6%</span></div>
+          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:38.6%;background:linear-gradient(90deg,#fa8c16,#ffc53d)"></div></div>
         </div>
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>即时零售（含CVS）</span><span>19.2%</span></div>
-          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:19.2%;background:linear-gradient(90deg,#0a8a4e,#36cf80)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>即时零售</span><span>15.4%</span></div>
+          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:15.4%;background:linear-gradient(90deg,#e05810,#ff9040)"></div></div>
         </div>
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>KA流通（含CVS）</span><span>10.1%</span></div>
-          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:10.1%;background:linear-gradient(90deg,#2d5be3,#6488f5)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#1a1f36;margin-bottom:5px"><span>KA流通</span><span>10.5%</span></div>
+          <div class="bar-wrap" style="height:10px"><div class="bar-fill" style="width:10.5%;background:linear-gradient(90deg,#2d5be3,#6488f5)"></div></div>
         </div>
       </div>
     </div>
@@ -271,50 +287,32 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
       <div style="position:relative;height:260px"><canvas id="channelBenchChart"></canvas></div>
       <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
         <div style="display:flex;gap:8px;align-items:center;font-size:11px">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e05810;flex-shrink:0"></span><span style="color:#e05810;font-weight:700">KA大卖场 5.8%</span>
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~38%</span>
-          <span style="color:#9ba3b5">——行业最大渠道，差距最大，战略补短板首选</span>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;font-size:11px">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e05810;flex-shrink:0"></span><span style="color:#e05810;font-weight:700">零食渠道 77.5%</span>
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~22%</span>
-          <span style="color:#9ba3b5">——显著领先行业，核心基本盘，持续深耕</span>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;font-size:11px">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e05810;flex-shrink:0"></span><span style="color:#e05810;font-weight:700">流通批发 1.7%</span>
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~22%</span>
-          <span style="color:#9ba3b5">——差距大，规模大，可通过现有经销商快速扩大</span>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;font-size:11px">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e05810;flex-shrink:0"></span><span style="color:#e05810;font-weight:700">特通渠道 14.1%</span>
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0a8a4e;flex-shrink:0"></span><span style="color:#0a8a4e;font-weight:700">特通渠道 35.1%</span>
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~12%</span>
-          <span style="color:#9ba3b5">——高于行业均值，是我们现阶段的优势渠道</span>
+          <span style="color:#9ba3b5">——高于行业23%，核心利润引擎</span>
         </div>
         <div style="display:flex;gap:8px;align-items:center;font-size:11px">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e05810;flex-shrink:0"></span><span style="color:#e05810;font-weight:700">CVS便利店 0.8%</span>
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e05810;flex-shrink:0"></span><span style="color:#e05810;font-weight:700">零食量贩KA 77.2%</span>
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~22%</span>
+          <span style="color:#9ba3b5">——已大幅领先，核心基本盘</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;font-size:11px">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fa8c16;flex-shrink:0"></span><span style="color:#fa8c16;font-weight:700">流通批发 38.6%</span>
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~22%</span>
+          <span style="color:#9ba3b5">——占比合理，但毛利率偏低</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;font-size:11px">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2d5be3;flex-shrink:0"></span><span style="color:#2d5be3;font-weight:700">KA大卖场 10.5%</span>
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~38%</span>
+          <span style="color:#9ba3b5">——差距最大，战略补短板首选</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;font-size:11px">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#6b35e3;flex-shrink:0"></span><span style="color:#6b35e3;font-weight:700">CVS便利店 0.3%</span>
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b0b8c9;flex-shrink:0"></span><span style="color:#9ba3b5;font-weight:600">行业~9%</span>
-          <span style="color:#9ba3b5">——毛利率最高（40%+），重点突破方向</span>
+          <span style="color:#9ba3b5">——高毛利40%+，重点突破方向</span>
         </div>
       </div>
       <div style="font-size:11px;color:#9ba3b5;margin-top:8px">袋鼠先生数据来自吉客云实际数据；行业均值参考2024年中国休闲食品行业渠道结构</div>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px">
-    <div style="background:#f6fff9;border:1px solid #b7eb8f;border-top:3px solid #52c41a;border-radius:10px;padding:14px 16px">
-      <div style="font-size:13px;font-weight:700;color:#389e0d;margin-bottom:10px">💡 渠道机会点</div>
-      <div style="font-size:12px;color:#3d4461;line-height:2">
-        🥇 <b>KA大卖场</b> — 行业最大渠道占比38%，我们仅5.8%，差距32个点，是最大的结构性机会，建议优先引入全国KA经销商<br>
-        🥈 <b>CVS便利店</b> — 毛利率最高（40%+），行业占9%，我们仅0.8%，现仅1家；建议设专项指标，半年内覆盖3-5家<br>
-        🥉 <b>流通批发</b> — 行业22%，我们仅1.7%，可通过现有经销商网络拓品，扩大触达
-      </div>
-    </div>
-    <div style="background:#fffcf0;border:1px solid #ffe58f;border-top:3px solid #fa8c16;border-radius:10px;padding:14px 16px">
-      <div style="font-size:13px;font-weight:700;color:#d46b08;margin-bottom:10px">⚠️ 渠道关注点</div>
-      <div style="font-size:12px;color:#3d4461;line-height:2">
-        🔴 <b>流通批发家数最多但毛利率最低</b> — 流通批发17家占42%销售额，但毛利率仅22.5%，低于整体均值；新增自贩机/KA类须评估点位质量和进场费<br>
-        🔴 <b>单客集中度高</b> — 心意食光1家占累计销售16.1%，单客依赖风险高；6月该客户月销仅0.61万，大幅回落，需评估复购节奏<br>
-        ⚠️ <b>KA渠道毛利偏低</b> — 当前KA毛利率19.1%，大润发/便利店通路需引入高毛利货盘
-      </div>
     </div>
   </div>
 </div>
@@ -323,9 +321,9 @@ new Chart(document.getElementById('chartMargin').getContext('2d'), {
 new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
   type: 'bar',
   data: {
-    labels: ['KA大卖场', '零食渠道（量贩）', '流通批发', '特通渠道', 'CVS便利店'],
+    labels: ['KA大卖场', '零食量贩KA', '流通批发', '特通渠道', 'CVS便利店'],
     datasets: [
-      { label: '袋鼠先生', data: [5.8, 77.5, 1.7, 14.1, 0.8], backgroundColor: 'rgba(224,88,16,0.85)', borderRadius: 5, borderSkipped: false },
+      { label: '袋鼠先生', data: [10.5, 77.2, 38.6, 35.1, 0.3], backgroundColor: 'rgba(224,88,16,0.85)', borderRadius: 5, borderSkipped: false },
       { label: '行业均值', data: [38, 22, 22, 12, 9], backgroundColor: 'rgba(176,184,201,0.6)', borderRadius: 5, borderSkipped: false }
     ]
   },
@@ -335,10 +333,6 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
       legend: { position: 'top', labels: { font: { size: 11 }, padding: 10, usePointStyle: true, pointStyle: 'circle' } },
       datalabels: { anchor: 'end', align: 'end', offset: 3, font: { size: 11, weight: '700' },
         color: ctx => ctx.datasetIndex === 0 ? '#e05810' : '#9ba3b5', formatter: v => v + '%' },
-      tooltip: { callbacks: { afterLabel: (ctx) => {
-        const notes = [['差距最大-32%，行业No.1渠道','行业约38%'],['领先行业55%，是核心基本盘','行业约22%'],['差距大-20%，规模大，优先布局','行业约22%'],['高于行业均值+2%，保持优势','行业约12%'],['高毛利40%+，重点突破','行业约9%']];
-        return notes[ctx.dataIndex][ctx.datasetIndex];
-      }}}
     },
     scales: {
       x: { max: 100, grid: { color: '#f0f2f5' }, ticks: { callback: v => v + '%', font: { size: 11 } } },
@@ -351,110 +345,126 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
 
 <!-- 四、经销商健康度 -->
 <div id="sec4" class="panel">
-  <div class="section-title">经销商健康度（全部39家经销商，按累计销售额降序）</div>
+  <div class="section-title">经销商健康度（全部53家，按累计销售额降序）</div>
   <table>
-    <thead><tr><th>#</th><th>经销商名称</th><th>省份</th><th>渠道类型</th><th style="text-align:right">累计销售额</th><th style="text-align:right">本月销售额</th><th style="text-align:right">毛利率</th><th>健康标签</th></tr></thead>
+    <thead><tr><th>#</th><th>经销商名称</th><th>省份</th><th>渠道</th><th style="text-align:right">累计销售额</th><th style="text-align:right">7月销售额</th><th style="text-align:right">毛利率</th><th>健康标签</th></tr></thead>
     <tbody>
-<tr><td style="color:#999">1</td><td>上海心意食光品牌管理有限公司</td><td style="font-size:12px;color:#888">上海</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">18.76万</td><td style="text-align:right;color:#555">1.44万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">35.4%</td><td><span class="tag green">高毛利✅</span></td></tr>
-<tr><td style="color:#999">2</td><td>郑州艾尼斯商贸有限公司</td><td style="font-size:12px;color:#888">河南</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">11.96万</td><td style="text-align:right;color:#555">5.53万</td><td style="text-align:right;font-weight:700;color:#555">22.4%</td><td></td></tr>
-<tr><td style="color:#999">3</td><td>郑州锦门商贸有限公司</td><td style="font-size:12px;color:#888">河南</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">8.06万</td><td style="text-align:right;color:#555">1.19万</td><td style="text-align:right;font-weight:700;color:#555">18.5%</td><td></td></tr>
-<tr><td style="color:#999">4</td><td>无锡无凡食品有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">7.37万</td><td style="text-align:right;color:#555">4.07万</td><td style="text-align:right;font-weight:700;color:#cf1322">6.7%</td><td><span class="tag red">低毛利⚠️</span></td></tr>
-<tr><td style="color:#999">5</td><td>上海鸿召商贸有限公司</td><td style="font-size:12px;color:#888">上海</td><td style="font-size:12px;color:#888">KA流通</td><td style="text-align:right;font-weight:600">7.03万</td><td style="text-align:right;color:#555">4.04万</td><td style="text-align:right;font-weight:700;color:#cf1322">12.2%</td><td><span class="tag red">低毛利⚠️</span></td></tr>
-<tr><td style="color:#999">6</td><td>贵州群顺商贸有限公司</td><td style="font-size:12px;color:#888">贵州</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">5.76万</td><td style="text-align:right;color:#555">1.12万</td><td style="text-align:right;font-weight:700;color:#555">29.9%</td><td></td></tr>
-<tr><td style="color:#999">7</td><td>北京礼予甄选品牌管理有限公司</td><td style="font-size:12px;color:#888">河南</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">4.51万</td><td style="text-align:right;color:#555">0.23万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.3%</td><td><span class="tag green">高毛利✅</span></td></tr>
-<tr><td style="color:#999">8</td><td>河南省廖氏商贸有限公司</td><td style="font-size:12px;color:#888">河南</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">4.30万</td><td style="text-align:right;color:#555">0.23万</td><td style="text-align:right;font-weight:700;color:#555">21.4%</td><td></td></tr>
-<tr><td style="color:#999">9</td><td>北京顺驰兴海商贸有限公司</td><td style="font-size:12px;color:#888">北京</td><td style="font-size:12px;color:#888">KA流通</td><td style="text-align:right;font-weight:600">3.92万</td><td style="text-align:right;color:#555">3.92万</td><td style="text-align:right;font-weight:700;color:#555">29.4%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">10</td><td>西安海盒鲜食品有限公司</td><td style="font-size:12px;color:#888">陕西</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">3.56万</td><td style="text-align:right;color:#555">0.66万</td><td style="text-align:right;font-weight:700;color:#555">25.3%</td><td></td></tr>
-<tr><td style="color:#999">11</td><td>高碑店市昊皓食品经营部</td><td style="font-size:12px;color:#888">河北</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">3.51万</td><td style="text-align:right;color:#555">3.51万</td><td style="text-align:right;font-weight:700;color:#555">28.3%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">12</td><td>四川龙洋亿达供应链管理有限公司</td><td style="font-size:12px;color:#888">湖北</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">3.34万</td><td style="text-align:right;color:#555">1.22万</td><td style="text-align:right;font-weight:700;color:#cf1322">3.2%</td><td><span class="tag red">低毛利⚠️</span></td></tr>
-<tr><td style="color:#999">13</td><td>合肥绿汇商贸有限公司</td><td style="font-size:12px;color:#888">安徽</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">3.30万</td><td style="text-align:right;color:#555">1.98万</td><td style="text-align:right;font-weight:700;color:#555">21.7%</td><td></td></tr>
-<tr><td style="color:#999">14</td><td>杭州贵元食品有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.83万</td><td style="text-align:right;color:#555">0.61万</td><td style="text-align:right;font-weight:700;color:#555">26.0%</td><td></td></tr>
-<tr><td style="color:#999">15</td><td>嘉兴友创食品有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.79万</td><td style="text-align:right;color:#555">1.45万</td><td style="text-align:right;font-weight:700;color:#555">26.4%</td><td></td></tr>
-<tr><td style="color:#999">16</td><td>无锡市大菓林商贸有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.65万</td><td style="text-align:right;color:#555">2.65万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">35.9%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">17</td><td>温州市图薪鲜科技发展有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">2.42万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">25.3%</td><td></td></tr>
-<tr><td style="color:#999">18</td><td>重庆蓉渝福食品有限公司</td><td style="font-size:12px;color:#888">重庆</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">1.98万</td><td style="text-align:right;color:#555">1.98万</td><td style="text-align:right;font-weight:700;color:#555">17.5%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">19</td><td>渝北区远瑞食品经营部</td><td style="font-size:12px;color:#888">重庆</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">1.92万</td><td style="text-align:right;color:#555">1.92万</td><td style="text-align:right;font-weight:700;color:#555">18.3%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">20</td><td>杭州品强电子商务有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">1.72万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">27.2%</td><td></td></tr>
-<tr><td style="color:#999">21</td><td>福州众铖贸易有限责任公司</td><td style="font-size:12px;color:#888">福建</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">1.60万</td><td style="text-align:right;color:#555">1.60万</td><td style="text-align:right;font-weight:700;color:#555">27.8%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">22</td><td>石家庄舶来品商贸有限公司</td><td style="font-size:12px;color:#888">河北</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">1.60万</td><td style="text-align:right;color:#555">0.80万</td><td style="text-align:right;font-weight:700;color:#555">21.1%</td><td></td></tr>
-<tr><td style="color:#999">23</td><td>杭州加勒比科技有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">1.53万</td><td style="text-align:right;color:#555">0.97万</td><td style="text-align:right;font-weight:700;color:#555">26.0%</td><td></td></tr>
-<tr><td style="color:#999">24</td><td>沙依巴克区炉院街昌隆食品商行</td><td style="font-size:12px;color:#888">新疆</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">1.49万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">21.7%</td><td></td></tr>
-<tr><td style="color:#999">25</td><td>北京东晟恒丰商贸有限公司</td><td style="font-size:12px;color:#888">北京</td><td style="font-size:12px;color:#888">KA流通</td><td style="text-align:right;font-weight:600">1.09万</td><td style="text-align:right;color:#555">0.88万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.6%</td><td><span class="tag green">高毛利✅</span></td></tr>
-<tr><td style="color:#999">26</td><td>北京新和百果商贸有限公司</td><td style="font-size:12px;color:#888">北京</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">1.08万</td><td style="text-align:right;color:#555">1.08万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">41.5%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">27</td><td>济南启豪京商贸有限公司</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.99万</td><td style="text-align:right;color:#555">0.99万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">39.4%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">28</td><td>成都蓉渝福食品有限公司</td><td style="font-size:12px;color:#888">重庆</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.99万</td><td style="text-align:right;color:#555">0.99万</td><td style="text-align:right;font-weight:700;color:#555">18.1%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">29</td><td>汉川市胖妞商贸有限公司</td><td style="font-size:12px;color:#888">湖北</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.96万</td><td style="text-align:right;color:#555">0.96万</td><td style="text-align:right;font-weight:700;color:#555">22.6%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">30</td><td>青岛和德发食品供应链管理有限公司</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.82万</td><td style="text-align:right;color:#555">0.82万</td><td style="text-align:right;font-weight:700;color:#cf1322">13.8%</td><td><span class="tag red">低毛利⚠️</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">31</td><td>山东合力兴业商贸有限公司</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.78万</td><td style="text-align:right;color:#555">0.78万</td><td style="text-align:right;font-weight:700;color:#555">22.0%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">32</td><td>天津市津南区星峰缘食品配送经营部</td><td style="font-size:12px;color:#888">天津</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.74万</td><td style="text-align:right;color:#555">0.74万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.1%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">33</td><td>南京益勋商贸有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.71万</td><td style="text-align:right;color:#555">0.71万</td><td style="text-align:right;font-weight:700;color:#555">28.4%</td><td><span class="tag orange">仅2单⚠️</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">34</td><td>三明市双方贸易有限公司</td><td style="font-size:12px;color:#888">福建</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.54万</td><td style="text-align:right;color:#555">0.54万</td><td style="text-align:right;font-weight:700;color:#555">26.7%</td><td><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">35</td><td>杭州邦耀食品有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.54万</td><td style="text-align:right;color:#555">0.54万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.0%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">36</td><td>南京友苏智能科技有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">0.50万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.6%</td><td><span class="tag green">高毛利✅</span><span class="tag orange">仅2单⚠️</span></td></tr>
-<tr><td style="color:#999">37</td><td>福建零小阅商业管理有限公司</td><td style="font-size:12px;color:#888">福建</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.47万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">19.5%</td><td><span class="tag orange">仅2单⚠️</span></td></tr>
-<tr><td style="color:#999">38</td><td>温州市亿青贸易有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.24万</td><td style="text-align:right;color:#555">0.24万</td><td style="text-align:right;font-weight:700;color:#555">29.2%</td><td><span class="tag orange">仅1单⚠️</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">39</td><td>北京飞箭商贸有限公司</td><td style="font-size:12px;color:#888">北京</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.17万</td><td style="text-align:right;color:#555">0.17万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">31.9%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">本月新增🆕</span></td></tr>
-<tr><td style="color:#999">40</td><td>上海心意食光品牌管理有限公司（停）</td><td style="font-size:12px;color:#888">上海</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">-0.01万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">42.4%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">本月新增🆕</span></td></tr>
+<tr><td style="color:#999">1</td><td>上海心意食光品牌管理有限公司</td><td style="font-size:12px;color:#888">广东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">19.66万</td><td style="text-align:right;color:#555">0.91万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">35.3%</td><td><span class="tag green">高毛利✅</span></td></tr>
+<tr><td style="color:#999">2</td><td>郑州艾尼斯商贸有限公司</td><td style="font-size:12px;color:#888">安徽</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">15.42万</td><td style="text-align:right;color:#555">3.46万</td><td style="text-align:right;font-weight:700;color:#555">22.2%</td><td></td></tr>
+<tr><td style="color:#999">3</td><td>无锡无凡食品有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">14.00万</td><td style="text-align:right;color:#555">6.63万</td><td style="text-align:right;font-weight:700;color:#cf1322">6.6%</td><td><span class="tag red">低毛利⚠️</span></td></tr>
+<tr><td style="color:#999">4</td><td>郑州锦门商贸有限公司</td><td style="font-size:12px;color:#888">河南</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">10.70万</td><td style="text-align:right;color:#555">2.64万</td><td style="text-align:right;font-weight:700;color:#555">18.2%</td><td></td></tr>
+<tr><td style="color:#999">5</td><td>北京顺驰兴海商贸有限公司</td><td style="font-size:12px;color:#888">北京</td><td style="font-size:12px;color:#888">KA流通</td><td style="text-align:right;font-weight:600">9.17万</td><td style="text-align:right;color:#555">5.25万</td><td style="text-align:right;font-weight:700;color:#555">28.6%</td><td></td></tr>
+<tr><td style="color:#999">6</td><td>上海鸿召商贸有限公司</td><td style="font-size:12px;color:#888">上海</td><td style="font-size:12px;color:#888">KA流通</td><td style="text-align:right;font-weight:600">7.03万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#cf1322">12.2%</td><td><span class="tag red">低毛利⚠️</span><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">7</td><td>无锡市大菓林商贸有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">6.84万</td><td style="text-align:right;color:#555">4.19万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">50.1%</td><td><span class="tag green">高毛利✅</span></td></tr>
+<tr><td style="color:#999">8</td><td>贵州群顺商贸有限公司</td><td style="font-size:12px;color:#888">贵州</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">5.76万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">29.9%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">9</td><td>河南省廖氏商贸有限公司</td><td style="font-size:12px;color:#888">河北</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">5.46万</td><td style="text-align:right;color:#555">1.16万</td><td style="text-align:right;font-weight:700;color:#555">21.5%</td><td></td></tr>
+<tr><td style="color:#999">10</td><td>合肥绿汇商贸有限公司</td><td style="font-size:12px;color:#888">安徽</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">4.62万</td><td style="text-align:right;color:#555">1.32万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">32.9%</td><td></td></tr>
+<tr><td style="color:#999">11</td><td>北京礼予甄选品牌管理有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">4.51万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.2%</td><td><span class="tag green">高毛利✅</span><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">12</td><td>焦作锋晨商贸有限公司</td><td style="font-size:12px;color:#888">河南</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">3.78万</td><td style="text-align:right;color:#555">3.78万</td><td style="text-align:right;font-weight:700;color:#555">18.3%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">13</td><td>太原红昌龙商贸有限公司</td><td style="font-size:12px;color:#888">山西</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">3.72万</td><td style="text-align:right;color:#555">3.72万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">55.2%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">14</td><td>西安海盒鲜食品有限公司</td><td style="font-size:12px;color:#888">陕西</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">3.56万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">25.3%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">15</td><td>高碑店市昊皓食品经营部</td><td style="font-size:12px;color:#888">河北</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">3.51万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">28.3%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">16</td><td>四川龙洋亿达供应链管理有限公司</td><td style="font-size:12px;color:#888">辽宁</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">3.34万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#cf1322">3.2%</td><td><span class="tag red">低毛利⚠️</span><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">17</td><td>温州市图薪鲜科技发展有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">3.06万</td><td style="text-align:right;color:#555">0.64万</td><td style="text-align:right;font-weight:700;color:#555">24.9%</td><td></td></tr>
+<tr><td style="color:#999">18</td><td>重庆蓉渝福食品有限公司</td><td style="font-size:12px;color:#888">重庆</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.97万</td><td style="text-align:right;color:#555">0.99万</td><td style="text-align:right;font-weight:700;color:#555">17.7%</td><td></td></tr>
+<tr><td style="color:#999">19</td><td>杭州贵元食品有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.83万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">26.0%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">20</td><td>嘉兴友创食品有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.79万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">26.4%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">21</td><td>南京润辰商贸有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.77万</td><td style="text-align:right;color:#555">2.77万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.9%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">22</td><td>阜康市旺联商贸有限公司</td><td style="font-size:12px;color:#888">新疆</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">2.73万</td><td style="text-align:right;color:#555">2.73万</td><td style="text-align:right;font-weight:700;color:#555">22.1%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">23</td><td>南京益勋商贸有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">2.63万</td><td style="text-align:right;color:#555">1.92万</td><td style="text-align:right;font-weight:700;color:#555">28.4%</td><td></td></tr>
+<tr><td style="color:#999">24</td><td>福州众铖贸易有限责任公司</td><td style="font-size:12px;color:#888">福建</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">2.50万</td><td style="text-align:right;color:#555">0.90万</td><td style="text-align:right;font-weight:700;color:#555">27.8%</td><td></td></tr>
+<tr><td style="color:#999">25</td><td>新疆禾峰嘉业商贸有限公司</td><td style="font-size:12px;color:#888">新疆</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">2.15万</td><td style="text-align:right;color:#555">2.15万</td><td style="text-align:right;font-weight:700;color:#555">21.7%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">26</td><td>杭州加勒比科技有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">2.09万</td><td style="text-align:right;color:#555">0.56万</td><td style="text-align:right;font-weight:700;color:#555">26.1%</td><td></td></tr>
+<tr><td style="color:#999">27</td><td>渝北区远瑞食品经营部</td><td style="font-size:12px;color:#888">重庆</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">1.92万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">18.3%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">28</td><td>汉川市胖妞商贸有限公司</td><td style="font-size:12px;color:#888">湖北</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">1.92万</td><td style="text-align:right;color:#555">0.96万</td><td style="text-align:right;font-weight:700;color:#555">22.6%</td><td></td></tr>
+<tr><td style="color:#999">29</td><td>北京东晟恒丰商贸有限公司</td><td style="font-size:12px;color:#888">北京</td><td style="font-size:12px;color:#888">KA流通</td><td style="text-align:right;font-weight:600">1.84万</td><td style="text-align:right;color:#555">0.75万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">35.0%</td><td><span class="tag green">高毛利✅</span></td></tr>
+<tr><td style="color:#999">30</td><td>杭州品强电子商务有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">1.72万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">27.2%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">31</td><td>青岛和德发食品供应链管理有限公司</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">1.65万</td><td style="text-align:right;color:#555">0.82万</td><td style="text-align:right;font-weight:700;color:#cf1322">14.2%</td><td><span class="tag red">低毛利⚠️</span></td></tr>
+<tr><td style="color:#999">32</td><td>石家庄舶来品商贸有限公司</td><td style="font-size:12px;color:#888">河北</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">1.60万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">21.1%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">33</td><td>济南启豪京商贸有限公司</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">1.17万</td><td style="text-align:right;color:#555">0.18万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">37.8%</td><td><span class="tag green">高毛利✅</span></td></tr>
+<tr><td style="color:#999">34</td><td>南京宁悦商贸有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">1.11万</td><td style="text-align:right;color:#555">1.11万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.4%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">35</td><td>北京新和百果商贸有限公司</td><td style="font-size:12px;color:#888">河北</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">1.08万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">41.5%</td><td><span class="tag green">高毛利✅</span><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">36</td><td>成都蓉渝福食品有限公司</td><td style="font-size:12px;color:#888">重庆</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.99万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">18.1%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">37</td><td>临沂商城锐迈食品商行</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.82万</td><td style="text-align:right;color:#555">0.82万</td><td style="text-align:right;font-weight:700;color:#555">29.3%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">38</td><td>三明市双方贸易有限公司</td><td style="font-size:12px;color:#888">福建</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.81万</td><td style="text-align:right;color:#555">0.27万</td><td style="text-align:right;font-weight:700;color:#555">29.6%</td><td></td></tr>
+<tr><td style="color:#999">39</td><td>青岛海太贸易有限公司</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.81万</td><td style="text-align:right;color:#555">0.81万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">59.9%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">40</td><td>山东合力兴业商贸有限公司</td><td style="font-size:12px;color:#888">山东</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.78万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">22.0%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">41</td><td>南昌县阿志食品批发部</td><td style="font-size:12px;color:#888">江西</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.76万</td><td style="text-align:right;color:#555">0.76万</td><td style="text-align:right;font-weight:700;color:#555">22.2%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">42</td><td>天津市津南区星峰缘食品配送经营部</td><td style="font-size:12px;color:#888">天津</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.74万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.1%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">43</td><td>安徽应接不暇供应链有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.67万</td><td style="text-align:right;color:#555">0.67万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.6%</td><td><span class="tag green">高毛利✅</span><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">44</td><td>上海长锐贸易有限公司</td><td style="font-size:12px;color:#888">上海</td><td style="font-size:12px;color:#888">CVS便利店</td><td style="text-align:right;font-weight:600">0.58万</td><td style="text-align:right;color:#555">0.58万</td><td style="text-align:right;font-weight:700;color:#555">26.1%</td><td><span class="tag blue">7月新增🆕</span><span class="tag purple">CVS便利店</span></td></tr>
+<tr><td style="color:#999">45</td><td>杭州邦耀食品有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.54万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.0%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">46</td><td>温州市亿青贸易有限公司</td><td style="font-size:12px;color:#888">浙江</td><td style="font-size:12px;color:#888">特通</td><td style="text-align:right;font-weight:600">0.51万</td><td style="text-align:right;color:#555">0.27万</td><td style="text-align:right;font-weight:700;color:#555">34.9%</td><td></td></tr>
+<tr><td style="color:#999">47</td><td>南京友苏智能科技有限公司</td><td style="font-size:12px;color:#888">江苏</td><td style="font-size:12px;color:#888">即时零售</td><td style="text-align:right;font-weight:600">0.50万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.6%</td><td><span class="tag green">高毛利✅</span><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">48</td><td>福建零小阅商业管理有限公司</td><td style="font-size:12px;color:#888">福建</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.47万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">19.5%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">49</td><td>上海锦悦华科技有限公司</td><td style="font-size:12px;color:#888">上海</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.38万</td><td style="text-align:right;color:#555">0.38万</td><td style="text-align:right;font-weight:700;color:#555">20.7%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">50</td><td>北京飞箭商贸有限公司</td><td style="font-size:12px;color:#888">河北</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.17万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#0a8a4e">31.9%</td><td><span class="tag orange">7月无单⚠️</span></td></tr>
+<tr><td style="color:#999">51</td><td>陕西棋盛商贸有限公司</td><td style="font-size:12px;color:#888">陕西</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.09万</td><td style="text-align:right;color:#555">0.09万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">40.4%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">52</td><td>李</td><td style="font-size:12px;color:#888">山西</td><td style="font-size:12px;color:#888">其他</td><td style="text-align:right;font-weight:600">0.01万</td><td style="text-align:right;color:#555">0.01万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.5%</td><td><span class="tag blue">7月新增🆕</span></td></tr>
+<tr><td style="color:#999">53</td><td>沙依巴克区炉院街昌隆食品商行</td><td style="font-size:12px;color:#888">新疆</td><td style="font-size:12px;color:#888">流通批发</td><td style="text-align:right;font-weight:600">0.00万</td><td style="text-align:right;color:#555">-</td><td style="text-align:right;font-weight:700;color:#555">0.0%</td><td><span class="tag red">异常⚠️</span></td></tr>
     </tbody>
   </table>
-  <div style="font-size:12px;color:#9ba3b5;margin-top:8px">标签说明：高毛利✅ 累计毛利率≥30% · 低毛利⚠️ 累计毛利率&lt;15% · 仅N单⚠️ 订单数≤2 · 本月新增🆕 6月新增经销商</div>
+  <div style="font-size:12px;color:#9ba3b5;margin-top:8px">标签：高毛利✅ ≥30% · 低毛利⚠️ <15% · 7月无单⚠️ 7月无发货 · 7月新增🆕 首月=7月 · "-"表示7月无数据</div>
 </div>
 
-<!-- 五、产品毛利排名 -->
+<!-- 五、产品排名 -->
 <div id="sec5" class="panel">
   <div class="section-title">产品毛利排名 TOP15</div>
   <table>
-    <thead><tr><th>#</th><th>货品名称</th><th style="text-align:right">销售额（万）</th><th style="text-align:right">毛利</th><th style="text-align:right">毛利率</th><th style="text-align:center">覆盖家数</th><th style="text-align:right">本月环比</th><th style="text-align:right">占总毛利</th></tr></thead>
+    <thead><tr><th>#</th><th>货品名称</th><th style="text-align:right">销售额（万）</th><th style="text-align:right">毛利</th><th style="text-align:right">毛利率</th><th style="text-align:center">覆盖家数</th><th style="text-align:right">7月环比</th><th style="text-align:right">占总毛利</th></tr></thead>
     <tbody>
-<tr><td style="color:#999">1</td><td>袋鼠先生-轻享能量仓670g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">13.17万</td><td style="text-align:right">4.77万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.3%</td><td style="text-align:center;color:#555">2家</td><td style="text-align:right;color:#cf1322">-75%</td><td style="text-align:right;font-weight:700;color:#e05810">16.4%</td></tr>
-<tr><td style="color:#999">2</td><td>鸡胸肉100g黑胡椒-轻享版</td><td style="text-align:right;color:#555">9.03万</td><td style="text-align:right">1.82万</td><td style="text-align:right;font-weight:700;color:#555">20.1%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">11家</td><td style="text-align:right;color:#cf1322">-19%</td><td style="text-align:right;font-weight:700;color:#e05810">6.2%</td></tr>
-<tr><td style="color:#999">3</td><td>袋鼠先生-进阶能量仓815g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">4.74万</td><td style="text-align:right">1.61万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.0%</td><td style="text-align:center;color:#555">1家</td><td style="text-align:right;color:#cf1322">-100%</td><td style="text-align:right;font-weight:700;color:#e05810">5.5%</td></tr>
-<tr><td style="color:#999">4</td><td>鸡胸肉100g奥尔良-轻享版</td><td style="text-align:right;color:#555">8.20万</td><td style="text-align:right">1.55万</td><td style="text-align:right;font-weight:700;color:#555">18.9%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">12家</td><td style="text-align:right;color:#cf1322">-11%</td><td style="text-align:right;font-weight:700;color:#e05810">5.3%</td></tr>
-<tr><td style="color:#999">5</td><td>线下-袋鼠先生原型鸡胸肉350g黑胡椒味-20包</td><td style="text-align:right;color:#555">4.76万</td><td style="text-align:right">1.32万</td><td style="text-align:right;font-weight:700;color:#555">27.8%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">7家</td><td style="text-align:right;color:#0a8a4e">+125%</td><td style="text-align:right;font-weight:700;color:#e05810">4.5%</td></tr>
-<tr><td style="color:#999">6</td><td>线下-袋鼠先生原型鸡胸肉350g奥尔良味-20包</td><td style="text-align:right;color:#555">5.56万</td><td style="text-align:right">1.32万</td><td style="text-align:right;font-weight:700;color:#555">23.6%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">9家</td><td style="text-align:right;color:#0a8a4e">+71%</td><td style="text-align:right;font-weight:700;color:#e05810">4.5%</td></tr>
-<tr><td style="color:#999">7</td><td>袋鼠先生-满格能量仓1015g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">3.34万</td><td style="text-align:right">1.22万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.5%</td><td style="text-align:center;color:#555">1家</td><td style="text-align:right;color:#cf1322">-100%</td><td style="text-align:right;font-weight:700;color:#e05810">4.2%</td></tr>
-<tr><td style="color:#999">8</td><td>鸡胸肉50g黑胡椒-D</td><td style="text-align:right;color:#555">4.48万</td><td style="text-align:right">1.21万</td><td style="text-align:right;font-weight:700;color:#555">26.9%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">10家</td><td style="text-align:right;color:#0a8a4e">+37%</td><td style="text-align:right;font-weight:700;color:#e05810">4.1%</td></tr>
-<tr><td style="color:#999">9</td><td>袋鼠先生-全能能量仓1017g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">3.46万</td><td style="text-align:right">1.20万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.6%</td><td style="text-align:center;color:#555">1家</td><td style="text-align:right;color:#cf1322">-84%</td><td style="text-align:right;font-weight:700;color:#e05810">4.1%</td></tr>
-<tr><td style="color:#999">10</td><td>鸡胸肉50g烧烤-D</td><td style="text-align:right;color:#555">3.33万</td><td style="text-align:right">1.02万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">30.6%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">7家</td><td style="text-align:right;color:#0a8a4e">+53%</td><td style="text-align:right;">3.5%</td></tr>
-<tr><td style="color:#999">11</td><td>鸡胸肉50g奥尔良-D</td><td style="text-align:right;color:#555">3.07万</td><td style="text-align:right">0.83万</td><td style="text-align:right;font-weight:700;color:#555">27.2%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">8家</td><td style="text-align:right;color:#0a8a4e">+33%</td><td style="text-align:right;">2.9%</td></tr>
-<tr><td style="color:#999">12</td><td>鸡胸肉100g原味</td><td style="text-align:right;color:#555">3.03万</td><td style="text-align:right">0.73万</td><td style="text-align:right;font-weight:700;color:#555">24.2%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">6家</td><td style="text-align:right;color:#cf1322">-36%</td><td style="text-align:right;">2.5%</td></tr>
-<tr><td style="color:#999">13</td><td>轻卤牛腱肉55g原味</td><td style="text-align:right;color:#555">6.09万</td><td style="text-align:right">0.51万</td><td style="text-align:right;font-weight:700;color:#cf1322">8.4%</td><td style="text-align:center;color:#555">2家</td><td style="text-align:right;color:#cf1322">-5%</td><td style="text-align:right;">1.8%</td></tr>
-<tr><td style="color:#999">14</td><td>鸡胸肉100g烧烤-轻享版</td><td style="text-align:right;color:#555">1.98万</td><td style="text-align:right">0.46万</td><td style="text-align:right;font-weight:700;color:#555">23.4%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">6家</td><td style="text-align:right;color:#0a8a4e">+14%</td><td style="text-align:right;">1.6%</td></tr>
-<tr><td style="color:#999">15</td><td>线下-鸡胸肉100g香辣味</td><td style="text-align:right;color:#555">1.81万</td><td style="text-align:right">0.44万</td><td style="text-align:right;font-weight:700;color:#555">24.3%</td><td style="text-align:center;color:#555">2家</td><td style="text-align:right;color:#cf1322">-62%</td><td style="text-align:right;">1.5%</td></tr>
+<tr><td style="color:#999">1</td><td>袋鼠先生-轻享能量仓670g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">14.48万</td><td style="text-align:right">5.25万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.3%</td><td style="text-align:center;color:#555">2家</td><td style="text-align:right;color:#cf1322">-50%</td><td style="text-align:right;font-weight:700;color:#e05810">11.8%</td></tr>
+<tr><td style="color:#999">2</td><td>鸡胸肉100g黑胡椒-轻享版</td><td style="text-align:right;color:#555">12.96万</td><td style="text-align:right">2.83万</td><td style="text-align:right;font-weight:700;color:#555">21.8%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">14家</td><td style="text-align:right;color:#cf1322">-3%</td><td style="text-align:right;font-weight:700;color:#e05810">6.4%</td></tr>
+<tr><td style="color:#999">3</td><td>鸡胸肉100g奥尔良-轻享版</td><td style="text-align:right;color:#555">11.37万</td><td style="text-align:right">2.29万</td><td style="text-align:right;font-weight:700;color:#555">20.1%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">14家</td><td style="text-align:right;color:#cf1322">-14%</td><td style="text-align:right;font-weight:700;color:#e05810">5.1%</td></tr>
+<tr><td style="color:#999">4</td><td>线下-原型鸡胸肉350g奥尔良味-20包</td><td style="text-align:right;color:#555">10.62万</td><td style="text-align:right">2.34万</td><td style="text-align:right;font-weight:700;color:#555">22.0%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">12家</td><td style="text-align:right;color:#0a8a4e">+69%</td><td style="text-align:right;font-weight:700;color:#e05810">5.3%</td></tr>
+<tr><td style="color:#999">5</td><td>轻卤牛腱肉55g原味</td><td style="text-align:right;color:#555">10.06万</td><td style="text-align:right">1.24万</td><td style="text-align:right;font-weight:700;color:#cf1322">12.3%</td><td style="text-align:center;color:#555">4家</td><td style="text-align:right;color:#0a8a4e">+76%</td><td style="text-align:right;">2.8%</td></tr>
+<tr><td style="color:#999">6</td><td>线下-原型鸡胸肉350g黑胡椒味-20包</td><td style="text-align:right;color:#555">7.31万</td><td style="text-align:right">2.10万</td><td style="text-align:right;font-weight:700;color:#555">28.8%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">10家</td><td style="text-align:right;color:#cf1322">-7%</td><td style="text-align:right;font-weight:700;color:#e05810">4.7%</td></tr>
+<tr><td style="color:#999">7</td><td>鸡胸肉50g黑胡椒-D</td><td style="text-align:right;color:#555">6.47万</td><td style="text-align:right">1.78万</td><td style="text-align:right;font-weight:700;color:#555">27.4%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">11家</td><td style="text-align:right;color:#cf1322">-18%</td><td style="text-align:right;">4.0%</td></tr>
+<tr><td style="color:#999">8</td><td>牛排脆25g原味</td><td style="text-align:right;color:#555">5.33万</td><td style="text-align:right">0.60万</td><td style="text-align:right;font-weight:700;color:#cf1322">11.3%</td><td style="text-align:center;color:#555">5家</td><td style="text-align:right;color:#cf1322">-85%</td><td style="text-align:right;">1.3%</td></tr>
+<tr><td style="color:#999">9</td><td>袋鼠先生-进阶能量仓815g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">4.98万</td><td style="text-align:right">1.69万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.0%</td><td style="text-align:center;color:#555">1家</td><td style="text-align:right;color:#999">-</td><td style="text-align:right;">3.8%</td></tr>
+<tr><td style="color:#999">10</td><td>鸡胸肉50g奥尔良-D</td><td style="text-align:right;color:#555">4.84万</td><td style="text-align:right">1.29万</td><td style="text-align:right;font-weight:700;color:#555">26.6%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">9家</td><td style="text-align:right;color:#0a8a4e">+2%</td><td style="text-align:right;">2.9%</td></tr>
+<tr><td style="color:#999">11</td><td>鸡胸肉50g烧烤-D</td><td style="text-align:right;color:#555">4.10万</td><td style="text-align:right">1.24万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">30.2%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">8家</td><td style="text-align:right;color:#cf1322">-62%</td><td style="text-align:right;">2.8%</td></tr>
+<tr><td style="color:#999">12</td><td>线下-原型鸡胸肉奥尔良味45g-80包</td><td style="text-align:right;color:#555">4.04万</td><td style="text-align:right">0.62万</td><td style="text-align:right;font-weight:700;color:#555">15.4%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">7家</td><td style="text-align:right;color:#cf1322">-18%</td><td style="text-align:right;">1.4%</td></tr>
+<tr><td style="color:#999">13</td><td>鸡胸肉100g原味</td><td style="text-align:right;color:#555">3.97万</td><td style="text-align:right">1.05万</td><td style="text-align:right;font-weight:700;color:#555">26.5%</td><td style="text-align:center;font-weight:700;color:#0a8a4e">7家</td><td style="text-align:right;color:#cf1322">-19%</td><td style="text-align:right;">2.4%</td></tr>
+<tr><td style="color:#999">14</td><td>袋鼠先生-全能能量仓1017g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">3.85万</td><td style="text-align:right">1.33万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.5%</td><td style="text-align:center;color:#555">1家</td><td style="text-align:right;color:#cf1322">-19%</td><td style="text-align:right;">3.0%</td></tr>
+<tr><td style="color:#999">15</td><td>袋鼠先生-满格能量仓1015g <span style="font-size:11px;color:#b0b8c9">独家授权</span></td><td style="text-align:right;color:#555">3.61万</td><td style="text-align:right">1.32万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">36.4%</td><td style="text-align:center;color:#555">1家</td><td style="text-align:right;color:#999">-</td><td style="text-align:right;">3.0%</td></tr>
     </tbody>
   </table>
-  <div style="font-size:12px;color:#bbb;margin-top:8px">* 毛利率≥30%标绿 / &lt;15%标红 · 独家授权：仅限上海心意食光+北京礼予甄选，覆盖少属授权策略 · 环比：本月vs上月销售额 · 覆盖家数≥6标绿</div>
+  <div style="font-size:12px;color:#bbb;margin-top:8px">毛利率≥30%标绿 / <15%标红 · 独家授权：仅限心意食光+礼予甄选 · 环比：7月vs6月 · 覆盖家数≥6标绿 · 牛排脆毛利率11.3%为结构性低毛利（搭赠35%）</div>
 </div>
 
 <!-- 六、省份覆盖 -->
 <div id="sec6" class="panel">
-  <div class="section-title">省份覆盖全览（16省 · 空白市场分析）</div>
+  <div class="section-title">省份覆盖全览（19省 · 空白市场分析）</div>
   <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;margin-bottom:20px">
     <div>
-      <div style="font-size:12px;color:#9ba3b5;margin-bottom:6px">橙色：已覆盖省份 &nbsp;|&nbsp; 灰色：空白市场 &nbsp;|&nbsp; 悬浮查看详情</div>
+      <div style="font-size:12px;color:#9ba3b5;margin-bottom:6px">橙色：已覆盖省份 · 灰色：空白市场 · 悬浮查看详情</div>
       <div id="chinaMapChart" style="width:100%;height:460px;overflow:hidden"></div>
     </div>
     <div style="min-width:200px;display:flex;flex-direction:column;gap:8px;padding-top:32px">
-      <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:4px;letter-spacing:0.5px">已覆盖 16 省（按销售额）</div>
-      <div style="display:flex;flex-direction:column;gap:4px
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">上海</span><span style="color:#e05810;font-weight:700">25.8万 · 3家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">河南</span><span style="color:#e05810;font-weight:700">28.8万 · 4家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">浙江</span><span style="color:#e05810;font-weight:700">12.1万 · 7家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">江苏</span><span style="color:#e05810;font-weight:700">11.2万 · 4家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">北京</span><span style="color:#e05810;font-weight:700">6.3万 · 4家</span></div>
+      <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:4px;letter-spacing:0.5px">已覆盖 19 省（按销售额）</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">江苏</span><span style="color:#e05810;font-weight:700">33.1万 · 8家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">安徽</span><span style="color:#e05810;font-weight:700">20.0万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">广东</span><span style="color:#e05810;font-weight:700">19.7万 · 1家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">河南</span><span style="color:#e05810;font-weight:700">14.5万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">浙江</span><span style="color:#e05810;font-weight:700">13.6万 · 7家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">河北</span><span style="color:#e05810;font-weight:700">11.8万 · 5家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">北京</span><span style="color:#e05810;font-weight:700">11.0万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">上海</span><span style="color:#e05810;font-weight:700">8.0万 · 3家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">重庆</span><span style="color:#e05810;font-weight:700">5.9万 · 3家</span></div>
         <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">贵州</span><span style="color:#e05810;font-weight:700">5.8万 · 1家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">河北</span><span style="color:#e05810;font-weight:700">5.1万 · 2家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">重庆</span><span style="color:#e05810;font-weight:700">4.9万 · 3家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">福建</span><span style="color:#e05810;font-weight:700">4.3万 · 3家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">陕西</span><span style="color:#e05810;font-weight:700">3.6万 · 1家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">湖北</span><span style="color:#e05810;font-weight:700">3.3万 · 1家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">山东</span><span style="color:#cf1322;font-weight:700">2.6万 · 3家 ⚠️</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">安徽</span><span style="color:#e05810;font-weight:700">2.6万 · 2家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">新疆</span><span style="color:#e05810;font-weight:700">1.5万 · 1家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">山东</span><span style="color:#cf1322;font-weight:700">5.2万 · 5家 ⚠️</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">新疆</span><span style="color:#e05810;font-weight:700">4.9万 · 3家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">山西</span><span style="color:#0a8a4e;font-weight:700">3.7万 · 2家 🆕</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">福建</span><span style="color:#e05810;font-weight:700">3.8万 · 3家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">陕西</span><span style="color:#e05810;font-weight:700">3.7万 · 2家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">辽宁</span><span style="color:#cf1322;font-weight:700">3.3万 · 1家 ⚠️</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">湖北</span><span style="color:#e05810;font-weight:700">1.9万 · 1家</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">江西</span><span style="color:#0a8a4e;font-weight:700">0.8万 · 1家 🆕</span></div>
         <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">天津</span><span style="color:#e05810;font-weight:700">0.7万 · 1家</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 10px;background:#fff4ee;border-radius:6px;border-left:3px solid #e05810"><span style="font-weight:700;color:#1a1f36">湖南</span><span style="color:#e05810;font-weight:700">0.3万 · 1家</span></div>
       </div>
-      <div style="margin-top:6px;padding:8px 10px;background:#f8f9fc;border-radius:6px;font-size:12px;color:#555;font-weight:700">合计：118.6万 · 39家</div>
+      <div style="margin-top:6px;padding:8px 10px;background:#f8f9fc;border-radius:6px;font-size:12px;color:#555;font-weight:700">合计：171.3万 · 53家</div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -462,9 +472,10 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
   <script>
   (function(){
     var covered = {
-      '河南': 4, '上海': 3, '江苏': 4, '浙江': 7, '贵州': 1,
-      '北京': 4, '河北': 2, '重庆': 3, '陕西': 1, '湖北': 1,
-      '安徽': 2, '福建': 3, '山东': 3, '新疆': 1, '天津': 1, '湖南': 1
+      '江苏': 8, '安徽': 2, '广东': 1, '河南': 2, '浙江': 7,
+      '河北': 5, '北京': 2, '上海': 3, '重庆': 3, '贵州': 1,
+      '山东': 5, '新疆': 3, '山西': 2, '福建': 3, '陕西': 2,
+      '辽宁': 1, '湖北': 1, '江西': 1, '天津': 1
     };
     var mapData = [];
     var allProvs = ['北京','天津','河北','山西','内蒙古','辽宁','吉林','黑龙江','上海','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','广西','海南','重庆','四川','贵州','云南','西藏','陕西','甘肃','青海','宁夏','新疆','香港','澳门','台湾'];
@@ -492,36 +503,127 @@ new Chart(document.getElementById('channelBenchChart').getContext('2d'), {
   })();
   </script>
   <div style="padding:16px 18px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0">
-    <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:12px;letter-spacing:0.5px">区域覆盖深度对标（参考卫龙/劲仔/甘源/双汇）</div>
+    <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:12px;letter-spacing:0.5px">区域覆盖深度对标</div>
     <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start">
       <table style="font-size:12px">
         <thead><tr><th>维度</th><th style="text-align:right">袋鼠先生</th><th style="text-align:right">行业参考</th><th>判断</th></tr></thead>
         <tbody>
-          <tr><td>覆盖省份数</td><td style="text-align:right">16省</td><td style="text-align:right">成熟期 25-31省</td><td><span class="tag orange">早期阶段，差距约40%</span></td></tr>
-          <tr><td>TOP2省集中度</td><td style="text-align:right;color:#cf1322;font-weight:700">42%（上海+河南）</td><td style="text-align:right">健康值 &lt;30%</td><td><span class="tag red">集中度过高⚠️</span></td></tr>
-          <tr><td>华南（广东等）覆盖</td><td style="text-align:right">0省</td><td style="text-align:right">通常排名前3大区</td><td><span class="tag red">优先拓展🔥</span></td></tr>
-          <tr><td>华中（湖南/江西）覆盖</td><td style="text-align:right">仅湖北1省</td><td style="text-align:right">通常3-4省连片</td><td><span class="tag orange">待补全</span></td></tr>
-          <tr><td>每省经销商密度</td><td style="text-align:right">~2.3家/省</td><td style="text-align:right">健康值 5-8家/省</td><td><span class="tag orange">单省渗透薄</span></td></tr>
+          <tr><td>覆盖省份数</td><td style="text-align:right">19省</td><td style="text-align:right">成熟期 25-31省</td><td><span class="tag orange">成长期，差距约35%</span></td></tr>
+          <tr><td>TOP2省集中度</td><td style="text-align:right;color:#555;font-weight:700">31%（江苏+安徽）</td><td style="text-align:right">健康值 <30%</td><td><span class="tag orange">接近健康值</span></td></tr>
+          <tr><td>华南覆盖</td><td style="text-align:right;color:#0a8a4e">广东1省 🆕</td><td style="text-align:right">通常排名前3大区</td><td><span class="tag orange">刚突破，需深耕</span></td></tr>
+          <tr><td>每省经销商密度</td><td style="text-align:right">~2.8家/省</td><td style="text-align:right">健康值 5-8家/省</td><td><span class="tag orange">单省渗透薄</span></td></tr>
+          <tr><td>7月活跃率</td><td style="text-align:right">35/53 = 66%</td><td style="text-align:right">健康值 >80%</td><td><span class="tag red">偏低⚠️</span></td></tr>
         </tbody>
       </table>
       <div style="min-width:260px;background:#f0fff4;border:1px solid #b7eb8f;border-radius:10px;padding:14px 16px">
-        <div style="font-size:12px;font-weight:700;color:#389e0d;margin-bottom:8px">💡 建议优先拓展区域</div>
+        <div style="font-size:12px;font-weight:700;color:#389e0d;margin-bottom:8px">💡 优先拓展方向</div>
         <div style="font-size:12px;color:#555;line-height:2">
-          🥇 <b>广东</b>——人口大省、KA渠道密集，完全空白<br>
+          🥇 <b>广东</b>——心意食光已验证，需引入更多经销商深耕<br>
           🥈 <b>湖南</b>——鸣鸣很忙大本营，传统经销商空白<br>
-          🥉 <b>四川</b>——西南核心，可向川渝延伸<br>
-          📌 <b>山西/辽宁</b>——紧邻京冀，拓展成本低
+          🥉 <b>四川</b>——西南核心，蓉志楚远已验证KA路径<br>
+          📌 <b>山西/辽宁</b>——已有首单，7月新增验证潜力
         </div>
       </div>
     </div>
-    <div style="font-size:11px;color:#9ba3b5;margin-top:10px">注：TOP2集中度高受上海心意食光单客户影响；每省密度偏低说明现有省份仍有招商空间，不必急于扩省</div>
   </div>
 </div>
-<div class="footer">数据来源：吉客云销售单明细账 &nbsp;|&nbsp; 合同台账：飞书线下记录（线下记录-授权书/证明关系）&nbsp;|&nbsp; 更新于 2026-07-04</div>
+
+<!-- 七、零食量贩KA看板 -->
+<div id="sec7" class="ka-section">
+  <div class="section-title" style="margin-bottom:16px">零食量贩KA看板（鸣鸣很忙 · 赵一鸣 · 10家连锁）</div>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px">
+    <div class="card" style="padding:18px 20px;border-color:#b8d8f0">
+      <div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div>
+      <div class="label">KA累计销售额</div>
+      <div class="value">571.6 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
+      <div class="sub" style="margin-top:6px">3个月累计 · 月均 <b>190.5万</b></div>
+    </div>
+    <div class="card" style="padding:18px 20px;border-color:#b8d8f0">
+      <div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div>
+      <div class="label">7月销售额</div>
+      <div class="value">159.3 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
+      <div class="sub">环比 <b>-49%</b>（6月311→7月159）</div>
+      <div class="badge down" style="margin-top:6px">↓ 集中放量回调</div>
+    </div>
+    <div class="card" style="padding:18px 20px;border-color:#b8d8f0">
+      <div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div>
+      <div class="label">KA累计毛利</div>
+      <div class="value">139.6 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div>
+      <div class="sub" style="margin-top:6px">累计毛利率 <b>24.5%</b></div>
+    </div>
+    <div class="card" style="padding:18px 20px;border-color:#b8d8f0">
+      <div class="accent-bar" style="background:linear-gradient(90deg,#6b35e3,#9b70f5)"></div>
+      <div class="label">连锁数</div>
+      <div class="value">10 <span style="font-size:16px;font-weight:500;color:#9ba3b5">家</span></div>
+      <div class="sub" style="margin-top:6px">零食很忙7家 · 赵一鸣3家<br>7月新增 四川蓉志楚远1家</div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>连锁名称</th><th>归属</th><th style="text-align:right">累计销售额</th><th style="text-align:right">7月销售额</th><th style="text-align:right">毛利率</th><th style="text-align:center">订单数</th><th>首月</th></tr></thead>
+    <tbody>
+<tr><td style="color:#999">1</td><td>长沙很忙零食食品有限公司</td><td style="font-size:12px;color:#888">零食很忙</td><td style="text-align:right;font-weight:600">143.08万</td><td style="text-align:right;color:#555">29.13万</td><td style="text-align:right;font-weight:700;color:#555">23.3%</td><td style="text-align:center;color:#555">85</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">2</td><td>厦门赵一鸣商业管理有限公司</td><td style="font-size:12px;color:#888">赵一鸣</td><td style="text-align:right;font-weight:600">98.24万</td><td style="text-align:right;color:#555">20.62万</td><td style="text-align:right;font-weight:700;color:#555">24.3%</td><td style="text-align:center;color:#555">57</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">3</td><td>四川零食很忙食品有限公司</td><td style="font-size:12px;color:#888">零食很忙</td><td style="text-align:right;font-weight:600">96.37万</td><td style="text-align:right;color:#555">19.25万</td><td style="text-align:right;font-weight:700;color:#555">23.2%</td><td style="text-align:center;color:#555">53</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">4</td><td>宜春鸣忙食品有限公司</td><td style="font-size:12px;color:#888">零食很忙</td><td style="text-align:right;font-weight:600">88.53万</td><td style="text-align:right;color:#555">18.62万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">24.7%</td><td style="text-align:center;color:#555">56</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">5</td><td>四川蓉志楚远供应链管理有限公司</td><td style="font-size:12px;color:#6b35e3;font-weight:700">7月新增🆕</td><td style="text-align:right;font-weight:600;color:#6b35e3">53.59万</td><td style="text-align:right;color:#6b35e3;font-weight:700">53.59万</td><td style="text-align:right;font-weight:700;color:#0a8a4e">34.3%</td><td style="text-align:center;color:#555">18</td><td style="font-size:12px;color:#6b35e3;font-weight:700">2026-07 🆕</td></tr>
+<tr><td style="color:#999">6</td><td>湖北零食很忙食品有限公司</td><td style="font-size:12px;color:#888">零食很忙</td><td style="text-align:right;font-weight:600">25.65万</td><td style="text-align:right;color:#555">6.75万</td><td style="text-align:right;font-weight:700;color:#555">22.6%</td><td style="text-align:center;color:#555">18</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">7</td><td>西安鸣忙供应链有限公司</td><td style="font-size:12px;color:#888">零食很忙</td><td style="text-align:right;font-weight:600">20.39万</td><td style="text-align:right;color:#555">2.56万</td><td style="text-align:right;font-weight:700;color:#555">18.7%</td><td style="text-align:center;color:#555">13</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">8</td><td>山东赵一鸣商业管理有限公司</td><td style="font-size:12px;color:#888">赵一鸣</td><td style="text-align:right;font-weight:600">19.17万</td><td style="text-align:right;color:#555">3.38万</td><td style="text-align:right;font-weight:700;color:#555">27.2%</td><td style="text-align:center;color:#555">10</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">9</td><td>芜湖赵一鸣商业管理有限公司</td><td style="font-size:12px;color:#888">赵一鸣</td><td style="text-align:right;font-weight:600">17.82万</td><td style="text-align:right;color:#555">2.70万</td><td style="text-align:right;font-weight:700;color:#555">18.4%</td><td style="text-align:center;color:#555">9</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+<tr><td style="color:#999">10</td><td>长沙晓忙食品有限公司</td><td style="font-size:12px;color:#888">零食很忙</td><td style="text-align:right;font-weight:600">8.78万</td><td style="text-align:right;color:#555">2.70万</td><td style="text-align:right;font-weight:700;color:#555">18.4%</td><td style="text-align:center;color:#555">6</td><td style="font-size:12px;color:#888">2026-05</td></tr>
+      <tr class="sum-row"><td></td><td>合计</td><td></td><td style="text-align:right">571.61万</td><td style="text-align:right">159.28万</td><td style="text-align:right;color:#2d5be3">24.5%</td><td style="text-align:center">323</td><td></td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+    <div style="background:#f0f8ff;border:1px solid #b8d8f0;border-radius:8px;padding:12px 14px">
+      <div style="font-size:12px;font-weight:700;color:#2d5be3;margin-bottom:8px">💡 KA机会点</div>
+      <div style="font-size:12px;color:#555;line-height:2">
+        🥇 <b>四川蓉志楚远</b>7月首月53.59万，毛利率34.3%，KA渠道最高毛利，验证西南量贩市场潜力<br>
+        🥈 <b>KA月度走势</b>：5月101→6月311→7月159，6月集中放量属正常回调；需关注8月复购节奏<br>
+        🥉 <b>KA是线下基本盘</b>：占线下总量77%（含自营排除后），毛利率24.5%稳定
+      </div>
+    </div>
+    <div style="background:#fffcf0;border:1px solid #ffe58f;border-radius:8px;padding:12px 14px">
+      <div style="font-size:12px;font-weight:700;color:#d46b08;margin-bottom:8px">⚠️ KA关注点</div>
+      <div style="font-size:12px;color:#555;line-height:2">
+        🔴 <b>西安鸣忙毛利率18.7%</b>，低于KA均值24.5%，需评估产品结构是否合理<br>
+        ⚠️ <b>7月环比-49%</b>，6月311万含首批大单放量，7月回归属正常，8月需保持>150万<br>
+        ⚠️ <b>KA集中度高</b>——TOP4占KA总量71%，单连锁依赖风险需关注
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 数据口径说明 -->
+<div style="padding:16px 18px;background:#f8f9fc;border-radius:10px;border:1px solid #eaecf0;margin-bottom:20px">
+  <div style="font-size:12px;font-weight:700;color:#6b7280;margin-bottom:10px">📊 数据口径与分层</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;font-size:12px;color:#555;line-height:1.8">
+    <div>
+      <b style="color:#e05810">线下传统经销商</b><br>
+      53家独立经销商 · 4个月(4-7月)<br>
+      累计171.3万 · 毛利率26.0%<br>
+      排除自营主体（袋鼠先生滨州834.54万）
+    </div>
+    <div>
+      <b style="color:#2d5be3">零食量贩KA</b><br>
+      10家连锁(零食很忙7+赵一鸣3) · 3个月(5-7月)<br>
+      累计571.6万 · 毛利率24.5%
+    </div>
+    <div>
+      <b style="color:#9ba3b5">自营主体（排除）</b><br>
+      袋鼠先生（滨州）营销有限公司<br>
+      累计834.54万 · 毛利率11.1%<br>
+      不纳入经销商分析
+    </div>
+  </div>
+  <div style="font-size:11px;color:#9ba3b5;margin-top:8px">数据来源：吉客云销售单明细账(1).xlsx · 飞书线下记录-授权书/证明关系 · 渠道分类基于飞书授权书+历史看板 · 省份从收货地址提取</div>
+</div>
+
+<div class="footer">数据来源：吉客云销售单明细账 · 合同台账：飞书线下记录（授权书/合同/证明） &nbsp;|&nbsp; 更新于 2026-07-21 &nbsp;|&nbsp; 传统经销商4个月 · 零食KA 3个月 · 自营排除</div>
 
 <script>
 const navLinks = document.querySelectorAll('#side-nav a');
-const sections = ['sec1','sec2','sec3','sec4','sec5','sec6'].map(id => document.getElementById(id));
+const sections = ['sec1','sec2','sec3','sec4','sec5','sec6','sec7'].map(id => document.getElementById(id));
 window.addEventListener('scroll', () => {
   let cur = 0;
   sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 200) cur = i; });
