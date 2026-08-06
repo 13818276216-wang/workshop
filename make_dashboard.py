@@ -77,21 +77,36 @@ except Exception as e:
     manager_map = {}
 
 # ========== 列索引 ==========
-cname_idx = col['客户名称']
+# 最新销售明细以“销售渠道”作为客户标识；金额与时间字段同步采用当前口径。
+cname_idx = col['销售渠道']
 channel_idx = col['销售渠道']
 pname_idx = col['货品名称']
 qty_idx = col['数量']
 price_idx = col['单价']
-amt_idx = col['金额']
+amt_idx = col['分摊后金额']
 profit_idx = col['毛利']
-time_idx = 29  # AD列：产品发货时间
-order_idx = col['订单编号']
+time_idx = col['货品级发货时间']
+# 新版明细无订单编号，采用客户+发货日作为订单统计的近似唯一标识。
+order_idx = None
 
-# 先扫一遍时间戳（排除7月13-15日，这些日期成本未核算）
+# 货品成本列
+cost_idx = col['货品成本']
+
+def is_zero_cost_row(r):
+    """货品成本为0代表订单未出库，统一排除。"""
+    cost_val = r[cost_idx]
+    try:
+        return cost_val is None or cost_val == '' or float(cost_val) == 0
+    except (TypeError, ValueError):
+        return True
+
+# 先扫一遍时间戳（排除零成本行）
 all_times = []
 for r in rows_data:
+    if is_zero_cost_row(r):
+        continue
     ts = str(r[time_idx] or '').strip()
-    if ts and ts[:10] not in ('2026-07-13', '2026-07-14', '2026-07-15'):
+    if ts:
         all_times.append(ts[:10])
 all_days = sorted(set(all_times))
 today_key_calc = all_days[-1] if all_days else ''
@@ -166,14 +181,14 @@ for r in rows_data:
     price = float(r[price_idx] or 0)
     amt = float(r[amt_idx] or 0)
     profit = float(r[profit_idx] or 0) if r[profit_idx] is not None else 0
-    order_id = str(r[order_idx] or '')
     time_str = str(r[time_idx] or '')
+    order_id = f'{channel}|{time_str[:10]}' if order_idx is None else str(r[order_idx] or '')
 
     if qty == 0 and amt == 0:
         continue
 
-    # 跳过7月13-15日订单（系统未核算成本，毛利数据不完整）
-    if time_str and time_str[:10] in ('2026-07-13', '2026-07-14', '2026-07-15'):
+    # 跳过7月6日/13-15日中成本为0的行（系统未核算成本）
+    if is_zero_cost_row(r):
         continue
 
     pos_amt = amt
