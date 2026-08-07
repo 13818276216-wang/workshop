@@ -278,7 +278,7 @@ function renderProductHeader() {
     : '金额单位：万元 · 标签：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低';
 }
 
-fetch('dashboard_data.json?v=8').then(r => r.json()).then(data => {
+fetch('dashboard_data.json?v=202608070917').then(r => r.json()).then(data => {
   d = data;
   document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
 
