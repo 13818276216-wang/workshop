@@ -1,199 +1,489 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>线下渠道经营诊断看板</title>
-<style>  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 17px; background: #f4f6f9; color: #1a1f36; min-height: 100vh; zoom: 0.75; }
-  #side-nav { position: fixed; left: 0; top: 0; bottom: 0; width: 140px; background: #fff; border-right: 1px solid #eaecf0; display: flex; flex-direction: column; align-items: stretch; padding: 16px 10px; gap: 2px; z-index: 100; box-shadow: 2px 0 8px rgba(0,0,0,0.04); overflow-y: auto; }
-  #side-nav .nav-logo { display: flex; align-items: center; gap: 10px; padding: 6px 6px 18px 6px; flex-shrink: 0; }
-  #side-nav .nav-logo .logo-box { width: 34px; height: 34px; background: #ff7020; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #fff; line-height: 1.2; text-align: center; flex-shrink: 0; }
-  #side-nav .nav-logo .logo-text { font-size: 14px; font-weight: 800; color: #1a1f36; }
-  #side-nav .nav-group { font-size: 10px; font-weight: 700; color: #c0c6d4; letter-spacing: 1px; text-transform: uppercase; padding: 10px 8px 4px 8px; }
-  #side-nav a { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 8px; text-decoration: none; color: #6b7280; font-size: 13px; font-weight: 500; transition: all 0.18s; white-space: nowrap; overflow: hidden; }
-  #side-nav a svg { width: 16px; height: 16px; flex-shrink: 0; stroke: #c0c6d4; transition: stroke 0.18s; }
-  #side-nav a:hover svg, #side-nav a.active svg { stroke: #e05810; }
-  #side-nav a:hover { background: #fff5ef; color: #e05810; }
-  #side-nav a.active { background: #fff0e6; color: #e05810; font-weight: 700; }
-  .main { margin-left: 140px; }
-  .header { background: #fff; border-bottom: 1px solid #eaecf0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-  .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; }
-  .header-sub { font-size: 12px; color: #9ba3b5; margin-top: 3px; }
-  .slogan { font-size: 18px; font-weight: 700; color: #e05810; letter-spacing: 0.5px; flex-shrink: 0; }
-  .slogan-dot { width: 6px; height: 6px; border-radius: 50%; background: #e05810; display: inline-block; margin-left: 5px; vertical-align: middle; }
-  .container { padding: 24px 32px; max-width: 1440px; }
-  .section-title { font-size: 15px; font-weight: 700; color: #1a1f36; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .section-title::before { content:""; display:inline-block; width:4px; height:18px; background:#ff7020; border-radius:2px; }
-  .cards { display: grid; gap: 16px; margin-bottom: 24px; }
-  .card { background: #fff; border-radius: 12px; padding: 20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #eaecf0; position: relative; overflow: hidden; transition: box-shadow 0.2s; }
-  .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06); }
-  .card .label { font-size: 12px; color: #9ba3b5; margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-  .card .value { font-size: 28px; font-weight: 700; color: #1a1f36; line-height: 1.2; }
-  .card .sub { font-size: 12px; color: #9ba3b5; margin-top: 8px; line-height: 1.7; }
-  .card .sub b { color: #e05810; font-weight: 600; }
-  .card .badge { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 20px; margin-top: 6px; }
-  .card .badge.up { background: #edfaf1; color: #0a8a4e; }
-  .card .badge.down { background: #fef0f0; color: #cf1322; }
-  .card .badge.neutral { background: #f0f4ff; color: #2d5be3; }
-  .card .accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
-  .panel { background: #fff; border-radius: 12px; padding: 22px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #eaecf0; margin-bottom: 20px; }
-  .insight-box { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-  .opp-panel { background: #f6fff9; border: 1px solid #b7eb8f; border-top: 3px solid #52c41a; border-radius: 10px; padding: 16px 18px; }
-  .warn-panel { background: #fffcf0; border: 1px solid #ffe58f; border-top: 3px solid #fa8c16; border-radius: 10px; padding: 16px 18px; }
-  .insight-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-  .insight-item { font-size: 13px; color: #3d4461; line-height: 1.9; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
-  .insight-item:last-child { border-bottom: none; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { background: #f8f9fc; padding: 10px 12px; text-align: left; font-weight: 600; color: #6b7280; border-bottom: 1px solid #eaecf0; font-size: 12px; letter-spacing: 0.3px; }
-  td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6; color: #1a1f36; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: #fafbff; }
-  tr.sum-row td { background: #fff8f4; font-weight: 700; color: #1a1f36; border-top: 2px solid #ffd0a8; }
-  .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; margin: 1px 2px; }
-  .tag.green { background: #edfaf1; color: #0a8a4e; }
-  .tag.orange { background: #fff5e8; color: #c05010; }
-  .tag.red { background: #fef0f0; color: #cf1322; }
-  .tag.blue { background: #eff4ff; color: #2d5be3; }
-  .tag.normal { background: #f4f6f9; color: #6b7280; }
-  .tag.purple { background: #f0e8ff; color: #6b35e3; }
-  .footer { text-align: center; padding: 20px; font-size: 12px; color: #c0c4ce; letter-spacing: 0.3px; }
-  .ka-section { background: #f0f8ff; border-radius: 12px; border: 1px solid #b8d8f0; border-top: 3px solid #2d5be3; padding: 18px 20px; margin-bottom: 20px; }
-  @media (max-width: 768px) { #side-nav { display:none; } .main { margin-left: 0; } .cards { grid-template-columns: 1fr 1fr !important; } .insight-box { grid-template-columns: 1fr; } }</style></head><body>
-<div id="side-nav">
-  <div class="nav-logo"><div class="logo-box">袋鼠<br>先生</div><div class="logo-text">经营诊断</div></div>
-  <div class="nav-group">传统经销商</div>
-  <a href="#sec1" class="active"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>总览</a>
-  <a href="#sec2"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>月度趋势</a>
-  <a href="#sec3"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>渠道结构</a>
-  <a href="#sec4"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>经销商健康</a>
-  <a href="#sec5"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>产品排名</a>
-  <a href="#sec6"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>省份覆盖</a>
-  <div class="nav-group">零食量贩KA</div>
-  <a href="#sec7"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8M8 12h8"/></svg>KA看板</a>
-</div>
-<div class="main">
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>袋鼠先生·线下渠道综合看板</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #1a1a2e; padding: 20px; }
+.header { max-width: 900px; margin: 0 auto 20px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 10px; }
+.header h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+.header h1 span { color: #e85d04; }
+.header .sub { font-size: 13px; color: #888; }
+/* ===== 主选项卡 ===== */
+.main-tabs { max-width: 900px; margin: 0 auto 16px; display: flex; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+.main-tab-btn { flex: 1; padding: 10px 0; border: none; background: #fff; color: #666; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.main-tab-btn:first-child { border-right: 1px solid #e0e0e0; }
+.main-tab-btn:hover { background: #fef5f0; color: #e85d04; }
+.main-tab-btn.active { background: #e85d04; color: #fff; }
+/* 总览表格（与下方表格风格一致） */
+.overview-section { max-width: 900px; margin: 0 auto 8px; background: #fff; border-radius: 12px; padding: 14px 18px 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
+.overview-section .section-label { font-size: 13px; color: #333; font-weight: 600; margin-bottom: 8px; }
+.overview-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.overview-table th { background: #f8f9fb; color: #666; font-weight: 600; padding: 6px 8px; text-align: right; border-bottom: 1px solid #eee; white-space: nowrap; }
+.overview-table th:first-child { text-align: left; }
+.overview-table td { padding: 6px 8px; border-bottom: 1px solid #f5f5f5; white-space: nowrap; }
+.overview-table td:first-child { font-weight: 600; color: #333; }
+.overview-table td:nth-child(2) { font-weight: 600; }
+.overview-table .num { text-align: right; font-family: inherit; }
+.overview-table tr:last-child td { border-bottom: none; }
+.overview-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.od-1 { background: #e85d04; }
+.od-2 { background: #2d6a4f; }
+.od-3 { background: #3a0ca3; }
+.od-4 { background: #1a1a2e; }
+/* 模块标题 */
+.section-title { max-width: 900px; margin: 0 auto 8px; font-size: 16px; font-weight: 700; color: #1a1a2e; padding: 10px 0 6px 16px; position: relative; }
+.section-title::after { content: ''; position: absolute; bottom: 0; left: 16px; right: 0; height: 2px; background: #e85d04; }
+.sub-title { max-width: 900px; margin: 0 auto 8px; font-size: 14px; font-weight: 600; color: #333; padding: 8px 0 4px 16px; }
+
+/* ===== 原卡片（后续模块用） ===== */
+.card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.card .label { font-size: 12px; color: #888; margin-bottom: 4px; }
+.card .value { font-size: 26px; font-weight: 700; color: #1a1a2e; }
+.card .value.gold { color: #e85d04; }
+.card .sub-text { font-size: 12px; color: #999; margin-top: 2px; }
+.charts-row { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.chart-box { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.chart-box h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 10px; }
+.chart-box .chart-wrap { position: relative; height: 200px; }
+.tables-row { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: 1fr; }
+.table-box { background: #fff; border-radius: 12px; padding: 18px 18px 18px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.table-box h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 10px; }
+.table-box h3 .count { font-weight: 400; color: #999; font-size: 12px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead th { background: #f8f9fb; color: #666; font-weight: 600; padding: 8px 6px; text-align: left; border-bottom: 1px solid #eee; white-space: nowrap; }
+tbody td { padding: 7px 6px; border-bottom: 1px solid #f5f5f5; white-space: nowrap; }
+tbody tr:hover { background: #fafbfc; }
+.rank { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 4px; font-size: 11px; font-weight: 600; color: #fff; }
+.rank-1 { background: #e85d04; }
+.rank-2 { background: #f48c06; }
+.rank-3 { background: #faa307; }
+.rank-other { background: #ddd; color: #666; }
+.num { font-family: 'SF Mono', 'Consolas', monospace; text-align: right; }
+.pct-up { color: #2d6a4f; }
+.pct-down { color: #d00000; }
+.pct-neutral { color: #999; }
+/* 环比颜色：涨红跌绿（中国习惯） */
+.ratio-up { color: #d00000; font-weight: 600; }
+.ratio-flat { color: #666; }
+.ratio-down { color: #2d6a4f; font-weight: 600; }
+.ratio-new { color: #e85d04; font-weight: 600; }
+.status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+.dot-green { background: #52b788; }
+.dot-yellow { background: #ffb703; }
+.dot-red { background: #e63946; }
+.footer { max-width: 900px; margin: 0 auto; text-align: center; font-size: 11px; color: #bbb; padding: 20px 0; }
+/* ===== 选项卡 ===== */
+.tab-bar { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.tab-btn { padding: 5px 14px; border-radius: 6px; border: 1px solid #ddd; background: #fff; color: #666; font-size: 12px; cursor: pointer; transition: all 0.15s; }
+.tab-btn:hover { border-color: #e85d04; color: #e85d04; }
+.tab-btn.active { background: #e85d04; border-color: #e85d04; color: #fff; }
+.subtotal-row { font-weight: 600; background: #fff9f5; }
+.subtotal-row td { border-top: 2px solid #e85d04; }
+.table-note { font-size: 11px; color: #aaa; margin-top: 6px; }
+/* 分经销商明细列宽 */
+.dealer-table th:nth-child(1), .dealer-table td:nth-child(1) { width: 36px; }
+.dealer-table th:nth-child(2), .dealer-table td:nth-child(2) { min-width: 180px; }
+.dealer-table th:nth-child(3), .dealer-table td:nth-child(3),
+.dealer-table th:nth-child(4), .dealer-table td:nth-child(4),
+.dealer-table th:nth-child(5), .dealer-table td:nth-child(5) { width: 60px; text-align: right; }
+.dealer-table th:nth-child(6), .dealer-table td:nth-child(6) { width: 110px; text-align: center; }
+.dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 90px; text-align: right; }
+.dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 70px; text-align: center; }
+.dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 70px; }
+
+@media (max-width: 768px) {
+  body { padding: 8px; }
+  .header { margin-bottom: 10px; }
+  .header h1 { font-size: 16px; }
+  .header .sub { font-size: 11px; }
+  .overview-section { margin-bottom: 8px; padding: 10px; }
+  .overview-table { font-size: 11px; }
+  .overview-table th, .overview-table td { padding: 4px 5px; }
+  .overview-card .oc-sub-row span:first-child { font-size: 9px; }
+  .overview-card .oc-sub-row span:last-child { font-size: 10px; }
+  .dealer-analysis { padding: 10px 14px; flex-direction: column; align-items: flex-start; }
+  .dealer-analysis .da-items { gap: 14px; }
+  .dealer-analysis .da-item .da-val { font-size: 13px; }
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .charts-row, .tables-row { grid-template-columns: 1fr; gap: 10px; }
+  .tables-row { padding-left: 0; }
+  .table-box { padding: 10px; }
+  .table-box h3 { font-size: 13px; }
+  table { font-size: 11px; }
+  thead th, tbody td { padding: 5px 3px; }
+  .tab-btn { padding: 3px 8px; font-size: 11px; }
+  .table-note { font-size: 10px; }
+  .dealer-table th:nth-child(2), .dealer-table td:nth-child(2) { min-width: 100px; }
+  .dealer-table th:nth-child(3), .dealer-table td:nth-child(3),
+  .dealer-table th:nth-child(4), .dealer-table td:nth-child(4),
+  .dealer-table th:nth-child(5), .dealer-table td:nth-child(5) { width: 45px; }
+  .dealer-table th:nth-child(6), .dealer-table td:nth-child(6) { width: 55px; }
+  .dealer-table th:nth-child(7), .dealer-table td:nth-child(7) { width: 50px; }
+  .dealer-table th:nth-child(8), .dealer-table td:nth-child(8) { width: 50px; }
+  .subtotal-row td { font-size: 11px; }
+  .footer { font-size: 10px; padding: 12px 0; }
+  .section-title { font-size: 14px; padding: 10px 0 4px; padding-left: 0; }
+  .sub-title { font-size: 12px; padding: 6px 0 2px; padding-left: 0; }
+}
+</style>
+</head>
+<body>
+
 <div class="header">
-  <div class="header-inner">
-    <div style="font-size:26px;font-weight:800;color:#e05810;letter-spacing:1px;flex-shrink:0;">袋鼠先生<span style="font-size:12px;vertical-align:super;font-weight:400">®</span></div>
-    <div style="flex:1;text-align:center;padding:0 24px;">
-      <div style="font-size:21px;font-weight:800;letter-spacing:1px;color:#2d1200;">线下渠道经营诊断看板</div>
-      <div class="header-sub">数据来源：吉客云（已排除未出库订单） · 飞书线下记录 &nbsp;|&nbsp; 更新于 2026-07-21 &nbsp;|&nbsp; 传统经销商 4个月 · 零食KA 3个月</div>
-    </div>
-    <div class="slogan">干净配方 · 安心吃好肉<span class="slogan-dot"></span></div>
+  <div>
+    <h1>袋鼠先生 · <span>线下渠道综合看板</span></h1>
+    <div class="sub">数据范围：2026年1月 ~ 7月 · 线下全渠道</div>
   </div>
-</div>
-<div class="container">
-
-<div id="sec1" class="section-title" style="margin-top:4px">线下传统经销商总览</div>
-<div class="cards" style="grid-template-columns:repeat(6,1fr);gap:14px">
-  <div class="card" style="padding:18px 20px"><div class="accent-bar" style="background:linear-gradient(90deg,#ff7020,#ffb080)"></div><div class="label">累计销售额</div><div class="value">167.9 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div><div class="sub" style="margin-top:6px">月均 <b>42.0 万</b> · 4个月累计</div></div>
-  <div class="card" style="padding:18px 20px"><div class="accent-bar" style="background:linear-gradient(90deg,#e05810,#ff9040)"></div><div class="label">本月(7月)销售额</div><div class="value">49.4 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div><div style="margin:10px 0 4px;background:#f0f2f5;border-radius:4px;height:6px;overflow:hidden"><div style="width:29.4%;height:100%;background:linear-gradient(90deg,#e05810,#ff9040);border-radius:4px"></div></div><div class="sub">占累计 29.4%</div><div class="badge down" style="margin-top:8px">↓ 较上月 -2.3%</div></div>
-  <div class="card" style="padding:18px 20px"><div class="accent-bar" style="background:linear-gradient(90deg,#0a8a4e,#36cf80)"></div><div class="label">7月毛利率</div><div class="value">24.4 <span style="font-size:16px;font-weight:500;color:#9ba3b5">%</span></div><div class="sub" style="margin-top:6px">累计毛利率 <b>24.5%</b></div><div class="sub">7月毛利 <b>12.05万</b></div><div class="badge up" style="margin-top:8px">↑ 较上月 +1.2%</div></div>
-  <div class="card" style="padding:18px 20px"><div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div><div class="label">传统经销商</div><div class="value">53 <span style="font-size:16px;font-weight:500;color:#9ba3b5">家</span></div><div class="sub" style="margin-top:6px">7月活跃 35 家 · 活跃率 <b>66%</b></div><div class="sub">7月新增 <b>14家</b></div></div>
-  <div class="card" style="padding:18px 20px"><div class="accent-bar" style="background:linear-gradient(90deg,#fa8c16,#ffc53d)"></div><div class="label">覆盖省份</div><div class="value">19 <span style="font-size:16px;font-weight:500;color:#9ba3b5">个</span></div><div class="sub" style="margin-top:6px">TOP3：江苏 18.9% · 广东 11.7% · 安徽 11.5%</div></div>
-  <div class="card" style="padding:18px 20px"><div class="accent-bar" style="background:linear-gradient(90deg,#6b35e3,#9b70f5)"></div><div class="label">零食量贩KA</div><div class="value">535.6 <span style="font-size:16px;font-weight:500;color:#9ba3b5">万</span></div><div class="sub" style="margin-top:6px">10家连锁 · 3个月累计</div><div class="sub">7月 <b>123.2万</b> · 毛利率 <b>18.7%</b></div><div class="badge down" style="margin-top:8px">↓ 较上月 -60%</div></div>
+  <div class="sub" id="updateTime">加载中...</div>
 </div>
 
-<div class="insight-box">
-  <div class="opp-panel"><div class="insight-title" style="color:#389e0d">✅ 亮点与机会</div>
-    <div class="insight-item">7月新增<b>14家</b>经销商，拓展速度持续</div>
-    <div class="insight-item">覆盖<b>19省</b>，华东为根据地，华南/西南有拓展空间</div>
-    <div class="insight-item">特通渠道<b>32.3%</b>毛利率远高于流通批发<b>18.4%</b></div>
-    <div class="insight-item">高毛利经销商（≥30%）共<b>17家</b></div>
-  </div>
-  <div class="warn-panel"><div class="insight-title" style="color:#d46b08">⚠️ 预警与风险</div>
-    <div class="insight-item">7月活跃率<b>66%</b>（35/53家）</div>
-    <div class="insight-item">低毛利（&lt;15%）：无锡无凡食品有限公司(6.6%), 上海鸿召商贸有限公司(12.2%), 四川龙洋亿达供应链管理有限公司(3.2%), 青岛和德发食品供应链管理有限公司(14.2%), 沙依巴克区炉院街昌隆食品商行(0.0%)</div>
-    <div class="insight-item">7月环比<b>-2.3%</b>；KA环比<b>-60%</b></div>
-    <div class="insight-item">流通批发21家毛利仅<b>18.4%</b></div>
+<div class="main-tabs">
+  <button class="main-tab-btn active" onclick="switchMainTab('mgmt')">管理层</button>
+  <button class="main-tab-btn" onclick="switchMainTab('biz')">业务层</button>
+</div>
+
+<div class="section-title">线下总览</div>
+<div class="mgmt-content" id="overviewMgmt"></div>
+<div class="biz-content" id="overviewBiz" style="display:none"></div>
+
+<div class="section-title">经销商模块情况</div>
+
+<div class="sub-title">2.1 分省区经营情况 <span class="count" id="provinceCount"></span></div>
+<div class="tables-row" id="provinceSection">
+  <div class="table-box" style="grid-column: 1 / -1;">
+    <div class="table-wrap"><table><thead><tr>
+      <th>#</th><th>省区经理</th><th class="num">客户数</th><th class="num">活跃家数</th><th class="num">活跃率</th><th class="num">今日订单金额</th><th class="num">本月累计金额</th><th class="num">环比</th><th class="num">年度累计金额</th><th class="num">客月均订单</th>
+    </tr></thead><tbody id="provinceTable"></tbody></table></div>
+    <div class="table-note">金额单位：万元 · 活跃家数：30天内有订单 · 客月均订单=本年÷月数÷客户数 · 环比=本月同日累计 vs 上月同日累计</div>
   </div>
 </div>
 
-<div id="sec2" class="panel" style="margin-bottom:22px">
-  <div class="section-title">月度销售趋势（传统经销商）</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
-    <div><div style="font-size:13px;font-weight:700;color:#7a3010;margin-bottom:8px;text-align:center">月度销售额（万元）</div><div style="position:relative;height:180px"><canvas id="chartSales"></canvas></div><div style="margin-top:10px;padding:10px 12px;background:#fff8f2;border-radius:8px;border-left:3px solid #e05810;font-size:12px;color:#7a3010;line-height:1.7">7月<b>49.4万</b>环比<b>-2.3%</b></div></div>
-    <div><div style="font-size:13px;font-weight:700;color:#7a3010;margin-bottom:8px;text-align:center">月度毛利额（万元）</div><div style="position:relative;height:180px"><canvas id="chartProfit"></canvas></div><div style="margin-top:10px;padding:10px 12px;background:#fff8f2;border-radius:8px;border-left:3px solid #e07030;font-size:12px;color:#7a3010;line-height:1.7">7月毛利<b>12.05万</b>，变化<b>+3%</b></div></div>
-    <div><div style="font-size:13px;font-weight:700;color:#7a3010;margin-bottom:8px;text-align:center">月度毛利率（%）</div><div style="position:relative;height:180px"><canvas id="chartMargin"></canvas></div><div style="margin-top:10px;padding:10px 12px;background:#fff8f2;border-radius:8px;border-left:3px solid #52c41a;font-size:12px;color:#7a3010;line-height:1.7">毛利率波动：4月<b>22.2%</b>→5月<b>25.9%</b>→6月<b>23.2%</b>→7月<b>24.4%</b></div></div>
+<div class="sub-title">2.2 分经销商情况 <span class="count" id="dealerCount"></span></div>
+<div class="tables-row">
+  <div class="table-box" style="grid-column: 1 / -1;">
+    <div class="tab-bar" id="dealerTabs"></div>
+    <div class="table-wrap"><table class="dealer-table"><thead>
+      <tr id="dealerHeader"></tr>
+    </thead><tbody id="dealerTable"></tbody></table></div>
+    <div class="table-note" id="dealerNote"></div>
   </div>
 </div>
 
-<div id="sec3" class="panel">
-  <div class="section-title">渠道结构分析（含行业毛利对标）</div>
-  <table><tr><th>渠道类型</th><th>经销商数</th><th>累计销售额</th><th>实际毛利率</th><th>行业参考</th><th>偏差</th><th>说明</th></tr><tr><td>流通批发</td><td>21家</td><td>653573.6万</td><td>18.4%</td><td>15-20%</td><td><span class="tag red">-1.6%</span></td><td style="font-size:11px;color:#9ba3b5">多层分销</td></tr><tr><td>特通</td><td>21家</td><td>575939.2万</td><td>32.3%</td><td>30-35%</td><td><span class="tag red">-2.7%</span></td><td style="font-size:11px;color:#9ba3b5">品牌方直供</td></tr><tr><td>即时零售</td><td>6家</td><td>263656.4万</td><td>23.8%</td><td>20-25%</td><td><span class="tag red">-1.2%</span></td><td style="font-size:11px;color:#9ba3b5">平台扣点</td></tr><tr><td>KA流通</td><td>3家</td><td>180406.7万</td><td>22.9%</td><td>20-30%</td><td><span class="tag red">-7.1%</span></td><td style="font-size:11px;color:#9ba3b5">大客户议价</td></tr><tr><td>CVS便利店</td><td>1家</td><td>5760.0万</td><td>26.1%</td><td>25-35%</td><td><span class="tag red">-8.9%</span></td><td style="font-size:11px;color:#9ba3b5">便利店高加价</td></tr><tr><td>其他</td><td>1家</td><td>52.0万</td><td>34.5%</td><td>-</td><td><span class="tag normal">-</span></td><td style="font-size:11px;color:#9ba3b5">个别样本</td></tr></table>
-  <div style="margin-top:14px;padding:12px 14px;background:#f6fff9;border-radius:8px;border-left:3px solid #52c41a;font-size:12px;color:#389e0d;line-height:1.8"><b>关键发现：</b>特通32.3%高于行业参考，流通批发18.4%低于参考上限。建议：①加大特通招商 ②推动流通批发货盘升级 ③即时零售持续投入</div>
-</div>
-
-<div id="sec4" class="panel">
-  <div class="section-title">经销商健康度一览（53家传统经销商）</div>
-  <div style="overflow-x:auto">
-  <table><tr><th>#</th><th>客户名称</th><th>省份</th><th>渠道</th><th>累计销售(万)</th><th>7月销售(万)</th><th>毛利率</th><th>订单数</th><th>标签</th></tr><tr><td>1</td><td style="font-weight:600">上海心意食光品牌管理有限公司</td><td>广东</td><td>特通</td><td>19.66</td><td>0.91</td><td>35.3%</td><td>74</td><td><span class="tag green">高毛利</span></td></tr><tr><td>2</td><td style="font-weight:600">郑州艾尼斯商贸有限公司</td><td>安徽</td><td>即时零售</td><td>15.42</td><td>3.46</td><td>22.2%</td><td>21</td><td></td></tr><tr><td>3</td><td style="font-weight:600">无锡无凡食品有限公司</td><td>江苏</td><td>流通批发</td><td>14.00</td><td>6.63</td><td>6.6%</td><td>8</td><td><span class="tag red">低毛利</span></td></tr><tr><td>4</td><td style="font-weight:600">郑州锦门商贸有限公司</td><td>河南</td><td>流通批发</td><td>10.70</td><td>2.64</td><td>18.2%</td><td>13</td><td></td></tr><tr><td>5</td><td style="font-weight:600">北京顺驰兴海商贸有限公司</td><td>北京</td><td>KA流通</td><td>9.17</td><td>5.25</td><td>28.6%</td><td>10</td><td></td></tr><tr><td>6</td><td style="font-weight:600">上海鸿召商贸有限公司</td><td>上海</td><td>KA流通</td><td>7.03</td><td>0.00</td><td>12.2%</td><td>12</td><td><span class="tag red">低毛利</span><span class="tag orange">7月无单</span></td></tr><tr><td>7</td><td style="font-weight:600">贵州群顺商贸有限公司</td><td>贵州</td><td>流通批发</td><td>5.76</td><td>0.00</td><td>29.9%</td><td>4</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>8</td><td style="font-weight:600">无锡市大菓林商贸有限公司</td><td>江苏</td><td>特通</td><td>5.48</td><td>2.84</td><td>37.8%</td><td>4</td><td><span class="tag green">高毛利</span></td></tr><tr><td>9</td><td style="font-weight:600">河南省廖氏商贸有限公司</td><td>河北</td><td>流通批发</td><td>5.46</td><td>1.16</td><td>21.5%</td><td>11</td><td></td></tr><tr><td>10</td><td style="font-weight:600">北京礼予甄选品牌管理有限公司</td><td>江苏</td><td>特通</td><td>4.51</td><td>0.00</td><td>36.2%</td><td>6</td><td><span class="tag green">高毛利</span></td></tr><tr><td>11</td><td style="font-weight:600">合肥绿汇商贸有限公司</td><td>安徽</td><td>流通批发</td><td>3.96</td><td>0.66</td><td>21.7%</td><td>6</td><td></td></tr><tr><td>12</td><td style="font-weight:600">焦作锋晨商贸有限公司</td><td>河南</td><td>流通批发</td><td>3.78</td><td>3.78</td><td>18.3%</td><td>5</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>13</td><td style="font-weight:600">西安海盒鲜食品有限公司</td><td>陕西</td><td>即时零售</td><td>3.56</td><td>0.00</td><td>25.3%</td><td>7</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>14</td><td style="font-weight:600">高碑店市昊皓食品经营部</td><td>河北</td><td>流通批发</td><td>3.51</td><td>0.00</td><td>28.3%</td><td>3</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>15</td><td style="font-weight:600">四川龙洋亿达供应链管理有限公司</td><td>辽宁</td><td>流通批发</td><td>3.34</td><td>0.00</td><td>3.2%</td><td>11</td><td><span class="tag red">低毛利</span><span class="tag orange">7月无单</span></td></tr><tr><td>16</td><td style="font-weight:600">温州市图薪鲜科技发展有限公司</td><td>浙江</td><td>即时零售</td><td>3.06</td><td>0.64</td><td>24.9%</td><td>3</td><td></td></tr><tr><td>17</td><td style="font-weight:600">重庆蓉渝福食品有限公司</td><td>重庆</td><td>特通</td><td>2.97</td><td>0.99</td><td>17.7%</td><td>3</td><td></td></tr><tr><td>18</td><td style="font-weight:600">杭州贵元食品有限公司</td><td>浙江</td><td>特通</td><td>2.83</td><td>0.00</td><td>26.0%</td><td>3</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>19</td><td style="font-weight:600">太原红昌龙商贸有限公司</td><td>山西</td><td>特通</td><td>2.81</td><td>2.81</td><td>40.6%</td><td>4</td><td><span class="tag green">高毛利</span><span class="tag blue">🆕7月新增</span></td></tr><tr><td>20</td><td style="font-weight:600">嘉兴友创食品有限公司</td><td>浙江</td><td>特通</td><td>2.79</td><td>0.00</td><td>26.4%</td><td>3</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>21</td><td style="font-weight:600">南京润辰商贸有限公司</td><td>江苏</td><td>特通</td><td>2.77</td><td>2.77</td><td>36.9%</td><td>3</td><td><span class="tag green">高毛利</span><span class="tag blue">🆕7月新增</span></td></tr><tr><td>22</td><td style="font-weight:600">阜康市旺联商贸有限公司</td><td>新疆</td><td>流通批发</td><td>2.73</td><td>2.73</td><td>22.1%</td><td>2</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>23</td><td style="font-weight:600">南京益勋商贸有限公司</td><td>江苏</td><td>流通批发</td><td>2.63</td><td>1.92</td><td>28.4%</td><td>4</td><td></td></tr><tr><td>24</td><td style="font-weight:600">福州众铖贸易有限责任公司</td><td>福建</td><td>特通</td><td>2.50</td><td>0.90</td><td>27.8%</td><td>2</td><td></td></tr><tr><td>25</td><td style="font-weight:600">新疆禾峰嘉业商贸有限公司</td><td>新疆</td><td>流通批发</td><td>2.15</td><td>2.15</td><td>21.7%</td><td>2</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>26</td><td style="font-weight:600">杭州加勒比科技有限公司</td><td>浙江</td><td>即时零售</td><td>2.09</td><td>0.56</td><td>26.1%</td><td>6</td><td></td></tr><tr><td>27</td><td style="font-weight:600">渝北区远瑞食品经营部</td><td>重庆</td><td>流通批发</td><td>1.92</td><td>0.00</td><td>18.3%</td><td>3</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>28</td><td style="font-weight:600">汉川市胖妞商贸有限公司</td><td>湖北</td><td>特通</td><td>1.92</td><td>0.96</td><td>22.6%</td><td>2</td><td></td></tr><tr><td>29</td><td style="font-weight:600">北京东晟恒丰商贸有限公司</td><td>北京</td><td>KA流通</td><td>1.84</td><td>0.75</td><td>35.0%</td><td>9</td><td><span class="tag green">高毛利</span></td></tr><tr><td>30</td><td style="font-weight:600">杭州品强电子商务有限公司</td><td>浙江</td><td>即时零售</td><td>1.72</td><td>0.00</td><td>27.2%</td><td>3</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>31</td><td style="font-weight:600">青岛和德发食品供应链管理有限公司</td><td>山东</td><td>特通</td><td>1.65</td><td>0.82</td><td>14.2%</td><td>4</td><td><span class="tag red">低毛利</span></td></tr><tr><td>32</td><td style="font-weight:600">石家庄舶来品商贸有限公司</td><td>河北</td><td>流通批发</td><td>1.60</td><td>0.00</td><td>21.1%</td><td>2</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>33</td><td style="font-weight:600">济南启豪京商贸有限公司</td><td>山东</td><td>特通</td><td>1.17</td><td>0.18</td><td>37.8%</td><td>2</td><td><span class="tag green">高毛利</span></td></tr><tr><td>34</td><td style="font-weight:600">南京宁悦商贸有限公司</td><td>江苏</td><td>流通批发</td><td>1.11</td><td>1.11</td><td>36.4%</td><td>3</td><td><span class="tag green">高毛利</span><span class="tag blue">🆕7月新增</span></td></tr><tr><td>35</td><td style="font-weight:600">北京新和百果商贸有限公司</td><td>河北</td><td>特通</td><td>1.08</td><td>0.00</td><td>41.5%</td><td>2</td><td><span class="tag green">高毛利</span><span class="tag orange">7月无单</span></td></tr><tr><td>36</td><td style="font-weight:600">成都蓉渝福食品有限公司</td><td>重庆</td><td>特通</td><td>0.99</td><td>0.00</td><td>18.1%</td><td>1</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>37</td><td style="font-weight:600">临沂商城锐迈食品商行</td><td>山东</td><td>流通批发</td><td>0.82</td><td>0.82</td><td>29.3%</td><td>1</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>38</td><td style="font-weight:600">三明市双方贸易有限公司</td><td>福建</td><td>特通</td><td>0.81</td><td>0.27</td><td>29.6%</td><td>3</td><td></td></tr><tr><td>39</td><td style="font-weight:600">山东合力兴业商贸有限公司</td><td>山东</td><td>特通</td><td>0.78</td><td>0.00</td><td>22.0%</td><td>1</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>40</td><td style="font-weight:600">南昌县阿志食品批发部</td><td>江西</td><td>流通批发</td><td>0.76</td><td>0.76</td><td>22.2%</td><td>1</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>41</td><td style="font-weight:600">天津市津南区星峰缘食品配送经营部</td><td>天津</td><td>特通</td><td>0.74</td><td>0.00</td><td>34.1%</td><td>1</td><td><span class="tag green">高毛利</span><span class="tag orange">7月无单</span></td></tr><tr><td>42</td><td style="font-weight:600">安徽应接不暇供应链有限公司</td><td>江苏</td><td>特通</td><td>0.67</td><td>0.67</td><td>36.6%</td><td>1</td><td><span class="tag green">高毛利</span><span class="tag blue">🆕7月新增</span></td></tr><tr><td>43</td><td style="font-weight:600">上海长锐贸易有限公司</td><td>北京</td><td>CVS便利店</td><td>0.58</td><td>0.58</td><td>26.1%</td><td>3</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>44</td><td style="font-weight:600">杭州邦耀食品有限公司</td><td>浙江</td><td>特通</td><td>0.54</td><td>0.00</td><td>34.0%</td><td>1</td><td><span class="tag green">高毛利</span><span class="tag orange">7月无单</span></td></tr><tr><td>45</td><td style="font-weight:600">温州市亿青贸易有限公司</td><td>浙江</td><td>特通</td><td>0.51</td><td>0.27</td><td>34.9%</td><td>2</td><td><span class="tag green">高毛利</span></td></tr><tr><td>46</td><td style="font-weight:600">南京友苏智能科技有限公司</td><td>江苏</td><td>即时零售</td><td>0.50</td><td>0.00</td><td>36.6%</td><td>1</td><td><span class="tag green">高毛利</span><span class="tag orange">7月无单</span></td></tr><tr><td>47</td><td style="font-weight:600">福建零小阅商业管理有限公司</td><td>福建</td><td>流通批发</td><td>0.47</td><td>0.00</td><td>19.5%</td><td>1</td><td><span class="tag orange">7月无单</span></td></tr><tr><td>48</td><td style="font-weight:600">青岛海太贸易有限公司</td><td>山东</td><td>特通</td><td>0.41</td><td>0.41</td><td>19.7%</td><td>1</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>49</td><td style="font-weight:600">上海锦悦华科技有限公司</td><td>上海</td><td>流通批发</td><td>0.38</td><td>0.38</td><td>20.7%</td><td>1</td><td><span class="tag blue">🆕7月新增</span></td></tr><tr><td>50</td><td style="font-weight:600">北京飞箭商贸有限公司</td><td>河北</td><td>流通批发</td><td>0.17</td><td>0.00</td><td>31.9%</td><td>2</td><td><span class="tag green">高毛利</span><span class="tag orange">7月无单</span></td></tr><tr><td>51</td><td style="font-weight:600">陕西棋盛商贸有限公司</td><td>陕西</td><td>流通批发</td><td>0.09</td><td>0.09</td><td>40.4%</td><td>2</td><td><span class="tag green">高毛利</span><span class="tag blue">🆕7月新增</span></td></tr><tr><td>52</td><td style="font-weight:600">李</td><td>山西</td><td>其他</td><td>0.01</td><td>0.01</td><td>34.5%</td><td>1</td><td><span class="tag green">高毛利</span><span class="tag blue">🆕7月新增</span></td></tr><tr><td>53</td><td style="font-weight:600">沙依巴克区炉院街昌隆食品商行</td><td>新疆</td><td>流通批发</td><td>0.00</td><td>-1.49</td><td>0.0%</td><td>4</td><td><span class="tag red">低毛利</span></td></tr><tr class="sum-row"><td></td><td>合计</td><td></td><td></td><td>167.9</td><td>49.4</td><td>24.5%</td><td></td><td></td></tr></table>
+<div class="sub-title">2.3 分产品情况 <span class="count" id="productCount"></span></div>
+<div class="tables-row">
+  <div class="table-box" style="grid-column: 1 / -1;">
+    <div class="tab-bar" id="productTabs"></div>
+    <div class="table-wrap"><table><thead>
+      <tr id="productHeader"></tr>
+    </thead><tbody id="productTable"></tbody></table></div>
+    <div class="table-note" id="productNote"></div>
   </div>
 </div>
 
-<div id="sec5" class="panel">
-  <div class="section-title">产品排名 TOP 15（传统经销商）</div>
-  <table><tr><th>#</th><th>货品名称</th><th>累计销售(万)</th><th>累计毛利(万)</th><th>毛利率</th><th>覆盖经销商</th><th>7月环比</th><th>毛利贡献</th></tr><tr><td>1</td><td style="font-weight:600">袋鼠先生-轻享能量仓670g</td><td>14.48</td><td>5.25</td><td>36.3%</td><td>2</td><td><span class="tag red">-50%</span></td><td>12.8%</td></tr><tr><td>2</td><td style="font-weight:600">鸡胸肉100g黑胡椒-轻享版</td><td>12.76</td><td>2.63</td><td>20.6%</td><td>14</td><td><span class="tag red">-8%</span></td><td>6.4%</td></tr><tr><td>3</td><td style="font-weight:600">鸡胸肉100g奥尔良-轻享版</td><td>11.12</td><td>2.04</td><td>18.3%</td><td>14</td><td><span class="tag red">-21%</span></td><td>5.0%</td></tr><tr><td>4</td><td style="font-weight:600">线下-袋鼠先生原型鸡胸肉350g奥尔良味-20包</td><td>10.62</td><td>2.34</td><td>22.0%</td><td>12</td><td><span class="tag green">69%</span></td><td>5.7%</td></tr><tr><td>5</td><td style="font-weight:600">轻卤牛腱肉55g原味</td><td>10.06</td><td>1.24</td><td>12.3%</td><td>4</td><td><span class="tag green">76%</span></td><td>3.0%</td></tr><tr><td>6</td><td style="font-weight:600">线下-袋鼠先生原型鸡胸肉350g黑胡椒味-20包</td><td>7.31</td><td>2.10</td><td>28.8%</td><td>10</td><td><span class="tag red">-7%</span></td><td>5.1%</td></tr><tr><td>7</td><td style="font-weight:600">鸡胸肉50g黑胡椒-D</td><td>6.47</td><td>1.78</td><td>27.4%</td><td>11</td><td><span class="tag red">-18%</span></td><td>4.3%</td></tr><tr><td>8</td><td style="font-weight:600">牛排脆25g原味</td><td>5.07</td><td>0.34</td><td>6.7%</td><td>4</td><td><span class="tag red">-98%</span></td><td>0.8%</td></tr><tr><td>9</td><td style="font-weight:600">袋鼠先生-进阶能量仓815g</td><td>4.98</td><td>1.69</td><td>34.0%</td><td>1</td><td><span class="tag normal">-</span></td><td>4.1%</td></tr><tr><td>10</td><td style="font-weight:600">鸡胸肉50g奥尔良-D</td><td>4.84</td><td>1.29</td><td>26.6%</td><td>9</td><td><span class="tag green">2%</span></td><td>3.1%</td></tr><tr><td>11</td><td style="font-weight:600">鸡胸肉50g烧烤-D</td><td>4.10</td><td>1.24</td><td>30.2%</td><td>8</td><td><span class="tag red">-62%</span></td><td>3.0%</td></tr><tr><td>12</td><td style="font-weight:600">线下-袋鼠先生原型鸡胸肉奥尔良味45g-80包</td><td>4.04</td><td>0.62</td><td>15.4%</td><td>7</td><td><span class="tag red">-18%</span></td><td>1.5%</td></tr><tr><td>13</td><td style="font-weight:600">袋鼠先生-全能能量仓1017g</td><td>3.85</td><td>1.33</td><td>34.5%</td><td>1</td><td><span class="tag red">-19%</span></td><td>3.2%</td></tr><tr><td>14</td><td style="font-weight:600">鸡胸肉100g原味</td><td>3.84</td><td>0.92</td><td>24.0%</td><td>7</td><td><span class="tag red">-30%</span></td><td>2.2%</td></tr><tr><td>15</td><td style="font-weight:600">袋鼠先生-满格能量仓1015g</td><td>3.61</td><td>1.32</td><td>36.4%</td><td>1</td><td><span class="tag normal">-</span></td><td>3.2%</td></tr></table>
-</div>
+<div class="footer">袋鼠先生线下渠道 · 每日自动更新 · v20260715.2</div>
 
-<div id="sec6" class="panel">
-  <div class="section-title">省份覆盖与区域深度</div>
-  <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px">
-    <div><div style="height:360px" id="mapChart"></div></div>
-    <div>
-      <div style="font-size:13px;font-weight:700;color:#7a3010;margin-bottom:8px">TOP10省份深度分析</div>
-      <table><tr><th>省份</th><th>经销商</th><th>累计销售</th><th>平均毛利率</th><th>渠道分布</th></tr><tr><td style="font-weight:600">江苏</td><td>8家</td><td>31.70万</td><td>31.9%</td><td>特通4家·流通批发3家·即时零售1家</td></tr><tr><td style="font-weight:600">广东</td><td>1家</td><td>19.66万</td><td>35.3%</td><td>特通1家</td></tr><tr><td style="font-weight:600">安徽</td><td>2家</td><td>19.38万</td><td>21.9%</td><td>即时零售1家·流通批发1家</td></tr><tr><td style="font-weight:600">河南</td><td>2家</td><td>14.49万</td><td>18.3%</td><td>流通批发2家</td></tr><tr><td style="font-weight:600">浙江</td><td>7家</td><td>13.55万</td><td>28.5%</td><td>特通4家·即时零售3家</td></tr><tr><td style="font-weight:600">河北</td><td>5家</td><td>11.82万</td><td>28.8%</td><td>流通批发4家·特通1家</td></tr><tr><td style="font-weight:600">北京</td><td>3家</td><td>11.59万</td><td>29.9%</td><td>KA流通2家·CVS便利店1家</td></tr><tr><td style="font-weight:600">上海</td><td>2家</td><td>7.41万</td><td>16.5%</td><td>KA流通1家·流通批发1家</td></tr><tr><td style="font-weight:600">重庆</td><td>3家</td><td>5.88万</td><td>18.0%</td><td>特通2家·流通批发1家</td></tr><tr><td style="font-weight:600">贵州</td><td>1家</td><td>5.76万</td><td>29.9%</td><td>流通批发1家</td></tr></table>
-      <div style="margin-top:12px;padding:10px 12px;background:#f0f8ff;border-radius:8px;border-left:3px solid #2d5be3;font-size:12px;color:#2d5be3;line-height:1.7"><b>空白省份机会：</b>湖南、吉林、黑龙江等11省无覆盖</div>
-    </div>
-  </div>
-</div>
-
-<div id="sec7" class="ka-section">
-  <div class="section-title">零食量贩KA看板（10家连锁）</div>
-  <div class="cards" style="grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
-    <div class="card" style="padding:14px 16px"><div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div><div class="label">KA累计销售额</div><div class="value" style="font-size:24px">535.6 <span style="font-size:14px;font-weight:500;color:#9ba3b5">万</span></div><div class="sub">10家连锁 · 3个月</div></div>
-    <div class="card" style="padding:14px 16px"><div class="accent-bar" style="background:linear-gradient(90deg,#2d5be3,#6488f5)"></div><div class="label">7月KA销售额</div><div class="value" style="font-size:24px">123.2 <span style="font-size:14px;font-weight:500;color:#9ba3b5">万</span></div><div class="badge down" style="margin-top:6px">↓ 较上月 -60%</div></div>
-    <div class="card" style="padding:14px 16px"><div class="accent-bar" style="background:linear-gradient(90deg,#0a8a4e,#36cf80)"></div><div class="label">KA累计毛利率</div><div class="value" style="font-size:24px">19.2 <span style="font-size:14px;font-weight:500;color:#9ba3b5">%</span></div><div class="sub">7月毛利率 18.7%</div></div>
-    <div class="card" style="padding:14px 16px"><div class="accent-bar" style="background:linear-gradient(90deg,#6b35e3,#9b70f5)"></div><div class="label">线下总量(传统+KA)</div><div class="value" style="font-size:24px">703.5 <span style="font-size:14px;font-weight:500;color:#9ba3b5">万</span></div><div class="sub">KA占比 <b>76.1%</b></div></div>
-  </div>
-  <table><tr><th>KA客户</th><th>累计销售(万)</th><th>7月销售(万)</th><th>毛利率</th><th>订单数</th><th>首月</th></tr><tr><td style="font-weight:600">长沙很忙零食食品有限公司</td><td>135.26</td><td>21.31</td><td>18.9%</td><td>80</td><td>2026-05</td></tr><tr><td style="font-weight:600">厦门赵一鸣商业管理有限公司</td><td>91.90</td><td>14.27</td><td>19.1%</td><td>53</td><td>2026-05</td></tr><tr><td style="font-weight:600">四川零食很忙食品有限公司</td><td>91.67</td><td>14.55</td><td>19.2%</td><td>49</td><td>2026-05</td></tr><tr><td style="font-weight:600">宜春鸣忙食品有限公司</td><td>82.05</td><td>12.14</td><td>18.7%</td><td>51</td><td>2026-05</td></tr><tr><td style="font-weight:600">四川蓉志楚远供应链管理有限公司</td><td>46.25</td><td>46.25</td><td>23.9%</td><td>16</td><td>2026-07</td></tr><tr><td style="font-weight:600">湖北零食很忙食品有限公司</td><td>24.30</td><td>5.40</td><td>18.3%</td><td>17</td><td>2026-05</td></tr><tr><td style="font-weight:600">西安鸣忙供应链有限公司</td><td>20.39</td><td>2.56</td><td>18.7%</td><td>13</td><td>2026-05</td></tr><tr><td style="font-weight:600">芜湖赵一鸣商业管理有限公司</td><td>17.82</td><td>2.70</td><td>18.4%</td><td>9</td><td>2026-05</td></tr><tr><td style="font-weight:600">山东赵一鸣商业管理有限公司</td><td>17.14</td><td>1.35</td><td>18.6%</td><td>9</td><td>2026-05</td></tr><tr><td style="font-weight:600">长沙晓忙食品有限公司</td><td>8.78</td><td>2.70</td><td>18.4%</td><td>6</td><td>2026-05</td></tr><tr class="sum-row"><td>合计</td><td>535.6</td><td>123.2</td><td>19.2%</td><td></td><td></td></tr></table>
-  <div style="margin-top:12px"><div style="font-size:13px;font-weight:700;color:#2d5be3;margin-bottom:8px">KA月度趋势</div><table><tr><th>月份</th><th>销售额(万)</th><th>毛利额(万)</th><th>毛利率</th></tr><tr><td>2026-05</td><td>101.05</td><td>20.15</td><td>19.9%</td></tr><tr><td>2026-06</td><td>311.28</td><td>60.23</td><td>19.3%</td></tr><tr><td>2026-07</td><td>123.23</td><td>23.09</td><td>18.7%</td></tr></table></div>
-</div>
-
-<div class="footer">袋鼠先生 · 线下渠道经营诊断看板 · 数据截至2026年7月 · 已排除未出库订单(货品成本=0) · 自营渠道828.9万已排除</div>
-</div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js"></script>
 <script>
-var MONTHS = ["2026-04", "2026-05", "2026-06", "2026-07"];
-var SALES = [5.63, 62.36, 50.56, 49.39];
-var PROFIT = [1.25, 16.12, 11.74, 12.05];
-var MARGIN = [22.2, 25.9, 23.2, 24.4];
-var ECHARTS_PROV = [{name:"江苏",value:31.70},{name:"广东",value:19.66},{name:"安徽",value:19.38},{name:"河南",value:14.49},{name:"浙江",value:13.55},{name:"河北",value:11.82},{name:"北京",value:11.59},{name:"上海",value:7.41},{name:"重庆",value:5.88},{name:"贵州",value:5.76},{name:"新疆",value:4.88},{name:"山东",value:4.83},{name:"福建",value:3.78},{name:"陕西",value:3.65},{name:"辽宁",value:3.34},{name:"山西",value:2.81},{name:"湖北",value:1.92},{name:"江西",value:0.76},{name:"天津",value:0.74}];
-var PROV_MAP = {"江苏":{count:8,sales:"31.70"},"广东":{count:1,sales:"19.66"},"安徽":{count:2,sales:"19.38"},"河南":{count:2,sales:"14.49"},"浙江":{count:7,sales:"13.55"},"河北":{count:5,sales:"11.82"},"北京":{count:3,sales:"11.59"},"上海":{count:2,sales:"7.41"},"重庆":{count:3,sales:"5.88"},"贵州":{count:1,sales:"5.76"},"新疆":{count:3,sales:"4.88"},"山东":{count:5,sales:"4.83"},"福建":{count:3,sales:"3.78"},"陕西":{count:2,sales:"3.65"},"辽宁":{count:1,sales:"3.34"},"山西":{count:2,sales:"2.81"},"湖北":{count:1,sales:"1.92"},"江西":{count:1,sales:"0.76"},"天津":{count:1,sales:"0.74"}};
+function fmt(n) {
+  if (n >= 10000) return (n/10000).toFixed(1) + '万';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'k';
+  return n.toLocaleString();
+}
+function fmtW(n) {
+  if (n === 0 || n === null || n === undefined) return '0';
+  return (n / 10000).toFixed(2);
+}
+function fmtRatio(monthSales, prevMonthSales) {
+  if (!prevMonthSales || prevMonthSales === 0) return { text: '新增', cls: 'ratio-new' };
+  const ratio = ((monthSales - prevMonthSales) / prevMonthSales * 100);
+  const sign = ratio >= 0 ? '+' : '';
+  let cls = ratio >= 10 ? 'ratio-up' : (ratio >= 0 ? 'ratio-flat' : 'ratio-down');
+  return { text: `${sign}${ratio.toFixed(1)}%`, cls: cls };
+}
+function rankClass(i) {
+  if (i === 0) return 'rank-1';
+  if (i === 1) return 'rank-2';
+  if (i === 2) return 'rank-3';
+  return 'rank-other';
+}
+function profitLabel(rate) {
+  if (rate >= 40) return '高';
+  if (rate >= 30) return '好';
+  if (rate >= 20) return '正常';
+  if (rate >= 10) return '低';
+  return '很低';
+}
+function profitColor(rate) {
+  if (rate >= 40) return '#e85d04';
+  if (rate >= 30) return '#2d6a4f';
+  if (rate >= 20) return '#333';
+  if (rate >= 10) return '#f48c06';
+  return '#d00000';
+}
+function profitHtml(rate, isMgmt) {
+  const c = profitColor(rate);
+  if (isMgmt) {
+    return `<span style="color:${c};font-weight:700;">${rate.toFixed(1)}%</span>`;
+  } else {
+    const l = profitLabel(rate);
+    const w = rate >= 30 ? 700 : 600;
+    return `<span style="color:${c};font-weight:${w};">${l}</span>`;
+  }
+}
 
-new Chart(document.getElementById('chartSales'), {
-  type: 'bar', data: { labels: MONTHS, datasets: [{ label: '销售额(万)', data: SALES, backgroundColor: ['#ffb080','#ff7020','#e05810','#c04010'], borderRadius: 6 }] },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }}, scales: { y: { beginAtZero: true, grid: { color: '#f0f2f5' }}, x: { grid: { display: false }} }}
-});
+let currentMainTab = 'mgmt';
+let d = null;
+let currentDealerTab = '全部';
+let currentProductTab = '全部';
 
-new Chart(document.getElementById('chartProfit'), {
-  type: 'bar', data: { labels: MONTHS, datasets: [{ label: '毛利额(万)', data: PROFIT, backgroundColor: ['#90d870','#52c41a','#389e0d','#237804'], borderRadius: 6 }] },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }}, scales: { y: { beginAtZero: true, grid: { color: '#f0f2f5' }}, x: { grid: { display: false }} }}
-});
+function switchMainTab(tab) {
+  currentMainTab = tab;
+  document.querySelectorAll('.main-tab-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === (tab === 'mgmt' ? '管理层' : '业务层'));
+  });
+  // 总览切换
+  document.getElementById('overviewMgmt').style.display = tab === 'mgmt' ? '' : 'none';
+  document.getElementById('overviewBiz').style.display = tab === 'biz' ? '' : 'none';
+  // 重新渲染经销商/产品表
+  renderDealerHeader();
+  renderDealerTable();
+  renderProductHeader();
+  renderProductTable();
+}
 
-new Chart(document.getElementById('chartMargin'), {
-  type: 'line', data: { labels: MONTHS, datasets: [{ label: '毛利率(%)', data: MARGIN, borderColor: '#52c41a', backgroundColor: '#edfaf1', fill: true, tension: 0.3, pointRadius: 5, pointBackgroundColor: '#52c41a' }] },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }}, scales: { y: { min: 15, max: 35, grid: { color: '#f0f2f5' }}, x: { grid: { display: false }} }}
-});
+// ===== 经销商表头 =====
+function renderDealerHeader() {
+  const isMgmt = currentMainTab === 'mgmt';
+  document.getElementById('dealerHeader').innerHTML =
+    `<th>#</th><th>经销商</th><th class="num">今日订单金额</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th>` +
+    (isMgmt ? `<th class="num">年毛利率</th>` : `<th class="num">毛利率</th>`) +
+    `<th class="num">30天内活跃次数</th><th>首批月</th><th>省区经理</th>`;
+  document.getElementById('dealerNote').textContent = isMgmt
+    ? '金额单位：万元 · 毛利率：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低'
+    : '金额单位：万元 · 标签：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低';
+}
 
-var mapChart = echarts.init(document.getElementById('mapChart'));
-mapChart.setOption({
-  title: { text: '经销商省份覆盖', left: 'center', textStyle: { fontSize: 14, fontWeight: 700, color: '#1a1f36' }},
-  tooltip: { formatter: function(p) { var info = PROV_MAP[p.name]; return p.name + '<br/>经销商: ' + (info ? info.count : 0) + '家<br/>累计: ' + (info ? info.sales : 0) + '万'; }},
-  visualMap: { min: 0, max: 35, left: 20, bottom: 20, text: ['高','低'], inRange: { color: ['#fff0e6','#ff7020'] }, textStyle: { fontSize: 11 }},
-  series: [{ type: 'map', map: 'china', data: ECHARTS_PROV, emphasis: { label: { show: true }} }]
+// ===== 产品表头 =====
+function renderProductHeader() {
+  const isMgmt = currentMainTab === 'mgmt';
+  document.getElementById('productHeader').innerHTML =
+    `<th>#</th><th>产品</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th><th class="num">30天内下单次数</th>` +
+    (isMgmt ? `<th class="num">年毛利情况</th>` : `<th class="num">毛利率</th>`);
+  document.getElementById('productNote').textContent = isMgmt
+    ? '金额单位：万元 · 毛利情况：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低'
+    : '金额单位：万元 · 标签：≥40% 高 | 30%-40% 好 | 20%-30% 正常 | 10%-20% 低 | <10% 很低';
+}
+
+fetch('dashboard_data.json?v=8').then(r => r.json()).then(data => {
+  d = data;
+  document.getElementById('updateTime').textContent = '更新于 ' + d.update_time;
+
+  const cats = [
+    { label: '线下累计', key: 'overview_all', id: 1 },
+    { label: '零食渠道', key: 'overview_snack', id: 2 },
+    { label: '闪电仓', key: 'overview_lightning', id: 3 },
+    { label: '经销商', key: 'overview_dealer', id: 4 },
+  ];
+
+  // ===== 管理层总览（两个表格） =====
+  function renderOverviewTable(period, cats, getSales, getProfit, getRate, getSalesMom, getRateMom) {
+    const rows = cats.map((c, i) =>
+      `<tr>` +
+      `<td><span class="overview-dot od-${i+1}"></span>${c.label}</td>` +
+      `<td class="num">${fmtW(getSales(c))}</td>` +
+      `<td class="num">${fmtW(getProfit(c))}</td>` +
+      `<td class="num">${getRate(c)}%</td>` +
+      (getSalesMom ? `<td class="num ${salesMomCls(getSalesMom(c))}">${salesMomText(getSalesMom(c))}</td>` : '') +
+      (getRateMom ? `<td class="num ${rateMomCls(getRateMom(c))}">${rateMomText(getRateMom(c))}</td>` : '') +
+      `</tr>`
+    ).join('');
+    const momHeaders = getSalesMom ? '<th class="num">销售环比</th><th class="num">毛利率环比</th>' : '';
+    return `<div class="overview-section">` +
+      `<div class="section-label">${period}</div>` +
+      `<table class="overview-table"><thead><tr><th>类别</th><th class="num">销售</th><th class="num">毛利</th><th class="num">毛利率</th>${momHeaders}</tr></thead>` +
+      `<tbody>${rows}</tbody></table>` +
+      `</div>`;
+  }
+  function salesMomText(v) { if (v === null || v === undefined) return '新增'; const s = v >= 0 ? '+' : ''; return `${s}${v.toFixed(1)}%`; }
+  function salesMomCls(v) { if (v === null || v === undefined) return 'ratio-new'; if (v >= 10) return 'ratio-up'; if (v >= 0) return 'ratio-flat'; return 'ratio-down'; }
+  function rateMomText(v) { if (v === null || v === undefined) return '-'; const s = v >= 0 ? '+' : ''; return `${s}${v.toFixed(1)}%`; }
+  function rateMomCls(v) { if (v === null || v === undefined) return 'ratio-flat'; if (v > 2) return 'ratio-up'; if (v < -2) return 'ratio-down'; return 'ratio-flat'; }
+  document.getElementById('overviewMgmt').innerHTML =
+    renderOverviewTable('本年累计', cats,
+      c => d[c.key].year_sales, c => d[c.key].year_profit, c => d[c.key].year_rate, null, null) +
+    renderOverviewTable('本月累计', cats,
+      c => d[c.key].month_sales, c => d[c.key].month_profit, c => d[c.key].month_rate,
+      c => d[c.key].sales_mom, c => d[c.key].rate_mom);
+
+  // ===== 业务层总览（一个表格：类别|今日订单金额|本月累计金额|年度累计金额） =====
+  const bizRows = cats.map((c, i) =>
+    `<tr>` +
+    `<td><span class="overview-dot od-${i+1}"></span>${c.label}</td>` +
+    `<td class="num">${fmtW(d[c.key].today_sales)}</td>` +
+    `<td class="num">${fmtW(d[c.key].month_sales)}</td>` +
+    `<td class="num">${fmtW(d[c.key].year_sales)}</td>` +
+    `</tr>`
+  ).join('');
+  document.getElementById('overviewBiz').innerHTML =
+    `<div class="overview-section">` +
+    `<table class="overview-table"><thead><tr><th>类别</th><th class="num">今日订单金额</th><th class="num">本月累计金额</th><th class="num">年度累计金额</th></tr></thead>` +
+    `<tbody>${bizRows}</tbody></table>` +
+    `</div>`;
+
+  document.getElementById('dealerCount').textContent = `· 共 ${d.total_dealers} 家`;
+  document.getElementById('provinceCount').textContent = `· 共 ${d.managers.length} 人`;
+  document.getElementById('productCount').textContent = `· 共 ${d.products.length} 个`;
+
+  // ===== 分经销商 =====
+  const managerNames = d.managers.map(m => m.name);
+
+  function renderDealerTabs() {
+    const tabs = ['全部', ...managerNames];
+    document.getElementById('dealerTabs').innerHTML = tabs.map(t => {
+      if (t === '全部') return `<button class="tab-btn${t === currentDealerTab ? ' active' : ''}" onclick="switchDealerTab('${t}')">${t}</button>`;
+      const mgr = d.managers.find(m => m.name === t);
+      const count = mgr ? mgr.clients : 0;
+      return `<button class="tab-btn${t === currentDealerTab ? ' active' : ''}" onclick="switchDealerTab('${t}')">${t}(${count})</button>`;
+    }).join('');
+  }
+
+  function renderDealerTable() {
+    const isMgmt = currentMainTab === 'mgmt';
+    let filtered;
+    if (currentDealerTab === '全部') {
+      filtered = d.dealers;
+    } else {
+      filtered = d.dealers.filter(v => v.manager === currentDealerTab);
+    }
+    const rows = filtered.map((v, i) => {
+      const pr = v.profit_rate;
+      return `<tr>
+        <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+        <td>${v.name}</td>
+        <td class="num">${fmtW(v.today_sales)}</td>
+        <td class="num">${fmtW(v.month_sales)}</td>
+        <td class="num">${fmtW(v.sales)}</td>
+        <td class="num">${profitHtml(pr, isMgmt)}</td>
+        <td class="num">${v.active_days || 0} 天</td>
+        <td>${v.first_month || '-'}</td>
+        <td>${v.manager || '-'}</td>
+      </tr>`;
+    });
+    if (filtered.length > 0) {
+      const st = filtered.reduce((s, v) => s + v.today_sales, 0);
+      const sm = filtered.reduce((s, v) => s + v.month_sales, 0);
+      const sy = filtered.reduce((s, v) => s + v.sales, 0);
+      const sp = filtered.reduce((s, v) => s + v.profit, 0);
+      const sr = sy > 0 ? parseFloat((sp / sy * 100).toFixed(1)) : 0;
+      rows.push(`<tr class="subtotal-row">
+        <td></td><td>${currentDealerTab} 小计（${filtered.length}家）</td>
+        <td class="num">${fmtW(st)}</td>
+        <td class="num">${fmtW(sm)}</td>
+        <td class="num">${fmtW(sy)}</td>
+        <td class="num">${profitHtml(sr, isMgmt)}</td>
+        <td></td><td></td><td></td>
+      </tr>`);
+    }
+    document.getElementById('dealerTable').innerHTML = rows.join('');
+  }
+
+  window.switchDealerTab = function(tab) {
+    currentDealerTab = tab;
+    renderDealerTabs();
+    renderDealerTable();
+  };
+
+  renderDealerHeader();
+  renderDealerTabs();
+  renderDealerTable();
+
+  // ===== 分省区（两边相同） =====
+  const manRows = d.managers.map((v, i) => {
+    const ratio = fmtRatio(v.month_sales, v.prev_month_sales);
+    const activeRate = v.clients > 0 ? (v.active_clients / v.clients * 100).toFixed(0) + '%' : '-';
+    const avgMonthly = (v.clients > 0 && v.data_months > 0) ? fmtW(v.sales / v.data_months / v.clients) : '-';
+    return `<tr>
+      <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+      <td><strong>${v.name}</strong></td>
+      <td class="num">${v.clients}</td>
+      <td class="num">${v.active_clients}</td>
+      <td class="num">${activeRate}</td>
+      <td class="num">${fmtW(v.today_sales)}</td>
+      <td class="num">${fmtW(v.month_sales)}</td>
+      <td class="num ${ratio.cls}">${ratio.text}</td>
+      <td class="num">${fmtW(v.sales)}</td>
+      <td class="num">${avgMonthly}</td>
+    </tr>`;
+  }).join('');
+  const totalToday = d.managers.reduce((s, v) => s + v.today_sales, 0);
+  const totalMonth = d.managers.reduce((s, v) => s + v.month_sales, 0);
+  const totalPrevMonth = d.managers.reduce((s, v) => s + v.prev_month_sales, 0);
+  const totalYear = d.managers.reduce((s, v) => s + v.sales, 0);
+  const totalClients = d.managers.reduce((s, v) => s + v.clients, 0);
+  const totalActive = d.managers.reduce((s, v) => s + v.active_clients, 0);
+  const totalActiveRate = totalClients > 0 ? (totalActive / totalClients * 100).toFixed(0) + '%' : '-';
+  const totalRatio = fmtRatio(totalMonth, totalPrevMonth);
+  const dataMonths = d.managers.length > 0 ? d.managers[0].data_months : 1;
+  const totalAvg = (totalClients > 0 && dataMonths > 0) ? fmtW(totalYear / dataMonths / totalClients) : '-';
+  document.getElementById('provinceTable').innerHTML = manRows + `<tr style="font-weight:700;background:#f8f9fb;">
+    <td></td><td>合计</td>
+    <td class="num">${totalClients}</td>
+    <td class="num">${totalActive}</td>
+    <td class="num">${totalActiveRate}</td>
+    <td class="num">${fmtW(totalToday)}</td>
+    <td class="num">${fmtW(totalMonth)}</td>
+    <td class="num ${totalRatio.cls}">${totalRatio.text}</td>
+    <td class="num">${fmtW(totalYear)}</td>
+    <td class="num">${totalAvg}</td>
+  </tr>`;
+
+  // ===== 分产品 =====
+  function renderProductTabs() {
+    const tabs = ['全部', ...managerNames];
+    document.getElementById('productTabs').innerHTML = tabs.map(t => {
+      if (t === '全部') return `<button class="tab-btn${t === currentProductTab ? ' active' : ''}" onclick="switchProductTab('${t}')">${t}</button>`;
+      const count = d.products.filter(v => v.manager === t).length;
+      return `<button class="tab-btn${t === currentProductTab ? ' active' : ''}" onclick="switchProductTab('${t}')">${t}(${count})</button>`;
+    }).join('');
+  }
+
+  function renderProductTable() {
+    const isMgmt = currentMainTab === 'mgmt';
+    let filtered;
+    if (currentProductTab === '全部') {
+      filtered = d.products;
+    } else {
+      filtered = d.products.filter(v => v.manager === currentProductTab);
+    }
+    const rows = filtered.map((v, i) => {
+      const pr = v.profit_rate;
+      return `<tr>
+        <td><span class="rank ${rankClass(i)}">${i+1}</span></td>
+        <td>${v.name}</td>
+        <td class="num">${fmtW(v.month_sales)}</td>
+        <td class="num">${fmtW(v.sales)}</td>
+        <td class="num">${v.active_days_30 || 0} 次</td>
+        <td class="num">${profitHtml(pr, isMgmt)}</td>
+      </tr>`;
+    });
+    document.getElementById('productTable').innerHTML = rows.join('');
+  }
+
+  window.switchProductTab = function(tab) {
+    currentProductTab = tab;
+    renderProductTabs();
+    renderProductTable();
+  };
+
+  renderProductHeader();
+  renderProductTabs();
+  renderProductTable();
+
 });
 </script>
-</body></html>
+</body>
+</html>
