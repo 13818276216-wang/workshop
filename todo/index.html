@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selina 工作台 · 待办事项</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --border:#e6eaf0; --line:#eef1f5;
+    --text:#1d2129; --sub:#86909c;
+    --blue:#2f6ffb; --blue-bg:#eef4ff;
+    --green:#00b42a; --green-bg:#e8f8ee;
+    --orange:#ff7d00; --orange-bg:#fff3e6;
+    --red:#e34d59; --red-bg:#fdecec;
+    --teal:#0fb5a6; --teal-bg:#e6f7f5;
+    --radius:14px; --shadow:0 2px 8px rgba(29,33,41,.04), 0 6px 20px rgba(29,33,41,.04);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--text); padding:20px 16px 96px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px; margin:0 auto;}
+
+  /* ===== 顶部品牌区 ===== */
+  .header{display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px;}
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand .logo{
+    width:44px; height:44px; border-radius:12px;
+    background:linear-gradient(135deg,#ff8a2a,#f05d23); color:#fff;
+    display:inline-flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;
+    box-shadow:0 4px 12px rgba(240,93,35,.25);
+  }
+  .brand h1{font-size:21px; font-weight:700; letter-spacing:.5px;}
+  .brand .sub-title{font-size:12px; color:var(--sub); margin-top:2px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .tag{display:inline-block; padding:1px 9px; border-radius:20px; font-size:11px; font-weight:600; background:var(--blue-bg); color:var(--blue);}
+  .header .actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .btn{
+    border:1px solid var(--border); background:var(--card); color:var(--text);
+    padding:7px 14px; border-radius:9px; font-size:13px; cursor:pointer;
+    transition:all .15s; display:inline-flex; align-items:center; gap:5px;
+  }
+  .btn:hover{border-color:#c9d2e0; background:#fafbfd;}
+  .btn.primary{background:var(--blue); border-color:var(--blue); color:#fff;}
+  .btn.primary:hover{background:#2458e0;}
+  .btn.danger{color:var(--red);}
+  .btn.danger:hover{background:var(--red-bg); border-color:#f3c6c6;}
+  .btn.sm{padding:3px 8px; font-size:12px; border-radius:6px;}
+  .btn.ghost{border-color:transparent; background:transparent; color:var(--sub);}
+  .btn.ghost:hover{background:#f0f2f6; color:var(--text);}
+
+  /* ===== 更新横幅 ===== */
+  .banner{
+    display:none; background:var(--orange-bg); border:1px solid #f3d9b8; color:#8a4d0f;
+    padding:10px 14px; border-radius:10px; margin-bottom:14px; font-size:13px;
+    align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  }
+  .banner.show{display:flex;}
+  .banner .b-actions{display:flex; gap:8px;}
+
+  /* ===== 章节标题 ===== */
+  .sec-head{display:flex; align-items:center; gap:9px; margin:20px 2px 10px;}
+  .sec-head .no{
+    font-size:12px; font-weight:700; color:#fff; background:var(--text);
+    border-radius:6px; padding:2px 8px; letter-spacing:1px;
+  }
+  .sec-head h2{font-size:16px; font-weight:700;}
+  .sec-head .hint{font-size:12px; color:var(--sub); margin-left:auto;}
+
+  /* ===== 预警区 ===== */
+  .panel{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+  .panel-title{padding:12px 16px; font-size:14px; font-weight:700; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px;}
+  .panel-title .count{font-size:12px; color:var(--sub); font-weight:400;}
+  .alert-ok{padding:16px; font-size:13px; color:#0e7c33; background:var(--green-bg); display:flex; align-items:center; gap:8px;}
+  .alert-group{padding:6px 0;}
+  .alert-group + .alert-group{border-top:1px dashed var(--line);}
+  .alert-gtitle{font-size:12.5px; font-weight:700; padding:8px 16px 4px;}
+  .alert-gtitle.red{color:var(--red);}
+  .alert-gtitle.orange{color:var(--orange);}
+  .alert-row{
+    display:flex; align-items:center; gap:10px; padding:7px 16px; font-size:13px;
+    cursor:pointer; transition:background .12s; flex-wrap:wrap;
+  }
+  .alert-row:hover{background:#fafbfd;}
+  .alert-row .a-title{font-weight:600;}
+  .alert-row .a-note{color:var(--sub); font-size:12px; flex:1; min-width:120px;}
+  .alert-row .a-due{font-size:12px; font-weight:700; white-space:nowrap;}
+
+  /* ===== KPI 总览 ===== */
+  .kpi-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:12px;}
+  @media (max-width:960px){ .kpi-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:560px){ .kpi-grid{grid-template-columns:repeat(2,1fr);} }
+  .kpi{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:14px 16px; position:relative; overflow:hidden;
+  }
+  .kpi::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--kc,#2f6ffb);}
+  .kpi .k-lbl{font-size:12px; color:var(--sub); display:flex; align-items:center; gap:5px;}
+  .kpi .k-num{font-size:26px; font-weight:800; margin-top:5px; color:var(--kc,#1d2129); font-variant-numeric:tabular-nums; line-height:1.15;}
+  .kpi .k-sub{font-size:11px; color:var(--sub); margin-top:3px;}
+  .kpi.clickable{cursor:pointer; transition:transform .12s, box-shadow .12s;}
+  .kpi.clickable:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(29,33,41,.08);}
+  .k-progress{height:6px; background:#eef1f5; border-radius:6px; margin-top:8px; overflow:hidden;}
+  .k-progress i{display:block; height:100%; background:linear-gradient(90deg,#00b42a,#23d160); border-radius:6px; transition:width .4s;}
+
+  /* ===== 新增表单 ===== */
+  .add-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:14px; overflow:hidden;}
+  .add-head{padding:12px 16px; font-size:14px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; user-select:none;}
+  .add-head .arrow{transition:transform .2s; font-size:11px; color:var(--sub);}
+  .add-card.open .add-head .arrow{transform:rotate(90deg);}
+  .add-form{display:none; padding:0 16px 16px; border-top:1px solid var(--line); padding-top:14px;}
+  .add-card.open .add-form{display:block;}
+  .form-grid{display:grid; grid-template-columns:1fr 1fr 2fr 2fr auto; gap:10px;}
+  @media (max-width:860px){ .form-grid{grid-template-columns:1fr 1fr;} }
+  .form-grid label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--sub);}
+  .form-grid input, .form-grid select{
+    border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-size:13px;
+    font-family:inherit; background:#fff; color:var(--text); outline:none;
+  }
+  .form-grid input:focus, .form-grid select:focus{border-color:var(--blue); box-shadow:0 0 0 3px var(--blue-bg);}
+  .form-grid .f-submit{align-self:flex-end;}
+
+  /* ===== 工具栏 ===== */
+  .toolbar{display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;}
+  .toolbar .filter{
+    border:1px solid var(--border); border-radius:8px; padding:5px 10px; font-size:13px; background:#fff;
+    outline:none; cursor:pointer;
+  }
+  .dd{position:relative; display:inline-block;}
+  .dd .filter.on{border-color:var(--blue); color:var(--blue); background:#f0f6ff;}
+  .dd-menu{
+    display:none; position:absolute; top:calc(100% + 6px); left:0; z-index:50;
+    background:#fff; border:1px solid var(--border); border-radius:10px;
+    box-shadow:0 8px 24px rgba(0,0,0,.12); padding:8px; min-width:150px;
+  }
+  .dd-menu.open{display:block;}
+  .dd-item{
+    display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:7px;
+    font-size:13px; cursor:pointer; user-select:none; white-space:nowrap;
+  }
+  .dd-item:hover{background:#f5f7fa;}
+  .dd-item input{cursor:pointer; accent-color:var(--blue);}
+  .dd-actions{display:flex; gap:8px; margin-top:6px; padding-top:8px; border-top:1px solid var(--border);}
+  .dd-actions .btn{flex:1;}
+  .toolbar .search{
+    border:1px solid var(--border); border-radius:8px; padding:6px 10px; font-size:13px; background:#fff;
+    outline:none; width:200px; max-width:100%;
+  }
+  .toolbar .search:focus{border-color:var(--blue);}
+  .toolbar .spacer{flex:1;}
+
+  /* ===== 表格 ===== */
+  .panel.todo-panel{margin-bottom:16px;}
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{
+    text-align:left; padding:9px 12px; background:#f8f9fb; color:var(--sub); font-size:12px;
+    font-weight:600; border-bottom:1px solid var(--line); white-space:nowrap;
+  }
+  td{padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.5;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#fafbfd;}
+  td.cb{width:36px; text-align:center;}
+  td.act{width:108px; text-align:right; white-space:nowrap;}
+  td.due{width:104px; white-space:nowrap; font-size:12.5px; color:#3c4a63;}
+  .due-badge{display:inline-block; padding:2px 8px; border-radius:20px; font-weight:600; font-size:11.5px; background:#f0f2f6; color:#55617a;}
+  .due-badge.today{background:var(--orange-bg); color:#b06a1c;}
+  .due-badge.overdue{background:var(--red-bg); color:var(--red);}
+  .due-badge.none{background:transparent; color:#a5adbb; font-weight:400;}
+  .done-row .due-badge{opacity:.55;}
+  .chk{width:18px; height:18px; accent-color:var(--green); cursor:pointer; vertical-align:middle;}
+  .badge{display:inline-block; padding:2px 9px; border-radius:20px; font-size:11px; font-weight:600; white-space:nowrap;}
+  .b-sec{background:var(--blue-bg); color:var(--blue);}
+  .b-sec.ka{background:var(--teal-bg); color:var(--teal);}
+  .b-type{background:#f0f2f6; color:#55617a;}
+  .b-type.do{background:var(--orange-bg); color:#b06a1c;}
+  .b-type.think{background:var(--green-bg); color:#117a34;}
+  .title-txt{font-weight:600;}
+  .note-txt{color:var(--sub); font-size:12.5px;}
+  .hot-tag{color:var(--red); font-weight:700; font-size:12px;}
+  .done-row .title-txt{text-decoration:line-through; color:#9aa3b2;}
+  .done-row .note-txt{color:#b4bcc9; text-decoration:line-through;}
+  .done-row .badge{opacity:.6;}
+  .empty{text-align:center; color:var(--sub); padding:34px 10px; font-size:13px;}
+
+  /* 行内编辑 */
+  .edit-inline input, .edit-inline select{
+    border:1px solid var(--blue); border-radius:6px; padding:4px 7px; font-size:13px;
+    width:100%; min-width:120px; outline:none; font-family:inherit;
+  }
+
+  /* ===== 吸底导航 ===== */
+  .bottom-nav{
+    position:fixed; left:50%; bottom:14px; transform:translateX(-50%);
+    background:rgba(255,255,255,.92); backdrop-filter:blur(10px);
+    border:1px solid var(--border); border-radius:16px; box-shadow:0 8px 28px rgba(29,33,41,.14);
+    display:flex; padding:5px; gap:2px; z-index:90; max-width:calc(100vw - 24px);
+  }
+  .bottom-nav a{
+    display:flex; align-items:center; gap:4px; text-decoration:none;
+    color:var(--sub); font-size:12.5px; font-weight:600;
+    padding:7px 13px; border-radius:11px; transition:all .15s; white-space:nowrap;
+  }
+  .bottom-nav a:hover{color:var(--text); background:#f2f4f8;}
+  .bottom-nav a.active{background:var(--blue); color:#fff;}
+  .bottom-nav a.active.alert{background:var(--red);}
+
+  /* ===== 脚注 ===== */
+  .foot{font-size:12px; color:var(--sub); text-align:center; margin-top:10px; line-height:1.8;}
+
+  /* ===== 首次使用引导 ===== */
+  .onboard{background:var(--card); border:1px solid #bfd9ff; border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; margin-bottom:14px;}
+  .onboard .ob-title{font-size:15px; font-weight:700; margin-bottom:8px;}
+  .onboard .ob-body{font-size:13px; color:#3c4a63; line-height:1.95;}
+  .onboard .ob-steps{margin:6px 0; padding:10px 14px; background:#f7faff; border-radius:10px; display:flex; flex-direction:column; gap:4px;}
+  .onboard .ob-actions{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;}
+
+  /* toast */
+  #toast{
+    position:fixed; left:50%; bottom:78px; transform:translateX(-50%) translateY(20px);
+    background:#1d2129; color:#fff; padding:10px 18px; border-radius:10px; font-size:13px;
+    opacity:0; pointer-events:none; transition:all .25s; z-index:99; box-shadow:0 6px 20px rgba(0,0,0,.2);
+  }
+  #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* 确认弹窗 */
+  .mask{position:fixed; inset:0; background:rgba(15,20,35,.4); display:none; align-items:center; justify-content:center; z-index:98; padding:20px;}
+  .mask.show{display:flex;}
+  .dialog{background:#fff; border-radius:14px; padding:22px; width:360px; max-width:100%; box-shadow:0 20px 50px rgba(0,0,0,.2);}
+  .dialog h3{font-size:15px; margin-bottom:10px;}
+  .dialog p{font-size:13px; color:var(--sub); line-height:1.7; margin-bottom:16px;}
+  .dialog .d-actions{display:flex; justify-content:flex-end; gap:8px;}
+  .dialog textarea{width:100%; box-sizing:border-box; border:1px solid #d9dee8; border-radius:8px; padding:8px 10px; font-size:13px; font-family:inherit; resize:vertical; min-height:64px; margin-bottom:6px; outline:none;}
+  .dialog textarea:focus{border-color:var(--blue);}
+  .dialog .dn-meta{font-size:12px; color:var(--sub); margin-bottom:12px;}
+  .dialog .new-field{display:block; margin:0 0 10px; font-size:12px; color:var(--sub);}
+  .dialog .new-field input, .dialog .new-field select{display:block; width:100%; box-sizing:border-box; margin-top:4px; border:1px solid #d9dee8; border-radius:8px; padding:8px 10px; font-size:13px; font-family:inherit; outline:none; background:#fff;}
+  .dialog .new-field input:focus, .dialog .new-field select:focus{border-color:var(--blue);}
+  .dialog .new-field textarea{margin-top:4px; min-height:58px;}
+  .done-note{margin-top:4px; font-size:12px; color:#0a8f4e; background:#e8f7ef; border-radius:6px; padding:3px 8px; display:inline-block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== 顶部品牌区 ===== -->
+  <div class="header">
+    <div class="brand">
+      <span class="logo">袋</span>
+      <div>
+        <h1>Selina 工作台 · 待办事项</h1>
+        <div class="sub-title">
+          <span class="tag">市场运营部</span>
+          <span id="meta">加载中…</span>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="exportJSON()">⬇ 导出备份</button>
+      <button class="btn" onclick="document.getElementById('importFile').click()">⬆ 导入</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+      <button class="btn danger" onclick="askReset()">重置</button>
+    </div>
+  </div>
+
+  <!-- 更新横幅 -->
+  <div class="banner" id="banner">
+    <span id="bannerText"></span>
+    <div class="b-actions">
+      <button class="btn" style="background:#fff; border-color:#e8cfa8;" onclick="dismissUpdate()">暂不</button>
+      <button class="btn primary" onclick="applyUpdate()">应用更新</button>
+    </div>
+  </div>
+
+  <!-- ===== 首次使用引导 ===== -->
+  <div class="onboard" id="onboard" style="display:none">
+    <div class="ob-title">👋 欢迎使用待办工作台</div>
+    <div class="ob-body">
+      数据保存在<b>当前浏览器</b>里（不上传服务器），手机和电脑各存一份。<br>
+      <b>首次使用二选一：</b>
+      <div class="ob-steps">
+        <div>① <b>有历史备份</b> —— 点「⬆ 导入我的备份」，选择之前导出的 JSON 文件，数据原样恢复</div>
+        <div>② <b>全新开始</b> —— 直接点「＋ 新增待办」，记录第一条</div>
+      </div>
+      换设备时：旧设备「⬇ 导出备份」→ 新设备「⬆ 导入」即可迁移。
+    </div>
+    <div class="ob-actions">
+      <button class="btn primary" onclick="document.getElementById('importFile').click()">⬆ 导入我的备份</button>
+      <button class="btn" onclick="dismissOnboard(true)">全新开始</button>
+    </div>
+  </div>
+
+  <!-- ===== 一、今日预警 ===== -->
+  <div class="sec-head" id="secAlert">
+    <span class="no">一</span><h2>⚡ 今日预警</h2><span class="hint">逾期与今日到期事项，点击可直接定位处理</span>
+  </div>
+  <div class="panel" id="alertPanel">
+    <div id="alertBody"></div>
+  </div>
+
+  <!-- ===== 二、总览看板 ===== -->
+  <div class="sec-head" id="secOverview">
+    <span class="no">二</span><h2>📊 总览看板</h2><span class="hint">点击「已逾期 / 今日到期」可快捷筛选下方列表</span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi" style="--kc:#2f6ffb">
+      <div class="k-lbl">⏳ 进行中</div>
+      <div class="k-num" id="stPending">0</div>
+      <div class="k-sub">待处理事项</div>
+    </div>
+    <div class="kpi clickable" style="--kc:#e34d59" onclick="quickDue('overdue')" title="点击筛选：已逾期">
+      <div class="k-lbl">🔴 已逾期</div>
+      <div class="k-num" id="stOverdue">0</div>
+      <div class="k-sub">需优先处理</div>
+    </div>
+    <div class="kpi clickable" style="--kc:#ff7d00" onclick="quickDue('today')" title="点击筛选：今日到期">
+      <div class="k-lbl">🟠 今日到期</div>
+      <div class="k-num" id="stToday">0</div>
+      <div class="k-sub">今天要完成</div>
+    </div>
+    <div class="kpi" style="--kc:#0fb5a6">
+      <div class="k-lbl">📅 本周到期</div>
+      <div class="k-num" id="stWeek">0</div>
+      <div class="k-sub">周日之前</div>
+    </div>
+    <div class="kpi" style="--kc:#00b42a">
+      <div class="k-lbl">✅ 已完成</div>
+      <div class="k-num" id="stDone">0</div>
+      <div class="k-sub">累计完成</div>
+    </div>
+    <div class="kpi" style="--kc:#1d2129">
+      <div class="k-lbl">📈 完成率</div>
+      <div class="k-num" id="stRate">0%</div>
+      <div class="k-progress"><i id="stRateBar" style="width:0%"></i></div>
+    </div>
+  </div>
+
+  <!-- ===== 三、待办明细 ===== -->
+  <div class="sec-head" id="secTodo">
+    <span class="no">三</span><h2>📝 待办明细</h2><span class="hint">勾选即完成，可随时取消</span>
+  </div>
+
+  <div class="add-card" id="addCard">
+    <div class="add-head" onclick="document.getElementById('addCard').classList.toggle('open')">
+      <span class="arrow">▶</span> ＋ 新增待办
+    </div>
+    <div class="add-form">
+      <div class="form-grid">
+        <label>板块
+          <input list="secList" id="fSec" placeholder="如：闪电仓" value="闪电仓">
+          <datalist id="secList">
+            <option value="闪电仓"><option value="市场部"><option value="线下渠道"><option value="经销商管理"><option value="高势能KA"><option value="其他">
+          </datalist>
+        </label>
+        <label>类型
+          <select id="fType">
+            <option value="需要做的">需要做的</option>
+            <option value="需要跟进的">需要跟进的</option>
+            <option value="需要思考的">需要思考的</option>
+          </select>
+        </label>
+        <label>事项
+          <input id="fTitle" placeholder="事项名称">
+        </label>
+        <label>重点 / 说明
+          <input id="fNote" placeholder="重点、进展、排期等">
+        </label>
+        <label>计划完成
+          <input type="date" id="fDue">
+        </label>
+        <div class="f-submit"><button class="btn primary" onclick="addItem()">添加</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <select class="filter" id="fSecFilter" onchange="render()">
+      <option value="">全部板块</option>
+      <option value="闪电仓">⚡️ 闪电仓</option>
+      <option value="市场部">📊 市场部</option>
+      <option value="线下渠道">🛒 线下渠道</option>
+      <option value="高势能KA">🏆 高势能KA</option>
+    </select>
+    <select class="filter" id="fTypeFilter" onchange="render()">
+      <option value="">全部类型</option>
+      <option value="需要做的">需要做的</option>
+      <option value="需要跟进的">需要跟进的</option>
+      <option value="需要思考的">需要思考的</option>
+    </select>
+    <span class="dd">
+      <button class="filter" id="fDueBtn" onclick="toggleDueMenu(event)">⏱ 全部时间 ▾</button>
+      <div class="dd-menu" id="fDueMenu">
+        <label class="dd-item"><input type="checkbox" value="overdue" onchange="onDueChange()">⏰ 已逾期</label>
+        <label class="dd-item"><input type="checkbox" value="today" onchange="onDueChange()">今天到期</label>
+        <label class="dd-item"><input type="checkbox" value="week" onchange="onDueChange()">本周到期</label>
+        <label class="dd-item"><input type="checkbox" value="month" onchange="onDueChange()">本月到期</label>
+        <label class="dd-item"><input type="checkbox" value="none" onchange="onDueChange()">未设置时间</label>
+        <div class="dd-actions">
+          <button class="btn sm" onclick="clearDue()">清空</button>
+        </div>
+      </div>
+    </span>
+    <input class="search" id="fSearch" placeholder="🔍 搜索事项…" oninput="render()">
+    <span class="spacer"></span>
+    <button class="btn sm" onclick="clearAllFilters()" style="display:none" id="btnClearFilter">✕ 清除筛选</button>
+  </div>
+
+  <div class="panel todo-panel">
+    <div class="panel-title">⏳ 进行中 <span class="count" id="pendingCount"></span></div>
+    <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr><th style="width:36px"></th><th>板块</th><th>类型</th><th>事项</th><th>重点 / 说明</th><th>计划完成</th><th style="text-align:right">操作</th></tr>
+      </thead>
+      <tbody id="tbPending"></tbody>
+    </table>
+    </div>
+    <div class="empty" id="emptyPending" style="display:none">🎉 没有进行中的事项，可以休息一下，或点上方「＋ 新增待办」</div>
+  </div>
+
+  <div class="sec-head" id="secDone">
+    <span class="no">四</span><h2>✅ 已完成</h2>
+  </div>
+  <div class="panel todo-panel">
+    <div class="panel-title">✅ 已完成 <span class="count" id="doneCount"></span></div>
+    <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr><th style="width:36px"></th><th>板块</th><th>类型</th><th>事项</th><th>重点 / 说明</th><th>计划完成</th><th style="text-align:right">操作</th></tr>
+      </thead>
+      <tbody id="tbDone"></tbody>
+    </table>
+    </div>
+    <div class="empty" id="emptyDone" style="display:none">暂无已完成事项</div>
+  </div>
+
+  <div class="foot">
+    数据保存在当前浏览器（localStorage），关闭页面不丢失，不上传服务器<br>
+    换手机 / 电脑 / 浏览器：旧设备「⬇ 导出备份」→ 新设备「⬆ 导入」即可迁移 · 页面更新后刷新即可
+  </div>
+</div>
+
+<!-- 吸底导航 -->
+<nav class="bottom-nav" id="bottomNav">
+  <a href="#secAlert" data-sec="secAlert">⚡预警</a>
+  <a href="#secOverview" data-sec="secOverview">📊总览</a>
+  <a href="#secTodo" data-sec="secTodo">📝待办</a>
+  <a href="#secDone" data-sec="secDone">✅已完成</a>
+</nav>
+
+<div id="toast"></div>
+
+<div class="mask" id="mask">
+  <div class="dialog">
+    <h3 id="dlgTitle">确认</h3>
+    <p id="dlgMsg"></p>
+    <div class="d-actions">
+      <button class="btn" onclick="closeDialog()">取消</button>
+      <button class="btn danger" id="dlgOk" onclick="dlgOk()">确认</button>
+    </div>
+  </div>
+</div>
+
+<div class="mask" id="doneMask">
+  <div class="dialog">
+    <h3>✅ 标记完成</h3>
+    <p id="dnTitle" style="font-weight:600;"></p>
+    <textarea id="dnNote" placeholder="完成备注（选填）：结果、进展、后续动作…"></textarea>
+    <div class="dn-meta" id="dnTime"></div>
+    <div class="d-actions">
+      <button class="btn" onclick="cancelDone()">取消</button>
+      <button class="btn primary" onclick="confirmDone()">确认完成</button>
+    </div>
+  </div>
+</div>
+
+<div class="mask" id="newAfterDoneMask">
+  <div class="dialog">
+    <h3>➕ 新增后续待办</h3>
+    <p>你刚刚完成的事项是否产生了新的后续待办？选择“是”后填写新事项。</p>
+    <div class="d-actions">
+      <button class="btn" onclick="skipNewAfterDone()">否，没有</button>
+      <button class="btn primary" onclick="openNewAfterDoneForm()">是，有新的</button>
+    </div>
+  </div>
+</div>
+
+<div class="mask" id="newAfterDoneFormMask">
+  <div class="dialog">
+    <h3>📝 填写新待办</h3>
+    <label class="new-field">板块
+      <input list="secList" id="nadSec" placeholder="如：闪电仓" value="闪电仓">
+    </label>
+    <label class="new-field">类型
+      <select id="nadType"><option value="需要做的">需要做的</option><option value="需要跟进的">需要跟进的</option><option value="需要思考的">需要思考的</option></select>
+    </label>
+    <label class="new-field">事项
+      <input id="nadTitle" placeholder="事项名称">
+    </label>
+    <label class="new-field">重点 / 说明
+      <textarea id="nadNote" placeholder="后续动作、重点、进展等"></textarea>
+    </label>
+    <label class="new-field">计划完成
+      <input type="date" id="nadDue">
+    </label>
+    <div class="d-actions">
+      <button class="btn" onclick="cancelNewAfterDone()">取消</button>
+      <button class="btn primary" onclick="saveNewAfterDone()">保存新待办</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ 初始数据（网页版不含业务数据；浏览器本地数据永远优先） ============ */
+const INITIAL_DATA = {
+  version: 15,
+  updatedAt: "2026-09-18 09:00",
+  items: []
+};
+
+const KEY = "selina_todo_list_v1";
+
+/* ============ 数据层 ============ */
+let DB = null;          // 当前生效数据
+let pendingUpdate = null; // 待应用的更新（内嵌比本地新）
+
+function load(){
+  let local = null;
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw) local = JSON.parse(raw);
+  }catch(e){}
+
+  if(local && Array.isArray(local.items) && local.version >= INITIAL_DATA.version){
+    DB = local;
+    if(local.version < INITIAL_DATA.version){
+      pendingUpdate = { oldVer: local.version, newVer: INITIAL_DATA.version };
+    }
+  }else if(local && Array.isArray(local.items)){
+    // 网页版：内嵌不含业务数据，本地数据永远优先，不出更新提示
+    DB = local;
+  }else{
+    DB = clone(INITIAL_DATA);
+    save();
+  }
+  render();
+  renderMeta();
+  renderBanner();
+}
+
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){}
+}
+
+/* ============ 首次使用引导 ============ */
+function updateOnboard(){
+  const ob = document.getElementById("onboard");
+  if(!ob) return;
+  let dismissed = false;
+  try{ dismissed = !!localStorage.getItem(KEY + "_onboarded"); }catch(e){}
+  ob.style.display = (DB.items.length === 0 && !dismissed) ? "block" : "none";
+}
+function dismissOnboard(startNew){
+  try{ localStorage.setItem(KEY + "_onboarded", "1"); }catch(e){}
+  const ob = document.getElementById("onboard");
+  if(ob) ob.style.display = "none";
+  if(startNew){
+    document.getElementById("addCard").classList.add("open");
+    document.getElementById("secTodo").scrollIntoView({behavior:"smooth"});
+    setTimeout(()=>{ const el = document.getElementById("fTitle"); if(el) el.focus(); }, 400);
+  }
+}
+
+function bumpVer(){
+  DB.version = INITIAL_DATA.version;
+  DB.updatedAt = INITIAL_DATA.updatedAt;
+  save();
+}
+
+/* ============ 渲染 ============ */
+function esc(s){
+  return String(s==null?"":s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+function fmtDate(){
+  const d = new Date();
+  const p = n => String(n).padStart(2,"0");
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes());
+}
+
+function todayStr(){
+  const t = new Date(); const p = n=>String(n).padStart(2,"0");
+  return t.getFullYear()+"-"+p(t.getMonth()+1)+"-"+p(t.getDate());
+}
+
+function renderMeta(){
+  const ver = (DB && DB.version!=null) ? DB.version : INITIAL_DATA.version;
+  document.getElementById("meta").textContent =
+    "更新于 " + (DB && DB.updatedAt ? DB.updatedAt : INITIAL_DATA.updatedAt) + " · v" + ver + " · " + fmtDate();
+}
+
+function renderBanner(){
+  const b = document.getElementById("banner");
+  if(pendingUpdate){
+    b.classList.add("show");
+    document.getElementById("bannerText").innerHTML =
+      "📢 检测到新的待办更新（v" + pendingUpdate.oldVer + " → v" + pendingUpdate.newVer + "）。应用后将覆盖本地的手动修改，建议先「导出备份」再应用。";
+  }else{
+    b.classList.remove("show");
+  }
+}
+
+/* ============ 时间多选筛选 ============ */
+const DUE_LABELS = { overdue:"⏰ 已逾期", today:"今天到期", week:"本周到期", month:"本月到期", none:"未设置时间" };
+function toggleDueMenu(e){
+  e.stopPropagation();
+  document.getElementById("fDueMenu").classList.toggle("open");
+}
+function getDueFilters(){
+  return Array.from(document.querySelectorAll("#fDueMenu input:checked")).map(x => x.value);
+}
+function updateDueBtn(){
+  const arr = getDueFilters();
+  const btn = document.getElementById("fDueBtn");
+  btn.textContent = arr.length ? "⏱ " + arr.map(v => DUE_LABELS[v]).join(" / ") + " ▾" : "⏱ 全部时间 ▾";
+  btn.classList.toggle("on", arr.length > 0);
+}
+function onDueChange(){ updateDueBtn(); render(); }
+function clearDue(){
+  document.querySelectorAll("#fDueMenu input").forEach(x => x.checked = false);
+  onDueChange();
+}
+/* KPI 快捷筛选：只勾选指定时间项并滚动到待办区 */
+function quickDue(kind){
+  document.querySelectorAll("#fDueMenu input").forEach(x => x.checked = (x.value === kind));
+  onDueChange();
+  document.getElementById("secTodo").scrollIntoView({behavior:"smooth"});
+}
+function clearAllFilters(){
+  document.getElementById("fSecFilter").value = "";
+  document.getElementById("fTypeFilter").value = "";
+  document.getElementById("fSearch").value = "";
+  clearDue();
+}
+document.addEventListener("click", e => {
+  const dd = e.target.closest(".dd");
+  if(!dd) document.getElementById("fDueMenu")?.classList.remove("open");
+});
+
+/* ============ 预警区 ============ */
+function renderAlert(){
+  const today = todayStr();
+  const pend = DB.items.filter(i => !i.done && i.due);
+  const overdue = pend.filter(i => i.due < today);
+  const todayDue = pend.filter(i => i.due === today);
+  const box = document.getElementById("alertBody");
+  const panel = document.getElementById("alertPanel");
+
+  if(!overdue.length && !todayDue.length){
+    panel.style.borderColor = "#bfe8cd";
+    box.innerHTML = "<div class='alert-ok'>✅ 今日无预警 —— 没有逾期事项，也没有今天到期的事项</div>";
+    return;
+  }
+  panel.style.borderColor = overdue.length ? "#f3c1c6" : "#f3d9b8";
+
+  let html = "";
+  if(overdue.length){
+    html += "<div class='alert-group'><div class='alert-gtitle red'>🔴 已逾期（" + overdue.length + "）</div>";
+    html += overdue.map(i =>
+      "<div class='alert-row' onclick=\"locateItem('" + i.id + "')\">" +
+        "<span class='badge b-sec'>" + esc(i.sec) + "</span>" +
+        "<span class='a-title'>" + esc(i.title) + "</span>" +
+        "<span class='a-note'>" + esc((i.note||"").replace(/<[^>]+>/g,"")) + "</span>" +
+        "<span class='a-due' style='color:var(--red)'>逾期 " + Math.max(0, Math.round((new Date(today) - new Date(i.due))/86400000)) + " 天 ⏰</span>" +
+      "</div>").join("");
+    html += "</div>";
+  }
+  if(todayDue.length){
+    html += "<div class='alert-group'><div class='alert-gtitle orange'>🟠 今日到期（" + todayDue.length + "）</div>";
+    html += todayDue.map(i =>
+      "<div class='alert-row' onclick=\"locateItem('" + i.id + "')\">" +
+        "<span class='badge b-sec'>" + esc(i.sec) + "</span>" +
+        "<span class='a-title'>" + esc(i.title) + "</span>" +
+        "<span class='a-note'>" + esc((i.note||"").replace(/<[^>]+>/g,"")) + "</span>" +
+        "<span class='a-due' style='color:var(--orange)'>今天</span>" +
+      "</div>").join("");
+    html += "</div>";
+  }
+  box.innerHTML = html;
+}
+/* 点击预警行 → 跳到待办区并高亮该行 */
+function locateItem(id){
+  document.getElementById("fSecFilter").value = "";
+  document.getElementById("fTypeFilter").value = "";
+  document.getElementById("fSearch").value = "";
+  clearDue();
+  document.getElementById("secTodo").scrollIntoView({behavior:"smooth"});
+  setTimeout(() => {
+    const cb = document.querySelector("input.chk[onchange*='" + id + "']");
+    if(cb){
+      const tr = cb.closest("tr");
+      if(tr){
+        tr.style.transition = "background .5s";
+        tr.style.background = "#fff7e8";
+        setTimeout(()=>{ tr.style.background = ""; }, 1600);
+      }
+    }
+  }, 350);
+}
+
+/* ============ 主渲染 ============ */
+function render(){
+  const secF = document.getElementById("fSecFilter").value;
+  const typeF = document.getElementById("fTypeFilter").value;
+  const dueArr = getDueFilters();
+  const kw = document.getElementById("fSearch").value.trim().toLowerCase();
+
+  const t = new Date(); const p = n=>String(n).padStart(2,"0");
+  const today = todayStr();
+  const weekEnd = new Date(t); weekEnd.setDate(t.getDate() + (7 - t.getDay()) % 7); // 本周日
+  const weekEndStr = weekEnd.getFullYear()+"-"+p(weekEnd.getMonth()+1)+"-"+p(weekEnd.getDate());
+  const monthEndStr = t.getFullYear()+"-"+p(t.getMonth()+1)+"-31";
+
+  let items = DB.items.slice();
+  if(secF) items = items.filter(i => i.sec === secF);
+  if(typeF) items = items.filter(i => i.type === typeF);
+  if(kw) items = items.filter(i =>
+    (i.title||"").toLowerCase().includes(kw) ||
+    (i.note||"").toLowerCase().includes(kw) ||
+    (i.sec||"").toLowerCase().includes(kw) ||
+    (i.type||"").toLowerCase().includes(kw)
+  );
+  if(dueArr.length){
+    const matchOne = (i, cond) => {
+      if(cond === "none") return !i.due;
+      if(!i.due) return false;
+      if(cond === "overdue") return !i.done && i.due < today;
+      if(cond === "today") return i.due === today;
+      if(cond === "week") return i.due >= today && i.due <= weekEndStr;
+      if(cond === "month") return i.due >= today && i.due <= monthEndStr && i.due.slice(0,7) === today.slice(0,7);
+      return true;
+    };
+    items = items.filter(i => dueArr.some(c => matchOne(i, c)));
+  }
+
+  const pend = items.filter(i => !i.done);
+  const done = items.filter(i => i.done);
+
+  /* KPI（不受筛选影响，看全量） */
+  const allPend = DB.items.filter(i=>!i.done);
+  const nOverdue = allPend.filter(i => i.due && i.due < today).length;
+  const nToday = allPend.filter(i => i.due === today).length;
+  const nWeek = allPend.filter(i => i.due && i.due >= today && i.due <= weekEndStr).length;
+  const nDone = DB.items.filter(i=>i.done).length;
+  const rate = DB.items.length ? Math.round(nDone / DB.items.length * 100) : 0;
+
+  document.getElementById("stPending").textContent = allPend.length;
+  document.getElementById("stOverdue").textContent = nOverdue;
+  document.getElementById("stToday").textContent = nToday;
+  document.getElementById("stWeek").textContent = nWeek;
+  document.getElementById("stDone").textContent = nDone;
+  document.getElementById("stRate").textContent = rate + "%";
+  document.getElementById("stRateBar").style.width = rate + "%";
+
+  document.getElementById("pendingCount").textContent = "(" + pend.length + ")";
+  document.getElementById("doneCount").textContent = "(" + done.length + ")";
+  document.getElementById("emptyPending").style.display = pend.length ? "none" : "block";
+  document.getElementById("emptyDone").style.display = done.length ? "none" : "block";
+
+  /* 筛选状态提示 */
+  const filtering = secF || typeF || dueArr.length || kw;
+  document.getElementById("btnClearFilter").style.display = filtering ? "inline-flex" : "none";
+
+  document.getElementById("tbPending").innerHTML = pend.map(row).join("");
+  document.getElementById("tbDone").innerHTML = done.map(row).join("");
+
+  renderAlert();
+  updateOnboard();
+}
+
+function fmtDue(i){
+  if(!i.due) return "<span class='due-badge none'>未设置</span>";
+  const ps = i.due.split("-");
+  const disp = parseInt(ps[1],10) + "/" + parseInt(ps[2],10);
+  let cls = "";
+  if(!i.done){
+    const today = todayStr();
+    if(i.due < today) cls = "overdue";
+    else if(i.due === today) cls = "today";
+  }
+  return "<span class='due-badge " + cls + "' title='" + esc(i.due) + "'>" + disp + (cls==="overdue" ? " ⏰" : "") + "</span>";
+}
+
+function row(i){
+  const secCls = (i.sec === "闪电仓" || i.sec === "线下渠道") ? "b-sec" : (i.sec === "高势能KA" ? "b-sec ka" : "");
+  const typeCls = i.type === "需要做的" ? "b-type do" : (i.type === "需要思考的" ? "b-type think" : "b-type");
+  return "<tr class='" + (i.done ? "done-row" : "") + "'>" +
+    "<td class='cb'><input type='checkbox' class='chk' " + (i.done ? "checked" : "") + " onchange='toggle(\"" + i.id + "\",this.checked)'></td>" +
+    "<td><span class='badge " + secCls + "'>" + esc(i.sec) + "</span></td>" +
+    "<td><span class='badge " + typeCls + "'>" + esc(i.type) + "</span></td>" +
+    "<td class='title-txt'>" + esc(i.title) + "</td>" +
+    "<td class='note-txt'>" + (i.note || "") +
+      (i.done && i.doneNote ? "<div class='done-note'>✅ " + esc(i.doneNote) + (i.doneAt ? " · " + esc(i.doneAt) : "") + "</div>" : "") +
+    "</td>" +
+    "<td class='due'>" + fmtDue(i) + "</td>" +
+    "<td class='act'>" +
+      "<button class='btn sm ghost' onclick='editItem(\"" + i.id + "\")'>✎</button>" +
+      "<button class='btn sm ghost' onclick='delItem(\"" + i.id + "\")'>🗑</button>" +
+    "</td></tr>";
+}
+
+/* ============ 操作 ============ */
+function toggle(id, checked){
+  const it = DB.items.find(x => x.id === id);
+  if(!it) return;
+  if(checked){
+    openDoneDialog(id);   // 勾选完成 → 先弹窗记录备注
+  }else{
+    it.done = false;      // 取消完成 → 直接恢复（备注保留，再完成时预填）
+    save(); render();
+  }
+}
+
+/* ---- 完成备注弹窗 ---- */
+let doneTarget = null;
+function nowStr(){
+  const t = new Date(); const p = n=>String(n).padStart(2,"0");
+  return (t.getMonth()+1) + "/" + t.getDate() + " " + p(t.getHours()) + ":" + p(t.getMinutes());
+}
+function openDoneDialog(id){
+  doneTarget = id;
+  const it = DB.items.find(x => x.id === id);
+  if(!it){ doneTarget = null; return; }
+  document.getElementById("dnTitle").textContent = it.title;
+  const ta = document.getElementById("dnNote");
+  ta.value = it.doneNote || "";
+  document.getElementById("dnTime").textContent = "完成时间：" + nowStr() + "（自动记录）";
+  document.getElementById("doneMask").classList.add("show");
+  setTimeout(()=>{ ta.focus(); }, 60);
+}
+function cancelDone(){
+  document.getElementById("doneMask").classList.remove("show");
+  doneTarget = null;
+  render(); // 恢复勾选框为未选中
+}
+function confirmDone(){
+  const it = DB.items.find(x => x.id === doneTarget);
+  if(!it) return;
+  it.done = true;
+  it.doneNote = document.getElementById("dnNote").value.trim();
+  it.doneAt = nowStr();
+  save();
+  document.getElementById("doneMask").classList.remove("show");
+  doneTarget = null;
+  render();
+  toast("已完成 ✅");
+  setTimeout(() => document.getElementById("newAfterDoneMask").classList.add("show"), 180);
+}
+
+/* ---- 完成后询问是否产生新待办 ---- */
+function skipNewAfterDone(){
+  document.getElementById("newAfterDoneMask").classList.remove("show");
+}
+function openNewAfterDoneForm(){
+  document.getElementById("newAfterDoneMask").classList.remove("show");
+  document.getElementById("nadSec").value = "闪电仓";
+  document.getElementById("nadType").value = "需要做的";
+  document.getElementById("nadTitle").value = "";
+  document.getElementById("nadNote").value = "";
+  document.getElementById("nadDue").value = "";
+  document.getElementById("newAfterDoneFormMask").classList.add("show");
+  setTimeout(()=>document.getElementById("nadTitle").focus(), 60);
+}
+function cancelNewAfterDone(){
+  document.getElementById("newAfterDoneFormMask").classList.remove("show");
+}
+function saveNewAfterDone(){
+  const sec = document.getElementById("nadSec").value.trim() || "其他";
+  const type = document.getElementById("nadType").value;
+  const title = document.getElementById("nadTitle").value.trim();
+  const note = document.getElementById("nadNote").value.trim();
+  const due = document.getElementById("nadDue").value || "";
+  if(!title){ toast("请填写「事项」名称"); return; }
+  DB.items.push({ id: uid(), sec, type, title, note, due, done:false });
+  save(); render();
+  document.getElementById("newAfterDoneFormMask").classList.remove("show");
+  toast("新待办已添加：" + title);
+}
+
+function addItem(){
+  const sec = document.getElementById("fSec").value.trim() || "其他";
+  const type = document.getElementById("fType").value;
+  const title = document.getElementById("fTitle").value.trim();
+  const note = document.getElementById("fNote").value.trim();
+  const due = document.getElementById("fDue").value || "";
+  if(!title){ toast("请填写「事项」名称"); return; }
+  DB.items.push({ id: uid(), sec, type, title, note, due, done:false });
+  save(); render();
+  document.getElementById("fTitle").value = "";
+  document.getElementById("fNote").value = "";
+  document.getElementById("fDue").value = "";
+  document.getElementById("addCard").classList.remove("open");
+  toast("已添加： " + title);
+}
+
+function delItem(id){
+  const it = DB.items.find(x => x.id === id);
+  ask("删除待办", "确定删除「" + (it ? it.title : "") + "」？删除后不可恢复。", () => {
+    DB.items = DB.items.filter(x => x.id !== id);
+    save(); render(); toast("已删除");
+  });
+}
+
+function editItem(id){
+  const it = DB.items.find(x => x.id === id);
+  if(!it) return;
+  const tr = event.target.closest("tr");
+  tr.innerHTML =
+    "<td class='cb'></td>" +
+    "<td><select class='edit-inline' id='eSec' style='min-width:90px'>" +
+      ["闪电仓","市场部","线下渠道","经销商管理","高势能KA","其他"].map(s => "<option " + (s===it.sec?"selected":"") + ">" + s + "</option>").join("") +
+    "</select></td>" +
+    "<td><select id='eType'>" +
+      ["需要做的","需要跟进的","需要思考的"].map(s => "<option " + (s===it.type?"selected":"") + ">" + s + "</option>").join("") +
+    "</select></td>" +
+    "<td><input id='eTitle' value='" + esc(it.title) + "'></td>" +
+    "<td><input id='eNote' value='" + esc(it.note||"") + "'></td>" +
+    "<td><input type='date' id='eDue' value='" + esc(it.due||"") + "' style='width:130px'></td>" +
+    "<td class='act'>" +
+      "<button class='btn sm primary' onclick='saveEdit(\"" + id + "\")'>保存</button>" +
+      "<button class='btn sm' onclick='render()'>取消</button>" +
+    "</td>";
+  setTimeout(()=>{ const el=document.getElementById("eTitle"); if(el) el.focus(); },0);
+}
+
+function saveEdit(id){
+  const it = DB.items.find(x => x.id === id);
+  if(!it) return;
+  const sec = document.getElementById("eSec").value;
+  const type = document.getElementById("eType").value;
+  const title = document.getElementById("eTitle").value.trim();
+  const note = document.getElementById("eNote").value.trim();
+  const due = document.getElementById("eDue").value || "";
+  if(!title){ toast("事项不能为空"); return; }
+  it.sec = sec; it.type = type; it.title = title; it.note = note; it.due = due;
+  save(); render(); toast("已保存");
+}
+
+/* ============ 导出 / 导入 ============ */
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(DB, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "待办事项备份_" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("备份已导出");
+}
+
+function importJSON(ev){
+  const f = ev.target.files[0];
+  if(!f) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try{
+      const data = JSON.parse(e.target.result);
+      if(!Array.isArray(data.items)) throw new Error("格式不对");
+      ask("导入待办", "导入将覆盖当前全部待办数据，确定继续？", () => {
+        DB = { version: data.version||1, updatedAt: data.updatedAt||fmtDate(), items: data.items };
+        save(); render(); renderMeta(); toast("导入成功");
+      });
+    }catch(err){
+      toast("导入失败：文件格式不正确");
+    }
+  };
+  reader.readAsText(f);
+  ev.target.value = "";
+}
+
+/* ============ 更新同步 ============ */
+function applyUpdate(){
+  DB = clone(INITIAL_DATA);
+  pendingUpdate = null;
+  save(); render(); renderMeta(); renderBanner();
+  toast("已应用最新待办更新");
+}
+
+function dismissUpdate(){
+  pendingUpdate = null;
+  // 记录已忽略，避免每次刷新都提示：将本地版本提升到与内嵌一致但保留本地数据
+  DB.version = INITIAL_DATA.version;
+  DB.updatedAt = INITIAL_DATA.updatedAt + "（忽略更新）";
+  save(); renderBanner(); renderMeta();
+  toast("已忽略本次更新");
+}
+
+/* ============ 重置 ============ */
+function askReset(){
+  ask("清空全部待办", "将清空当前全部待办（含已完成记录）。建议先「导出备份」。确定继续？", () => {
+    DB = clone(INITIAL_DATA);
+    pendingUpdate = null;
+    save(); render(); renderMeta(); renderBanner();
+    toast("已重置");
+  });
+}
+
+/* ============ 吸底导航滚动联动 ============ */
+const NAV_SECS = ["secAlert","secOverview","secTodo","secDone"];
+function updateNav(){
+  const pos = window.scrollY + 160;
+  let cur = NAV_SECS[0];
+  NAV_SECS.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && el.offsetTop <= pos) cur = id;
+  });
+  document.querySelectorAll("#bottomNav a").forEach(a => {
+    a.classList.toggle("active", a.dataset.sec === cur);
+    a.classList.toggle("alert", a.dataset.sec === "secAlert" && a.classList.contains("active"));
+  });
+  /* 有逾期时预警 tab 变红提醒 */
+  const navAlert = document.querySelector("#bottomNav a[data-sec='secAlert']");
+  const hasOverdue = document.getElementById("stOverdue").textContent !== "0";
+  if(navAlert && hasOverdue && !navAlert.classList.contains("active")) navAlert.classList.add("alert");
+}
+window.addEventListener("scroll", updateNav, {passive:true});
+
+/* ============ 通用 ============ */
+function uid(){ return "x" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+let dlgCb = null;
+function ask(title, msg, cb){
+  document.getElementById("dlgTitle").textContent = title;
+  document.getElementById("dlgMsg").textContent = msg;
+  dlgCb = cb;
+  document.getElementById("mask").classList.add("show");
+}
+function closeDialog(){ document.getElementById("mask").classList.remove("show"); dlgCb = null; }
+function dlgOk(){ const cb = dlgCb; closeDialog(); if(cb) cb(); }
+
+let toastTimer = null;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 2200);
+}
+
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape"){
+    closeDialog();
+    if(document.getElementById("doneMask").classList.contains("show")) cancelDone();
+    if(document.getElementById("newAfterDoneMask").classList.contains("show")) skipNewAfterDone();
+    if(document.getElementById("newAfterDoneFormMask").classList.contains("show")) cancelNewAfterDone();
+  }
+});
+document.getElementById("dnNote").addEventListener("keydown", e => {
+  if(e.key === "Enter" && (e.ctrlKey || e.metaKey)) confirmDone();
+});
+document.getElementById("nadNote").addEventListener("keydown", e => {
+  if(e.key === "Enter" && (e.ctrlKey || e.metaKey)) saveNewAfterDone();
+});
+load();
+updateNav();
+</script>
+</body>
+</html>
