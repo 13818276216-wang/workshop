@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Selina日程">
+<meta name="theme-color" content="#FFFCF9">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍭</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍭</text></svg>">
+<title>Selina的日程计划表 🍭</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  padding:18px 14px 70px;
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Noto Sans SC",sans-serif;
+  background:#FFFCF9;color:#4A3B52;position:relative;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(50px);z-index:0;pointer-events:none}
+body::before{width:440px;height:440px;background:#FFE6F1;top:-180px;left:-140px}
+body::after{width:480px;height:480px;background:#DFF6FF;bottom:-220px;right:-160px}
+.wrap{max-width:1180px;margin:0 auto;position:relative;z-index:1}
+
+/* ---------- 头部 ---------- */
+.hero{text-align:center;margin-bottom:16px}
+h1{font-size:26px;margin:4px 0 6px;font-weight:900;letter-spacing:1px}
+h1 em{
+  font-style:normal;
+  background:linear-gradient(92deg,#FF7EB3,#FFB86B 45%,#7FD3E8);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sub{font-size:13px;color:#B0A4B8;font-weight:600;margin:0}
+
+/* ---------- 进度面板 ---------- */
+.panel{
+  background:#fff;border-radius:24px;padding:14px 16px 15px;
+  box-shadow:0 8px 26px rgba(255,158,196,.16);border:2px solid #FFEFF6;
+  margin-bottom:16px;
+}
+.panel-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.panel-top .t{font-size:14px;font-weight:900;color:#4A3B52}
+.panel-top .n{font-size:12.5px;font-weight:800;color:#FF7EB3}
+.bar{height:15px;background:#FFF1F7;border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(255,158,196,.15)}
+.bar-in{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#FFB3D1,#FFD86B 55%,#A8E6A1);transition:width .45s cubic-bezier(.3,1.2,.5,1)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.btn{
+  border:none;border-radius:99px;padding:8px 15px;font-size:13px;font-weight:800;cursor:pointer;
+  background:#fff;color:#FF7EB3;border:2px solid #FFDCEC;box-shadow:0 3px 0 #FFEAF3;
+  transition:.12s;font-family:inherit;
+}
+.btn:hover{background:#FFF8FB}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.on{background:linear-gradient(135deg,#FF9EC4,#FF7EB3);color:#fff;border-color:#FF7EB3;box-shadow:0 3px 0 #FFC7DC}
+.btn.blue{color:#4AA8D8;border-color:#D8EEF9;box-shadow:0 3px 0 #E8F6FD}
+.btn.blue.on{background:linear-gradient(135deg,#8FD6F0,#5BB8DE);border-color:#5BB8DE;box-shadow:0 3px 0 #CBEAF8;color:#fff}
+
+/* ---------- 周标题 ---------- */
+.week-title{
+  display:flex;align-items:center;gap:9px;margin:24px 0 11px;
+  font-size:15px;font-weight:900;color:#9A8CA4;
+}
+.week-title::after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,#FFE3EE 0 9px,transparent 9px 18px)}
+
+/* ---------- 卡片网格 ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:14px}
+
+.card{
+  background:#fff;border-radius:24px;padding:13px 14px 11px;
+  border:2.5px solid #FFECF3;box-shadow:0 5px 0 #FFE9F1;
+  transition:.2s;position:relative;
+}
+.card.today{border-color:#FFB3D1;box-shadow:0 5px 0 #FFD1E2,0 0 0 5px #FFF4F9}
+.card.done-day{background:linear-gradient(180deg,#F6FFF7,#fff 60%);border-color:#B9EDBB;box-shadow:0 5px 0 #DCF6DC}
+
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.date-label{font-size:17px;font-weight:900;color:#4A3B52;line-height:1.15;display:flex;flex-direction:column;gap:1px}
+.date-label .dm{display:block}
+.date-label .wk{display:block;font-size:10.5px;font-weight:800;color:#B6AABC;letter-spacing:.7px}
+.today-badge{
+  font-size:10.5px;background:linear-gradient(135deg,#FF9EC4,#FF7EB3);color:#fff;
+  padding:2px 8px;border-radius:99px;font-weight:900;letter-spacing:.5px;
+}
+.prog{margin-left:auto;font-size:12px;color:#C0B5C6;font-weight:900;letter-spacing:.5px}
+
+.daycheck{
+  width:38px;height:38px;border-radius:50%;flex:0 0 auto;
+  border:2.5px dashed #FFC7DC;background:#FFF8FB;color:#FFC7DC;
+  font-size:19px;font-weight:900;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:center;font-family:inherit;
+  margin-left:6px;
+}
+.daycheck:active{transform:scale(.92)}
+.daycheck.on{
+  background:linear-gradient(135deg,#7BD97B,#4FC24F);border:2.5px solid #4FC24F;
+  color:#fff;box-shadow:0 0 0 4px #E8FBE8;
+}
+.daycheck.ready{animation:pulse 1.15s ease-in-out infinite}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,158,196,.55)}
+  50%{box-shadow:0 0 0 9px rgba(255,158,196,0)}
+}
+
+.sec{font-size:12px;font-weight:900;color:#B4A7BC;margin:9px 0 4px;letter-spacing:.6px}
+
+/* ---------- 每一行 ---------- */
+.row{
+  display:grid;grid-template-columns:26px 74px 1fr 26px;gap:7px;
+  align-items:center;padding:4px 3px;border-radius:12px;transition:.15s;
+}
+.row:hover{background:#FFFAFC}
+
+.cb{position:relative;width:26px;height:26px;display:block;flex:0 0 auto}
+.cb input{position:absolute;inset:0;opacity:0;margin:0;width:100%;height:100%;cursor:pointer;z-index:2}
+.cb i{
+  display:block;width:100%;height:100%;border-radius:9px;
+  border:2.5px solid #FFD9E7;background:#fff;transition:.15s;position:relative;
+}
+.cb i::after{
+  content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:900;color:#fff;opacity:0;transform:scale(.3);transition:.15s;
+}
+.cb input:checked + i{background:linear-gradient(135deg,#FF9EC4,#FF6FA9);border-color:#FF6FA9;transform:scale(1.06)}
+.cb input:checked + i::after{opacity:1;transform:scale(1)}
+
+.tag{
+  font-size:11.5px;font-weight:900;padding:4px 1px;text-align:center;
+  border-radius:9px;white-space:nowrap;letter-spacing:0;
+}
+.tag.c-pink{background:#FFF0F6;color:#FF7EB3}
+.tag.c-blue{background:#E7F6FF;color:#4AA8D8}
+.tag.c-yellow{background:#FFF7DA;color:#D9A01A}
+.tag.c-purple{background:#F2EDFF;color:#8B6BE0}
+.tag.c-green{background:#EAFBEA;color:#4FAE4F}
+.tag.c-orange{background:#FFF1E4;color:#E28A2B}
+.tag.c-teal{background:#E3F8F6;color:#2FA79B}
+.tag.c-indigo{background:#EDEFFF;color:#5C6BD6}
+
+.txt{
+  border:none;border-bottom:2px dotted #F0E5EE;background:transparent;
+  font-family:inherit;font-size:13.5px;color:#4A3B52;padding:4px 2px;
+  width:100%;outline:none;border-radius:0;
+}
+.txt::placeholder{color:#DCD1E1;font-weight:600}
+.txt:focus{border-bottom-color:#FF9EC4;background:#FFF8FB;border-radius:6px}
+
+.row.done .txt{text-decoration:line-through;color:#C6BCCB}
+.row.must .txt{font-weight:800;color:#5B4A64}
+.row.must .txt::placeholder{font-weight:600}
+.row.done .tag{opacity:.55}
+.row.out .cb input:checked + i{background:linear-gradient(135deg,#9BE39B,#49BE49);border-color:#49BE49}
+.row.home .cb input:checked + i{background:linear-gradient(135deg,#FFC46B,#FFA92E);border-color:#FFA92E}
+
+/* ---------- 无作业 ---------- */
+.na{
+  width:24px;height:24px;border-radius:8px;border:1.5px solid #EDE6F0;background:#fff;
+  color:#CFC4D6;font-size:10.5px;font-weight:900;cursor:pointer;padding:0;font-family:inherit;
+  display:flex;align-items:center;justify-content:center;line-height:1;transition:.15s;
+}
+.na:hover{border-color:#D6C9DE;color:#A293AC;background:#FBFAFC}
+.na:active{transform:scale(.9)}
+.na.on{background:#E7E1EC;border-color:#C9BDD2;color:#7E7188;box-shadow:inset 0 1px 2px rgba(0,0,0,.06)}
+
+.row.na .cb i{border-style:solid;border-color:#E6E0EA;background:#F8F6F9}
+.row.na .cb i::after{content:"–";color:#B5AABE;opacity:1;transform:scale(1);font-size:14px}
+.row.na .tag{opacity:.38}
+.row.na .txt{opacity:.42;text-decoration:line-through;color:#B5AABE}
+
+/* ---------- 奖励格 ---------- */
+.extras{
+  display:flex;align-items:center;gap:8px;margin-top:9px;padding-top:9px;
+  border-top:2px dashed #F4EAF2;
+}
+.extras .lbl{font-size:11px;color:#CBC0D1;font-weight:900;letter-spacing:.3px}
+.extra{
+  width:24px;height:24px;border-radius:8px;border:2.5px dashed #EBE0EE;
+  background:#FDFBFE;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;color:#fff;transition:.15s;padding:0;font-family:inherit;
+}
+.extra:active{transform:scale(.9)}
+.extra.on{background:linear-gradient(135deg,#FFD86B,#FFB23F);border:2.5px solid #FFB23F;transform:rotate(-6deg) scale(1.05)}
+
+/* ---------- 底部 ---------- */
+footer{
+  text-align:center;font-size:12.5px;color:#C7BCCD;font-weight:700;
+  margin-top:34px;line-height:2;
+}
+
+@media(max-width:400px){
+  body{padding:14px 10px 60px}
+  h1{font-size:22px}
+  .row{grid-template-columns:26px 68px 1fr 24px;gap:5px}
+  .txt{font-size:13px}
+}
+
+@media print{
+  body{background:#fff;padding:0}
+  body::before,body::after{display:none}
+  .toolbar{display:none}
+  .card{break-inside:avoid;box-shadow:none}
+  .daycheck.ready{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>🍭 <em>Selina的日程计划表</em> 🌈</h1>
+    <p class="sub">10月18日 — 11月30日 · 课内 3 项 + 课外 5 项 · 做完就打勾勾 ✔</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-top">
+      <div class="t">🌟 Selina 的打卡进度</div>
+      <div class="n" id="sumText">0 / 0</div>
+    </div>
+    <div class="bar"><div class="bar-in" id="barIn"></div></div>
+    <div class="toolbar">
+      <button class="btn on" id="fAll">📖 看全部</button>
+      <button class="btn" id="fWeek">📅 只看本周</button>
+      <button class="btn blue" id="goToday">🎯 回到今天</button>
+      <button class="btn blue" id="printBtn">🖨️ 打印</button>
+    </div>
+  </div>
+
+  <main id="app"></main>
+
+  <footer>
+    ✏️ 内容可以直接在上面写字，写完打个勾就好啦～<br>
+    🌙 某项今天没作业？点最右边的「无」，这项就不算进总进度啦<br>
+    🔒 每天固定打卡（文字已写好，直接打勾就行）：🦉 多邻国 · 🎓 剑桥英语 · 📚 阅读打卡
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var START = new Date(2026, 9, 18);   // 10月18日
+  var END   = new Date(2026, 10, 30);  // 11月30日
+  var KEY   = "xiaopengyou-plan-2026autumn";
+
+  var GROUPS = [
+    { t:"🏫 课内作业（学校）", c:"", items:[
+      { k:"in0",   n:"语文",     i:"📖", c:"c-pink"   },
+      { k:"in1",   n:"数学",     i:"🔢", c:"c-blue"   },
+      { k:"in2",   n:"英语",     i:"🔤", c:"c-yellow" }
+    ]},
+    { t:"🎒 课外作业", c:"out", items:[
+      { k:"out0",  n:"多邻国",   i:"🦉", c:"c-green",  d:"多邻国打卡"   },
+      { k:"out1",  n:"剑桥英语", i:"🎓", c:"c-purple", d:"剑桥英语打卡" },
+      { k:"out4",  n:"剑桥作业", i:"📘", c:"c-indigo" },
+      { k:"out2",  n:"课外数学", i:"🎯", c:"c-orange" },
+      { k:"out3",  n:"阅读打卡", i:"📚", c:"c-teal",   d:"阅读打卡"     }
+    ]}
+  ];
+  var ALL_ITEMS = [];
+  GROUPS.forEach(function(g){
+    g.items.forEach(function(it){ it.g = g.c; ALL_ITEMS.push(it); });
+  });
+
+  var WK = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ state = {}; }
+
+  // 旧数据升级：家庭作业组的「阅读打卡」并入课外作业，并补全固定打卡项文字
+  var STATE_VER = 3;
+  if (state.__v !== STATE_VER) {
+    Object.keys(state).forEach(function(k){
+      if (k === "__v") return;
+      var s0 = state[k];
+      if (!s0 || !s0.i) return;
+      if (s0.i.home0) {
+        var f = s0.i.home0;
+        if (!s0.i.out3) s0.i.out3 = { t:(f.t || "阅读打卡"), m:(f.m || ""), c:!!f.c };
+        else {
+          if (!s0.i.out3.t) s0.i.out3.t = f.t || "阅读打卡";
+          if (!s0.i.out3.c) s0.i.out3.c = !!f.c;
+        }
+        delete s0.i.home0;
+      }
+      delete s0.i.home1;
+      ALL_ITEMS.forEach(function(it){
+        if (it.d && s0.i[it.k] && !s0.i[it.k].t) s0.i[it.k].t = it.d;
+      });
+    });
+    state.__v = STATE_VER;
+    save();
+  }
+
+  function ds(d){
+    return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  }
+  var TODAY = ds(new Date());
+
+  // 生成日期列表
+  var days = [];
+  for (var d = new Date(START.getTime()); d <= END; d.setDate(d.getDate()+1)) {
+    days.push(new Date(d.getTime()));
+  }
+
+  // 每周分组
+  var weeks = [];
+  days.forEach(function(dt, idx){
+    var w = Math.floor(idx/7);
+    if (!weeks[w]) weeks[w] = [];
+    weeks[w].push(dt);
+  });
+
+  function dayState(dk){
+    if (!state[dk]) state[dk] = { i:{}, ex:[false,false,false], day:false };
+    var s = state[dk];
+    if (!s.i) s.i = {};
+    ALL_ITEMS.forEach(function(it){
+      if (!s.i[it.k]) s.i[it.k] = { t:(it.d || ""), m:"", c:false, na:false };
+      if (typeof s.i[it.k].m === "undefined") s.i[it.k].m = "";
+      if (typeof s.i[it.k].t === "undefined") s.i[it.k].t = (it.d || "");
+      if (typeof s.i[it.k].na === "undefined") s.i[it.k].na = false;
+    });
+    if (!Array.isArray(s.ex) || s.ex.length !== 3) s.ex = [false,false,false];
+    if (typeof s.day !== "boolean") s.day = false;
+    return s;
+  }
+
+  var saveTimer = null;
+  function save(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+    }, 120);
+  }
+
+  function esc(str){
+    return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function rowHTML(dk, it){
+    var s = dayState(dk);
+    var v = s.i[it.k];
+    return '<div class="row' + (it.g ? " " + it.g : "") + (it.d ? " must" : "") + (v.c ? " done" : "") + (v.na ? " na" : "") + '">' +
+      '<label class="cb"><input type="checkbox" data-date="' + dk + '" data-k="' + it.k + '"' + (v.c ? " checked" : "") + '><i></i></label>' +
+      '<div class="tag ' + it.c + '">' + it.i + it.n + '</div>' +
+      '<input class="txt" data-date="' + dk + '" data-k="' + it.k + '" data-f="t" placeholder="今天要写什么呀…" value="' + esc(v.t) + '">' +
+      '<button class="na' + (v.na ? " on" : "") + '" data-date="' + dk + '" data-k="' + it.k + '" title="今天这项没有作业，点一下标记为无作业">无</button>' +
+    '</div>';
+  }
+
+  function cardHTML(dt){
+    var dk = ds(dt);
+    var s = dayState(dk);
+    var isToday = (dk === TODAY);
+    var need = ALL_ITEMS.filter(function(it){ return !s.i[it.k].na; });
+    var done = need.filter(function(it){ return s.i[it.k].c; }).length;
+    var allNa = (need.length === 0);
+
+    var ex = "";
+    for (var i=0;i<3;i++){
+      ex += '<button class="extra' + (s.ex[i] ? " on" : "") + '" data-date="' + dk + '" data-idx="' + i + '">' + (s.ex[i] ? "✓" : "") + '</button>';
+    }
+
+    return '<div class="card' + (isToday ? " today" : "") + (s.day ? " done-day" : "") + '" data-date="' + dk + '">' +
+      '<div class="card-top">' +
+        '<div class="date-label"><span class="dm">' + (dt.getMonth()+1) + '月' + dt.getDate() + '日</span><span class="wk">' + WK[dt.getDay()] + '</span></div>' +
+        (isToday ? '<span class="today-badge">今天</span>' : '') +
+        '<span class="prog">' + (allNa ? "无作业" : done + '/' + need.length) + '</span>' +
+        '<button class="daycheck' + (s.day ? " on" : "") + (done === need.length && !s.day ? " ready" : "") + '" data-date="' + dk + '" title="今天全部完成啦">✓</button>' +
+      '</div>' +
+      GROUPS.map(function(g){
+        return '<div class="sec">' + g.t + '</div>' +
+          g.items.map(function(it){ return rowHTML(dk, it); }).join("");
+      }).join("") +
+      '<div class="extras"><span class="lbl">奖励勾勾</span>' + ex + '</div>' +
+    '</div>';
+  }
+
+  function weekTitleHTML(list){
+    var a = list[0], b = list[list.length-1];
+    return '<div class="week-title">第' + (weeks.indexOf(list)+1) + '周 · ' + (a.getMonth()+1) + '月' + a.getDate() + '日 — ' + (b.getMonth()+1) + '月' + b.getDate() + '日</div>';
+  }
+
+  var filter = "all";
+  var app = document.getElementById("app");
+
+  function render(){
+    var html = "";
+    weeks.forEach(function(list, w){
+      if (filter !== "all" && filter !== w) return;
+      html += weekTitleHTML(list) + '<div class="grid">' + list.map(cardHTML).join("") + '</div>';
+    });
+    app.innerHTML = html;
+    updateSummary();
+  }
+
+  function updateSummary(){
+    var total = 0, done = 0, naCount = 0;
+    days.forEach(function(dt){
+      var s = dayState(ds(dt));
+      ALL_ITEMS.forEach(function(it){
+        var v = s.i[it.k];
+        if (v.na){ naCount++; return; }
+        total++;
+        if (v.c) done++;
+      });
+    });
+    var pct = total ? Math.round(done/total*100) : 0;
+    document.getElementById("barIn").style.width = pct + "%";
+    document.getElementById("sumText").textContent =
+      done + " / " + total + " 项（" + pct + "%）" +
+      (naCount ? " · 无作业 " + naCount + " 项" : "") +
+      (pct >= 100 ? " 🎉" : "");
+  }
+
+  function updateCard(dk){
+    var card = app.querySelector('.card[data-date="' + dk + '"]');
+    if (!card) return;
+    var s = dayState(dk);
+    var need = ALL_ITEMS.filter(function(it){ return !s.i[it.k].na; });
+    var done = need.filter(function(it){ return s.i[it.k].c; }).length;
+    card.querySelector(".prog").textContent = (need.length === 0) ? "无作业" : done + "/" + need.length;
+    var btn = card.querySelector(".daycheck");
+    btn.classList.toggle("ready", done === need.length && !s.day);
+    btn.classList.toggle("on", !!s.day);
+    card.classList.toggle("done-day", !!s.day);
+  }
+
+  /* 输入内容 */
+  app.addEventListener("input", function(e){
+    var el = e.target;
+    if (!el.dataset || !el.dataset.date || !el.dataset.f) return;
+    var s = dayState(el.dataset.date);
+    s.i[el.dataset.k][el.dataset.f] = el.value;
+    save();
+  });
+
+  /* 勾选作业 */
+  app.addEventListener("change", function(e){
+    var el = e.target;
+    if (el.type !== "checkbox" || !el.dataset.date) return;
+    var s = dayState(el.dataset.date);
+    s.i[el.dataset.k].c = el.checked;
+    var row = el.closest(".row");
+    if (el.checked && s.i[el.dataset.k].na){
+      s.i[el.dataset.k].na = false;
+      if (row){
+        row.classList.remove("na");
+        var nb = row.querySelector(".na");
+        if (nb) nb.classList.remove("on");
+      }
+    }
+    if (row) row.classList.toggle("done", el.checked);
+    updateCard(el.dataset.date);
+    updateSummary();
+    save();
+  });
+
+  /* 点击：每日打卡 / 奖励格 */
+  app.addEventListener("click", function(e){
+    var btn = e.target.closest(".daycheck");
+    if (btn){
+      var dk = btn.dataset.date;
+      var s = dayState(dk);
+      s.day = !s.day;
+      updateCard(dk);
+      save();
+      return;
+    }
+    var naBtn = e.target.closest(".na");
+    if (naBtn){
+      var dk0 = naBtn.dataset.date;
+      var s1 = dayState(dk0);
+      var it1 = s1.i[naBtn.dataset.k];
+      it1.na = !it1.na;
+      if (it1.na) it1.c = false;
+      var row1 = naBtn.closest(".row");
+      if (row1){
+        row1.classList.toggle("na", it1.na);
+        if (it1.na) row1.classList.remove("done");
+        var cbf = row1.querySelector('input[type="checkbox"]');
+        if (cbf) cbf.checked = false;
+      }
+      naBtn.classList.toggle("on", it1.na);
+      updateCard(dk0);
+      updateSummary();
+      save();
+      return;
+    }
+
+    var ex = e.target.closest(".extra");
+    if (ex){
+      var d2 = ex.dataset.date, idx = +ex.dataset.idx;
+      var s2 = dayState(d2);
+      s2.ex[idx] = !s2.ex[idx];
+      ex.classList.toggle("on", s2.ex[idx]);
+      ex.textContent = s2.ex[idx] ? "✓" : "";
+      save();
+    }
+  });
+
+  /* 工具栏 */
+  var fAll = document.getElementById("fAll");
+  var fWeek = document.getElementById("fWeek");
+
+  fAll.onclick = function(){
+    filter = "all";
+    fAll.classList.add("on"); fWeek.classList.remove("on");
+    render();
+  };
+
+  function todayWeekIndex(){
+    var t = ds(new Date());
+    for (var i=0;i<weeks.length;i++){
+      for (var j=0;j<weeks[i].length;j++){
+        if (ds(weeks[i][j]) === t) return i;
+      }
+    }
+    return -1;
+  }
+
+  fWeek.onclick = function(){
+    var w = todayWeekIndex();
+    filter = (w < 0) ? 0 : w;
+    fWeek.classList.add("on"); fAll.classList.remove("on");
+    render();
+    setTimeout(function(){
+      var c = app.querySelector(".card.today") || app.querySelector(".card");
+      if (c) c.scrollIntoView({ behavior:"smooth", block:"center" });
+    }, 60);
+  };
+
+  document.getElementById("goToday").onclick = function(){
+    var w = todayWeekIndex();
+    if (w >= 0){
+      filter = w;
+      fWeek.classList.add("on"); fAll.classList.remove("on");
+      render();
+      setTimeout(function(){
+        var c = app.querySelector(".card.today");
+        if (c) c.scrollIntoView({ behavior:"smooth", block:"center" });
+      }, 60);
+    } else {
+      fAll.click();
+    }
+  };
+
+  document.getElementById("printBtn").onclick = function(){ window.print(); };
+
+  render();
+})();
+</script>
+</body>
+</html>
