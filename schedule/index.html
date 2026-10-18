@@ -108,7 +108,7 @@ h1 em{
 
 /* ---------- 每一行 ---------- */
 .row{
-  display:grid;grid-template-columns:26px 74px 1fr 26px;gap:7px;
+  display:grid;grid-template-columns:26px 74px 1fr 26px 20px;gap:7px;
   align-items:center;padding:4px 3px;border-radius:12px;transition:.15s;
 }
 .row:hover{background:#FFFAFC}
@@ -169,7 +169,7 @@ h1 em{
 .row.na .tag{opacity:.38}
 .row.na .txt{opacity:.42;text-decoration:line-through;color:#B5AABE}
 
-/* ---------- 自己加的作业 ---------- */.row.extra-row{grid-template-columns:26px 74px 1fr 26px 18px}
+/* ---------- 自己加的作业 ---------- */.row.extra-row{grid-template-columns:26px 74px 1fr 26px 20px 18px}
 .subtag{cursor:pointer;user-select:none}
 .subtag:active{transform:scale(.94)}
 .del{
@@ -185,6 +185,21 @@ h1 em{
 }
 .addbtn:hover{border-color:#FFB3D1;color:#FF7EB3;background:#FFF8FB}
 .addbtn:active{transform:scale(.95)}
+
+/* ---------- 家长检查 ---------- */
+.pchk{
+  width:20px;height:20px;border-radius:7px;border:1.5px solid #E4DAEC;background:#fff;
+  color:#CFC3DA;font-size:10.5px;font-weight:900;cursor:pointer;padding:0;
+  font-family:inherit;display:flex;align-items:center;justify-content:center;
+  line-height:1;transition:.15s;
+}
+.pchk:hover{border-color:#CBB6EC;color:#A98BE0;background:#FCFAFF}
+.pchk:active{transform:scale(.88)}
+.pchk.on{
+  background:linear-gradient(135deg,#C6B8F7,#9C86E8);border-color:#9C86E8;color:#fff;
+  box-shadow:0 0 0 3px #F2EEFE;
+}
+.pghost{width:20px;height:20px;display:block}
 
 /* 周末提示条 */
 .note{
@@ -258,8 +273,8 @@ footer{
 @media(max-width:400px){
   body{padding:14px 10px 60px}
   h1{font-size:22px}
-  .row{grid-template-columns:26px 68px 1fr 24px;gap:5px}
-  .row.extra-row{grid-template-columns:26px 68px 1fr 24px 18px;gap:5px}
+  .row{grid-template-columns:26px 68px 1fr 22px 18px;gap:5px}
+  .row.extra-row{grid-template-columns:26px 68px 1fr 22px 18px 16px;gap:5px}
   .txt{font-size:13px}
 }
 
@@ -302,6 +317,7 @@ footer{
   <footer>
     ✏️ 内容可以直接在上面写字，写完打个勾就好啦～<br>
     🌙 某项今天没作业？点最右边的「无」，这项就不算进总进度啦<br>
+    👨‍👩‍👧 最右边的紫色「✓」＝家长检查过（多邻国 / 剑桥英语打卡不需要）<br>
     ➕ 作业不止一项？点卡片右下角「＋ 加一项」，自己再添一行<br>
     🔒 每天固定打卡（文字已写好，直接打勾就行）：🦉 多邻国 · 🎓 剑桥英语 · 📚 阅读打卡
   </footer>
@@ -340,8 +356,8 @@ footer{
       { k:"in2",   n:"英语",     i:"🔤", c:"c-yellow" }
     ]},
     { t:"🎒 课外作业", c:"out", items:[
-      { k:"out0",  n:"多邻国",   i:"🦉", c:"c-green",  d:"多邻国打卡"   },
-      { k:"out1",  n:"剑桥英语", i:"🎓", c:"c-purple", d:"剑桥英语打卡" },
+      { k:"out0",  n:"多邻国",   i:"🦉", c:"c-green",  d:"多邻国打卡",   noP:true },
+      { k:"out1",  n:"剑桥英语", i:"🎓", c:"c-purple", d:"剑桥英语打卡", noP:true },
       { k:"out4",  n:"剑桥作业", i:"📘", c:"c-indigo" },
       { k:"out2",  n:"课外数学", i:"🎯", c:"c-orange" },
       { k:"out3",  n:"阅读打卡", i:"📚", c:"c-teal",   d:"阅读打卡"     }
@@ -451,6 +467,7 @@ footer{
       if (typeof s.i[it.k].m === "undefined") s.i[it.k].m = "";
       if (typeof s.i[it.k].t === "undefined") s.i[it.k].t = (it.d || "");
       if (typeof s.i[it.k].na === "undefined") s.i[it.k].na = false;
+      if (typeof s.i[it.k].p === "undefined") s.i[it.k].p = false;
     });
     if (!Array.isArray(s.add)) s.add = [];
     if (!Array.isArray(s.ex) || s.ex.length !== 3) s.ex = [false,false,false];
@@ -478,6 +495,9 @@ footer{
       '<div class="tag ' + it.c + '">' + it.i + it.n + '</div>' +
       '<input class="txt" data-date="' + dk + '" data-k="' + it.k + '" data-f="t" placeholder="今天要写什么呀…" value="' + esc(v.t) + '">' +
       '<button class="na' + (v.na ? " on" : "") + '" data-date="' + dk + '" data-k="' + it.k + '" title="今天这项没有作业，点一下标记为无作业">无</button>' +
+      (it.noP
+        ? '<span class="pghost"></span>'
+        : '<button class="pchk' + (v.p ? " on" : "") + '" data-date="' + dk + '" data-k="' + it.k + '" title="家长检查过就打勾">✓</button>') +
     '</div>';
   }
 
@@ -489,6 +509,7 @@ footer{
       '<div class="tag ' + sj.c + ' subtag" data-date="' + dk + '" data-ex="' + idx + '" title="点一下可以换科目">' + sj.i + sj.n + '</div>' +
       '<input class="txt" data-date="' + dk + '" data-ex="' + idx + '" data-f="t" placeholder="自己加的作业…" value="' + esc(r.t) + '">' +
       '<button class="na' + (r.na ? " on" : "") + '" data-date="' + dk + '" data-ex="' + idx + '" title="今天这项没有作业">无</button>' +
+      '<button class="pchk' + (r.p ? " on" : "") + '" data-date="' + dk + '" data-ex="' + idx + '" title="家长检查过就打勾">✓</button>' +
       '<button class="del" data-date="' + dk + '" data-ex="' + idx + '" title="删掉这一行">×</button>' +
     '</div>';
   }
@@ -720,6 +741,20 @@ footer{
       return;
     }
 
+    /* 家长检查 */
+    var pcBtn = e.target.closest(".pchk");
+    if (pcBtn){
+      var dkP = pcBtn.dataset.date;
+      var sP = dayState(dkP);
+      var objP = (typeof pcBtn.dataset.ex !== "undefined") ? sP.add[+pcBtn.dataset.ex] : sP.i[pcBtn.dataset.k];
+      if (objP){
+        objP.p = !objP.p;
+        pcBtn.classList.toggle("on", objP.p);
+        save();
+      }
+      return;
+    }
+
     /* 加一项 */
     var addBtn = e.target.closest(".addbtn");
     if (addBtn){
@@ -876,6 +911,7 @@ footer{
         if (!b) return;
         if (!a){ dst.i[k] = b; return; }
         if (b.c) a.c = true;
+        if (b.p) a.p = true;
         if (!a.t && b.t) a.t = b.t;
         if (a.c || b.c) a.na = false;
         else if (b.na) a.na = true;
@@ -886,7 +922,7 @@ footer{
         for (var j=0;j<dst.add.length;j++){
           if (r.t && dst.add[j].t === r.t){ hit = dst.add[j]; break; }
         }
-        if (hit){ if (r.c) hit.c = true; }
+        if (hit){ if (r.c) hit.c = true; if (r.p) hit.p = true; }
         else dst.add.push(r);
       });
       if (src.day) dst.day = true;
