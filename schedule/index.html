@@ -169,8 +169,7 @@ h1 em{
 .row.na .tag{opacity:.38}
 .row.na .txt{opacity:.42;text-decoration:line-through;color:#B5AABE}
 
-/* ---------- 自己加的作业 ---------- */
-.row.extra-row{grid-template-columns:26px 74px 1fr 26px 18px}
+/* ---------- 自己加的作业 ---------- */.row.extra-row{grid-template-columns:26px 74px 1fr 26px 18px}
 .subtag{cursor:pointer;user-select:none}
 .subtag:active{transform:scale(.94)}
 .del{
@@ -186,6 +185,13 @@ h1 em{
 }
 .addbtn:hover{border-color:#FFB3D1;color:#FF7EB3;background:#FFF8FB}
 .addbtn:active{transform:scale(.95)}
+
+/* 周末提示条 */
+.note{
+  font-size:11.5px;font-weight:800;color:#A899B3;
+  background:#FBF8FD;border:1.5px dashed #EDE3F3;border-radius:12px;
+  padding:7px 10px;text-align:center;margin:8px 0 6px;
+}
 
 /* ---------- 奖励格 ---------- */
 .extras{
@@ -265,7 +271,7 @@ footer{
   var KEY   = "xiaopengyou-plan-2026autumn";
 
   var GROUPS = [
-    { t:"🏫 课内作业（学校）", c:"", items:[
+    { t:"🏫 课内作业（学校）", c:"", weekdayOnly:true, items:[
       { k:"in0",   n:"语文",     i:"📖", c:"c-pink"   },
       { k:"in1",   n:"数学",     i:"🔢", c:"c-blue"   },
       { k:"in2",   n:"英语",     i:"🔤", c:"c-yellow" }
@@ -280,7 +286,7 @@ footer{
   ];
   var ALL_ITEMS = [];
   GROUPS.forEach(function(g){
-    g.items.forEach(function(it){ it.g = g.c; ALL_ITEMS.push(it); });
+    g.items.forEach(function(it){ it.g = g.c; it.wd = !!g.weekdayOnly; ALL_ITEMS.push(it); });
   });
 
   // 「自己加的」行可选科目，点标签可循环切换
@@ -331,6 +337,20 @@ footer{
     return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
   }
   var TODAY = ds(new Date());
+
+  function dayOfWeek(dk){
+    var p = dk.split("-");
+    return new Date(+p[0], +p[1]-1, +p[2]).getDay();
+  }
+  // 校内作业只在周一到周五出现（周末作业算周五布置的那一份）
+  function isWorkday(dk){
+    var w = dayOfWeek(dk);
+    return w >= 1 && w <= 5;
+  }
+  function isWeekend(dk){
+    var w = dayOfWeek(dk);
+    return w === 0 || w === 6;
+  }
 
   // 生成日期列表
   var days = [];
@@ -403,6 +423,7 @@ footer{
     var isToday = (dk === TODAY);
     var needCount = 0, doneCount = 0;
     ALL_ITEMS.forEach(function(it){
+      if (it.wd && !isWorkday(dk)) return;
       var v = s.i[it.k];
       if (v.na) return;
       needCount++;
@@ -428,7 +449,11 @@ footer{
         '<button class="daycheck' + (s.day ? " on" : "") + (doneCount === needCount && !s.day ? " ready" : "") + '" data-date="' + dk + '" title="今天全部完成啦">✓</button>' +
       '</div>' +
       GROUPS.map(function(g){
-        return '<div class="sec">' + g.t + '</div>' +
+        if (g.weekdayOnly && isWeekend(dk)){
+          return '<div class="note">📌 校内作业在周五那张卡里，今天只做课外</div>';
+        }
+        var title = g.t + ((g.weekdayOnly && dayOfWeek(dk) === 5) ? "（含周六、周日）" : "");
+        return '<div class="sec">' + title + '</div>' +
           g.items.map(function(it){ return rowHTML(dk, it); }).join("");
       }).join("") +
       (s.add.length ? '<div class="sec">✏️ 自己加的作业</div>' + s.add.map(function(r, i){ return addRowHTML(dk, r, i); }).join("") : "") +
@@ -458,8 +483,10 @@ footer{
   function updateSummary(){
     var total = 0, done = 0, naCount = 0;
     days.forEach(function(dt){
-      var s = dayState(ds(dt));
+      var dk = ds(dt);
+      var s = dayState(dk);
       ALL_ITEMS.forEach(function(it){
+        if (it.wd && !isWorkday(dk)) return;
         var v = s.i[it.k];
         if (v.na){ naCount++; return; }
         total++;
@@ -485,6 +512,7 @@ footer{
     var s = dayState(dk);
     var needCount = 0, doneCount = 0;
     ALL_ITEMS.forEach(function(it){
+      if (it.wd && !isWorkday(dk)) return;
       var v = s.i[it.k];
       if (v.na) return;
       needCount++;
