@@ -66,7 +66,10 @@ h1 em{
 .week-title::after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,#FFE3EE 0 9px,transparent 9px 18px)}
 
 /* ---------- 卡片网格 ---------- */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:14px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+@media(min-width:700px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 
 .card{
   background:#fff;border-radius:24px;padding:13px 14px 11px;
@@ -141,8 +144,11 @@ h1 em{
 
 .txt{
   border:none;border-bottom:2px dotted #F0E5EE;background:transparent;
-  font-family:inherit;font-size:13.5px;color:#4A3B52;padding:4px 2px;
+  font-family:inherit;font-size:13.5px;color:#4A3B52;padding:3px 2px;
   width:100%;outline:none;border-radius:0;
+  display:block;resize:none;overflow:hidden;
+  line-height:1.45;min-height:26px;height:26px;
+  word-break:break-word;white-space:pre-wrap;
 }
 .txt::placeholder{color:#DCD1E1;font-weight:600}
 .txt:focus{border-bottom-color:#FF9EC4;background:#FFF8FB;border-radius:6px}
@@ -292,12 +298,17 @@ footer{
   margin-top:34px;line-height:2;
 }
 
+@media(max-width:1180px){
+  /* iPad / 手机：输入框字号 ≥16px，避免 Safari 聚焦时自动放大页面 */
+  .txt{font-size:16px;min-height:30px}
+}
+
 @media(max-width:400px){
   body{padding:14px 10px 60px}
   h1{font-size:22px}
-  .row{grid-template-columns:26px 68px 1fr 22px 18px;gap:5px}
-  .row.extra-row{grid-template-columns:26px 68px 1fr 22px 18px 16px;gap:5px}
-  .txt{font-size:13px}
+  .row{grid-template-columns:26px 64px 1fr 22px 18px;gap:5px}
+  .row.extra-row{grid-template-columns:26px 64px 1fr 22px 18px 16px;gap:5px}
+  .txt{font-size:16px}
 }
 
 @media print{
@@ -504,13 +515,28 @@ footer{
     return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   }
 
+  /* 输入框随内容长高，长文字自动换行不遮挡 */
+  function grow(el){
+    if (!el || el.tagName !== "TEXTAREA") return;
+    el.style.height = "auto";
+    var h = el.scrollHeight;
+    el.style.height = (h < 26 ? 26 : h) + "px";
+  }
+  function growAll(){
+    if (!app || !app.querySelectorAll) return;
+    var tas = app.querySelectorAll("textarea.txt");
+    for (var i = 0; i < tas.length; i++){
+      if (tas[i].value) grow(tas[i]);
+    }
+  }
+
   function rowHTML(dk, it){
     var s = dayState(dk);
     var v = s.i[it.k];
     return '<div class="row' + (it.g ? " " + it.g : "") + (it.d ? " must" : "") + (v.c ? " done" : "") + (v.na ? " na" : "") + '">' +
       '<label class="cb"><input type="checkbox" data-date="' + dk + '" data-k="' + it.k + '"' + (v.c ? " checked" : "") + '><i></i></label>' +
       '<div class="tag ' + it.c + '">' + it.i + it.n + '</div>' +
-      '<input class="txt" data-date="' + dk + '" data-k="' + it.k + '" data-f="t" placeholder="今天要写什么呀…" value="' + esc(v.t) + '">' +
+      '<textarea class="txt" rows="1" data-date="' + dk + '" data-k="' + it.k + '" data-f="t" placeholder="今天要写什么呀…">' + esc(v.t) + '</textarea>' +
       '<button class="na' + (v.na ? " on" : "") + '" data-date="' + dk + '" data-k="' + it.k + '" title="今天这项没有作业，点一下标记为无作业">无</button>' +
       (it.chk === "none"
         ? '<span class="pghost"></span>'
@@ -524,7 +550,7 @@ footer{
     return '<div class="row extra-row' + (r.c ? " done" : "") + (r.na ? " na" : "") + '">' +
       '<label class="cb"><input type="checkbox" data-date="' + dk + '" data-ex="' + idx + '"' + (r.c ? " checked" : "") + '><i></i></label>' +
       '<div class="tag ' + sj.c + ' subtag" data-date="' + dk + '" data-ex="' + idx + '" title="点一下可以换科目">' + sj.i + sj.n + '</div>' +
-      '<input class="txt" data-date="' + dk + '" data-ex="' + idx + '" data-f="t" placeholder="还有哪一项作业…" value="' + esc(r.t) + '">' +
+      '<textarea class="txt" rows="1" data-date="' + dk + '" data-ex="' + idx + '" data-f="t" placeholder="还有哪一项作业…">' + esc(r.t) + '</textarea>' +
       '<button class="na' + (r.na ? " on" : "") + '" data-date="' + dk + '" data-ex="' + idx + '" title="今天这项没有作业">无</button>' +
       '<button class="pchk' + (r.p ? " on" : "") + '" data-date="' + dk + '" data-ex="' + idx + '" title="家长检查过就打勾">✓</button>' +
       '<button class="del" data-date="' + dk + '" data-ex="' + idx + '" title="删掉这一行">×</button>' +
@@ -620,6 +646,7 @@ footer{
       html += weekTitleHTML(list) + '<div class="grid">' + list.map(cardHTML).join("") + '</div>';
     });
     app.innerHTML = html;
+    growAll();
     updateSummary();
   }
 
@@ -685,6 +712,7 @@ footer{
     tmp.innerHTML = cardHTML(dt);
     var nc = tmp.firstChild;
     if (nc) card.parentNode.replaceChild(nc, card);
+    growAll();
     updateSummary();
   }
 
@@ -699,6 +727,7 @@ footer{
     } else if (el.dataset.k){
       s.i[el.dataset.k][el.dataset.f] = el.value;
     }
+    if (el.tagName === "TEXTAREA") grow(el);
     save();
   });
 
