@@ -216,6 +216,11 @@ h1 em{
   background:linear-gradient(135deg,#C6B8F7,#9C86E8);border-color:#9C86E8;color:#fff;
   box-shadow:0 0 0 3px #F2EEFE;
 }
+.pchk.self:hover{border-color:#9BD3EA;color:#4FAFD8;background:#F7FDFF}
+.pchk.self.on{
+  background:linear-gradient(135deg,#96DAF2,#4FAFD8);border-color:#4FAFD8;
+  box-shadow:0 0 0 3px #E9F8FE;
+}
 .pghost{width:20px;height:20px;display:block}
 
 /* 周末提示条 */
@@ -334,7 +339,7 @@ footer{
   <footer>
     ✏️ 内容可以直接在上面写字，写完打个勾就好啦～<br>
     🌙 某项今天没作业？点最右边的「无」，这项就不算进总进度啦<br>
-    👨‍👩‍👧 最右边的紫色「✓」＝家长检查过（多邻国 / 剑桥英语打卡不需要）<br>
+    👨‍👩‍👧 紫色「✓」＝家长检查过 · 蓝色「✓」＝小朋友自己检查过（多邻国 / 剑桥英语打卡不用检查）<br>
     ➕ 作业不止一项？点校内作业右上角的「＋ 加一项」，选语文 / 数学 / 英语 就能再添一行<br>
     🔒 每天固定打卡（文字已写好，直接打勾就行）：🦉 多邻国 · 🎓 剑桥英语 · 📚 阅读打卡
   </footer>
@@ -373,10 +378,11 @@ footer{
       { k:"in2",   n:"英语",     i:"🔤", c:"c-yellow" }
     ]},
     { t:"🎒 课外作业", c:"out", items:[
-      { k:"out0",  n:"多邻国",   i:"🦉", c:"c-green",  d:"多邻国打卡",   noP:true },
-      { k:"out1",  n:"剑桥英语", i:"🎓", c:"c-purple", d:"剑桥英语打卡", noP:true },
+      { k:"out0",  n:"多邻国",   i:"🦉", c:"c-green",  d:"多邻国打卡",   chk:"none" },
+      { k:"out1",  n:"剑桥英语", i:"🎓", c:"c-purple", d:"剑桥英语打卡", chk:"none" },
       { k:"out4",  n:"剑桥作业", i:"📘", c:"c-indigo" },
       { k:"out2",  n:"课外数学", i:"🎯", c:"c-orange" },
+      { k:"out5",  n:"计算能手", i:"🧮", c:"c-blue",   chk:"self" },
       { k:"out3",  n:"阅读打卡", i:"📚", c:"c-teal",   d:"阅读打卡"     }
     ]}
   ];
@@ -506,9 +512,9 @@ footer{
       '<div class="tag ' + it.c + '">' + it.i + it.n + '</div>' +
       '<input class="txt" data-date="' + dk + '" data-k="' + it.k + '" data-f="t" placeholder="今天要写什么呀…" value="' + esc(v.t) + '">' +
       '<button class="na' + (v.na ? " on" : "") + '" data-date="' + dk + '" data-k="' + it.k + '" title="今天这项没有作业，点一下标记为无作业">无</button>' +
-      (it.noP
+      (it.chk === "none"
         ? '<span class="pghost"></span>'
-        : '<button class="pchk' + (v.p ? " on" : "") + '" data-date="' + dk + '" data-k="' + it.k + '" title="家长检查过就打勾">✓</button>') +
+        : '<button class="pchk' + (it.chk === "self" ? " self" : "") + (v.p ? " on" : "") + '" data-date="' + dk + '" data-k="' + it.k + '" title="' + (it.chk === "self" ? "小朋友自己检查过就打勾" : "家长检查过就打勾") + '">✓</button>') +
     '</div>';
   }
 
