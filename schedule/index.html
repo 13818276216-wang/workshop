@@ -186,6 +186,23 @@ h1 em{
 .addbtn:hover{border-color:#FFB3D1;color:#FF7EB3;background:#FFF8FB}
 .addbtn:active{transform:scale(.95)}
 
+/* 校内「＋ 加一项」与科目选择 */
+.sec-flex{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.addbtn.inline{padding:3px 9px;font-size:10.5px;margin-left:0}
+.picker{
+  display:none;gap:6px;margin:5px 0 2px;padding:6px;
+  background:#FFFAFC;border:1.5px dashed #FFDEEB;border-radius:12px;
+}
+.card.picking .picker{display:flex}
+.pbtn{
+  flex:1;border:none;border-radius:9px;padding:7px 4px;
+  font-size:11.5px;font-weight:900;cursor:pointer;font-family:inherit;transition:.12s;
+}
+.pbtn:active{transform:scale(.95)}
+.pbtn.c-pink{background:#FFF0F6;color:#FF7EB3}
+.pbtn.c-blue{background:#E7F6FF;color:#4AA8D8}
+.pbtn.c-yellow{background:#FFF7DA;color:#D9A01A}
+
 /* ---------- 家长检查 ---------- */
 .pchk{
   width:20px;height:20px;border-radius:7px;border:1.5px solid #E4DAEC;background:#fff;
@@ -318,7 +335,7 @@ footer{
     ✏️ 内容可以直接在上面写字，写完打个勾就好啦～<br>
     🌙 某项今天没作业？点最右边的「无」，这项就不算进总进度啦<br>
     👨‍👩‍👧 最右边的紫色「✓」＝家长检查过（多邻国 / 剑桥英语打卡不需要）<br>
-    ➕ 作业不止一项？点卡片右下角「＋ 加一项」，自己再添一行<br>
+    ➕ 作业不止一项？点校内作业右上角的「＋ 加一项」，选语文 / 数学 / 英语 就能再添一行<br>
     🔒 每天固定打卡（文字已写好，直接打勾就行）：🦉 多邻国 · 🎓 剑桥英语 · 📚 阅读打卡
   </footer>
 </div>
@@ -368,19 +385,13 @@ footer{
     g.items.forEach(function(it){ it.g = g.c; it.wd = !!g.weekdayOnly; ALL_ITEMS.push(it); });
   });
 
-  // 「自己加的」行可选科目，点标签可循环切换
+  // 校内追加作业可选的三个科目（点标签也能循环切换）
   var SUBJ = [
-    { n:"语文",     i:"📖", c:"c-pink"   },
-    { n:"数学",     i:"🔢", c:"c-blue"   },
-    { n:"英语",     i:"🔤", c:"c-yellow" },
-    { n:"多邻国",   i:"🦉", c:"c-green"  },
-    { n:"剑桥英语", i:"🎓", c:"c-purple" },
-    { n:"剑桥作业", i:"📘", c:"c-indigo" },
-    { n:"课外数学", i:"🎯", c:"c-orange" },
-    { n:"阅读打卡", i:"📚", c:"c-teal"   },
-    { n:"其他",     i:"✏️", c:"c-indigo" }
+    { n:"语文", i:"📖", c:"c-pink"   },
+    { n:"数学", i:"🔢", c:"c-blue"   },
+    { n:"英语", i:"🔤", c:"c-yellow" }
   ];
-  var SUBJ_DEFAULT = 8;
+  var SUBJ_DEFAULT = 0;
 
   var WK = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
@@ -507,7 +518,7 @@ footer{
     return '<div class="row extra-row' + (r.c ? " done" : "") + (r.na ? " na" : "") + '">' +
       '<label class="cb"><input type="checkbox" data-date="' + dk + '" data-ex="' + idx + '"' + (r.c ? " checked" : "") + '><i></i></label>' +
       '<div class="tag ' + sj.c + ' subtag" data-date="' + dk + '" data-ex="' + idx + '" title="点一下可以换科目">' + sj.i + sj.n + '</div>' +
-      '<input class="txt" data-date="' + dk + '" data-ex="' + idx + '" data-f="t" placeholder="自己加的作业…" value="' + esc(r.t) + '">' +
+      '<input class="txt" data-date="' + dk + '" data-ex="' + idx + '" data-f="t" placeholder="还有哪一项作业…" value="' + esc(r.t) + '">' +
       '<button class="na' + (r.na ? " on" : "") + '" data-date="' + dk + '" data-ex="' + idx + '" title="今天这项没有作业">无</button>' +
       '<button class="pchk' + (r.p ? " on" : "") + '" data-date="' + dk + '" data-ex="' + idx + '" title="家长检查过就打勾">✓</button>' +
       '<button class="del" data-date="' + dk + '" data-ex="' + idx + '" title="删掉这一行">×</button>' +
@@ -571,12 +582,20 @@ footer{
           return rolloverHTML(dk);
         }
         var title = g.t + ((g.weekdayOnly && dayOfWeek(dk) === 5) ? "（含周六、周日）" : "");
-        return '<div class="sec">' + title + '</div>' +
-          g.items.map(function(it){ return rowHTML(dk, it); }).join("");
+        var inner = g.items.map(function(it){ return rowHTML(dk, it); }).join("");
+        if (!g.weekdayOnly){
+          return '<div class="sec">' + title + '</div>' + inner;
+        }
+        // 校内作业：标题旁「＋」，可在末尾追加语文/数学/英语
+        var addRows = s.add.map(function(r, i){ return addRowHTML(dk, r, i); }).join("");
+        var picker = '<div class="picker">' + SUBJ.map(function(sj, si){
+          return '<button class="pbtn ' + sj.c + '" data-date="' + dk + '" data-s="' + si + '">' + sj.i + sj.n + '</button>';
+        }).join("") + '</div>';
+        return '<div class="sec sec-flex"><span>' + title + '</span>' +
+            '<button class="addbtn inline" data-date="' + dk + '" title="再加一项校内作业">＋ 加一项</button></div>' +
+          inner + addRows + picker;
       }).join("") +
-      (s.add.length ? '<div class="sec">✏️ 自己加的作业</div>' + s.add.map(function(r, i){ return addRowHTML(dk, r, i); }).join("") : "") +
-      '<div class="extras"><span class="lbl">奖励勾勾</span>' + ex +
-        '<button class="addbtn" data-date="' + dk + '" title="再加一条作业">＋ 加一项</button></div>' +
+      '<div class="extras"><span class="lbl">奖励勾勾</span>' + ex + '</div>' +
     '</div>';
   }
 
@@ -755,12 +774,20 @@ footer{
       return;
     }
 
-    /* 加一项 */
+    /* ＋ 加一项：展开科目选择 */
     var addBtn = e.target.closest(".addbtn");
     if (addBtn){
-      var dkA = addBtn.dataset.date;
-      dayState(dkA).add.push({ s:SUBJ_DEFAULT, t:"", c:false, na:false });
-      refreshCard(dkA);
+      var cardA = addBtn.closest(".card");
+      if (cardA) cardA.classList.toggle("picking");
+      return;
+    }
+
+    /* 选中语文 / 数学 / 英语 → 追加一行校内作业 */
+    var pbtn = e.target.closest(".pbtn");
+    if (pbtn){
+      var dkPb = pbtn.dataset.date;
+      dayState(dkPb).add.push({ s:(+pbtn.dataset.s) || 0, t:"", c:false, na:false, p:false });
+      refreshCard(dkPb);
       save();
       return;
     }
