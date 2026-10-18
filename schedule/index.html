@@ -192,6 +192,13 @@ h1 em{
   background:#FBF8FD;border:1.5px dashed #EDE3F3;border-radius:12px;
   padding:7px 10px;text-align:center;margin:8px 0 6px;
 }
+.note.ok{background:#F4FCF4;border-color:#CDEECD;color:#6BB96B}
+.rollover{
+  background:linear-gradient(180deg,#FFFDF3,#fff);
+  border:1.5px dashed #FBE6BE;border-radius:14px;
+  padding:4px 6px 6px;margin:8px 0 6px;
+}
+.rollover .sec{margin:6px 0 3px;color:#D9A44A}
 
 /* ---------- 导入弹窗 & 提示 ---------- */
 .mask{
@@ -407,6 +414,19 @@ footer{
     var w = dayOfWeek(dk);
     return w === 0 || w === 6;
   }
+  function addDays(dk, n){
+    var p = dk.split("-");
+    var d = new Date(+p[0], +p[1]-1, +p[2]);
+    d.setDate(d.getDate() + n);
+    return ds(d);
+  }
+  // 这个周末对应的那个周五（周六往前 1 天、周日往前 2 天）
+  function fridayOf(dk){
+    var w = dayOfWeek(dk);
+    if (w === 6) return addDays(dk, -1);
+    if (w === 0) return addDays(dk, -2);
+    return null;
+  }
 
   // 生成日期列表
   var days = [];
@@ -473,8 +493,29 @@ footer{
     '</div>';
   }
 
-  function cardHTML(dt){
-    var dk = ds(dt);
+  // 周末卡片上的「顺延区」：周五没做完的校内作业
+  function rolloverHTML(dk){
+    var fri = fridayOf(dk);
+    if (!fri || fri < ds(START) || fri > ds(END)){
+      return '<div class="note">📌 校内作业在周五那张卡里</div>';
+    }
+    var fs = dayState(fri);
+    var rows = [];
+    ALL_ITEMS.forEach(function(it){
+      if (!it.wd) return;
+      var v = fs.i[it.k];
+      if (!v || v.c || v.na) return;
+      rows.push(rowHTML(fri, it));
+    });
+    (fs.add || []).forEach(function(r, i){
+      if (r.c || r.na) return;
+      rows.push(addRowHTML(fri, r, i));
+    });
+    if (!rows.length) return '<div class="note ok">✅ 周五的作业都做完啦，今天只做课外</div>';
+    return '<div class="rollover"><div class="sec">⏩ 周五还没做完的（在这里打勾也行）</div>' + rows.join("") + '</div>';
+  }
+
+  function cardHTML(dt){    var dk = ds(dt);
     var s = dayState(dk);
     var isToday = (dk === TODAY);
     var needCount = 0, doneCount = 0;
@@ -506,7 +547,7 @@ footer{
       '</div>' +
       GROUPS.map(function(g){
         if (g.weekdayOnly && isWeekend(dk)){
-          return '<div class="note">📌 校内作业在周五那张卡里，今天只做课外</div>';
+          return rolloverHTML(dk);
         }
         var title = g.t + ((g.weekdayOnly && dayOfWeek(dk) === 5) ? "（含周六、周日）" : "");
         return '<div class="sec">' + title + '</div>' +
@@ -635,6 +676,10 @@ footer{
     if (row) row.classList.toggle("done", el.checked);
     updateCard(el.dataset.date);
     updateSummary();
+    var cardOfEl = el.closest(".card");
+    if (cardOfEl && cardOfEl.dataset.date !== el.dataset.date){
+      refreshCard(cardOfEl.dataset.date);
+    }
     save();
   });
 
@@ -667,6 +712,10 @@ footer{
       naBtn.classList.toggle("on", it1.na);
       updateCard(dk0);
       updateSummary();
+      var cardOfNa = naBtn.closest(".card");
+      if (cardOfNa && cardOfNa.dataset.date !== dk0){
+        refreshCard(cardOfNa.dataset.date);
+      }
       save();
       return;
     }
@@ -685,8 +734,11 @@ footer{
     var delBtn = e.target.closest(".del");
     if (delBtn){
       var dkD = delBtn.dataset.date;
+      var cardOfDel = delBtn.closest(".card");
+      var cardDk = cardOfDel ? cardOfDel.dataset.date : null;
       dayState(dkD).add.splice(+delBtn.dataset.ex, 1);
       refreshCard(dkD);
+      if (cardDk && cardDk !== dkD) refreshCard(cardDk);
       save();
       return;
     }
