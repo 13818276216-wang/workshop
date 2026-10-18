@@ -169,6 +169,24 @@ h1 em{
 .row.na .tag{opacity:.38}
 .row.na .txt{opacity:.42;text-decoration:line-through;color:#B5AABE}
 
+/* ---------- 自己加的作业 ---------- */
+.row.extra-row{grid-template-columns:26px 74px 1fr 26px 18px}
+.subtag{cursor:pointer;user-select:none}
+.subtag:active{transform:scale(.94)}
+.del{
+  width:18px;height:18px;border-radius:50%;border:none;background:transparent;
+  color:#D6CBDD;font-size:14px;font-weight:900;cursor:pointer;padding:0;
+  font-family:inherit;line-height:1;display:flex;align-items:center;justify-content:center;
+}
+.del:hover{background:#FFE9EF;color:#FF6FA9}
+.addbtn{
+  margin-left:auto;border:1.5px dashed #E3D6E9;background:#fff;color:#A08EB0;
+  font-size:10.5px;font-weight:900;padding:5px 10px;border-radius:99px;
+  cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;
+}
+.addbtn:hover{border-color:#FFB3D1;color:#FF7EB3;background:#FFF8FB}
+.addbtn:active{transform:scale(.95)}
+
 /* ---------- 奖励格 ---------- */
 .extras{
   display:flex;align-items:center;gap:8px;margin-top:9px;padding-top:9px;
@@ -193,6 +211,7 @@ footer{
   body{padding:14px 10px 60px}
   h1{font-size:22px}
   .row{grid-template-columns:26px 68px 1fr 24px;gap:5px}
+  .row.extra-row{grid-template-columns:26px 68px 1fr 24px 18px;gap:5px}
   .txt{font-size:13px}
 }
 
@@ -232,6 +251,7 @@ footer{
   <footer>
     ✏️ 内容可以直接在上面写字，写完打个勾就好啦～<br>
     🌙 某项今天没作业？点最右边的「无」，这项就不算进总进度啦<br>
+    ➕ 作业不止一项？点卡片右下角「＋ 加一项」，自己再添一行<br>
     🔒 每天固定打卡（文字已写好，直接打勾就行）：🦉 多邻国 · 🎓 剑桥英语 · 📚 阅读打卡
   </footer>
 </div>
@@ -262,6 +282,20 @@ footer{
   GROUPS.forEach(function(g){
     g.items.forEach(function(it){ it.g = g.c; ALL_ITEMS.push(it); });
   });
+
+  // 「自己加的」行可选科目，点标签可循环切换
+  var SUBJ = [
+    { n:"语文",     i:"📖", c:"c-pink"   },
+    { n:"数学",     i:"🔢", c:"c-blue"   },
+    { n:"英语",     i:"🔤", c:"c-yellow" },
+    { n:"多邻国",   i:"🦉", c:"c-green"  },
+    { n:"剑桥英语", i:"🎓", c:"c-purple" },
+    { n:"剑桥作业", i:"📘", c:"c-indigo" },
+    { n:"课外数学", i:"🎯", c:"c-orange" },
+    { n:"阅读打卡", i:"📚", c:"c-teal"   },
+    { n:"其他",     i:"✏️", c:"c-indigo" }
+  ];
+  var SUBJ_DEFAULT = 8;
 
   var WK = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
@@ -322,6 +356,7 @@ footer{
       if (typeof s.i[it.k].t === "undefined") s.i[it.k].t = (it.d || "");
       if (typeof s.i[it.k].na === "undefined") s.i[it.k].na = false;
     });
+    if (!Array.isArray(s.add)) s.add = [];
     if (!Array.isArray(s.ex) || s.ex.length !== 3) s.ex = [false,false,false];
     if (typeof s.day !== "boolean") s.day = false;
     return s;
@@ -350,13 +385,35 @@ footer{
     '</div>';
   }
 
+  // 自己添加的一行
+  function addRowHTML(dk, r, idx){
+    var sj = SUBJ[r.s] || SUBJ[SUBJ_DEFAULT];
+    return '<div class="row extra-row' + (r.c ? " done" : "") + (r.na ? " na" : "") + '">' +
+      '<label class="cb"><input type="checkbox" data-date="' + dk + '" data-ex="' + idx + '"' + (r.c ? " checked" : "") + '><i></i></label>' +
+      '<div class="tag ' + sj.c + ' subtag" data-date="' + dk + '" data-ex="' + idx + '" title="点一下可以换科目">' + sj.i + sj.n + '</div>' +
+      '<input class="txt" data-date="' + dk + '" data-ex="' + idx + '" data-f="t" placeholder="自己加的作业…" value="' + esc(r.t) + '">' +
+      '<button class="na' + (r.na ? " on" : "") + '" data-date="' + dk + '" data-ex="' + idx + '" title="今天这项没有作业">无</button>' +
+      '<button class="del" data-date="' + dk + '" data-ex="' + idx + '" title="删掉这一行">×</button>' +
+    '</div>';
+  }
+
   function cardHTML(dt){
     var dk = ds(dt);
     var s = dayState(dk);
     var isToday = (dk === TODAY);
-    var need = ALL_ITEMS.filter(function(it){ return !s.i[it.k].na; });
-    var done = need.filter(function(it){ return s.i[it.k].c; }).length;
-    var allNa = (need.length === 0);
+    var needCount = 0, doneCount = 0;
+    ALL_ITEMS.forEach(function(it){
+      var v = s.i[it.k];
+      if (v.na) return;
+      needCount++;
+      if (v.c) doneCount++;
+    });
+    s.add.forEach(function(r){
+      if (r.na) return;
+      needCount++;
+      if (r.c) doneCount++;
+    });
+    var allNa = (needCount === 0);
 
     var ex = "";
     for (var i=0;i<3;i++){
@@ -367,14 +424,16 @@ footer{
       '<div class="card-top">' +
         '<div class="date-label"><span class="dm">' + (dt.getMonth()+1) + '月' + dt.getDate() + '日</span><span class="wk">' + WK[dt.getDay()] + '</span></div>' +
         (isToday ? '<span class="today-badge">今天</span>' : '') +
-        '<span class="prog">' + (allNa ? "无作业" : done + '/' + need.length) + '</span>' +
-        '<button class="daycheck' + (s.day ? " on" : "") + (done === need.length && !s.day ? " ready" : "") + '" data-date="' + dk + '" title="今天全部完成啦">✓</button>' +
+        '<span class="prog">' + (allNa ? "无作业" : doneCount + '/' + needCount) + '</span>' +
+        '<button class="daycheck' + (s.day ? " on" : "") + (doneCount === needCount && !s.day ? " ready" : "") + '" data-date="' + dk + '" title="今天全部完成啦">✓</button>' +
       '</div>' +
       GROUPS.map(function(g){
         return '<div class="sec">' + g.t + '</div>' +
           g.items.map(function(it){ return rowHTML(dk, it); }).join("");
       }).join("") +
-      '<div class="extras"><span class="lbl">奖励勾勾</span>' + ex + '</div>' +
+      (s.add.length ? '<div class="sec">✏️ 自己加的作业</div>' + s.add.map(function(r, i){ return addRowHTML(dk, r, i); }).join("") : "") +
+      '<div class="extras"><span class="lbl">奖励勾勾</span>' + ex +
+        '<button class="addbtn" data-date="' + dk + '" title="再加一条作业">＋ 加一项</button></div>' +
     '</div>';
   }
 
@@ -406,6 +465,11 @@ footer{
         total++;
         if (v.c) done++;
       });
+      s.add.forEach(function(r){
+        if (r.na){ naCount++; return; }
+        total++;
+        if (r.c) done++;
+      });
     });
     var pct = total ? Math.round(done/total*100) : 0;
     document.getElementById("barIn").style.width = pct + "%";
@@ -419,13 +483,38 @@ footer{
     var card = app.querySelector('.card[data-date="' + dk + '"]');
     if (!card) return;
     var s = dayState(dk);
-    var need = ALL_ITEMS.filter(function(it){ return !s.i[it.k].na; });
-    var done = need.filter(function(it){ return s.i[it.k].c; }).length;
-    card.querySelector(".prog").textContent = (need.length === 0) ? "无作业" : done + "/" + need.length;
+    var needCount = 0, doneCount = 0;
+    ALL_ITEMS.forEach(function(it){
+      var v = s.i[it.k];
+      if (v.na) return;
+      needCount++;
+      if (v.c) doneCount++;
+    });
+    s.add.forEach(function(r){
+      if (r.na) return;
+      needCount++;
+      if (r.c) doneCount++;
+    });
+    card.querySelector(".prog").textContent = (needCount === 0) ? "无作业" : doneCount + "/" + needCount;
     var btn = card.querySelector(".daycheck");
-    btn.classList.toggle("ready", done === need.length && !s.day);
+    btn.classList.toggle("ready", doneCount === needCount && !s.day);
     btn.classList.toggle("on", !!s.day);
     card.classList.toggle("done-day", !!s.day);
+  }
+
+  function refreshCard(dk){
+    var card = app.querySelector('.card[data-date="' + dk + '"]');
+    if (!card || !card.parentNode) return;
+    var dt = null;
+    for (var i = 0; i < days.length; i++){
+      if (ds(days[i]) === dk){ dt = days[i]; break; }
+    }
+    if (!dt) return;
+    var tmp = document.createElement("div");
+    tmp.innerHTML = cardHTML(dt);
+    var nc = tmp.firstChild;
+    if (nc) card.parentNode.replaceChild(nc, card);
+    updateSummary();
   }
 
   /* 输入内容 */
@@ -433,7 +522,12 @@ footer{
     var el = e.target;
     if (!el.dataset || !el.dataset.date || !el.dataset.f) return;
     var s = dayState(el.dataset.date);
-    s.i[el.dataset.k][el.dataset.f] = el.value;
+    if (typeof el.dataset.ex !== "undefined"){
+      var r = s.add[+el.dataset.ex];
+      if (r) r[el.dataset.f] = el.value;
+    } else if (el.dataset.k){
+      s.i[el.dataset.k][el.dataset.f] = el.value;
+    }
     save();
   });
 
@@ -442,10 +536,12 @@ footer{
     var el = e.target;
     if (el.type !== "checkbox" || !el.dataset.date) return;
     var s = dayState(el.dataset.date);
-    s.i[el.dataset.k].c = el.checked;
+    var obj = (typeof el.dataset.ex !== "undefined") ? s.add[+el.dataset.ex] : s.i[el.dataset.k];
+    if (!obj) return;
+    obj.c = el.checked;
     var row = el.closest(".row");
-    if (el.checked && s.i[el.dataset.k].na){
-      s.i[el.dataset.k].na = false;
+    if (el.checked && obj.na){
+      obj.na = false;
       if (row){
         row.classList.remove("na");
         var nb = row.querySelector(".na");
@@ -473,7 +569,8 @@ footer{
     if (naBtn){
       var dk0 = naBtn.dataset.date;
       var s1 = dayState(dk0);
-      var it1 = s1.i[naBtn.dataset.k];
+      var it1 = (typeof naBtn.dataset.ex !== "undefined") ? s1.add[+naBtn.dataset.ex] : s1.i[naBtn.dataset.k];
+      if (!it1) return;
       it1.na = !it1.na;
       if (it1.na) it1.c = false;
       var row1 = naBtn.closest(".row");
@@ -487,6 +584,35 @@ footer{
       updateCard(dk0);
       updateSummary();
       save();
+      return;
+    }
+
+    /* 加一项 */
+    var addBtn = e.target.closest(".addbtn");
+    if (addBtn){
+      var dkA = addBtn.dataset.date;
+      dayState(dkA).add.push({ s:SUBJ_DEFAULT, t:"", c:false, na:false });
+      refreshCard(dkA);
+      save();
+      return;
+    }
+
+    /* 删掉自己加的一项 */
+    var delBtn = e.target.closest(".del");
+    if (delBtn){
+      var dkD = delBtn.dataset.date;
+      dayState(dkD).add.splice(+delBtn.dataset.ex, 1);
+      refreshCard(dkD);
+      save();
+      return;
+    }
+
+    /* 点标签切换科目 */
+    var st = e.target.closest(".subtag");
+    if (st){
+      var dkS = st.dataset.date;
+      var rS = dayState(dkS).add[+st.dataset.ex];
+      if (rS){ rS.s = (rS.s + 1) % SUBJ.length; refreshCard(dkS); save(); }
       return;
     }
 
